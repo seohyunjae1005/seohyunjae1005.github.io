@@ -8,12 +8,13 @@
       content="주요 반도체 기업의 공식 뉴스룸에서 기술 동향과 기업 맥락을 추적합니다."
     />
     <title>반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261007-6" />
+    <link rel="stylesheet" href="styles.css?v=20261007-7" />
     <script src="pdf-import.js?v=20261001-2" defer></script>
     <script src="jd-analyzer-v4.js?v=20261007-7" defer></script>
+    <script src="jd-ai-client.js?v=20261007-1" defer></script>
     <script src="profile-store-v2.js?v=20261002-2" defer></script>
     <script src="role-normalizer.js?v=20261001-1" defer></script>
-    <script src="app.js?v=20261007-3" defer></script>
+    <script src="app.js?v=20261007-4" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -303,6 +304,12 @@
             <span>채용공고 전체 텍스트 <b>필수</b></span>
             <textarea id="jd-text" required rows="16" placeholder="채용공고의 직무명, 주요 업무, 자격요건, 우대사항을 포함한 전체 내용을 붙여 넣으세요."></textarea>
           </label>
+          <details class="jd-ai-settings">
+            <summary>AI 분석 연결 설정 <small id="jd-ai-connection-state">연결 전</small></summary>
+            <p>Gemini 키가 저장된 Google Apps Script 웹 앱 주소를 이 기기에만 저장합니다. API 키 자체는 여기에 입력하지 않습니다.</p>
+            <label class="jd-wide-field"><span>Apps Script 웹 앱 주소</span><input id="jd-ai-endpoint" type="url" placeholder="https://script.google.com/macros/s/.../exec" /></label>
+            <div class="jd-form-actions"><button class="jd-secondary" id="jd-ai-save" type="button">연결 주소 저장</button></div>
+          </details>
           <section class="jd-clean-preview" id="jd-clean-preview" hidden>
             <div class="jd-clean-preview-heading">
               <div><strong>분석 전 원문 정리 미리보기</strong><span id="jd-preview-count"></span></div>

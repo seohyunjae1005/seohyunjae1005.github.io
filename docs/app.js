@@ -794,22 +794,52 @@ function renderJdSourcePreview() {
 
 function bindJdAnalyzer() {
   const dateInput = document.querySelector("#jd-collected-at");
+  const endpointInput = document.querySelector("#jd-ai-endpoint");
+  const connectionState = document.querySelector("#jd-ai-connection-state");
+  const refreshConnectionState = () => {
+    const endpoint = window.JDAiClient.loadEndpoint(window.localStorage);
+    endpointInput.value = endpoint;
+    connectionState.textContent = endpoint ? "이 기기에 연결됨" : "연결 전";
+  };
+  refreshConnectionState();
+  document.querySelector("#jd-ai-save").addEventListener("click", () => {
+    try {
+      window.JDAiClient.saveEndpoint(endpointInput.value, window.localStorage);
+      refreshConnectionState();
+      window.alert(endpointInput.value.trim() ? "AI 분석 연결 주소를 이 기기에 저장했습니다." : "저장된 연결 주소를 지웠습니다.");
+    } catch (error) {
+      window.alert(error.message || "연결 주소를 저장하지 못했습니다.");
+    }
+  });
   dateInput.value = new Date().toISOString().slice(0, 10);
-  document.querySelector("#jd-form").addEventListener("submit", (event) => {
+  document.querySelector("#jd-form").addEventListener("submit", async (event) => {
     event.preventDefault();
+    const analyzeButton = document.querySelector("#jd-analyze-button");
     try {
       if (document.querySelector("#jd-clean-preview").hidden) {
         renderJdSourcePreview();
         return;
       }
-      const result = window.JDAnalyzer.analyze({
+      const endpoint = window.JDAiClient.loadEndpoint(window.localStorage);
+      analyzeButton.disabled = true;
+      analyzeButton.textContent = endpoint ? "원문 근거를 확인하며 분석 중…" : "임시 분석 중…";
+      const selectedSubrole = document.querySelector("#jd-subrole-picker").hidden ? "" : document.querySelector("#jd-subrole-select").selectedOptions[0]?.textContent.split(" · ")[0] || "";
+      const input = {
         jdText: document.querySelector("#jd-cleaned-text").value,
-        roleName: document.querySelector("#jd-role").value,
-        selectedSubrole: document.querySelector("#jd-subrole-picker").hidden ? "" : document.querySelector("#jd-subrole-select").value,
-      });
+        company: document.querySelector("#jd-company").value,
+        role: selectedSubrole || document.querySelector("#jd-role").value,
+        sourceType: document.querySelector("#jd-source-type").value,
+      };
+      const result = endpoint
+        ? await window.JDAiClient.analyze(input, { endpoint })
+        : window.JDAnalyzer.analyze({ jdText: input.jdText, roleName: input.role, selectedSubrole: document.querySelector("#jd-subrole-picker").hidden ? "" : document.querySelector("#jd-subrole-select").value });
+      if (!endpoint) result.warnings.unshift("AI 분석 서버가 연결되지 않아 기존 규칙 기반 임시 분석을 표시합니다. 직무가 달라지면 해석이 부정확할 수 있습니다.");
       renderJdAnalysisV4(result);
     } catch (error) {
       window.alert(error.message || "분석 중 문제가 발생했습니다.");
+    } finally {
+      analyzeButton.disabled = false;
+      analyzeButton.textContent = "2. JD 단독 분석";
     }
   });
   document.querySelector("#jd-preview-button").addEventListener("click", () => {

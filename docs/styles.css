@@ -223,6 +223,11 @@ main { max-width: var(--max); margin: 0 auto; padding: 2rem 1.25rem 5rem; }
 .jd-privacy-notice { display: grid; gap: 0.15rem; margin-top: 1rem; padding: 0.85rem 1rem; border-left: 3px solid var(--accent); background: var(--accent-soft); }
 .jd-privacy-notice strong { font-size: 0.85rem; }
 .jd-privacy-notice span { color: var(--muted); font-size: 0.76rem; }
+.jd-ai-settings { padding: 0.9rem 1rem; border: 1px solid var(--line); background: var(--surface); }
+.jd-ai-settings summary { cursor: pointer; font-weight: 750; }
+.jd-ai-settings summary small { margin-left: 0.45rem; color: var(--accent); font-weight: 650; }
+.jd-ai-settings > p { color: var(--muted); font-size: 0.76rem; }
+.jd-ai-settings[open] { display: grid; gap: 0.75rem; }
 .jd-form { display: grid; gap: 1rem; margin-top: 1rem; padding: 1.25rem; border: 1px solid var(--line); }
 .jd-subrole-picker { display: grid; gap: 0.45rem; padding: 0.9rem; border: 1px solid var(--accent); background: var(--accent-soft); }
 .jd-subrole-picker[hidden] { display: none; }
