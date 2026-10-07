@@ -2,10 +2,13 @@
   "use strict";
 
   const SECTION_RULES = [
-    ["duty", "주요 업무", /^(담당\s*업무|주요\s*업무|수행\s*업무|직무\s*내용|업무\s*내용|responsibilities|what\s*you(?:'|’)?ll\s*(?:do|experience)|경험할\s*수\s*있습니다)$/i],
-    ["required", "필수 조건", /^(필수|필수\s*조건|필수\s*요건|자격\s*요건|지원\s*자격|지원자격|minimum\s*qualifications?|basic\s*qualifications?|requirements?|qualifications?|who\s+we(?:'|’)?re\s+looking\s+for)$/i],
-    ["preferred", "우대 조건", /^(우대|우대\s*사항|우대\s*조건|preferred(?:\s*qualifications?)?|nice\s*to\s*have|이런\s*역량이나\s*경\S{0,2}이\s*있다면\s*더\s*좋습니다)$/i],
-    ["ignore", "기타", /^(복리\s*후생|전형\s*절차|지원\s*방법|근무\s*(조건|지역|장소)|회사\s*소개|benefits?|about\s*us)$/i],
+    ["duty", "주요 업무", /^(담당\s*업무|주요\s*업무|수행\s*업무|직무\s*내용|업무\s*내용|이런\s*일을\s*합니다|responsibilities|what\s*you(?:'|’)?ll\s*(?:do|experience)|경험할\s*수\s*있습니다)$/i],
+    ["required", "필수 조건", /^(전공|필수|필수\s*사항|필수\s*조건|필수\s*요건|자격\s*요건|지원\s*자격|지원자격|이런\s*분을\s*찾고\s*있어요|minimum\s*qualifications?|basic\s*qualifications?|requirements?|qualifications?|who\s+we(?:'|’)?re\s+looking\s+for)$/i],
+    ["preferred", "우대 조건", /^(우대|우대\s*사항|우대\s*조건|이런\s*분이면\s*더\s*좋아요|preferred(?:\s*qualifications?)?|nice\s*to\s*have|이런\s*역량이나\s*경\S{0,2}이\s*있다면\s*더\s*좋습니다)$/i],
+    ["context", "조직·직무 소개", /^(상세\s*내용|우리\s*조직을\s*소개합니다|조직\s*소개)$/i],
+    ["career", "성장 경로", /^(이렇게\s*성장할\s*수\s*있어요|성장\s*경로|career\s*path)$/i],
+    ["preparation", "회사 제안 준비", /^(이렇게\s*준비하면\s*좋아요|지원\s*준비|how\s*to\s*prepare)$/i],
+    ["ignore", "기타", /^(인원|근무지|복리\s*후생|전형\s*절차|지원\s*방법|근무\s*(조건|지역|장소)|회사\s*소개|benefits?|about\s*us)$/i],
   ].map(([level, label, regex]) => ({ level, label, regex }));
 
   const KEYWORD_RULES = [
@@ -34,21 +37,21 @@
     [/스마트\s*팩토리/gi, "스마트팩토리"], [/Photolithography/gi, "Photolithography"], [/\bEtch\b/gi, "Etch"],
     [/Ion\s*Implant/gi, "Ion Implant"], [/Diffusion/gi, "Diffusion"], [/Thin\s*Film/gi, "Thin Film"], [/Cleaning/gi, "Cleaning"], [/\bCMP\b/gi, "CMP"],
   ];
-  const COLLABORATOR_RULES = [/유관\s*부서/gi, /장비\s*업체/gi, /협력사/gi, /고객사?/gi, /연구소/gi, /생산\s*부서/gi, /품질\s*부서/gi, /개발\s*부서/gi, /외부\s*업체/gi];
+  const COLLABORATOR_RULES = [/유관\s*부서/gi, /다양한\s*부서/gi, /전극\s*\/\s*조립\s*공정의\s*다른\s*팀/gi, /장비\s*업체/gi, /협력사/gi, /고객사?/gi, /연구소/gi, /생산\s*부서/gi, /품질\s*부서/gi, /개발\s*부서/gi, /외부\s*업체/gi];
   const METRIC_RULES = [/수율\s*(향상|개선|증대)?/gi, /생산성\s*(향상|개선)?/gi, /가동률\s*(향상|개선)?/gi, /품질\s*(안정화|향상|개선|확보)?/gi, /원가\s*(절감|개선)?/gi, /수익성\s*(향상|개선)?/gi, /처리량\s*(향상|개선)?/gi, /불량률\s*(감소|개선)?/gi, /납기\s*(준수|단축)?/gi];
   const KNOWLEDGE_HINT = /(전공|지식|이해|원리|공학|과학|기술|공정|설계|알고리즘|회로|재료|통계)/i;
   const COMPETENCY_HINT = /(경험|역량|능력|가능한\s*분|이해|활용|분석|설계|개발|협업|커뮤니케이션|문제\s*해결)/i;
-  const ELIGIBILITY_HINT = /(학위|졸업|전공|성적|어학|영어|자격증?|경력\s*\d|병역|근무\s*가능)/i;
+  const ELIGIBILITY_HINT = /(학사|석사|박사|학위|졸업|모집\s*대상|전공|성적|어학|영어|외국어|해외\s*출장|자격증?|경력\s*\d|병역|근무\s*가능)/i;
   const DUTY_HINT = /(담당|수행|설계|구축|운영|관리|검토|분석|개선|개발|최적화|산출|수립|지원|적용|평가|확보|협업)/i;
 
   function normalize(value) { return String(value || "").toLocaleLowerCase("ko").replace(/[\s·•\-–—_*()[\]{}<>:：,.;!?/\\'’]+/g, ""); }
-  function clean(value) { return String(value || "").replace(/^\s*(?:[-–—•·▪▶✓✔]|\d+[.)]|[가-힣][.)])\s*/, "").replace(/\s+([,.;:!?])/g, "$1").replace(/\s+/g, " ").trim(); }
+  function clean(value) { return String(value || "").replace(/^\s*(?:[-–—•·▪▶✓✔]|[①②③④⑤⑥⑦⑧⑨⑩]|\d+[.)]|[가-힣][.)])\s*/, "").replace(/\s+([,.;:!?])/g, "$1").replace(/\s+/g, " ").trim(); }
   function sectionRule(text) { const heading = clean(text).replace(/[.!?]+$/, ""); return SECTION_RULES.find((rule) => rule.regex.test(heading)); }
   function markBoundaries(value) {
     let text = String(value || "").replace(/\r/g, "\n").replace(/we\s*[•·]\s*re/gi, "we're").replace(/you\s*[•·]\s*ll/gi, "you'll").replace(/\blon\s+lmplant\b/gi, "Ion Implant");
-    const headings = [/minimum\s+qualifications?/gi, /basic\s+qualifications?/gi, /preferred\s+qualifications?/gi, /responsibilities/gi, /what\s+you(?:'|’)?ll\s+(do|experience)/gi, /who\s+we(?:'|’)?re\s+looking\s+for/gi, /담당\s*업무/gi, /주요\s*업무/gi, /지원\s*자격/gi, /지원자격/gi, /자격\s*요건/gi, /필수\s*(조건|요건)/gi, /우대\s*(사항|조건)/gi, /이런\s*역량이나\s*경\S{0,2}이\s*있다면\s*더\s*좋습니다/gi];
+    const headings = [/minimum\s+qualifications?/gi, /basic\s+qualifications?/gi, /preferred\s+qualifications?/gi, /responsibilities/gi, /what\s+you(?:'|’)?ll\s+(do|experience)/gi, /who\s+we(?:'|’)?re\s+looking\s+for/gi, /담당\s*업무/gi, /주요\s*업무/gi, /이런\s*일을\s*합니다/gi, /지원\s*자격/gi, /지원자격/gi, /자격\s*요건/gi, /필수\s*(사항|조건|요건)/gi, /이런\s*분을\s*찾고\s*있어요/gi, /우대\s*(사항|조건)/gi, /이런\s*분이면\s*더\s*좋아요/gi, /이런\s*역량이나\s*경\S{0,2}이\s*있다면\s*더\s*좋습니다/gi, /상세\s*내용/gi, /우리\s*조직을\s*소개합니다/gi, /이렇게\s*성장할\s*수\s*있어요/gi, /이렇게\s*준비하면\s*좋아요/gi];
     headings.forEach((regex) => { text = text.replace(regex, (match) => `\n§H§${match}\n`); });
-    return text.replace(/(^|\s)(\d{1,2}[.)])(?=\s*[가-힣A-Za-z])/g, "$1\n§N§$2\n").replace(/\s*[•▪▶✓✔]\s*/g, "\n§B§").replace(/\s+·\s+/g, "\n§B§").replace(/\n{3,}/g, "\n\n");
+    return text.replace(/(^|\s)(\d{1,2}[.)])(?=\s*[가-힣A-Za-z])/g, "$1\n§N§$2\n").replace(/([①②③④⑤⑥⑦⑧⑨⑩])/g, "\n§C§$1\n").replace(/\s*[•▪▶✓✔]\s*/g, "\n§B§").replace(/\s+·\s+/g, "\n§B§").replace(/\n{3,}/g, "\n\n");
   }
   function segment(sourceText) {
     const source = String(sourceText || ""); const units = []; let buffer = ""; let section = "unspecified"; let group = ""; let counter = 0;
@@ -58,13 +61,19 @@
     };
     markBoundaries(source).split(/\n+/).forEach((raw) => {
       let line = raw.trim(); if (!line || /^\[\d+쪽\]$/.test(line)) return;
+      if (line.startsWith("§B§")) {
+        flush();
+        line = line.slice(3).trim();
+        if (!group || !/^N\d+$/.test(group)) group = `U${++counter}`;
+      }
       const bracket = line.match(/^\[([^\]]+)\]$/); const bracketRule = bracket ? sectionRule(bracket[1]) : null;
       if (bracketRule) { flush(); section = bracketRule.level; group = ""; return; }
       const plainRule = sectionRule(line);
       if (plainRule) { flush(); section = plainRule.level; group = ""; return; }
       if (line.startsWith("§H§")) { flush(); const rule = sectionRule(line.slice(3)); if (rule) section = rule.level; group = ""; return; }
       if (line.startsWith("§N§")) { flush(); group = `N${line.slice(3).replace(/\D/g, "")}`; return; }
-      if (line.startsWith("§B§") || /^[-–—]\s+/.test(line)) { flush(); line = line.startsWith("§B§") ? line.slice(3).trim() : line.replace(/^[-–—]\s+/, ""); if (!group) group = `U${++counter}`; else if (!/^N\d+$/.test(group)) group = `U${++counter}`; }
+      if (line.startsWith("§C§")) { flush(); group = `C${"①②③④⑤⑥⑦⑧⑨⑩".indexOf(line.slice(3).trim()) + 1}`; return; }
+      if (/^[-–—]\s+/.test(line)) { flush(); line = line.replace(/^[-–—]\s+/, ""); if (!group) group = `U${++counter}`; else if (!/^N\d+$/.test(group)) group = `U${++counter}`; }
       if (!line) return; if (buffer && /[.!?]$/.test(buffer)) flush(); buffer = buffer ? `${buffer} ${line}` : line;
     }); flush();
     // 복사 과정에서 소제목이 사라졌더라도, 자격요건 앞의 번호 업무 블록은
@@ -78,7 +87,8 @@
   }
   function previewSource(sourceText) {
     const units = segment(sourceText); if (!units.length) throw new Error("분석할 JD 원문을 입력해 주세요.");
-    return { cleanedText: String(sourceText || "").trim(), units, semanticUnitCount: units.length, headingCount: new Set(units.map((u) => u.section).filter((s) => s !== "unspecified")).size, warnings: units.every((u) => u.verified) ? [] : ["일부 의미 단위를 원문에서 정확히 다시 찾지 못했습니다. 원문을 확인해 주세요."] };
+    const headingCount = units.reduce((count, unit, index) => unit.section !== "unspecified" && unit.section !== units[index - 1]?.section ? count + 1 : count, 0);
+    return { cleanedText: String(sourceText || "").trim(), units, semanticUnitCount: units.length, headingCount, warnings: units.every((u) => u.verified) ? [] : ["일부 의미 단위를 원문에서 정확히 다시 찾지 못했습니다. 원문을 확인해 주세요."] };
   }
   function unique(values) { return [...new Set(values.filter(Boolean))]; }
   function matches(text, rules) { return unique(rules.flatMap((rule) => [...String(text).matchAll(rule)].map((match) => match[0].trim()))); }
@@ -111,7 +121,7 @@
     const dutyUnits = units.filter((u) => u.section === "duty" || u.section === "duty_inferred");
     const duties = mergeFacts(dutyUnits.map((u) => fact(u.text, [u.id])));
     const requiredUnits = units.filter((u) => u.section === "required"); const preferredUnits = units.filter((u) => u.section === "preferred");
-    const required = requiredUnits.filter((u) => ELIGIBILITY_HINT.test(u.text)).map((u) => fact(u.text, [u.id]));
+    const required = requiredUnits.map((u) => fact(u.text, [u.id]));
     const competencies = mergeFacts([...requiredUnits, ...preferredUnits].filter((u) => COMPETENCY_HINT.test(u.text) && !ELIGIBILITY_HINT.test(u.text)).map((u) => fact(u.text, [u.id])));
     const preferred = mergeFacts(preferredUnits.map((u) => fact(u.text, [u.id])));
     const statedKnowledge = [...requiredUnits, ...preferredUnits].filter((u) => KNOWLEDGE_HINT.test(u.text)).map((u) => fact(u.text, [u.id]));
@@ -151,13 +161,16 @@
     const suggestions = [];
     const add = (name, reason, keyword) => { const refs = facts.keywords.filter((r) => r.standardized === keyword).flatMap((r) => r.evidenceIds); if (refs.length && !facts.tools.some((r) => r.value === name)) suggestions.push({ name, reason, evidenceIds: unique(refs) }); };
     const dataRefs = facts.keywords.filter((r) => r.standardized === "Data Analysis").flatMap((r) => r.evidenceIds);
-    const missingDataTools = ["Python", "SQL"].filter((name) => !facts.tools.some((row) => row.value === name));
-    if (dataRefs.length && missingDataTools.length) suggestions.push({ name: missingDataTools.join("·"), reason: "데이터 전처리·조회·분석을 한 흐름으로 연습하는 공부 후보", evidenceIds: unique(dataRefs) });
+    if (dataRefs.length && !facts.tools.length) suggestions.push({ name: "데이터 분석 도구 기초", reason: "공고가 특정 도구명을 요구하지 않으므로 도구 선택은 추가 확인하고, 데이터 정리·시각화·원인 분석 흐름부터 연습하는 후보", evidenceIds: unique(dataRefs) });
     add("JMP 또는 Minitab", "공정·품질 데이터 비교와 통계 해석 학습 후보", "Process Optimization"); add("PLC 기초", "설비 자동화 구조 이해를 위한 학습 후보", "Automation / Smart Factory");
     return suggestions.slice(0, 3);
   }
 
   const WORK_AXIS_RULES = [
+    { id: "defect_root_cause", regex: /불량.*(?:근본\s*원인|발생\s*메커니즘)|(?:근본\s*원인|발생\s*메커니즘).*불량/ },
+    { id: "technology_development", regex: /신기술\s*(?:을\s*)?(?:개발|검증)|검증된\s*기술.*(?:전개|적용)/ },
+    { id: "global_transfer", regex: /Global\s*(?:법인|Site)|글로벌\s*(?:법인|사이트)|해외\s*법인|기술.*(?:전개|이관)/i },
+    { id: "line_stabilization", regex: /신규\s*생산\s*라인.*(?:안정화|조기\s*안정)|생산\s*라인.*(?:안정화|조기\s*안정)/ },
     { id: "launch", regex: /신차|신제품|신규\s*제품|양산\s*(준비|전환)|제품\s*도입|개발\s*단계/ },
     { id: "line", regex: /생산\s*라인|라인\s*설계|레이아웃|layout|표준\s*인원|공장\s*건설|공정\s*설계|운영관리\s*프로세스/ },
     { id: "economics", regex: /공법|투자비|원가|수익성|경제성/ },
@@ -173,7 +186,7 @@
 
   function evidenceOf(rows) { return unique((rows || []).flatMap((row) => row.evidenceIds || [])); }
   function topicParticle(word) {
-    const last = String(word || "").slice(-1); const code = last.charCodeAt(0);
+    const hangul = String(word || "").match(/[가-힣](?!.*[가-힣])/); const last = hangul ? hangul[0] : String(word || "").slice(-1); const code = last.charCodeAt(0);
     if (code >= 0xac00 && code <= 0xd7a3) return (code - 0xac00) % 28 === 0 ? "는" : "은";
     return "는";
   }
@@ -187,6 +200,10 @@
     const has = (regex) => hasAny(source, regex);
     const map = {
       launch: { title: has(/신차/) ? "신차 양산 준비" : "제품 양산 준비", purpose: has(/신차/) ? "신차가 생산 현장에 안정적으로 도입되도록 준비" : "제품이 생산·운영 환경에 안정적으로 도입되도록 준비" },
+      defect_root_cause: { title: "전극 불량 원인·메커니즘 분석", purpose: "공정 불량의 근본 원인과 발생 메커니즘을 분석해 개선 과제를 도출" },
+      technology_development: { title: "전극 공정 신기술 개발·검증", purpose: "생산성과 제품 경쟁력을 높이는 신기술을 개발하고 검증" },
+      global_transfer: { title: "검증 기술의 글로벌 법인 전개", purpose: "검증된 공정기술을 해외 생산법인에 전개하고 현장 적용을 지원" },
+      line_stabilization: { title: "신규 생산라인 조기 안정화", purpose: "글로벌 신규 생산라인이 빠르게 안정화되도록 기술을 지원" },
       line: { title: has(/생산\s*라인|라인\s*설계/) ? "생산라인·공장 설계" : "공정·운영 체계 설계", purpose: "레이아웃·인원·운영 프로세스를 포함한 생산 체계를 설계" },
       economics: { title: has(/투자비/) ? "공법·투자비·경제성 검토" : "원가·경제성 검토", purpose: "JD에 제시된 비용·투자·수익 관점에서 생산 계획을 검토" },
       automation: { title: has(/스마트\s*팩토리/) ? "자동화·스마트팩토리 고도화" : "자동화·시스템 고도화", purpose: has(/빅데이터|\bAI\b|인공지능|비전/) ? "JD에 명시된 데이터·AI·비전 기술을 현장에 적용해 자동화 수준을 높임" : "자동화 기술과 시스템의 운영 수준을 높임" },
@@ -204,6 +221,10 @@
   function axisWorkSummary(axisId, source) {
     const phraseRules = {
       launch: [/신차\s*준비/, /신제품\s*준비/, /양산\s*(?:준비|전환)/, /제품\s*도입/, /개발\s*단계/],
+      defect_root_cause: [/불량의?\s*근본\s*원인/, /발생\s*메커니즘/, /개선점\s*도출/],
+      technology_development: [/신기술\s*개발/, /검증된\s*기술/, /제품\s*경쟁력\s*강화/],
+      global_transfer: [/Global\s*(?:법인|Site)/i, /글로벌\s*(?:법인|사이트)/, /해외\s*법인/, /기술.*(?:전개|이관)/],
+      line_stabilization: [/신규\s*생산\s*라인/, /빠른\s*안정화/, /기술\s*지원/],
       line: [/생산\s*라인\s*설계/, /신공장\s*건설/, /레이아웃/, /표준\s*인원/, /운영관리\s*프로세스\s*수립/, /공정\s*설계/],
       economics: [/공법/, /투자비/, /원가/, /수익성/],
       automation: [/자동화\s*설비\s*고도화/, /스마트\s*팩토리\s*구축/, /빅데이터/, /\bAI\b/, /인공지능/, /비전\s*활용/, /E-FOREST\s*시스템\s*(?:구축|확대\s*적용)?/],
@@ -226,8 +247,11 @@
   }
   function buildWorkAxes(facts) {
     const buckets = new Map(); const unclassified = [];
+    const specificAxisIds = new Set(["defect_root_cause", "technology_development", "global_transfer", "line_stabilization"]);
     facts.duties.forEach((duty) => {
-      const matched = WORK_AXIS_RULES.filter((axis) => axisScore(duty.value, axis) > 0);
+      const allMatched = WORK_AXIS_RULES.filter((axis) => axisScore(duty.value, axis) > 0);
+      const specificMatched = allMatched.filter((axis) => specificAxisIds.has(axis.id));
+      const matched = specificMatched.length ? specificMatched : allMatched;
       if (!matched.length) { unclassified.push(duty); return; }
       matched.forEach((axis) => {
         if (!buckets.has(axis.id)) buckets.set(axis.id, { ...axis, duties: [] });
@@ -254,7 +278,8 @@
     const operating = directTerms([[/생산성/, "생산성"], [/가동률/, "가동률"], [/처리량/, "처리량"], [/납기/, "납기"]]);
     if (operating.length) candidates.push({ regex: /생산성|가동률|저해\s*요인|처리량|납기/, problem: `${operating.join("·")}을 개선하거나 확보해야 함`, target: hasAny(source, /저해\s*요인/) ? "JD가 언급한 운영 저해 요인" : "JD에 제시된 생산 운영 상태", direction: hasAny(source, /분석/) ? "운영 상태와 저해 요인을 분석하고 개선" : "운영 상태를 확인하고 개선 활동을 수행", result: `${operating.join("·")} 개선` });
     const quality = directTerms([[/품질/, "품질"], [/수율/, "수율"], [/불량/, "불량" ]]);
-    if (quality.length) candidates.push({ regex: /품질|수율|불량/, problem: `${quality.join("·")} 목표를 확보하거나 개선해야 함`, target: hasAny(source, /부품\s*품질/) ? "JD에 언급된 부품 품질" : "JD에 언급된 제품·공정 품질", direction: "상태와 원인을 확인하고 확보·개선 활동을 수행", result: `${quality.join("·")} 확보·개선` });
+    if (quality.length) candidates.push({ regex: /품질|수율|불량|근본\s*원인|발생\s*메커니즘/, problem: hasAny(source, /불량.*(?:근본\s*원인|발생\s*메커니즘)/) ? "전극 공정 불량의 근본 원인과 발생 메커니즘을 밝혀야 함" : `${quality.join("·")} 목표를 확보하거나 개선해야 함`, target: hasAny(source, /전극/) ? "전극 공정에서 발생하는 불량과 공정 상태" : hasAny(source, /부품\s*품질/) ? "JD에 언급된 부품 품질" : "JD에 언급된 제품·공정 품질", direction: hasAny(source, /근본\s*원인|발생\s*메커니즘/) ? "원인과 발생 메커니즘을 분석해 개선점을 도출하고 과제로 수행" : "상태와 원인을 확인하고 확보·개선 활동을 수행", result: hasAny(source, /불량.*(?:근본\s*원인|발생\s*메커니즘)/) ? "불량 원인 규명·개선" : `${quality.join("·")} 확보·개선` });
+    if (hasAny(source, /Global\s*(?:법인|Site)|글로벌\s*(?:법인|사이트)|해외\s*법인/i)) candidates.push({ regex: /Global\s*(?:법인|Site)|글로벌\s*(?:법인|사이트)|해외\s*법인|기술.*(?:전개|이관)/i, problem: "검증된 공정기술을 글로벌 생산 현장에 동일한 수준으로 적용해야 함", target: "JD에 언급된 글로벌 법인과 검증 기술", direction: "검증 기술을 현장에 전개하고 신규 라인의 안정화를 기술 지원", result: "글로벌 생산라인 조기 안정화" });
     const economy = directTerms([[/공법/, "공법"], [/투자비/, "투자비"], [/원가/, "원가"], [/수익성/, "수익성"]]);
     if (economy.length) candidates.push({ regex: /공법|투자비|원가|수익성/, problem: `${economy.join("·")}을 함께 검토해야 함`, target: `${economy.join("·")} 관련 계획과 산출 내용`, direction: "JD에 제시된 비용·투자·수익 관점에서 대안을 검토", result: `${economy.join("·")} 검토 결과 확보` });
     if (hasAny(source, /신차|신제품|양산\s*(준비|전환)|개발\s*단계/)) candidates.push({ regex: /신차|신제품|양산\s*(준비|전환)|개발\s*단계/, problem: hasAny(source, /신차/) ? "신차를 생산 현장에 안정적으로 도입해야 함" : "제품을 생산 현장에 안정적으로 도입해야 함", target: hasAny(source, /구조|설계/) ? "JD에 언급된 제품 구조·설계와 생산 조건" : "JD에 언급된 제품과 생산 조건", direction: "사전 검토와 생산 준비 활동을 수행", result: hasAny(source, /신차/) ? "신차 양산 준비" : "제품 양산 준비" });

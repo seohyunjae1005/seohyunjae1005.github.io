@@ -142,4 +142,49 @@ const deliberateContamination = analyzer.validateCareerAnalysis("품질 개선",
 assert.equal(deliberateContamination.status, "fail");
 assert.ok(deliberateContamination.unsupportedTerms.includes("수율"));
 
+const lges = `전공
+화학공학, 기계공학, 재료공학, 전기전자공학 및 관련 전공
+근무지
+오창에너지플랜트
+인원
+-
+필수 사항
+[모집 대상 : 학사]
+✔ 이런 분을 찾고 있어요.
+① 공정기술 업무에 대한 이해와 습득을 위해 관련 전공(공학 계열) 지식과 소양을 갖추신 분
+② 공정/생산 등 다양한 부서와의 협업을 위한 원활한 커뮤니케이션 및 협업 능력을 보유하신 분
+③ 해외 출장에 거부감 없으며, 외국어 소통에 자신감이 있는 분
+우대 사항
+✔ 이런 분이면 더 좋아요.
+① 긍정적인 마인드로 본인이 맡은 업무에 책임을 다하며, 최선을 다해 수행하는 분
+② 문제 해결 역량을 보유하신 분 (현상 파악/원인 분석/개선점 도출)
+③ 공정 중 발생하는 많은 데이터를 분석해야 하므로 데이터 분석 툴을 활용할 수 있는 분
+④ 다양한 부서와의 협업이 많고 중요하기 때문에, 열린 마음으로 소통할 수 있는 분
+상세 내용
+✔ 우리 조직을 소개합니다.
+우리 조직은 전극 공정의 품질/수율/생산성을 향상시키기 위해 기술을 개발하고, 공정을 안정화시키는 조직이에요.
+세계 최고 수준의 이차 전지 제조 경쟁력을 확보하고, 전극/조립 공정의 다른 팀들과 협업하여 최고 품질의 셀(Cell)을 만드는 것이 목표에요.
+✔ 이런 일을 합니다.
+① 공정 중 발생하는 불량의 근본 원인 및 발생 메커니즘을 분석하여 개선점을 도출하고, 과제를 수행합니다.
+② 전극 생산성 및 제품 경쟁력 강화를 위한 신기술을 개발하고, 검증된 기술은 Global 법인(Global Site)으로 전개합니다.
+③ Global 법인의 신규 생산 라인의 빠른 안정화를 위한 기술을 지원합니다.
+✔ 이렇게 성장할 수 있어요.
+① 공정/품질 데이터 분석 및 개선 업무를 수행하는 전극 공정 엔지니어 전문가
+② 설비 유닛(Unit) 설계 및 개발을 담당하는 설계 엔지니어 전문가`;
+const lgesResult = analyzer.analyze({ roleName: "공정기술(전극)", jdText: lges });
+assert.equal(lgesResult.facts.duties.length, 3);
+assert.equal(lgesResult.facts.preferred.length, 4);
+assert.ok(lgesResult.facts.required.some((row) => /학사/.test(row.value)));
+assert.ok(lgesResult.facts.required.some((row) => /화학공학/.test(row.value)));
+assert.ok(lgesResult.facts.required.some((row) => /해외 출장/.test(row.value)));
+assert.ok(lgesResult.careerAnalysis.workAxes.some((row) => row.id === "defect_root_cause"));
+assert.ok(lgesResult.careerAnalysis.workAxes.some((row) => row.id === "technology_development"));
+assert.ok(lgesResult.careerAnalysis.workAxes.some((row) => row.id === "global_transfer"));
+assert.ok(lgesResult.careerAnalysis.workAxes.some((row) => row.id === "line_stabilization"));
+assert.ok(lgesResult.careerAnalysis.problems.some((row) => /근본 원인/.test(row.problem)));
+assert.ok(lgesResult.careerAnalysis.problems.some((row) => /글로벌/.test(row.problem)));
+assert.equal(JSON.stringify(lgesResult.studySuggestions).includes("Python"), false);
+assert.equal(JSON.stringify(lgesResult.studySuggestions).includes("SQL"), false);
+assertEvidenceIntegrity(lgesResult);
+
 console.log("JD analyzer v4 tests passed");
