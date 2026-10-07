@@ -488,28 +488,28 @@ function renderJdAnalysisV4(result) {
   const facts = result.facts;
   const career = result.careerAnalysis;
   document.querySelector("#jd-career-definition").innerHTML = career.definition.status === "supported"
-    ? `${facts.productContext.length ? `<div class="jd-product-context"><b>JD Fact · 제품·사업 맥락</b><span>${facts.productContext.map((row) => escapeHtml(row.value)).join(" · ")}</span><div>${jdEvidenceButtons([...new Set(facts.productContext.flatMap((row) => row.evidenceIds))])}</div></div>` : ""}<span class="jd-interpretation-label">자동 해석</span><p>${escapeHtml(career.definition.value)}</p><div>${jdEvidenceButtons(career.definition.evidenceIds)}</div>`
+    ? `${facts.productContext.length ? `<div class="jd-product-context"><b>JD Fact · 제품·사업 맥락</b><span>${facts.productContext.map((row) => escapeHtml(row.value)).join(" · ")}</span></div>` : ""}<span class="jd-interpretation-label">자동 해석</span><p>${escapeHtml(career.definition.value)}</p>`
     : '<p class="jd-empty-result">업무와 성과 목표를 함께 연결할 근거가 부족합니다.</p>';
   document.querySelector("#jd-work-axes").innerHTML = career.workAxes.length
-    ? career.workAxes.map((axis, index) => `<article><div class="jd-axis-number">0${index + 1}</div><h4>${escapeHtml(axis.title)}</h4><ul>${axis.actualWork.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul><p><b>이 업무의 목적</b>${escapeHtml(axis.purpose)}</p><div>${jdEvidenceButtons(axis.evidenceIds)}</div></article>`).join("")
+    ? career.workAxes.map((axis, index) => `<article><div class="jd-axis-number">0${index + 1}</div><h4>${escapeHtml(axis.title)}</h4><ul>${axis.actualWork.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul><p><b>이 업무의 목적</b>${escapeHtml(axis.purpose)}</p></article>`).join("")
     : '<p class="jd-empty-result">묶을 수 있는 주요 업무 문장을 찾지 못했습니다.</p>';
   document.querySelector("#jd-problems").innerHTML = career.problems.length
-    ? career.problems.map((row) => `<article><div><small>문제 상황</small><strong>${escapeHtml(row.problem)}</strong></div><div><small>살펴볼 대상</small><span>${escapeHtml(row.target)}</span></div><div><small>업무 방향</small><span>${escapeHtml(row.direction)}</span></div><div><small>기대 결과</small><span>${escapeHtml(row.result)}</span></div><div class="jd-row-evidence">${jdEvidenceButtons(row.evidenceIds)}</div></article>`).join("")
+    ? career.problems.map((row) => `<article><div><small>문제 상황</small><strong>${escapeHtml(row.problem)}</strong></div><div><small>살펴볼 대상</small><span>${escapeHtml(row.target)}</span></div><div><small>업무 방향</small><span>${escapeHtml(row.direction)}</span></div><div><small>기대 결과</small><span>${escapeHtml(row.result)}</span></div></article>`).join("")
     : '<p class="jd-empty-result">JD가 직접 언급한 문제·성과 표현만으로는 문제 해결 구조를 만들기 어렵습니다.</p>';
   document.querySelector("#jd-competency-links").innerHTML = career.competencyLinks.length
-    ? career.competencyLinks.map((row) => `<article><div><small>JD 요구</small><strong>${escapeHtml(row.requirement)}</strong></div><span class="jd-connection-arrow">→</span><div><small>연결 업무</small><strong>${escapeHtml(row.axisTitle)}</strong><p>${escapeHtml(row.reason)}</p></div><div>${jdEvidenceButtons(row.evidenceIds)}</div></article>`).join("")
+    ? career.competencyLinks.map((row) => `<article><div><small>JD 요구</small><strong>${escapeHtml(row.requirement)}</strong></div><span class="jd-connection-arrow">→</span><div><small>연결 업무</small><strong>${escapeHtml(row.axisTitle)}</strong><p>${escapeHtml(row.reason)}</p></div></article>`).join("")
     : '<p class="jd-empty-result">업무와 직접 연결할 수 있는 요구 역량 문장을 찾지 못했습니다.</p>';
   document.querySelector("#jd-performance-groups").innerHTML = career.performanceGroups.length
-    ? career.performanceGroups.map((row) => `<article><small>성과 관점</small><h4>${escapeHtml(row.category)}</h4><div class="jd-chip-row">${row.items.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div><p>${escapeHtml(row.connection)}</p><div>${jdEvidenceButtons(row.evidenceIds)}</div></article>`).join("")
+    ? career.performanceGroups.map((row) => `<article><small>성과 관점</small><h4>${escapeHtml(row.category)}</h4><div class="jd-chip-row">${row.items.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div><p>${escapeHtml(row.connection)}</p></article>`).join("")
     : '<p class="jd-empty-result">원문에서 직접 확인되는 성과 목표나 지표가 없습니다.</p>';
   document.querySelector("#jd-delivery-goals").innerHTML = career.deliveryGoals.length
-    ? career.deliveryGoals.map((row) => `<article><small>과업·산출물</small><h4>${escapeHtml(row.category)}</h4><p>${escapeHtml(row.description)}</p><div>${jdEvidenceButtons(row.evidenceIds)}</div></article>`).join("")
+    ? career.deliveryGoals.map((row) => `<article><small>과업·산출물</small><h4>${escapeHtml(row.category)}</h4><p>${escapeHtml(row.description)}</p></article>`).join("")
     : '<p class="jd-empty-result">성과지표와 분리해 표시할 구축·설계 산출물이 없습니다.</p>';
   document.querySelector("#jd-emphasis").innerHTML = career.emphasis.length
-    ? career.emphasis.map((row) => `<article><span class="jd-emphasis-level">${escapeHtml(row.level)}</span><div><strong>${escapeHtml(row.label)}</strong><p>${escapeHtml(row.reason)}</p></div><div>${jdEvidenceButtons(row.evidenceIds)}</div></article>`).join("")
+    ? career.emphasis.map((row) => `<article><span class="jd-emphasis-level">${escapeHtml(row.level)}</span><div><strong>${escapeHtml(row.label)}</strong><p>${escapeHtml(row.reason)}</p></div></article>`).join("")
     : '<p class="jd-empty-result">강조도를 판단할 직접 표현이 부족합니다.</p>';
   const renderPreparation = (rows, emptyText) => rows.length
-    ? rows.map((row) => `<article><strong>${escapeHtml(row.title)}</strong><p>${escapeHtml(row.detail)}</p><div>${jdEvidenceButtons(row.evidenceIds)}</div></article>`).join("")
+    ? rows.map((row) => `<article><strong>${escapeHtml(row.title)}</strong><p>${escapeHtml(row.detail)}</p></article>`).join("")
     : `<p class="jd-empty-result">${escapeHtml(emptyText)}</p>`;
   document.querySelector("#jd-prep-must").innerHTML = renderPreparation(career.preparation.must, "원문에 명시된 필수 조건이 없습니다.");
   document.querySelector("#jd-prep-strengths").innerHTML = renderPreparation(career.preparation.strengths, "직접 확인되는 우대·역량 조건이 없습니다.");
@@ -534,6 +534,7 @@ function renderJdAnalysisV4(result) {
     ? result.studySuggestions.map((row) => `<article><strong>${escapeHtml(row.name)}</strong><p>${escapeHtml(row.reason)}</p>${jdEvidenceButtons(row.evidenceIds)}<small>공고의 요구 Tool이 아니라 공부 후보입니다.</small></article>`).join("")
     : '<p class="jd-empty-result">근거가 충분한 Tool 공부 후보를 만들지 않았습니다.</p>';
   document.querySelector("#jd-evidence-list").innerHTML = result.units.map((row) => `<article class="jd-evidence-card" id="evidence-${escapeHtml(row.id)}"><div><strong>${escapeHtml(row.id)}</strong><span class="jd-level">${escapeHtml(row.section)}</span>${row.verified ? '<span class="quote-ok">원문 확인</span>' : '<span class="quote-fail">검증 실패</span>'}</div><blockquote>${escapeHtml(row.text)}</blockquote></article>`).join("");
+  document.querySelector(".jd-evidence-details").open = false;
   results.hidden = false;
   results.scrollIntoView({ behavior: "smooth", block: "start" });
 }
