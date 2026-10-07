@@ -183,6 +183,7 @@ assert.ok(lgesResult.careerAnalysis.workAxes.some((row) => row.id === "global_tr
 assert.ok(lgesResult.careerAnalysis.workAxes.some((row) => row.id === "line_stabilization"));
 assert.ok(lgesResult.careerAnalysis.problems.some((row) => /근본 원인/.test(row.problem)));
 assert.ok(lgesResult.careerAnalysis.problems.some((row) => /글로벌/.test(row.problem)));
+assert.equal(lgesResult.careerAnalysis.deliveryGoals.length, 0);
 assert.equal(JSON.stringify(lgesResult.studySuggestions).includes("Python"), false);
 assert.equal(JSON.stringify(lgesResult.studySuggestions).includes("SQL"), false);
 assertEvidenceIntegrity(lgesResult);

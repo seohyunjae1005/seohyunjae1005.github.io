@@ -328,7 +328,7 @@
     }).filter(Boolean);
   }
   function buildDeliveryGoals(facts, axes) {
-    const groups = [["구축·설계 산출물", /라인|레이아웃|공장\s*건설|시스템\s*구축|프로세스\s*수립/, ["line", "economics"]], ["자동화·혁신 목표", /자동화|스마트\s*팩토리|고도화|확대\s*적용/, ["automation"]]];
+    const groups = [["구축·설계 산출물", /라인\s*설계|레이아웃|공장\s*건설|시스템\s*구축|프로세스\s*수립/, ["line", "economics"]], ["자동화·혁신 목표", /자동화|스마트\s*팩토리|고도화|확대\s*적용/, ["automation"]]];
     const rows = facts.duties;
     return groups.map(([category, regex, axisIds]) => {
       const matched = rows.filter((row) => hasAny(row.value, regex)); if (!matched.length) return null;
