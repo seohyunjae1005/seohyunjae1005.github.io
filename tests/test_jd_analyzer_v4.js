@@ -283,4 +283,51 @@ assertEvidenceIntegrity(controlsResult);
 const singleRolePreview = analyzer.previewSource(hynix);
 assert.equal(singleRolePreview.subroles.length, 0);
 
+const aerospace = `관련 제품군
+LAND / 화력체계, 기동체계, 대공체계, 유무인복합체계, 발사체계
+수행업무
+개발/양산/수출 사업에 대한 제조공정 및 생산체계 구축
+시험 공정설계/기술자료(시험절차서, 성적서, 기술검토서 등) 작성
+생산 간 품질문제 Trouble shooting(가공/치구/용접/조립/표면처리 등 공정)
+시험장비 및 시험설비 구축 및 개선활동
+관련 교과목 :
+• 전기전자설계, 회로이론, 제어계측, CAD 등
+사업장 Layout 관리
+조립 LAY-OUT 분석 및 투자계획 수립
+시험장 검증 및 공간 효율향상/개선방안 검토
+시험장비 및 설비 구축/성능 개선 활동
+관련 교과목 :
+• 전기전자설계, 산업공정설계 등
+수출사업 현지 기술이전
+수출국 엔지니어 및 테크니션 대상 국내외 기술 교육 및 자료작성
+수출국 현지 공장 Layout 제안 및 검토
+수출국 현지 공장 맞춤형 시험설비 및 시험장비 검토
+현지 생산 기술지원 및 Trouble shooting
+관련 교과목 :
+• 전기전자설계, CAD, 재료공학, 회로이론, 제어계측 등
+자격요건
+전기/전자/전력/제어계측 관련 전공하신 분
+설계도면 해석 역량을 보유하신 분
+우대사항
+해외 인력과 커뮤니케이션 가능한 수준의 영어 회화 역량을 보유하신 분
+관련 분야 자격증을 보유하신 분
+2D/3D 설계 관련 프로젝트 및 3D 모델링 SW 사용 경험을 보유하신 분
+주요 활용 Tool
+AutoCAD, CATIA, Visual Studio C++`;
+const aerospaceResult = analyzer.analyze({ roleName: "생산기술", jdText: aerospace });
+assert.equal(aerospaceResult.facts.required.length, 2);
+assert.equal(aerospaceResult.facts.preferred.length, 3);
+assert.equal(aerospaceResult.facts.duties.some((row) => /관련 교과목|전기전자설계, 회로이론/.test(row.value)), false);
+assert.ok(aerospaceResult.facts.knowledge.some((row) => /전기전자설계/.test(row.value)));
+assert.equal(aerospaceResult.facts.preferred.some((row) => /주요 활용 Tool|AutoCAD/.test(row.value)), false);
+for (const tool of ["CAD", "CATIA", "C++"]) assert.ok(aerospaceResult.facts.tools.some((row) => row.value === tool), `방산 JD Tool 누락: ${tool}`);
+for (const axis of ["manufacturing_system", "test_engineering", "quality_troubleshooting", "technology_transfer", "layout_investment"]) {
+  assert.ok(aerospaceResult.careerAnalysis.workAxes.some((row) => row.id === axis), `방산 생산기술 업무축 누락: ${axis} / ${aerospaceResult.careerAnalysis.workAxes.map((row) => row.id).join(",")}`);
+}
+assert.equal(aerospaceResult.careerAnalysis.workAxes.some((row) => row.id === "business"), false);
+assert.ok(aerospaceResult.careerAnalysis.problems.some((row) => /시험공정과 시험설비/.test(row.problem)));
+assert.ok(aerospaceResult.careerAnalysis.problems.some((row) => /수출국 현지/.test(row.problem)));
+assert.ok(aerospaceResult.careerAnalysis.deliveryGoals.some((row) => row.category === "시험체계·기술자료"));
+assertEvidenceIntegrity(aerospaceResult);
+
 console.log("JD analyzer v4 tests passed");
