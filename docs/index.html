@@ -8,12 +8,12 @@
       content="주요 반도체 기업의 공식 뉴스룸에서 기술 동향과 기업 맥락을 추적합니다."
     />
     <title>반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261003-4" />
+    <link rel="stylesheet" href="styles.css?v=20261007-5" />
     <script src="pdf-import.js?v=20261001-2" defer></script>
-    <script src="jd-analyzer-v4.js?v=20261007-4" defer></script>
+    <script src="jd-analyzer-v4.js?v=20261007-5" defer></script>
     <script src="profile-store-v2.js?v=20261002-2" defer></script>
     <script src="role-normalizer.js?v=20261001-1" defer></script>
-    <script src="app.js?v=20261007-1" defer></script>
+    <script src="app.js?v=20261007-2" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -310,6 +310,11 @@
             </div>
             <p>소제목·번호·불릿을 기준으로 의미 단위를 확인했습니다. 원문이 잘렸다면 아래에서 직접 고친 뒤 분석하세요.</p>
             <div class="jd-ocr-warnings" id="jd-ocr-warnings"></div>
+            <label class="jd-subrole-picker" id="jd-subrole-picker" hidden>
+              <span>분석할 세부 직무 <b>필수 선택</b></span>
+              <select id="jd-subrole-select"></select>
+              <small>한 공고에 여러 세부 직무가 있어 선택한 직무의 업무만 분석합니다. 공통 지원자격과 우대사항은 그대로 반영합니다.</small>
+            </label>
             <label class="jd-wide-field">
               <span>분석에 사용할 정리본 <b>사용자 수정 가능</b></span>
               <textarea id="jd-cleaned-text" rows="16"></textarea>

@@ -252,6 +252,8 @@ CATIA/CAD/DM Works Tool 사용 가능하신 분
 [지원자 참고사항]
 지원서 접수는 현대자동차 채용 홈페이지를 통해 접수합니다.`;
 const hyundaiCopiedResult = analyzer.analyze({ roleName: "생산기술", jdText: hyundaiCopiedFormat });
+const hyundaiPreview = analyzer.previewSource(hyundaiCopiedFormat);
+assert.deepEqual(hyundaiPreview.subroles.map((row) => row.label), ["완성차 생산기술", "자동화 설비제어 생산기술", "금형 생산기술", "PT 생산기술"]);
 assert.ok(hyundaiCopiedResult.facts.duties.length >= 15);
 assert.equal(hyundaiCopiedResult.facts.required.length, 3);
 assert.equal(hyundaiCopiedResult.facts.preferred.length, 5);
@@ -266,5 +268,19 @@ assert.equal(hyundaiCopiedResult.careerAnalysis.workAxes.some((row) => row.id ==
 assert.equal(JSON.stringify(hyundaiCopiedResult).includes("전극 공정"), false);
 assert.equal(hyundaiCopiedResult.validation.status, "pass");
 assertEvidenceIntegrity(hyundaiCopiedResult);
+
+const controlsSubrole = hyundaiPreview.subroles.find((row) => row.label === "자동화 설비제어 생산기술");
+const controlsResult = analyzer.analyze({ roleName: "생산기술", selectedSubrole: controlsSubrole.id, jdText: hyundaiCopiedFormat });
+assert.equal(controlsResult.scope.selectedLabel, "자동화 설비제어 생산기술");
+assert.ok(controlsResult.facts.duties.some((row) => /PLC/.test(row.value)));
+assert.ok(controlsResult.facts.duties.some((row) => /AGV\/ACS/.test(row.value)));
+assert.equal(controlsResult.facts.duties.some((row) => /금형 양산 품질|엔진\/변속기|투자비 산출/.test(row.value)), false);
+assert.equal(controlsResult.facts.required.length, 3);
+assert.equal(controlsResult.facts.preferred.length, 5);
+assert.ok(controlsResult.warnings.some((row) => /선택한 직무의 업무만 분석|업무만 분석/.test(row)));
+assertEvidenceIntegrity(controlsResult);
+
+const singleRolePreview = analyzer.previewSource(hynix);
+assert.equal(singleRolePreview.subroles.length, 0);
 
 console.log("JD analyzer v4 tests passed");

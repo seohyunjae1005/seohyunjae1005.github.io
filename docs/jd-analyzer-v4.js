@@ -97,7 +97,20 @@
   function previewSource(sourceText) {
     const units = segment(sourceText); if (!units.length) throw new Error("분석할 JD 원문을 입력해 주세요.");
     const headingCount = units.reduce((count, unit, index) => unit.section !== "unspecified" && unit.section !== units[index - 1]?.section ? count + 1 : count, 0);
-    return { cleanedText: String(sourceText || "").trim(), units, semanticUnitCount: units.length, headingCount, warnings: units.every((u) => u.verified) ? [] : ["일부 의미 단위를 원문에서 정확히 다시 찾지 못했습니다. 원문을 확인해 주세요."] };
+    const subroles = detectSubroles(units);
+    return { cleanedText: String(sourceText || "").trim(), units, subroles, semanticUnitCount: units.length, headingCount, warnings: units.every((u) => u.verified) ? [] : ["일부 의미 단위를 원문에서 정확히 다시 찾지 못했습니다. 원문을 확인해 주세요."] };
+  }
+  function detectSubroles(units) {
+    const counts = new Map();
+    (units || []).filter((unit) => unit.section === "duty" && /^S:/.test(unit.group)).forEach((unit) => {
+      const label = unit.group.slice(2).trim();
+      if (label) counts.set(unit.group, { id: unit.group, label, dutyCount: (counts.get(unit.group)?.dutyCount || 0) + 1 });
+    });
+    return [...counts.values()];
+  }
+  function scopeUnitsForSubrole(units, selectedSubrole) {
+    if (!selectedSubrole) return units;
+    return units.filter((unit) => unit.section !== "duty" || unit.group === selectedSubrole);
   }
   function unique(values) { return [...new Set(values.filter(Boolean))]; }
   function matches(text, rules) { return unique(rules.flatMap((rule) => [...String(text).matchAll(rule)].map((match) => match[0].trim()))); }
@@ -417,15 +430,21 @@
   }
   function analyze(input) {
     const source = String(input?.jdText || "").trim(); if (!source) throw new Error("분석할 JD 원문을 입력해 주세요.");
-    const units = segment(source); const facts = extractFacts(source, units, input?.roleName); const interpretations = buildInterpretations(facts); const suggestions = studySuggestions(facts); const warnings = [];
+    const allUnits = segment(source); const subroles = detectSubroles(allUnits);
+    const requestedSubrole = String(input?.selectedSubrole || "").trim();
+    const selected = subroles.find((row) => row.id === requestedSubrole) || null;
+    const units = scopeUnitsForSubrole(allUnits, selected?.id);
+    const facts = extractFacts(source, units, selected?.label || input?.roleName); const interpretations = buildInterpretations(facts); const suggestions = studySuggestions(facts); const warnings = [];
+    if (subroles.length > 1 && !selected) warnings.push(`세부 직무 ${subroles.length}개가 확인되었습니다. 전체를 함께 분석하면 서로 다른 업무가 섞일 수 있으므로 세부 직무를 선택해 주세요.`);
+    if (selected) warnings.push(`세부 직무 ‘${selected.label}’의 업무만 분석하고, 공통 지원자격·우대사항은 함께 반영했습니다.`);
     if (units.some((u) => !u.verified)) warnings.push("일부 근거 문장을 원문에서 다시 찾지 못해 해당 결과를 최종 사실로 확정하지 않았습니다.");
     if (!units.some((u) => u.section === "duty") && units.some((u) => u.section === "duty_inferred")) warnings.push("주요 업무 소제목이 없어 번호·수행 동사를 기준으로 업무 의미 단위를 복원했습니다. 원문과 대조해 주세요.");
     if (!units.some((u) => u.section === "duty" || u.section === "duty_inferred")) warnings.push("주요 업무 소제목 또는 명확한 업무 문장을 찾지 못했습니다. 업무 Fact를 ‘원문에 없음’으로 표시합니다.");
     const careerAnalysis = buildCareerAnalysis(facts, suggestions, units); const validation = validateCareerAnalysis(source, careerAnalysis);
     if (validation.status === "fail") warnings.push(`최종 용어 검증에서 원문에 없는 표현(${validation.unsupportedTerms.join("·")})을 발견했습니다. 해당 해석은 게시 전 확인이 필요합니다.`);
-    return { units, facts, interpretations, studySuggestions: suggestions, careerAnalysis, validation, warnings, analyzedAt: new Date().toISOString() };
+    return { units, facts, interpretations, studySuggestions: suggestions, careerAnalysis, validation, scope: { subroles, selectedSubrole: selected?.id || "", selectedLabel: selected?.label || "" }, warnings, analyzedAt: new Date().toISOString() };
   }
 
-  root.JDAnalyzer = { SECTION_RULES, KEYWORD_RULES, TOOL_RULES, normalize, clean, segment, previewSource, extractFacts, buildInterpretations, studySuggestions, buildCareerAnalysis, validateCareerAnalysis, analyze };
+  root.JDAnalyzer = { SECTION_RULES, KEYWORD_RULES, TOOL_RULES, normalize, clean, segment, detectSubroles, scopeUnitsForSubrole, previewSource, extractFacts, buildInterpretations, studySuggestions, buildCareerAnalysis, validateCareerAnalysis, analyze };
   if (typeof module !== "undefined" && module.exports) module.exports = root.JDAnalyzer;
 })(typeof window !== "undefined" ? window : globalThis);

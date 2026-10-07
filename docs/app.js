@@ -475,7 +475,8 @@ function renderJdAnalysisV4(result) {
   const role = document.querySelector("#jd-role").value.trim();
   const sourceType = document.querySelector("#jd-source-type").value;
   const sourceLabels = { official: "A · 기업 공식 채용공고", platform: "B · 채용 플랫폼·대행사", unknown: "C · 출처 미확인 복사본" };
-  document.querySelector("#jd-result-title").textContent = [company, role].filter(Boolean).join(" · ") || "JD 분석 결과";
+  const selectedRole = result.scope?.selectedLabel || role;
+  document.querySelector("#jd-result-title").textContent = [company, selectedRole].filter(Boolean).join(" · ") || "JD 분석 결과";
   document.querySelector("#jd-source-grade").textContent = `${sourceLabels[sourceType]} · 사용자 선택`;
   const collectedAt = document.querySelector("#jd-collected-at").value;
   const sourceUrl = document.querySelector("#jd-source-url").value.trim();
@@ -778,6 +779,10 @@ function renderJdSourcePreview() {
   const panel = document.querySelector("#jd-clean-preview");
   document.querySelector("#jd-cleaned-text").value = preview.cleanedText;
   document.querySelector("#jd-preview-count").textContent = `소제목 ${preview.headingCount}개 · 의미 단위 ${preview.semanticUnitCount}개`;
+  const subrolePicker = document.querySelector("#jd-subrole-picker");
+  const subroleSelect = document.querySelector("#jd-subrole-select");
+  subrolePicker.hidden = preview.subroles.length < 2;
+  subroleSelect.innerHTML = preview.subroles.map((row) => `<option value="${escapeHtml(row.id)}">${escapeHtml(row.label)} · 업무 ${row.dutyCount}개</option>`).join("");
   document.querySelector("#jd-ocr-warnings").innerHTML = preview.warnings.length
     ? `<strong>OCR 확인 필요</strong><ul>${preview.warnings.map((warning) => `<li>${escapeHtml(warning)}</li>`).join("")}</ul>`
     : "<span>뚜렷한 OCR 오류 신호는 찾지 못했습니다. 그래도 회사명·직무명·공정명은 원본과 대조하세요.</span>";
@@ -799,6 +804,7 @@ function bindJdAnalyzer() {
       const result = window.JDAnalyzer.analyze({
         jdText: document.querySelector("#jd-cleaned-text").value,
         roleName: document.querySelector("#jd-role").value,
+        selectedSubrole: document.querySelector("#jd-subrole-picker").hidden ? "" : document.querySelector("#jd-subrole-select").value,
       });
       renderJdAnalysisV4(result);
     } catch (error) {
@@ -816,6 +822,7 @@ function bindJdAnalyzer() {
     document.querySelector("#jd-clean-preview").hidden = true;
     document.querySelector("#jd-analyze-button").hidden = true;
     document.querySelector("#jd-results").hidden = true;
+    document.querySelector("#jd-subrole-picker").hidden = true;
   });
   document.querySelector("#jd-reset").addEventListener("click", () => {
     document.querySelector("#jd-form").reset();
@@ -824,6 +831,7 @@ function bindJdAnalyzer() {
     document.querySelector("#jd-clean-preview").hidden = true;
     document.querySelector("#jd-analyze-button").hidden = true;
     document.querySelector("#jd-cleaned-text").value = "";
+    document.querySelector("#jd-subrole-picker").hidden = true;
   });
   document.querySelector("#jd-results").addEventListener("click", (event) => {
     const button = event.target.closest("[data-evidence-id]");
