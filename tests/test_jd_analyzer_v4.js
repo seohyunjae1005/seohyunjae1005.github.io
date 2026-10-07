@@ -184,6 +184,11 @@ assert.ok(lgesResult.careerAnalysis.workAxes.some((row) => row.id === "line_stab
 assert.ok(lgesResult.careerAnalysis.problems.some((row) => /근본 원인/.test(row.problem)));
 assert.ok(lgesResult.careerAnalysis.problems.some((row) => /글로벌/.test(row.problem)));
 assert.equal(lgesResult.careerAnalysis.deliveryGoals.length, 0);
+assert.equal(lgesResult.facts.knowledge.some((row) => /다양한 부서|데이터 분석 툴/.test(row.value)), false);
+assert.ok(lgesResult.facts.keywords.some((row) => row.standardized === "Production Line"));
+assert.equal(lgesResult.facts.keywords.some((row) => row.standardized === "Production Line Design"), false);
+assert.ok(lgesResult.careerAnalysis.competencyLinks.some((row) => /데이터 분석 툴/.test(row.requirement) && row.axisTitle === "전극 불량 원인·메커니즘 분석"));
+assert.ok(lgesResult.careerAnalysis.emphasis.some((row) => /협업|소통/.test(row.label) && row.level === "높은 근거 밀도"));
 assert.equal(JSON.stringify(lgesResult.studySuggestions).includes("Python"), false);
 assert.equal(JSON.stringify(lgesResult.studySuggestions).includes("SQL"), false);
 assertEvidenceIntegrity(lgesResult);

@@ -13,13 +13,14 @@
 
   const KEYWORD_RULES = [
     [/공정\s*최적화|조건\s*최적화/gi, "Process Optimization"],
-    [/수율\s*(향상|개선|증대)|수율/gi, "Yield Improvement"],
-    [/생산성\s*(향상|개선)|생산성/gi, "Productivity Improvement"],
+    [/수율\s*(향상|개선|증대)|수율/gi, "Yield"],
+    [/생산성\s*(향상|개선)|생산성/gi, "Productivity"],
     [/가동률\s*(향상|개선)|가동률/gi, "Equipment Utilization Improvement"],
-    [/품질\s*(안정화|향상|개선|확보)|품질/gi, "Quality Improvement"],
+    [/품질\s*(안정화|향상|개선|확보)|품질/gi, "Quality"],
     [/데이터\s*(분석|활용)|빅데이터/gi, "Data Analysis"],
     [/자동화\s*(설비|시스템|기술)?|스마트\s*팩토리/gi, "Automation / Smart Factory"],
-    [/라인\s*설계|생산\s*라인|레이아웃|layout/gi, "Production Line Design"],
+    [/라인\s*설계|레이아웃|layout/gi, "Production Line Design"],
+    [/생산\s*라인/gi, "Production Line"],
     [/투자비|원가|수익성/gi, "Cost / Investment Review"],
     [/유관\s*부서\s*협업|협력사\s*협업|업체와\s*협업|협업/gi, "Cross-functional Collaboration"],
     [/문제\s*해결|원인\s*분석|저해\s*요인/gi, "Problem Solving"],
@@ -39,7 +40,7 @@
   ];
   const COLLABORATOR_RULES = [/유관\s*부서/gi, /다양한\s*부서/gi, /전극\s*\/\s*조립\s*공정의\s*다른\s*팀/gi, /장비\s*업체/gi, /협력사/gi, /고객사?/gi, /연구소/gi, /생산\s*부서/gi, /품질\s*부서/gi, /개발\s*부서/gi, /외부\s*업체/gi];
   const METRIC_RULES = [/수율\s*(향상|개선|증대)?/gi, /생산성\s*(향상|개선)?/gi, /가동률\s*(향상|개선)?/gi, /품질\s*(안정화|향상|개선|확보)?/gi, /원가\s*(절감|개선)?/gi, /수익성\s*(향상|개선)?/gi, /처리량\s*(향상|개선)?/gi, /불량률\s*(감소|개선)?/gi, /납기\s*(준수|단축)?/gi];
-  const KNOWLEDGE_HINT = /(전공|지식|이해|원리|공학|과학|기술|공정|설계|알고리즘|회로|재료|통계)/i;
+  const KNOWLEDGE_HINT = /(전공|지식|이해|원리|공학|과학|설계|알고리즘|회로|재료|통계)/i;
   const COMPETENCY_HINT = /(경험|역량|능력|가능한\s*분|이해|활용|분석|설계|개발|협업|커뮤니케이션|문제\s*해결)/i;
   const ELIGIBILITY_HINT = /(학사|석사|박사|학위|졸업|모집\s*대상|전공|성적|어학|영어|외국어|해외\s*출장|자격증?|경력\s*\d|병역|근무\s*가능)/i;
   const DUTY_HINT = /(담당|수행|설계|구축|운영|관리|검토|분석|개선|개발|최적화|산출|수립|지원|적용|평가|확보|협업)/i;
@@ -141,13 +142,16 @@
     else rows.push(interpretation("예상 업무 흐름", "해석 근거 부족", []));
     if (facts.metrics.length) rows.push(interpretation("성과 목표/KPI 의미", `${unique(facts.metrics.map((r) => r.value)).join("·")}은(는) 업무 결과를 확인할 때 살펴볼 성과 기준 후보입니다. 실제 산식과 목표값은 원문에 없으면 확인할 수 없습니다.`, metricRefs));
     else rows.push(interpretation("성과 목표/KPI 의미", "해석 근거 부족", []));
-    const problemKeywords = facts.keywords.filter((row) => ["Problem Solving", "Quality Improvement", "Productivity Improvement", "Equipment Utilization Improvement", "Yield Improvement"].includes(row.standardized));
+    const problemKeywords = facts.keywords.filter((row) => ["Problem Solving", "Quality", "Quality Improvement", "Productivity", "Productivity Improvement", "Equipment Utilization Improvement", "Yield", "Yield Improvement"].includes(row.standardized));
     if (problemKeywords.length) {
       const labels = unique(problemKeywords.map((row) => ({
         "Problem Solving": "저해 요인",
+        "Quality": "품질",
         "Quality Improvement": "품질",
+        "Productivity": "생산성",
         "Productivity Improvement": "생산성",
         "Equipment Utilization Improvement": "가동률",
+        "Yield": "수율",
         "Yield Improvement": "수율",
       }[row.standardized])));
       rows.push(interpretation("대표 문제 상황", `JD가 언급한 ${labels.join("·")} 문제의 원인을 확인하고 개선안을 검증하는 상황이 발생할 가능성이 있습니다.`, problemKeywords.flatMap((r) => r.evidenceIds)));
@@ -290,9 +294,9 @@
     if (/자격증|기사\s*(?:자격|보유)|어학|영어\s*성적|학위|졸업/.test(String(value))) return null;
     const tokens = String(value).match(/[가-힣A-Za-z]{2,}/g) || [];
     let axis = axes.find((item) => item.actualWork.some((work) => tokens.some((token) => normalize(work).includes(normalize(token)))));
-    if (!axis && /분석|데이터|Python|SQL|DBMS|\bR\b|통계|프로그램/i.test(value)) axis = axes.find((item) => ["data", "operations_improvement", "automation", "software"].includes(item.id));
+    if (!axis && /분석|데이터|Python|SQL|DBMS|\bR\b|통계|프로그램/i.test(value)) axis = axes.find((item) => ["defect_root_cause", "data", "operations_improvement", "automation", "software"].includes(item.id));
     if (!axis && /공정|원리|반도체|설계|전공|공학/i.test(value)) axis = axes.find((item) => ["process_operations", "operations_improvement", "line", "research"].includes(item.id));
-    if (!axis && /협업|커뮤니케이션/i.test(value)) axis = axes[0];
+    if (!axis && /협업|커뮤니케이션|소통/i.test(value)) axis = axes.find((item) => ["global_transfer", "line_stabilization"].includes(item.id)) || axes[0];
     return axis || null;
   }
   function buildCompetencyLinks(facts, axes) {
@@ -345,6 +349,8 @@
       [[[/라인/, "라인"], [/레이아웃/, "레이아웃"], [/공법/, "공법"]], /라인|레이아웃|공법|공정\s*설계/],
       [[[/원가/, "원가"], [/투자비/, "투자비"], [/수익성/, "수익성"]], /원가|투자비|수익성/],
       [[[/운영/, "운영"], [/안정/, "안정화"], [/set[- ]?up/i, "Set-up"]], /운영|안정|set[- ]?up/],
+      [[[/데이터/, "데이터 분석"], [/분석\s*툴/, "분석 도구"]], /데이터|분석\s*툴/],
+      [[[/협업/, "협업"], [/커뮤니케이션|소통/, "소통"]], /협업|커뮤니케이션|소통/],
     ];
     const evidenceRows = [...facts.duties, ...facts.competencies, ...facts.required, ...facts.preferred];
     const unitMap = new Map(units.map((unit) => [unit.id, unit])); const sectionNames = { duty: "주요 업무", duty_inferred: "주요 업무", required: "필수 조건", preferred: "우대 조건", unspecified: "기타" };
