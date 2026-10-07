@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v4';
+const JD_API_VERSION = 'jd-ai-v5';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -26,8 +26,10 @@ function doPost(event) {
     const apiKey = String(properties.getProperty('GEMINI_API_KEY') || '').trim();
     if (!apiKey) throw new Error('Apps Script의 GEMINI_API_KEY가 설정되지 않았습니다.');
     const model = String(properties.getProperty('GEMINI_MODEL') || 'gemini-3.5-flash-lite').trim();
-    const raw = jdCallGemini_(jdBuildPrompt_(body, source), apiKey, model);
-    const checked = jdValidateAndTransform_(raw, source);
+    const factResponse = jdCallGemini_(jdBuildFactPrompt_(body, source), apiKey, model);
+    const verifiedFacts = jdVerifyRawFacts_(factResponse, source);
+    const careerResponse = jdCallGemini_(jdBuildCareerPrompt_(body, source, verifiedFacts), apiKey, model);
+    const checked = jdValidateAndTransform_({ facts: verifiedFacts, career: careerResponse.career || {}, warnings: careerResponse.warnings || [] }, source);
     return jdJsonResponse_({ ok: true, version: JD_API_VERSION, model, result: checked });
   } catch (error) {
     return jdJsonResponse_({ ok: false, version: JD_API_VERSION, error: String(error && error.message || error) });
@@ -46,6 +48,115 @@ function jdJsonResponse_(value) {
   return ContentService.createTextOutput(JSON.stringify(value)).setMimeType(ContentService.MimeType.JSON);
 }
 
+function jdMetadata_(input) {
+  return {
+    company: String(input.company || '').trim(),
+    role: String(input.role || '').trim(),
+    sourceType: String(input.sourceType || '').trim(),
+  };
+}
+
+function jdBuildFactPrompt_(input, source) {
+  return `당신은 채용공고 원문에서 사실만 추출하는 1단계 분석기다.
+
+규칙:
+1. 해석·추천·일반 직무상식을 쓰지 말고 원문에 직접 적힌 내용만 추출한다.
+2. 모든 항목의 evidenceQuotes는 원문에서 글자와 순서를 바꾸지 않은 짧은 연속 구절이다.
+3. duties는 수행업무의 각 의미 단위를 빠짐없이 별도 항목으로 만든다.
+4. required, preferred, tools는 원문의 해당 섹션 항목을 하나도 빠뜨리지 않는다. 자격증·교육·시스템·Software도 포함한다.
+5. metrics는 향상·감소·절감·안정화·단축·확보처럼 방향이 직접 표현된 성과 대상만 넣는다. 단순히 '관리' 또는 '활동'이라고만 적힌 대상은 지표로 만들지 않는다.
+6. JD에 없는 용어나 도구를 생성하지 않는다. 없으면 빈 배열로 둔다.
+7. 출력 직전에 duties, required, preferred, tools의 개수를 원문 섹션과 다시 대조한다.
+
+JSON 외의 글은 출력하지 않는다.
+{
+  "facts": {
+    "jobTitle": {"value":"", "evidenceQuotes":[]},
+    "productContext": [{"value":"", "evidenceQuotes":[]}],
+    "duties": [{"value":"", "evidenceQuotes":[]}],
+    "competencies": [{"value":"", "evidenceQuotes":[]}],
+    "required": [{"value":"", "evidenceQuotes":[]}],
+    "preferred": [{"value":"", "evidenceQuotes":[]}],
+    "knowledge": [{"value":"", "evidenceQuotes":[]}],
+    "tools": [{"value":"", "evidenceQuotes":[]}],
+    "collaborators": [{"value":"", "evidenceQuotes":[]}],
+    "metrics": [{"value":"", "evidenceQuotes":[]}],
+    "keywords": [{"original":"", "standardized":"", "evidenceQuotes":[]}]
+  }
+}
+
+메타데이터(원문 Fact가 아님): ${JSON.stringify(jdMetadata_(input))}
+JD 원문 시작
+---
+${source}
+---
+JD 원문 끝`;
+}
+
+function jdBuildCareerPrompt_(input, source, facts) {
+  return `당신은 서버에서 원문 존재가 검증된 JD Fact만 해석하는 2단계 분석기다.
+
+절대 규칙:
+1. 아래 검증 Fact와 JD 원문 밖의 회사명·기술·지표·도구를 추가하지 않는다.
+2. 모든 항목에 원문 그대로의 짧은 evidenceQuotes를 넣는다.
+3. 업무축은 행위와 대상이 같은 업무를 3~6개로 묶고 모든 duties를 정확히 한 번 이상 포함한다.
+4. problems는 duties에 문제, 이슈, 고장, 불량, 위험, 지연, 개선, 안정화, 해결이 직접 언급되면 반드시 만든다. 결과가 없으면 "직접 명시 없음"이다.
+5. competencyLinks는 facts.required, facts.preferred, facts.tools의 모든 항목을 각각 한 번 이상 포함한다. 직접 연결할 근거가 없으면 누락하지 말고 "사용 맥락 미명시"로 표시한다.
+6. performanceGroups는 facts.metrics만 사용한다. 절차서·설비·교육·계약·관리 행위는 지표가 아니다.
+7. deliveryGoals는 원문에 실제 적힌 문서·설비·구축·교육·검토 행위만 표시하고 새 산출물 이름을 만들지 않는다.
+8. emphasis의 label은 '관련 교과목', '우대사항', '자격요건' 같은 섹션명이 아니라 JD의 구체적인 행위-대상 주제여야 한다. 업무축이 3개 이상이면 최소 3개를 만든다.
+9. preparation.study는 3~5개로 하고 각 업무축의 구체적인 연습 주제를 검토한다. JD 필수조건이 아니라 AI 공부 후보임을 밝힌다.
+10. 사용자 경험·이력서·합격 가능성은 분석하지 않는다.
+
+JSON 외의 글은 출력하지 않는다.
+{
+  "career": {
+    "definition": {"value":"", "evidenceQuotes":[]},
+    "workAxes": [{"title":"", "actualWork":[""], "purpose":"", "evidenceQuotes":[]}],
+    "problems": [{"problem":"", "target":"", "direction":"", "result":"", "evidenceQuotes":[]}],
+    "competencyLinks": [{"requirement":"", "axisTitle":"", "connectionType":"직접 연결|해석 연결|사용 맥락 미명시", "reason":"", "evidenceQuotes":[]}],
+    "performanceGroups": [{"category":"", "items":[""], "connection":"", "evidenceQuotes":[]}],
+    "deliveryGoals": [{"category":"", "description":"", "evidenceQuotes":[]}],
+    "emphasis": [{"level":"높은 근거 밀도|중간 근거 밀도|직접 확인", "label":"", "reason":"", "evidenceQuotes":[]}],
+    "preparation": {
+      "must": [{"title":"", "detail":"", "evidenceQuotes":[]}],
+      "strengths": [{"title":"", "detail":"", "evidenceQuotes":[]}],
+      "study": [{"title":"", "detail":"", "evidenceQuotes":[]}]
+    }
+  },
+  "warnings": [""]
+}
+
+메타데이터(원문 Fact가 아님): ${JSON.stringify(jdMetadata_(input))}
+서버 검증 Fact:
+${JSON.stringify(facts)}
+JD 원문 시작
+---
+${source}
+---
+JD 원문 끝`;
+}
+
+function jdVerifyRawFacts_(raw, source) {
+  const input = raw && raw.facts || {};
+  function verifiedRows(values) {
+    return (Array.isArray(values) ? values : []).map((row) => {
+      const evidenceQuotes = jdVerifiedQuotes_(row && row.evidenceQuotes, source);
+      return evidenceQuotes.length ? Object.assign({}, row, { evidenceQuotes }) : null;
+    }).filter(Boolean);
+  }
+  const jobQuotes = jdVerifiedQuotes_(input.jobTitle && input.jobTitle.evidenceQuotes, source);
+  return {
+    jobTitle: { value: jobQuotes.length ? String(input.jobTitle.value || '') : '', evidenceQuotes: jobQuotes },
+    productContext: verifiedRows(input.productContext), duties: verifiedRows(input.duties),
+    competencies: verifiedRows(input.competencies), required: verifiedRows(input.required),
+    preferred: verifiedRows(input.preferred), knowledge: verifiedRows(input.knowledge),
+    tools: verifiedRows(input.tools), collaborators: verifiedRows(input.collaborators),
+    metrics: verifiedRows(input.metrics), keywords: verifiedRows(input.keywords),
+  };
+}
+
+/* 이전 단일 호출용 프롬프트는 회귀 비교를 위해 남기되 실제 API에서는 사용하지 않는다. */
 function jdBuildPrompt_(input, source) {
   const metadata = {
     company: String(input.company || '').trim(),
@@ -211,11 +322,53 @@ function jdValidateAndTransform_(raw, source) {
       study: rows(careerRaw.preparation && careerRaw.preparation.study, '공부 후보', (r, ids) => ({ title: String(r.title || ''), detail: String(r.detail || ''), evidenceIds: ids })),
     },
   };
+  jdEnsureCompetencyCoverage_(careerAnalysis, facts);
+  jdEnsureConcreteEmphasis_(careerAnalysis);
   const studySuggestions = careerAnalysis.preparation.study.map((row) => ({ name: row.title, reason: row.detail, evidenceIds: row.evidenceIds }));
   const warnings = (Array.isArray(raw.warnings) ? raw.warnings.map(String).filter(Boolean) : []);
   jdSourceWarnings_(source).forEach((warning) => { if (!warnings.includes(warning)) warnings.push(warning); });
   if (removed.length) warnings.unshift(`원문에서 근거 인용을 확인하지 못한 ${removed.length}개 항목을 결과에서 제외했습니다.`);
   return { units: evidence, facts, careerAnalysis, studySuggestions, warnings, validation: { status: removed.length ? 'filtered' : 'pass', removed, verifiedEvidenceCount: evidence.length, checkedTerms: [] }, scope: {} };
+}
+
+function jdComparable_(value) {
+  return String(value || '').toLowerCase().replace(/[\s·•_/(),.\-]+/g, '');
+}
+
+function jdEnsureCompetencyCoverage_(careerAnalysis, facts) {
+  const candidates = [].concat(facts.required || [], facts.preferred || [], facts.tools || []);
+  candidates.forEach((fact) => {
+    const needle = jdComparable_(fact.value);
+    const exists = careerAnalysis.competencyLinks.some((row) => {
+      const current = jdComparable_(row.requirement);
+      return current && needle && (current.includes(needle) || needle.includes(current));
+    });
+    if (!exists) careerAnalysis.competencyLinks.push({
+      requirement: fact.value,
+      axisTitle: '세부 업무 연결 근거 없음',
+      connectionType: '사용 맥락 미명시',
+      reason: 'JD 원문에 요구사항으로 명시되어 있으나 세부 업무와의 직접 연결 근거는 확인되지 않음',
+      evidenceIds: fact.evidenceIds,
+    });
+  });
+}
+
+function jdEnsureConcreteEmphasis_(careerAnalysis) {
+  const generic = /^(관련\s*교과목|우대사항|자격요건|필수조건|수행업무|주요\s*활용\s*tool|직무명)$/i;
+  careerAnalysis.emphasis = careerAnalysis.emphasis.filter((row) => !generic.test(String(row.label || '').trim()));
+  const wanted = Math.min(3, careerAnalysis.workAxes.length);
+  careerAnalysis.workAxes.forEach((axis) => {
+    if (careerAnalysis.emphasis.length >= wanted) return;
+    const needle = jdComparable_(axis.title);
+    if (careerAnalysis.emphasis.some((row) => {
+      const current = jdComparable_(row.label);
+      return current && needle && (current.includes(needle) || needle.includes(current));
+    })) return;
+    careerAnalysis.emphasis.push({
+      level: '직접 확인', label: axis.title,
+      reason: '수행업무의 구체적인 행위와 대상에서 직접 확인됨', evidenceIds: axis.evidenceIds,
+    });
+  });
 }
 
 function jdSourceWarnings_(source) {
