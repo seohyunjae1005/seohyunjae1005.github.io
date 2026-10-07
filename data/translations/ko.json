@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-02T01:07:43.756576+00:00",
+  "updated_at": "2026-10-07T01:04:08.659243+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1569,6 +1569,12 @@
       "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
       "source_fingerprint": "1bf8e53636f8e7cc2dd3a6fd729b1b4e377818170a99a7ad65476855c08d081b",
       "translated_at": "2026-10-02T01:07:43.756551+00:00"
+    },
+    "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-and-intel-collaborate-accelerate-chipmaking": {
+      "title_ko": "애플라이드 머티리얼즈와 인텔, AI 기반 컴퓨팅을 위한 반도체 제조 혁신 가속화를 위해 협력",
+      "summary_ko": "실리콘밸리에 위치한 애플라이드(Applied)의 EPIC 센터와 오리건주에 있는 인텔(Intel)의 연구개발(R&amp;D) 캠퍼스에서 진행 중인 협력 프로젝트는 AI 칩 및 시스템을 위한 차세대 트랜지스터, 상호 연결 기술, 첨단 패키징 기술 분야에서 획기적인 성과를 도출하는 것을 목표로 하고 있습니다. 이번 협력은 양사가 오랫동안 이어온 협력 관계를 바탕으로 이루어졌습니다.",
+      "source_fingerprint": "c013f51395716695227aa0c542bda7a11a2d93d75bf50f18fc5da7e723222d7c",
+      "translated_at": "2026-10-07T01:04:08.659218+00:00"
     }
   }
 }
