@@ -229,6 +229,9 @@ main { max-width: var(--max); margin: 0 auto; padding: 2rem 1.25rem 5rem; }
 .jd-subrole-picker > span { font-size: 0.78rem; font-weight: 750; }
 .jd-subrole-picker select { width: 100%; padding: 0.7rem; border: 1px solid var(--line-strong); background: var(--surface); color: var(--text); }
 .jd-subrole-picker small { color: var(--muted); font-size: 0.68rem; line-height: 1.5; }
+.jd-product-context { display: grid; gap: 0.35rem; margin-bottom: 0.8rem; padding: 0.7rem; border-left: 3px solid var(--accent); background: var(--accent-soft); }
+.jd-product-context b { font-size: 0.68rem; }
+.jd-product-context span { font-size: 0.76rem; line-height: 1.5; }
 .jd-file-panel { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem; border: 1px dashed var(--line-strong); background: #fbfbfd; }
 .jd-file-panel > div { display: grid; gap: 0.15rem; }
 .jd-file-panel strong { font-size: 0.88rem; }

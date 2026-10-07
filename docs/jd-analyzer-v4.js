@@ -7,7 +7,7 @@
     ["preferred", "우대 조건", /^(우대|우대\s*사항|우대\s*조건|이런\s*분이면\s*더\s*좋아요|preferred(?:\s*qualifications?)?|nice\s*to\s*have|이런\s*역량이나\s*경\S{0,2}이\s*있다면\s*더\s*좋습니다)$/i],
     ["knowledge", "관련 지식·교과목", /^(관련\s*교과목|관련\s*지식|전공지식)$/i],
     ["tools", "주요 활용 Tool", /^(주요\s*활용\s*(?:tool|도구)|활용\s*(?:tool|도구)|tools?)$/i],
-    ["context", "조직·직무 소개", /^(상세\s*내용|우리\s*조직을\s*소개합니다|조직\s*소개|관련\s*제품군)$/i],
+    ["context", "조직·직무 소개", /^(상세\s*내용|우리\s*조직을\s*소개합니다|조직\s*소개|관련\s*제품군|제품군|담당\s*제품|관련\s*제품|사업\s*영역)$/i],
     ["career", "성장 경로", /^(이렇게\s*성장할\s*수\s*있어요|성장\s*경로|career\s*path)$/i],
     ["preparation", "회사 제안 준비", /^(이렇게\s*준비하면\s*좋아요|지원\s*준비|how\s*to\s*prepare)$/i],
     ["ignore", "기타", /^(인원|근무지|복리\s*후생|전형\s*(절차|단계)|기타|지원\s*방법|근무\s*(조건|지역|장소)|회사\s*소개|중복\s*지원\s*제한|기타\s*유의사항|지원자\s*참고사항|benefits?|about\s*us)$/i],
@@ -58,7 +58,7 @@
     return text.replace(/(^|\s)(\d{1,2}[.)])(?=\s*[가-힣A-Za-z])/g, "$1\n§N§$2\n").replace(/([①②③④⑤⑥⑦⑧⑨⑩])/g, "\n§C§$1\n").replace(/\s*[•▪▶✓✔]\s*/g, "\n§B§").replace(/\s+·\s+/g, "\n§B§").replace(/\n{3,}/g, "\n\n");
   }
   function segment(sourceText) {
-    const source = String(sourceText || ""); const units = []; let buffer = ""; let section = "unspecified"; let group = ""; let counter = 0; let resumeSection = "";
+    const source = String(sourceText || ""); const units = []; let buffer = ""; let section = "unspecified"; let group = ""; let counter = 0; let resumeSection = ""; let resumeGroup = "";
     const flush = () => {
       const text = clean(buffer); buffer = ""; if (text.length < 2) return;
       const exactStart = source.indexOf(text); units.push({ id: `JD-${String(units.length + 1).padStart(2, "0")}`, text, section, group: group || `U${++counter}`, start: exactStart, end: exactStart >= 0 ? exactStart + text.length : -1, verified: normalize(source).includes(normalize(text)) });
@@ -75,8 +75,8 @@
       const bracket = line.match(/^\[([^\]]+)\]$/); const bracketRule = bracket ? sectionRule(bracket[1]) : null;
       if (bracketRule) { flush(); section = bracketRule.level; group = ""; return; }
       const plainRule = sectionRule(line);
-      if (plainRule) { flush(); resumeSection = plainRule.level === "knowledge" ? section : ""; section = plainRule.level; group = ""; return; }
-      if (line.startsWith("§H§")) { flush(); const rule = sectionRule(line.slice(3)); if (rule) { resumeSection = rule.level === "knowledge" ? section : ""; section = rule.level; } group = ""; return; }
+      if (plainRule) { flush(); resumeSection = plainRule.level === "knowledge" ? section : ""; resumeGroup = plainRule.level === "knowledge" ? group : ""; section = plainRule.level; group = `H:${clean(line)}`; return; }
+      if (line.startsWith("§H§")) { flush(); const heading = clean(line.slice(3)); const rule = sectionRule(heading); if (rule) { resumeSection = rule.level === "knowledge" ? section : ""; resumeGroup = rule.level === "knowledge" ? group : ""; section = rule.level; group = `H:${heading}`; } return; }
       if (line.startsWith("§N§")) { flush(); group = `N${line.slice(3).replace(/\D/g, "")}`; return; }
       if (line.startsWith("§C§")) { flush(); group = `C${"①②③④⑤⑥⑦⑧⑨⑩".indexOf(line.slice(3).trim()) + 1}`; return; }
       if (/^[-–—]\s+/.test(line)) { flush(); line = line.replace(/^[-–—]\s+/, ""); if (!group) group = `U${++counter}`; else if (!/^N\d+$/.test(group)) group = `U${++counter}`; }
@@ -86,7 +86,7 @@
       if (buffer && (["duty", "required", "preferred", "ignore"].includes(section) || /[.!?]$/.test(buffer))) flush();
       buffer = buffer ? `${buffer} ${line}` : line;
       if (["duty", "required", "preferred", "ignore", "knowledge", "tools"].includes(section)) flush();
-      if (resumeSection) { section = resumeSection; resumeSection = ""; }
+      if (resumeSection) { section = resumeSection; group = resumeGroup; resumeSection = ""; resumeGroup = ""; }
     }); flush();
     // 복사 과정에서 소제목이 사라졌더라도, 자격요건 앞의 번호 업무 블록은
     // 버리지 않는다. 단, 일반 소개 문장을 업무로 단정하지 않도록 번호 표지가
@@ -150,13 +150,14 @@
     const required = requiredUnits.map((u) => fact(u.text, [u.id]));
     const competencies = mergeFacts([...requiredUnits, ...preferredUnits].filter((u) => COMPETENCY_HINT.test(u.text) && !ELIGIBILITY_HINT.test(u.text)).map((u) => fact(u.text, [u.id])));
     const preferred = mergeFacts(preferredUnits.map((u) => fact(u.text, [u.id])));
+    const productContext = mergeFacts(units.filter((u) => u.section === "context" && /관련제품군|제품군|담당제품|관련제품|사업영역/.test(normalize(u.group))).map((u) => fact(u.text, [u.id]))).slice(0, 4);
     const statedKnowledge = [...units.filter((u) => u.section === "knowledge"), ...requiredUnits, ...preferredUnits].filter((u) => u.section === "knowledge" || KNOWLEDGE_HINT.test(u.text)).map((u) => fact(u.text, [u.id]));
     const technicalKnowledge = relevantUnits.flatMap((u) => TECH_RULES.flatMap(([regex, name]) => safeTest(regex, u.text) ? [fact(name, [u.id])] : []));
     const knowledge = mergeFacts([...statedKnowledge, ...technicalKnowledge]).slice(0, 12);
     const tools = mergeFacts(relevantUnits.flatMap((u) => TOOL_RULES.flatMap(([regex, name]) => safeTest(regex, u.text) ? [fact(name, [u.id])] : [])));
     const collaborators = mergeFacts(relevantUnits.flatMap((u) => matches(u.text, COLLABORATOR_RULES).map((value) => fact(value, [u.id]))));
     const metrics = mergeFacts(relevantUnits.flatMap((u) => matches(u.text, METRIC_RULES).map((value) => fact(value, [u.id]))));
-    return { jobTitle: extractJobTitle(source, units, roleName), duties, competencies, required: mergeFacts(required), preferred, knowledge, tools, collaborators, metrics, keywords: keywordFacts(units) };
+    return { jobTitle: extractJobTitle(source, units, roleName), productContext, duties, competencies, required: mergeFacts(required), preferred, knowledge, tools, collaborators, metrics, keywords: keywordFacts(units) };
   }
   function interpretation(label, value, evidenceIds) { return { label, value, evidenceIds: unique(evidenceIds), status: evidenceIds.length ? "supported" : "insufficient" }; }
   function buildInterpretations(facts) {
@@ -427,10 +428,11 @@
     const workAxes = buildWorkAxes(facts); const performanceGroups = buildPerformanceGroups(facts, workAxes);
     const metricNames = unique(performanceGroups.flatMap((row) => row.items)).slice(0, 5);
     const axisNames = workAxes.slice(0, 4).map((row) => row.title);
-    const definitionRefs = unique([...workAxes.slice(0, 4).flatMap((row) => row.evidenceIds), ...performanceGroups.flatMap((row) => row.evidenceIds)]);
+    const definitionRefs = unique([...facts.productContext.flatMap((row) => row.evidenceIds), ...workAxes.slice(0, 4).flatMap((row) => row.evidenceIds), ...performanceGroups.flatMap((row) => row.evidenceIds)]);
     const role = facts.jobTitle.value === "원문에 없음" ? "이 직무" : facts.jobTitle.value;
+    const contextLead = facts.productContext.length ? `${facts.productContext.map((row) => row.value).join(" · ")}를 다루는 ${role}` : role;
     const definition = definitionRefs.length && axisNames.length
-      ? interpretation("직무 한 줄 정의", `${role}${topicParticle(role)} ${axisNames.join(", ")}${workAxes.length > 4 ? " 등" : ""}의 업무를 통해 ${metricNames.length ? `${metricNames.join("·")} 같은 성과` : "JD에 제시된 업무 목표"}를 확보·개선하는 역할로 해석됩니다.`, definitionRefs)
+      ? interpretation("직무 한 줄 정의", `${contextLead}${topicParticle(role)} ${axisNames.join(", ")}${workAxes.length > 4 ? " 등" : ""}의 업무를 통해 ${metricNames.length ? `${metricNames.join("·")} 같은 성과` : "JD에 제시된 업무 목표"}를 확보·개선하는 역할로 해석됩니다.`, definitionRefs)
       : interpretation("직무 한 줄 정의", "해석 근거 부족", []);
     return {
       definition,

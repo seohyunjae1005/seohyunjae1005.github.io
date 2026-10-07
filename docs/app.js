@@ -488,7 +488,7 @@ function renderJdAnalysisV4(result) {
   const facts = result.facts;
   const career = result.careerAnalysis;
   document.querySelector("#jd-career-definition").innerHTML = career.definition.status === "supported"
-    ? `<span class="jd-interpretation-label">자동 해석</span><p>${escapeHtml(career.definition.value)}</p><div>${jdEvidenceButtons(career.definition.evidenceIds)}</div>`
+    ? `${facts.productContext.length ? `<div class="jd-product-context"><b>JD Fact · 제품·사업 맥락</b><span>${facts.productContext.map((row) => escapeHtml(row.value)).join(" · ")}</span><div>${jdEvidenceButtons([...new Set(facts.productContext.flatMap((row) => row.evidenceIds))])}</div></div>` : ""}<span class="jd-interpretation-label">자동 해석</span><p>${escapeHtml(career.definition.value)}</p><div>${jdEvidenceButtons(career.definition.evidenceIds)}</div>`
     : '<p class="jd-empty-result">업무와 성과 목표를 함께 연결할 근거가 부족합니다.</p>';
   document.querySelector("#jd-work-axes").innerHTML = career.workAxes.length
     ? career.workAxes.map((axis, index) => `<article><div class="jd-axis-number">0${index + 1}</div><h4>${escapeHtml(axis.title)}</h4><ul>${axis.actualWork.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul><p><b>이 업무의 목적</b>${escapeHtml(axis.purpose)}</p><div>${jdEvidenceButtons(axis.evidenceIds)}</div></article>`).join("")
@@ -517,6 +517,7 @@ function renderJdAnalysisV4(result) {
 
   const factRows = [
     ["직무명", facts.jobTitle.value === "원문에 없음" ? [] : [{ value: facts.jobTitle.value, evidenceIds: facts.jobTitle.evidenceIds }]],
+    ["제품·사업 맥락", facts.productContext],
     ["주요 업무", facts.duties], ["요구 역량", facts.competencies], ["필수 조건", facts.required], ["우대 조건", facts.preferred],
     ["필요 전공·기술지식", facts.knowledge], ["Tool·Software·언어", facts.tools], ["협업 대상", facts.collaborators], ["성과 목표·지표", facts.metrics],
     ["JD 핵심 키워드", facts.keywords.map((row) => ({ value: row.original, evidenceIds: row.evidenceIds }))],

@@ -5,6 +5,7 @@ function assertEvidenceIntegrity(result) {
   const ids = new Set(result.units.map((row) => row.id));
   const factRows = [
     ...result.facts.duties,
+    ...result.facts.productContext,
     ...result.facts.competencies,
     ...result.facts.required,
     ...result.facts.preferred,
@@ -315,6 +316,8 @@ LAND / 화력체계, 기동체계, 대공체계, 유무인복합체계, 발사�
 주요 활용 Tool
 AutoCAD, CATIA, Visual Studio C++`;
 const aerospaceResult = analyzer.analyze({ roleName: "생산기술", jdText: aerospace });
+assert.ok(aerospaceResult.facts.productContext.some((row) => /화력체계/.test(row.value)));
+assert.match(aerospaceResult.careerAnalysis.definition.value, /화력체계/);
 assert.equal(aerospaceResult.facts.required.length, 2);
 assert.equal(aerospaceResult.facts.preferred.length, 3);
 assert.equal(aerospaceResult.facts.duties.some((row) => /관련 교과목|전기전자설계, 회로이론/.test(row.value)), false);
