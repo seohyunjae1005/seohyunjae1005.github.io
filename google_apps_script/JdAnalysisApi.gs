@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v1';
+const JD_API_VERSION = 'jd-ai-v2';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -62,10 +62,16 @@ function jdBuildPrompt_(input, source) {
 3. career는 AI 해석이다. 하지만 반드시 evidenceQuotes로 연결해야 한다. 일반 제조업 상식이나 다른 회사 JD의 용어를 추가하지 않는다.
 4. JD에 없는 수율, OEE, Cpk, PLC, Python, SQL, SPC, DOE 등을 자동으로 넣지 않는다.
 5. 회사명·제품명·전공명·기술명·성과지표는 근거 인용에 실제 등장할 때만 사용한다.
-6. 업무축은 이 JD의 표현을 이용해 동적으로 2~6개 만든다. 범용 이름(개발·구현, 문제 해결)만 쓰지 않는다.
-7. 성과지표와 구축·설계·운영 같은 과업/산출물을 구분한다.
+6. 업무축은 이 JD의 표현을 이용해 동적으로 3~6개 만든다. 목적이 다른 업무를 억지로 한 축에 합치지 않는다. 예를 들어 Layout·투자계획과 해외 기술이전·교육은 별도 축이다. 각 주요 업무 문장이 정확히 한 축에는 포함되도록 누락을 점검한다.
+7. 성과지표와 과업/산출물을 엄격히 구분한다. 수치·개선 대상·평가지수처럼 성과를 판단하는 기준만 performanceGroups에 넣고, 절차서·성적서·검토서·설비·Layout·교육은 deliveryGoals에 넣는다. 직접적인 성과 기준이 없으면 performanceGroups는 빈 배열로 둔다.
 8. 단순 반복 횟수를 중요도나 합격 가능성으로 표현하지 않는다.
 9. 사용자 경험, 적합도, 이력서, 자기소개서, 합격 가능성은 분석하지 않는다.
+10. competencyLinks는 필수조건뿐 아니라 업무와 연결 근거가 있는 우대조건과 명시 Tool도 검토한다. requirement가 쓰이는 업무가 원문에서 직접 확인되면 "직접 연결", 여러 문장을 종합해야 하면 "해석 연결", 용도가 적혀 있지 않으면 "사용 맥락 미명시"로 표시한다. 용도를 추측하지 않는다.
+11. problems는 원문이 말하는 서로 다른 문제를 최대 4개까지 만든다. 기대 결과가 원문에 없으면 "직접 명시 없음"으로 표시하고 임의 성과를 만들지 않는다.
+12. emphasis는 같은 표현의 반복 횟수가 아니라 업무·자격·우대·Tool 중 몇 개의 서로 다른 섹션에서 뒷받침되는지를 기준으로 최대 5개 작성한다. level은 "높은 근거 밀도", "중간 근거 밀도", "직접 확인" 중 하나다.
+13. preparation.study는 "관련 교과목 학습" 같은 범용 문구를 금지한다. 이 JD에 등장한 제품·공정·설비·문서·Tool·업무를 이름으로 넣어 구체적인 공부 단위를 2~5개 제안한다. JD에서 직접 요구한 항목과 AI 공부 후보를 혼동하지 않는다.
+14. 우대사항이나 자격증이 직무 업무와 연결되지 않거나 서로 다른 직무 내용이 섞인 것으로 보이면 warnings에 "직무 연관성 확인 필요"라고 쓰고, 강점으로 과도하게 강조하지 않는다.
+15. definition은 제품/대상, 핵심 행위, 기대 결과를 담은 한 문장으로 쓰되 JD에 없는 기술이나 지표를 넣지 않는다.
 
 JSON 외의 글은 출력하지 않는다. 다음 구조를 정확히 지킨다.
 {
@@ -86,10 +92,10 @@ JSON 외의 글은 출력하지 않는다. 다음 구조를 정확히 지킨다.
     "definition": {"value":"", "evidenceQuotes":[]},
     "workAxes": [{"title":"", "actualWork":[""], "purpose":"", "evidenceQuotes":[]}],
     "problems": [{"problem":"", "target":"", "direction":"", "result":"", "evidenceQuotes":[]}],
-    "competencyLinks": [{"requirement":"", "axisTitle":"", "reason":"", "evidenceQuotes":[]}],
+    "competencyLinks": [{"requirement":"", "axisTitle":"", "connectionType":"직접 연결|해석 연결|사용 맥락 미명시", "reason":"", "evidenceQuotes":[]}],
     "performanceGroups": [{"category":"", "items":[""], "connection":"", "evidenceQuotes":[]}],
     "deliveryGoals": [{"category":"", "description":"", "evidenceQuotes":[]}],
-    "emphasis": [{"level":"직접 확인", "label":"", "reason":"어느 섹션에서 확인되는지만 설명", "evidenceQuotes":[]}],
+    "emphasis": [{"level":"높은 근거 밀도|중간 근거 밀도|직접 확인", "label":"", "reason":"서로 다른 어느 섹션에서 확인되는지 설명", "evidenceQuotes":[]}],
     "preparation": {
       "must": [{"title":"", "detail":"", "evidenceQuotes":[]}],
       "strengths": [{"title":"", "detail":"", "evidenceQuotes":[]}],
@@ -194,7 +200,7 @@ function jdValidateAndTransform_(raw, source) {
     definition: single(careerRaw.definition, '직무 Mission', (r, ids) => ({ status: 'supported', value: String(r.value || ''), evidenceIds: ids })),
     workAxes: rows(careerRaw.workAxes, '업무축', (r, ids) => ({ title: String(r.title || ''), actualWork: Array.isArray(r.actualWork) ? r.actualWork.map(String) : [], purpose: String(r.purpose || ''), evidenceIds: ids })),
     problems: rows(careerRaw.problems, '문제 상황', (r, ids) => ({ problem: String(r.problem || ''), target: String(r.target || ''), direction: String(r.direction || ''), result: String(r.result || ''), evidenceIds: ids })),
-    competencyLinks: rows(careerRaw.competencyLinks, '역량 연결', (r, ids) => ({ requirement: String(r.requirement || ''), axisTitle: String(r.axisTitle || ''), reason: String(r.reason || ''), evidenceIds: ids })),
+    competencyLinks: rows(careerRaw.competencyLinks, '역량 연결', (r, ids) => ({ requirement: String(r.requirement || ''), axisTitle: String(r.axisTitle || ''), connectionType: ['직접 연결', '해석 연결', '사용 맥락 미명시'].includes(String(r.connectionType || '')) ? String(r.connectionType) : '해석 연결', reason: String(r.reason || ''), evidenceIds: ids })),
     performanceGroups: rows(careerRaw.performanceGroups, '성과 구조', (r, ids) => ({ category: String(r.category || ''), items: Array.isArray(r.items) ? r.items.map(String) : [], connection: String(r.connection || ''), evidenceIds: ids })),
     deliveryGoals: rows(careerRaw.deliveryGoals, '과업·산출물', (r, ids) => ({ category: String(r.category || ''), description: String(r.description || ''), evidenceIds: ids })),
     emphasis: rows(careerRaw.emphasis, '근거 밀도', (r, ids) => ({ level: String(r.level || '직접 확인'), label: String(r.label || ''), reason: String(r.reason || ''), evidenceIds: ids })),
@@ -206,7 +212,18 @@ function jdValidateAndTransform_(raw, source) {
   };
   const studySuggestions = careerAnalysis.preparation.study.map((row) => ({ name: row.title, reason: row.detail, evidenceIds: row.evidenceIds }));
   const warnings = (Array.isArray(raw.warnings) ? raw.warnings.map(String).filter(Boolean) : []);
+  jdSourceWarnings_(source).forEach((warning) => { if (!warnings.includes(warning)) warnings.push(warning); });
   if (removed.length) warnings.unshift(`원문에서 근거 인용을 확인하지 못한 ${removed.length}개 항목을 결과에서 제외했습니다.`);
   return { units: evidence, facts, careerAnalysis, studySuggestions, warnings, validation: { status: removed.length ? 'filtered' : 'pass', removed, verifiedEvidenceCount: evidence.length, checkedTerms: [] }, scope: {} };
+}
+
+function jdSourceWarnings_(source) {
+  const text = jdNormalizeQuote_(source);
+  const warnings = [];
+  const currentYear = Number(Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy'));
+  const matches = [...text.matchAll(/(?:'|20)?(\d{2})년\s*\d{1,2}월\s*졸업\s*예정/g)];
+  const oldYear = matches.map((match) => 2000 + Number(match[1])).find((year) => year < currentYear - 1);
+  if (oldYear) warnings.push(`본문의 졸업 예정 시점이 ${oldYear}년으로 표시되어 오래된 공고일 수 있습니다.`);
+  return warnings;
 }
 
