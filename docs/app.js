@@ -482,7 +482,7 @@ function renderJdAnalysisV4(result) {
   document.querySelector("#jd-source-meta").textContent = [collectedAt ? `원문 확인일 ${collectedAt}` : "원문 확인일 미입력", sourceUrl ? `공고 주소 ${sourceUrl}` : "공고 주소 미입력"].join(" · ");
   document.querySelector("#jd-limitations").innerHTML = result.warnings.length
     ? `<strong>분석 전 확인</strong><ul>${result.warnings.map((value) => `<li>${escapeHtml(value)}</li>`).join("")}</ul>`
-    : `<strong>환각 검증 Pass</strong><p>표시된 Fact가 JD 의미 단위에 연결됐으며, 보호 용어 ${result.validation?.checkedTerms?.length || 0}종의 원문 존재 여부를 다시 확인했습니다.</p>`;
+    : `<strong>근거 연결·보호 용어 검사 통과</strong><p>표시된 Fact가 JD 의미 단위에 연결됐으며, 보호 용어 ${result.validation?.checkedTerms?.length || 0}종의 원문 존재 여부를 확인했습니다. 전체 해석의 완전성을 보증하는 표시는 아닙니다.</p>`;
 
   const facts = result.facts;
   const career = result.careerAnalysis;
