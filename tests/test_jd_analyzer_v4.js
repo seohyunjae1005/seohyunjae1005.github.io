@@ -247,13 +247,15 @@ CATIA/CAD/DM Works Tool 사용 가능하신 분
 동일 기간동안 진행 중인 채용 공고에 중복으로 지원할 수 없습니다.
 [기타 유의사항]
 지원서를 포함하여 제출한 내용이 사실과 다를 경우 합격이 취소될 수 있습니다.
+지원자격 미충족이 확인되는 경우 전형상 불이익을 받을 수 있습니다.
+최종 합격 후 회사가 지정하는 입사일에 입사 불가할 경우
 [지원자 참고사항]
 지원서 접수는 현대자동차 채용 홈페이지를 통해 접수합니다.`;
 const hyundaiCopiedResult = analyzer.analyze({ roleName: "생산기술", jdText: hyundaiCopiedFormat });
 assert.ok(hyundaiCopiedResult.facts.duties.length >= 15);
 assert.equal(hyundaiCopiedResult.facts.required.length, 3);
 assert.equal(hyundaiCopiedResult.facts.preferred.length, 5);
-assert.equal([...hyundaiCopiedResult.facts.required, ...hyundaiCopiedResult.facts.preferred].some((row) => /전형단계|서류전형|중복지원|합격이 취소|채용 홈페이지/.test(row.value)), false);
+assert.equal([...hyundaiCopiedResult.facts.required, ...hyundaiCopiedResult.facts.preferred].some((row) => /전형단계|서류전형|중복지원|합격이 취소|미충족|입사 불가|채용 홈페이지/.test(row.value)), false);
 for (const tool of ["CATIA", "CAD", "DBMS", "Python", "R", "C", "C++", "C#", "JavaScript", "PLC", "CPS", "AGV", "ACS", "DM Works"]) {
   assert.ok(hyundaiCopiedResult.facts.tools.some((row) => row.value === tool), `현대차 명시 도구 누락: ${tool}`);
 }

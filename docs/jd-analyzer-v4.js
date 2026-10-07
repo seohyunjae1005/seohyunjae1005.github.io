@@ -50,8 +50,9 @@
   function sectionRule(text) { const heading = clean(text).replace(/[.!?]+$/, ""); return SECTION_RULES.find((rule) => rule.regex.test(heading)); }
   function markBoundaries(value) {
     let text = String(value || "").replace(/\r/g, "\n").replace(/we\s*[•·]\s*re/gi, "we're").replace(/you\s*[•·]\s*ll/gi, "you'll").replace(/\blon\s+lmplant\b/gi, "Ion Implant");
-    const headings = [/minimum\s+qualifications?/gi, /basic\s+qualifications?/gi, /preferred\s+qualifications?/gi, /responsibilities/gi, /what\s+you(?:'|’)?ll\s+(do|experience)/gi, /who\s+we(?:'|’)?re\s+looking\s+for/gi, /담당\s*업무/gi, /주요\s*업무/gi, /직무\s*상세/gi, /이런\s*일을\s*합니다/gi, /지원\s*자격/gi, /지원자격/gi, /자격\s*요건/gi, /필수\s*(사항|조건|요건)/gi, /이런\s*분을\s*찾고\s*있어요/gi, /우대\s*(사항|조건)/gi, /이런\s*분이면\s*더\s*좋아요/gi, /이런\s*역량이나\s*경\S{0,2}이\s*있다면\s*더\s*좋습니다/gi, /상세\s*내용/gi, /조직\s*소개/gi, /우리\s*조직을\s*소개합니다/gi, /이렇게\s*성장할\s*수\s*있어요/gi, /이렇게\s*준비하면\s*좋아요/gi, /전형\s*(?:절차|단계)/gi];
-    headings.forEach((regex) => { text = text.replace(regex, (match) => `\n§H§${match}\n`); });
+    // 제목 단어가 본문에 들어간 경우(예: "지원자격 미충족")를 새 구역으로
+    // 오인하지 않도록, 독립된 한 줄 전체가 제목일 때만 표시한다.
+    text = text.split("\n").map((line) => sectionRule(line.trim()) ? `§H§${line.trim()}` : line).join("\n");
     return text.replace(/(^|\s)(\d{1,2}[.)])(?=\s*[가-힣A-Za-z])/g, "$1\n§N§$2\n").replace(/([①②③④⑤⑥⑦⑧⑨⑩])/g, "\n§C§$1\n").replace(/\s*[•▪▶✓✔]\s*/g, "\n§B§").replace(/\s+·\s+/g, "\n§B§").replace(/\n{3,}/g, "\n\n");
   }
   function segment(sourceText) {
