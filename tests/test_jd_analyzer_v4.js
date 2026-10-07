@@ -193,4 +193,76 @@ assert.equal(JSON.stringify(lgesResult.studySuggestions).includes("Python"), fal
 assert.equal(JSON.stringify(lgesResult.studySuggestions).includes("SQL"), false);
 assertEvidenceIntegrity(lgesResult);
 
+// 현대자동차 채용 페이지처럼 불릿 없이 줄바꿈으로만 업무를 나누고,
+// ■ 세부 직무와 전형·기타 안내가 뒤따르는 실제 복사 형식 회귀 테스트.
+const hyundaiCopiedFormat = `조직소개
+우리 조직은 좋은 품질의 차량을 효율적으로 생산하기 위한 생산 기술을 개발하고 관리하는 조직입니다.
+
+직무상세
+완성차 및 파워트레인 공장의 신설·증설, 신제품 생산 준비, 품질 및 가동률 향상 업무를 수행합니다.
+
+■ 완성차 생산기술
+신차 투입을 위한 양산 공장의 공법/투자비 검토 및 신 공장 건설 업무 수행
+신차 구조 검토 및 설계 개선을 통한 원가 및 수익성 산출
+공장 건설 투자비 산출, 레이아웃, 표준인원 검토, 공장 운영관리 프로세스 수립 등
+디지털 툴(CATIA/BIG DATA/AI/CPS 등)을 활용한 선행구조 검토 및 품질 확보 업무 수행
+생산공장/제품/품질 데이터를 활용한 생산 공법/투자비/설비 사양 검토 및 최적 생산 방안 제시
+자동화 설비 고도화 및 빅데이터/AI 응용 기술 개발 통한 스마트팩토리(E-FOREST) 구축
+
+■ 자동화 설비제어 생산기술
+신차 생산을 위한 설비 제어 설계/검증 및 프로젝트 수행
+PC/PLC 프로그램 설계
+AGV/ACS 제어시스템 표준 설계 및 최적화
+설비 예방 진단을 위한 데이터 분석, 제어 기술 표준화/신기술 개발
+
+■ 금형 생산기술
+신차개발 단계의 금형 기술 개발
+무결점 판넬 생산을 위한 금형 양산 품질 확보 및 국내/해외 공장 생산성 향상을 위한 기술 지원
+
+■ PT 생산기술
+엔진/변속기 설계도면 양산성 검토, 공정 프로세스 설계, 생산설비 등 4M 생산준비 계획 수립
+4M 생산 준비, 제조부문 인수인계, 양산 초기 안정화 활동
+양산공장 품질/생산성/수익성 향상
+품질시스템, 생산운영시스템 설계/구축
+
+지원자격
+학사/석사 학위를 기 취득하셨거나 학사/석사 '26년 8월 내 졸업 예정이신 분
+OPIc IM2 or TOEIC Speaking 130 이상 영어회화 성적을 보유하신 분
+('24.04.04 ~ '26.04.03 내 취득 점수 기준 / 영어권 해외대학 제외)
+
+우대사항
+기계/자동차/전자전기/산업공학/화공/재료/컴퓨터공학 관련 학과를 전공하신 분
+기사 자격증 및 업무 관련 자격증을 보유하신 분
+데이터 운영 및 분석 관련 SW(DBMS, Python, R 등) 활용 프로젝트/과제 수행 경험이 있으신 분
+C/C++/C#/Python/JS 등 소프트웨어 코딩, PLC 프로그램 설계 경험이 있으신 분
+CATIA/CAD/DM Works Tool 사용 가능하신 분
+
+전형단계
+지원서 접수
+서류전형
+직무면접
+
+기타
+[중복지원 제한]
+동일 기간동안 진행 중인 채용 공고에 중복으로 지원할 수 없습니다.
+[기타 유의사항]
+지원서를 포함하여 제출한 내용이 사실과 다를 경우 합격이 취소될 수 있습니다.
+[지원자 참고사항]
+지원서 접수는 현대자동차 채용 홈페이지를 통해 접수합니다.`;
+const hyundaiCopiedResult = analyzer.analyze({ roleName: "생산기술", jdText: hyundaiCopiedFormat });
+assert.ok(hyundaiCopiedResult.facts.duties.length >= 15);
+assert.equal(hyundaiCopiedResult.facts.required.length, 3);
+assert.equal(hyundaiCopiedResult.facts.preferred.length, 5);
+assert.equal([...hyundaiCopiedResult.facts.required, ...hyundaiCopiedResult.facts.preferred].some((row) => /전형단계|서류전형|중복지원|합격이 취소|채용 홈페이지/.test(row.value)), false);
+for (const tool of ["CATIA", "CAD", "DBMS", "Python", "R", "C", "C++", "C#", "JavaScript", "PLC", "CPS", "AGV", "ACS", "DM Works"]) {
+  assert.ok(hyundaiCopiedResult.facts.tools.some((row) => row.value === tool), `현대차 명시 도구 누락: ${tool}`);
+}
+for (const axis of ["launch", "line", "economics", "automation", "operations_improvement", "quality"]) {
+  assert.ok(hyundaiCopiedResult.careerAnalysis.workAxes.some((row) => row.id === axis), `현대차 업무축 누락: ${axis}`);
+}
+assert.equal(hyundaiCopiedResult.careerAnalysis.workAxes.some((row) => row.id === "technology_development"), false);
+assert.equal(JSON.stringify(hyundaiCopiedResult).includes("전극 공정"), false);
+assert.equal(hyundaiCopiedResult.validation.status, "pass");
+assertEvidenceIntegrity(hyundaiCopiedResult);
+
 console.log("JD analyzer v4 tests passed");

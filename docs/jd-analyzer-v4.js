@@ -2,13 +2,13 @@
   "use strict";
 
   const SECTION_RULES = [
-    ["duty", "주요 업무", /^(담당\s*업무|주요\s*업무|수행\s*업무|직무\s*내용|업무\s*내용|이런\s*일을\s*합니다|responsibilities|what\s*you(?:'|’)?ll\s*(?:do|experience)|경험할\s*수\s*있습니다)$/i],
+    ["duty", "주요 업무", /^(담당\s*업무|주요\s*업무|수행\s*업무|직무\s*(?:내용|상세)|업무\s*내용|이런\s*일을\s*합니다|responsibilities|what\s*you(?:'|’)?ll\s*(?:do|experience)|경험할\s*수\s*있습니다)$/i],
     ["required", "필수 조건", /^(전공|필수|필수\s*사항|필수\s*조건|필수\s*요건|자격\s*요건|지원\s*자격|지원자격|이런\s*분을\s*찾고\s*있어요|minimum\s*qualifications?|basic\s*qualifications?|requirements?|qualifications?|who\s+we(?:'|’)?re\s+looking\s+for)$/i],
     ["preferred", "우대 조건", /^(우대|우대\s*사항|우대\s*조건|이런\s*분이면\s*더\s*좋아요|preferred(?:\s*qualifications?)?|nice\s*to\s*have|이런\s*역량이나\s*경\S{0,2}이\s*있다면\s*더\s*좋습니다)$/i],
     ["context", "조직·직무 소개", /^(상세\s*내용|우리\s*조직을\s*소개합니다|조직\s*소개)$/i],
     ["career", "성장 경로", /^(이렇게\s*성장할\s*수\s*있어요|성장\s*경로|career\s*path)$/i],
     ["preparation", "회사 제안 준비", /^(이렇게\s*준비하면\s*좋아요|지원\s*준비|how\s*to\s*prepare)$/i],
-    ["ignore", "기타", /^(인원|근무지|복리\s*후생|전형\s*절차|지원\s*방법|근무\s*(조건|지역|장소)|회사\s*소개|benefits?|about\s*us)$/i],
+    ["ignore", "기타", /^(인원|근무지|복리\s*후생|전형\s*(절차|단계)|기타|지원\s*방법|근무\s*(조건|지역|장소)|회사\s*소개|중복\s*지원\s*제한|기타\s*유의사항|지원자\s*참고사항|benefits?|about\s*us)$/i],
   ].map(([level, label, regex]) => ({ level, label, regex }));
 
   const KEYWORD_RULES = [
@@ -28,10 +28,10 @@
   ];
   const TOOL_RULES = [
     [/\bPython\b/gi, "Python"], [/\bSQL\b/gi, "SQL"], [/\bJMP\b/gi, "JMP"], [/\bMinitab\b/gi, "Minitab"],
-    [/\bMATLAB\b/gi, "MATLAB"], [/\bR\b/g, "R"], [/\bDBMS\b/gi, "DBMS"], [/\bC\+\+\b/gi, "C++"], [/\bJava\b/gi, "Java"],
+    [/\bMATLAB\b/gi, "MATLAB"], [/\bR\b/g, "R"], [/\bDBMS\b/gi, "DBMS"], [/(?:^|[^A-Za-z0-9_])C\+\+(?=$|[^A-Za-z0-9_])/gi, "C++"], [/(?:^|[^A-Za-z0-9_])C#(?=$|[^A-Za-z0-9_])/gi, "C#"], [/(?:^|[\s/,])C(?=$|[\s/,])/g, "C"], [/\bJava\b/gi, "Java"], [/\b(?:JavaScript|JS)\b/gi, "JavaScript"],
     [/\bExcel\b/gi, "Excel"], [/\bTableau\b/gi, "Tableau"], [/\bPower\s*BI\b/gi, "Power BI"],
     [/\bCAD\b/gi, "CAD"], [/\bCATIA\b/gi, "CATIA"], [/\bPLC\b/gi, "PLC"], [/\bSPC\b/gi, "SPC"], [/\bDOE\b/gi, "DOE"],
-    [/\bE-FOREST\b/gi, "E-FOREST"],
+    [/\bE-FOREST\b/gi, "E-FOREST"], [/\bCPS\b/gi, "CPS"], [/\bAGV\b/gi, "AGV"], [/\bACS\b/gi, "ACS"], [/\bDM\s*Works\b/gi, "DM Works"],
   ];
   const TECH_RULES = [
     [/빅데이터/gi, "빅데이터"], [/\bAI\b|인공지능/gi, "AI·인공지능"], [/컴퓨터\s*비전|\bvision\b|비전\s*활용/gi, "비전 기술"],
@@ -46,11 +46,11 @@
   const DUTY_HINT = /(담당|수행|설계|구축|운영|관리|검토|분석|개선|개발|최적화|산출|수립|지원|적용|평가|확보|협업)/i;
 
   function normalize(value) { return String(value || "").toLocaleLowerCase("ko").replace(/[\s·•\-–—_*()[\]{}<>:：,.;!?/\\'’]+/g, ""); }
-  function clean(value) { return String(value || "").replace(/^\s*(?:[-–—•·▪▶✓✔]|[①②③④⑤⑥⑦⑧⑨⑩]|\d+[.)]|[가-힣][.)])\s*/, "").replace(/\s+([,.;:!?])/g, "$1").replace(/\s+/g, " ").trim(); }
+  function clean(value) { return String(value || "").replace(/^\s*(?:[-–—•·▪■▶✓✔]|[①②③④⑤⑥⑦⑧⑨⑩]|\d+[.)]|[가-힣][.)])\s*/, "").replace(/\s+([,.;:!?])/g, "$1").replace(/\s+/g, " ").trim(); }
   function sectionRule(text) { const heading = clean(text).replace(/[.!?]+$/, ""); return SECTION_RULES.find((rule) => rule.regex.test(heading)); }
   function markBoundaries(value) {
     let text = String(value || "").replace(/\r/g, "\n").replace(/we\s*[•·]\s*re/gi, "we're").replace(/you\s*[•·]\s*ll/gi, "you'll").replace(/\blon\s+lmplant\b/gi, "Ion Implant");
-    const headings = [/minimum\s+qualifications?/gi, /basic\s+qualifications?/gi, /preferred\s+qualifications?/gi, /responsibilities/gi, /what\s+you(?:'|’)?ll\s+(do|experience)/gi, /who\s+we(?:'|’)?re\s+looking\s+for/gi, /담당\s*업무/gi, /주요\s*업무/gi, /이런\s*일을\s*합니다/gi, /지원\s*자격/gi, /지원자격/gi, /자격\s*요건/gi, /필수\s*(사항|조건|요건)/gi, /이런\s*분을\s*찾고\s*있어요/gi, /우대\s*(사항|조건)/gi, /이런\s*분이면\s*더\s*좋아요/gi, /이런\s*역량이나\s*경\S{0,2}이\s*있다면\s*더\s*좋습니다/gi, /상세\s*내용/gi, /우리\s*조직을\s*소개합니다/gi, /이렇게\s*성장할\s*수\s*있어요/gi, /이렇게\s*준비하면\s*좋아요/gi];
+    const headings = [/minimum\s+qualifications?/gi, /basic\s+qualifications?/gi, /preferred\s+qualifications?/gi, /responsibilities/gi, /what\s+you(?:'|’)?ll\s+(do|experience)/gi, /who\s+we(?:'|’)?re\s+looking\s+for/gi, /담당\s*업무/gi, /주요\s*업무/gi, /직무\s*상세/gi, /이런\s*일을\s*합니다/gi, /지원\s*자격/gi, /지원자격/gi, /자격\s*요건/gi, /필수\s*(사항|조건|요건)/gi, /이런\s*분을\s*찾고\s*있어요/gi, /우대\s*(사항|조건)/gi, /이런\s*분이면\s*더\s*좋아요/gi, /이런\s*역량이나\s*경\S{0,2}이\s*있다면\s*더\s*좋습니다/gi, /상세\s*내용/gi, /조직\s*소개/gi, /우리\s*조직을\s*소개합니다/gi, /이렇게\s*성장할\s*수\s*있어요/gi, /이렇게\s*준비하면\s*좋아요/gi, /전형\s*(?:절차|단계)/gi];
     headings.forEach((regex) => { text = text.replace(regex, (match) => `\n§H§${match}\n`); });
     return text.replace(/(^|\s)(\d{1,2}[.)])(?=\s*[가-힣A-Za-z])/g, "$1\n§N§$2\n").replace(/([①②③④⑤⑥⑦⑧⑨⑩])/g, "\n§C§$1\n").replace(/\s*[•▪▶✓✔]\s*/g, "\n§B§").replace(/\s+·\s+/g, "\n§B§").replace(/\n{3,}/g, "\n\n");
   }
@@ -62,6 +62,8 @@
     };
     markBoundaries(source).split(/\n+/).forEach((raw) => {
       let line = raw.trim(); if (!line || /^\[\d+쪽\]$/.test(line)) return;
+      const dutySubheading = line.match(/^■\s*(.+?(?:생산기술|기술|업무))\s*$/i);
+      if (dutySubheading) { flush(); section = "duty"; group = `S:${clean(dutySubheading[1])}`; return; }
       if (line.startsWith("§B§")) {
         flush();
         line = line.slice(3).trim();
@@ -75,7 +77,12 @@
       if (line.startsWith("§N§")) { flush(); group = `N${line.slice(3).replace(/\D/g, "")}`; return; }
       if (line.startsWith("§C§")) { flush(); group = `C${"①②③④⑤⑥⑦⑧⑨⑩".indexOf(line.slice(3).trim()) + 1}`; return; }
       if (/^[-–—]\s+/.test(line)) { flush(); line = line.replace(/^[-–—]\s+/, ""); if (!group) group = `U${++counter}`; else if (!/^N\d+$/.test(group)) group = `U${++counter}`; }
-      if (!line) return; if (buffer && /[.!?]$/.test(buffer)) flush(); buffer = buffer ? `${buffer} ${line}` : line;
+      if (!line) return;
+      // 채용 사이트에서 복사한 JD는 불릿 없이 줄바꿈만 남는 경우가 많다.
+      // 업무·자격·우대 구역에서는 각 줄을 독립된 의미 단위로 보존한다.
+      if (buffer && (["duty", "required", "preferred", "ignore"].includes(section) || /[.!?]$/.test(buffer))) flush();
+      buffer = buffer ? `${buffer} ${line}` : line;
+      if (["duty", "required", "preferred", "ignore"].includes(section)) flush();
     }); flush();
     // 복사 과정에서 소제목이 사라졌더라도, 자격요건 앞의 번호 업무 블록은
     // 버리지 않는다. 단, 일반 소개 문장을 업무로 단정하지 않도록 번호 표지가
@@ -115,10 +122,11 @@
   }
   function keywordFacts(units) {
     const rows = [];
-    units.forEach((unit) => KEYWORD_RULES.forEach(([regex, standard]) => { [...unit.text.matchAll(regex)].forEach((match) => rows.push({ original: match[0].trim(), standardized: standard, evidenceIds: [unit.id] })); }));
+    units.filter((unit) => unit.section !== "ignore").forEach((unit) => KEYWORD_RULES.forEach(([regex, standard]) => { [...unit.text.matchAll(regex)].forEach((match) => rows.push({ original: match[0].trim(), standardized: standard, evidenceIds: [unit.id] })); }));
     const seen = new Set(); return rows.filter((row) => { const key = `${row.original}|${row.standardized}`; if (seen.has(key)) return false; seen.add(key); return true; }).slice(0, 20);
   }
   function extractFacts(source, units, roleName) {
+    const relevantUnits = units.filter((u) => !["ignore", "career", "preparation"].includes(u.section));
     const dutyUnits = units.filter((u) => u.section === "duty" || u.section === "duty_inferred");
     const duties = mergeFacts(dutyUnits.map((u) => fact(u.text, [u.id])));
     const requiredUnits = units.filter((u) => u.section === "required"); const preferredUnits = units.filter((u) => u.section === "preferred");
@@ -126,11 +134,11 @@
     const competencies = mergeFacts([...requiredUnits, ...preferredUnits].filter((u) => COMPETENCY_HINT.test(u.text) && !ELIGIBILITY_HINT.test(u.text)).map((u) => fact(u.text, [u.id])));
     const preferred = mergeFacts(preferredUnits.map((u) => fact(u.text, [u.id])));
     const statedKnowledge = [...requiredUnits, ...preferredUnits].filter((u) => KNOWLEDGE_HINT.test(u.text)).map((u) => fact(u.text, [u.id]));
-    const technicalKnowledge = units.flatMap((u) => TECH_RULES.flatMap(([regex, name]) => safeTest(regex, u.text) ? [fact(name, [u.id])] : []));
+    const technicalKnowledge = relevantUnits.flatMap((u) => TECH_RULES.flatMap(([regex, name]) => safeTest(regex, u.text) ? [fact(name, [u.id])] : []));
     const knowledge = mergeFacts([...statedKnowledge, ...technicalKnowledge]).slice(0, 12);
-    const tools = mergeFacts(units.flatMap((u) => TOOL_RULES.flatMap(([regex, name]) => safeTest(regex, u.text) ? [fact(name, [u.id])] : [])));
-    const collaborators = mergeFacts(units.flatMap((u) => matches(u.text, COLLABORATOR_RULES).map((value) => fact(value, [u.id]))));
-    const metrics = mergeFacts(units.flatMap((u) => matches(u.text, METRIC_RULES).map((value) => fact(value, [u.id]))));
+    const tools = mergeFacts(relevantUnits.flatMap((u) => TOOL_RULES.flatMap(([regex, name]) => safeTest(regex, u.text) ? [fact(name, [u.id])] : [])));
+    const collaborators = mergeFacts(relevantUnits.flatMap((u) => matches(u.text, COLLABORATOR_RULES).map((value) => fact(value, [u.id]))));
+    const metrics = mergeFacts(relevantUnits.flatMap((u) => matches(u.text, METRIC_RULES).map((value) => fact(value, [u.id]))));
     return { jobTitle: extractJobTitle(source, units, roleName), duties, competencies, required: mergeFacts(required), preferred, knowledge, tools, collaborators, metrics, keywords: keywordFacts(units) };
   }
   function interpretation(label, value, evidenceIds) { return { label, value, evidenceIds: unique(evidenceIds), status: evidenceIds.length ? "supported" : "insufficient" }; }
@@ -252,8 +260,9 @@
   function buildWorkAxes(facts) {
     const buckets = new Map(); const unclassified = [];
     const specificAxisIds = new Set(["defect_root_cause", "technology_development", "global_transfer", "line_stabilization"]);
+    const isElectrodeRole = facts.duties.some((duty) => /전극/.test(duty.value));
     facts.duties.forEach((duty) => {
-      const allMatched = WORK_AXIS_RULES.filter((axis) => axisScore(duty.value, axis) > 0);
+      const allMatched = WORK_AXIS_RULES.filter((axis) => axisScore(duty.value, axis) > 0 && (isElectrodeRole || !specificAxisIds.has(axis.id)));
       const specificMatched = allMatched.filter((axis) => specificAxisIds.has(axis.id));
       const matched = specificMatched.length ? specificMatched : allMatched;
       if (!matched.length) { unclassified.push(duty); return; }
