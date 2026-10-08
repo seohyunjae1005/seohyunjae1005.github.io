@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v7';
+const JD_API_VERSION = 'jd-ai-v8';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -177,9 +177,11 @@ function jdEnrichVerifiedFacts_(facts, source) {
   };
 
   // 전공은 필수조건이면서 동시에 지원자가 준비해야 할 기술지식 범위다.
-  (output.required || []).forEach((row) => {
-    if (/(?:전공|학과|공학|메카트로닉스)/i.test(String(row.value || ''))) add('knowledge', row.value, row.evidenceQuotes);
-  });
+  if (!(output.knowledge || []).length) {
+    (output.required || []).forEach((row) => {
+      if (/(?:전공|학과|공학|메카트로닉스)/i.test(String(row.value || ''))) add('knowledge', row.value, row.evidenceQuotes);
+    });
+  }
 
   // 조직명이 구체적이지 않아도 원문이 협업 참여를 직접 말하면 Fact로 보존한다.
   (output.duties || []).forEach((row) => {
@@ -199,6 +201,13 @@ function jdEnrichVerifiedFacts_(facts, source) {
     FAT: 'Factory Acceptance Test', SAT: 'Site Acceptance Test',
     DPU: 'Defects Per Unit', CFT: 'Cross-Functional Team',
   };
+  output.keywords = Array.isArray(output.keywords) ? output.keywords : [];
+  Object.entries(keywordStandards).forEach(([original, standardized]) => {
+    const regex = new RegExp(`\\b${original}\\b`, 'i');
+    if (regex.test(source) && !output.keywords.some((row) => String(row.original || '').toUpperCase() === original)) {
+      output.keywords.push({ original, standardized, evidenceQuotes: jdVerifiedQuotes_([original], source) });
+    }
+  });
   output.keywords = (output.keywords || []).map((row) => {
     const original = String(row.original || '').trim();
     const standardized = keywordStandards[original.toUpperCase()] || String(row.standardized || '').trim() || '표준화 보류';

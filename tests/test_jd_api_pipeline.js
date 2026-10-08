@@ -56,12 +56,16 @@ const dnFacts = context.jdEnrichVerifiedFacts_({
   ],
 }, dnSource);
 assert.ok(dnFacts.knowledge.some((row) => /메카트로닉스/.test(row.value)));
+assert.equal(dnFacts.knowledge.length, 1);
 assert.ok(dnFacts.collaborators.some((row) => row.value === 'CFT'));
 assert.ok(dnFacts.collaborators.some((row) => row.value === '고객'));
 assert.ok(dnFacts.metrics.some((row) => row.value === '관리·분석 지표: DPU'));
 assert.ok(dnFacts.metrics.some((row) => row.value === '성과 목표: 품질 개선'));
 assert.equal(dnFacts.keywords.find((row) => row.original === 'DPU').standardized, 'Defects Per Unit');
 assert.equal(dnFacts.keywords.find((row) => row.original === 'CFT').standardized, 'Cross-Functional Team');
+const keywordlessFacts = context.jdEnrichVerifiedFacts_({ required: [], duties: [], knowledge: [], collaborators: [], metrics: [], keywords: [] }, dnSource);
+assert.equal(keywordlessFacts.keywords.find((row) => row.original === 'FAT').standardized, 'Factory Acceptance Test');
+assert.equal(keywordlessFacts.keywords.find((row) => row.original === 'SAT').standardized, 'Site Acceptance Test');
 assert.ok(context.jdSourceWarnings_(dnSource).some((warning) => /문장 중간/.test(warning)));
 
 const career = {
