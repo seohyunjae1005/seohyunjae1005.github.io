@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v11';
+const JD_API_VERSION = 'jd-ai-v12';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -72,6 +72,7 @@ function jdBuildProfileMatchPrompt_(requirements, profileEntries) {
 7. reasoning은 JD와 프로필에 실제 적힌 내용만 비교한다.
 8. writingDirection은 완성 문장을 대신 쓰지 말고, 직접·간접 연결에서 무엇을 더 설명해야 하는지만 제안한다. none이면 빈 문자열이다.
 9. 합격 가능성이나 지원자 우열을 판단하지 않는다.
+10. reasoning과 writingDirection에는 R1·E1 같은 내부 ID나 "규칙 4" 같은 프롬프트 번호를 쓰지 않는다.
 
 JSON 외의 글은 출력하지 않는다.
 {
@@ -107,13 +108,22 @@ function jdValidateProfileMatches_(raw, requirements, profileEntries) {
       requirement, status,
       experience: status === 'none' ? null : { id: experience.id, kind: experience.kind, label: experience.label },
       profileEvidenceQuote: status === 'none' ? '' : quote,
-      reasoning: status === 'none' ? '저장된 프로필 원문에서 직접 연결할 근거를 확인하지 못했습니다.' : String(row.reasoning || '').slice(0, 500),
-      writingDirection: status === 'none' ? '' : String(row.writingDirection || '').slice(0, 500),
+      reasoning: status === 'none' ? '저장된 프로필 원문에서 직접 연결할 근거를 확인하지 못했습니다.' : jdCleanMatchNarrative_(row.reasoning),
+      writingDirection: status === 'none' ? '' : jdCleanMatchNarrative_(row.writingDirection),
     };
   });
   const counts = { direct: 0, indirect: 0, none: 0 };
   matches.forEach((row) => { counts[row.status] += 1; });
   return { matches, counts, requirementCount: requirements.length, profileEntryCount: profileEntries.length };
+}
+
+function jdCleanMatchNarrative_(value) {
+  return String(value || '')
+    .replace(/\b[RE]\d+\b/g, '저장된 프로필')
+    .replace(/규칙\s*\d+(?:번)?에\s*따라\s*[,，]?\s*/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+    .slice(0, 500);
 }
 
 function jdHasDirectActionEvidence_(requirement, experience) {
