@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v9';
+const JD_API_VERSION = 'jd-ai-v10';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -26,6 +26,10 @@ function doPost(event) {
     const apiKey = String(properties.getProperty('GEMINI_API_KEY') || '').trim();
     if (!apiKey) throw new Error('Apps Script의 GEMINI_API_KEY가 설정되지 않았습니다.');
     const model = String(properties.getProperty('GEMINI_MODEL') || 'gemini-3.5-flash-lite').trim();
+    if (body.action === 'matchProfile') {
+      const matchResult = jdMatchProfile_(body, source, apiKey, model);
+      return jdJsonResponse_({ ok: true, version: JD_API_VERSION, model, result: matchResult });
+    }
     const factResponse = jdCallGemini_(jdBuildFactPrompt_(body, source), apiKey, model);
     const verifiedFacts = jdEnrichVerifiedFacts_(jdVerifyRawFacts_(factResponse, source), source);
     const careerResponse = jdCallGemini_(jdBuildCareerPrompt_(body, source, verifiedFacts), apiKey, model);
@@ -34,6 +38,80 @@ function doPost(event) {
   } catch (error) {
     return jdJsonResponse_({ ok: false, version: JD_API_VERSION, error: String(error && error.message || error) });
   }
+}
+
+function jdMatchProfile_(body, source, apiKey, model) {
+  const requirements = (Array.isArray(body.requirements) ? body.requirements : []).slice(0, 20).map((row, index) => {
+    const quote = jdVerifiedQuotes_([row && row.evidenceQuote], source)[0] || '';
+    return quote ? {
+      id: `R${index + 1}`, kind: String(row.kind || 'JD Fact').slice(0, 30),
+      text: String(row.text || quote).slice(0, 500), evidenceQuote: quote,
+    } : null;
+  }).filter(Boolean);
+  const profileEntries = (Array.isArray(body.profileEntries) ? body.profileEntries : []).slice(0, 40).map((row, index) => ({
+    id: `E${index + 1}`, kind: String(row && row.kind || '경험').slice(0, 30),
+    label: String(row && row.label || `경험 ${index + 1}`).slice(0, 100),
+    text: String(row && row.text || '').trim().slice(0, 1800),
+  })).filter((row) => row.text);
+  if (!requirements.length) throw new Error('연결할 JD 요구사항을 확인하지 못했습니다. JD를 다시 분석해 주세요.');
+  if (!profileEntries.length) throw new Error('연결할 프로필 경험이 없습니다. 내 프로필을 먼저 작성해 주세요.');
+  const raw = jdCallGemini_(jdBuildProfileMatchPrompt_(requirements, profileEntries), apiKey, model);
+  return jdValidateProfileMatches_(raw, requirements, profileEntries);
+}
+
+function jdBuildProfileMatchPrompt_(requirements, profileEntries) {
+  return `당신은 검증된 JD Fact와 사용자가 직접 입력한 프로필 원문을 연결하는 분석기다.
+
+규칙:
+1. requirements의 모든 항목을 정확히 한 번씩 출력한다.
+2. direct는 프로필 원문이 같은 구체 업무·도구·성과를 직접 입증할 때만 사용한다.
+3. indirect는 문제분석·검증·협업 같은 방법은 전이 가능하지만 대상이나 산업이 달라 추가 설명이 필요할 때만 사용한다.
+4. 근거가 없으면 none으로 표시한다. 그럴듯한 경험·도구·성과를 만들지 않는다.
+5. profileEvidenceQuote는 선택한 profileEntries.text에서 글자와 순서를 바꾸지 않은 짧은 연속 구절이다. none이면 빈 문자열이다.
+6. reasoning은 JD와 프로필에 실제 적힌 내용만 비교한다.
+7. writingDirection은 완성 문장을 대신 쓰지 말고, 직접·간접 연결에서 무엇을 더 설명해야 하는지만 제안한다. none이면 빈 문자열이다.
+8. 합격 가능성이나 지원자 우열을 판단하지 않는다.
+
+JSON 외의 글은 출력하지 않는다.
+{
+  "matches": [{
+    "requirementId":"R1", "status":"direct|indirect|none", "experienceId":"E1 또는 빈 문자열",
+    "profileEvidenceQuote":"", "reasoning":"", "writingDirection":""
+  }]
+}
+
+JD 요구사항:
+${JSON.stringify(requirements)}
+
+사용자 프로필 원문:
+${JSON.stringify(profileEntries)}`;
+}
+
+function jdValidateProfileMatches_(raw, requirements, profileEntries) {
+  const requirementMap = Object.fromEntries(requirements.map((row) => [row.id, row]));
+  const entryMap = Object.fromEntries(profileEntries.map((row) => [row.id, row]));
+  const rawMap = {};
+  (Array.isArray(raw && raw.matches) ? raw.matches : []).forEach((row) => {
+    const id = String(row && row.requirementId || '');
+    if (requirementMap[id] && !rawMap[id]) rawMap[id] = row;
+  });
+  const matches = requirements.map((requirement) => {
+    const row = rawMap[requirement.id] || {};
+    let status = ['direct', 'indirect', 'none'].includes(String(row.status || '')) ? String(row.status) : 'none';
+    const experience = entryMap[String(row.experienceId || '')] || null;
+    const quote = experience ? jdVerifiedQuotes_([row.profileEvidenceQuote], experience.text)[0] || '' : '';
+    if (!experience || !quote) status = 'none';
+    return {
+      requirement, status,
+      experience: status === 'none' ? null : { id: experience.id, kind: experience.kind, label: experience.label },
+      profileEvidenceQuote: status === 'none' ? '' : quote,
+      reasoning: status === 'none' ? '저장된 프로필 원문에서 직접 연결할 근거를 확인하지 못했습니다.' : String(row.reasoning || '').slice(0, 500),
+      writingDirection: status === 'none' ? '' : String(row.writingDirection || '').slice(0, 500),
+    };
+  });
+  const counts = { direct: 0, indirect: 0, none: 0 };
+  matches.forEach((row) => { counts[row.status] += 1; });
+  return { matches, counts, requirementCount: requirements.length, profileEntryCount: profileEntries.length };
 }
 
 function jdConsumeQuota_() {

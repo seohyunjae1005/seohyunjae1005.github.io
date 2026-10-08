@@ -47,6 +47,10 @@ assert.equal(profileStore.summary(saved).ready, true);
 assert.match(profileStore.toExperienceText(saved), /공정 실습/);
 assert.match(profileStore.toExperienceText(saved), /보유 기술 및 교육: Python/);
 assert.match(profileStore.toExperienceText(saved), /AI 문제해결 경험/);
+const evidenceEntries = profileStore.toEvidenceEntries(saved);
+assert.ok(evidenceEntries.some((row) => row.kind === "경험" && /공정 실습/.test(row.text)));
+assert.ok(evidenceEntries.some((row) => row.kind === "기술·교육" && /Python/.test(row.text)));
+assert.ok(evidenceEntries.every((row) => row.id && row.label && row.text));
 assert.equal(profileStore.clear(storage).experiences.length, 0);
 assert.equal(profileStore.load(storage).educations.length, 0);
 

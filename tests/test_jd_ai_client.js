@@ -25,3 +25,22 @@ assert.throws(() => client.assertResult({ ...validResult, facts: { ...validResul
   console.log("JD AI client tests passed");
 })().catch((error) => { console.error(error); process.exitCode = 1; });
 
+(async () => {
+  const matchResult = {
+    counts: { direct: 1, indirect: 0, none: 0 },
+    matches: [{
+      requirement: { id: "R1", kind: "주요 업무", text: "DPU 분석" }, status: "direct",
+      experience: { id: "E1", kind: "경험", label: "품질 실습" }, profileEvidenceQuote: "불량 데이터를 분석",
+      reasoning: "데이터 분석 행동이 직접 확인됨", writingDirection: "분석 대상과 결과를 설명",
+    }],
+  };
+  const result = await client.matchProfile({ jdText: "DPU 분석", requirements: [], profileEntries: [] }, {
+    endpoint: "https://script.google.com/macros/s/test/exec",
+    fetcher: async (_url, options) => {
+      assert.equal(JSON.parse(options.body).action, "matchProfile");
+      return { ok: true, json: async () => ({ ok: true, result: matchResult }) };
+    },
+  });
+  assert.equal(result.matches[0].status, "direct");
+})().catch((error) => { console.error(error); process.exitCode = 1; });
+

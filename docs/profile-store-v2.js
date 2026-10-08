@@ -152,6 +152,25 @@
     ].filter(Boolean).join("\n");
   }
 
+  function toEvidenceEntries(profile) {
+    const normalized = normalize(profile);
+    const rows = [];
+    normalized.experiences.forEach((row, index) => {
+      const text = experienceText(row);
+      if (text) rows.push({ id: row.id || `experience-${index + 1}`, kind: "경험", label: row.title || row.type || `경험 ${index + 1}`, text });
+    });
+    const aiText = aiExperienceText(normalized.aiExperience);
+    if (aiText) rows.push({ id: "ai-experience", kind: "AI 활용 경험", label: normalized.aiExperience.title || "AI 문제해결 경험", text: aiText });
+    normalized.educations.forEach((row, index) => {
+      const text = educationText(row);
+      if (text) rows.push({ id: row.id || `education-${index + 1}`, kind: "학력·전공", label: row.major || row.school || `학력 ${index + 1}`, text });
+    });
+    lines(normalized.skills).forEach((text, index) => rows.push({ id: `skill-${index + 1}`, kind: "기술·교육", label: text, text: `보유 기술 및 교육: ${text}` }));
+    lines(normalized.certificates).forEach((text, index) => rows.push({ id: `certificate-${index + 1}`, kind: "자격", label: text, text: `자격: ${text}` }));
+    lines(normalized.languages).forEach((text, index) => rows.push({ id: `language-${index + 1}`, kind: "어학", label: text, text: `어학: ${text}` }));
+    return rows;
+  }
+
   function summary(profile) {
     const normalized = normalize(profile);
     const aiCount = hasRecordValue(normalized.aiExperience) ? 1 : 0;
@@ -160,6 +179,6 @@
     return { filled, educationCount: normalized.educations.length, experienceCount, ready: experienceCount > 0 };
   }
 
-  root.CareerProfile = { STORAGE_KEY, LEGACY_STORAGE_KEY, EMPTY_PROFILE, normalize, migrateLegacy, load, save, clear, lines, toExperienceText, summary };
+  root.CareerProfile = { STORAGE_KEY, LEGACY_STORAGE_KEY, EMPTY_PROFILE, normalize, migrateLegacy, load, save, clear, lines, toExperienceText, toEvidenceEntries, summary };
   if (typeof module !== "undefined" && module.exports) module.exports = root.CareerProfile;
 })(typeof window !== "undefined" ? window : globalThis);

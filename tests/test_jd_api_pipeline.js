@@ -125,4 +125,20 @@ assert.match(careerPrompt, /수행 행위만으로 문제 상황을 역추정하
 assert.match(careerPrompt, /facts\.required가 비어 있으면 반드시 빈 배열/);
 assert.match(careerPrompt, /같은 근거 문장에서 나온 초기하자/);
 assert.match(careerPrompt, /전문가로 성장.*직무 Mission이나 성과로 사용하지 않는다/);
+
+const matchRequirements = [{ id: 'R1', kind: '주요 업무', text: '제품검사 DPU 분석', evidenceQuote: '제품검사 DPU 분석' }];
+const matchEntries = [{ id: 'E1', kind: '경험', label: '품질 실습', text: '제품 불량 데이터를 분석하고 검사 기준을 개선함' }];
+const matchPrompt = context.jdBuildProfileMatchPrompt_(matchRequirements, matchEntries);
+assert.match(matchPrompt, /direct는 프로필 원문이 같은 구체 업무/);
+assert.match(matchPrompt, /profileEntries\.text에서 글자와 순서를 바꾸지 않은/);
+const matched = context.jdValidateProfileMatches_({ matches: [{
+  requirementId: 'R1', status: 'direct', experienceId: 'E1', profileEvidenceQuote: '불량 데이터를 분석',
+  reasoning: '불량 데이터 분석 경험이 직접 확인됨', writingDirection: '분석 기준과 개선 결과를 설명',
+}] }, matchRequirements, matchEntries);
+assert.equal(matched.counts.direct, 1);
+assert.equal(matched.matches[0].profileEvidenceQuote, '불량 데이터를 분석');
+const rejectedMatch = context.jdValidateProfileMatches_({ matches: [{
+  requirementId: 'R1', status: 'direct', experienceId: 'E1', profileEvidenceQuote: '존재하지 않는 성과',
+}] }, matchRequirements, matchEntries);
+assert.equal(rejectedMatch.matches[0].status, 'none');
 console.log('JD API two-stage pipeline tests passed');

@@ -437,22 +437,39 @@ function renderJdAnalysis(result) {
   results.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+function jdProfileRequirements(result) {
+  if (!result?.facts) return [];
+  const evidence = new Map((result.units || []).map((row) => [row.id, row.text]));
+  const groups = [
+    ["주요 업무", result.facts.duties], ["필수 조건", result.facts.required],
+    ["우대 조건", result.facts.preferred], ["명시 Tool", result.facts.tools],
+  ];
+  const seen = new Set();
+  return groups.flatMap(([kind, rows]) => (rows || []).map((row) => {
+    const key = String(row.value || "").replace(/\s+/g, "").toLowerCase();
+    if (!key || seen.has(key)) return null;
+    const evidenceQuote = (row.evidenceIds || []).map((id) => evidence.get(id)).find(Boolean) || "";
+    if (!evidenceQuote) return null;
+    seen.add(key);
+    return { kind, text: row.value, evidenceQuote };
+  }).filter(Boolean)).slice(0, 20);
+}
+
 function renderProfileConnections(connectionResult) {
   const container = document.querySelector("#jd-profile-connections");
-  if (!connectionResult.profileProvided) {
-    container.innerHTML = '<p class="jd-empty-result">저장된 경험이 없습니다. 내 프로필에서 경험을 먼저 입력해 주세요.</p>';
-    container.hidden = false;
-    return;
-  }
-  container.innerHTML = connectionResult.connections.map((row) => {
-    const labels = { direct: "직접 근거", indirect: "간접 연결", none: "근거 없음" };
-    const reason = row.mode === "direct" ? "JD와 경험에서 두 개 이상의 같은 역량 표현이 확인됐습니다."
-      : row.mode === "indirect" ? "공통 역량 표현은 하나지만 같은 업무라고 단정할 수 없어 추가 설명이 필요합니다."
-        : "프로필에 적힌 내용만으로는 이 요구사항과 연결할 근거를 찾지 못했습니다.";
-    return `<article class="jd-match-card ${row.mode === "none" ? "none" : ""}">
-      <div class="jd-match-status"><strong>${escapeHtml(row.requirement.id)} · ${labels[row.mode]}</strong><span>${jdCompetencyNames(row.shared).map(escapeHtml).join(" · ")}</span></div>
-      <div class="jd-quote-pair"><div><small>JD 원문</small><blockquote>${escapeHtml(row.requirement.quote || row.requirement.text)}</blockquote></div><div><small>내 경험 원문</small><blockquote>${row.experience ? escapeHtml(row.experience.text) : "연결 근거 없음"}</blockquote></div></div>
-      <p><span class="jd-interpretation-label">자동 연결 해석</span> ${escapeHtml(reason)}</p>
+  const summary = document.querySelector("#jd-match-summary");
+  const labels = { direct: "직접 근거", indirect: "간접 연결", none: "근거 없음" };
+  const reuse = {};
+  connectionResult.matches.forEach((row) => { if (row.experience?.id) reuse[row.experience.id] = (reuse[row.experience.id] || 0) + 1; });
+  summary.innerHTML = `<strong>연결 결과</strong><span>직접 ${connectionResult.counts.direct}개</span><span>간접 ${connectionResult.counts.indirect}개</span><span>근거 없음 ${connectionResult.counts.none}개</span>`;
+  summary.hidden = false;
+  container.innerHTML = connectionResult.matches.map((row) => {
+    const repeated = row.experience?.id && reuse[row.experience.id] > 1 ? `<small class="jd-reuse-note">같은 경험이 ${reuse[row.experience.id]}개 요구사항에 연결됨</small>` : "";
+    return `<article class="jd-match-card ${escapeHtml(row.status)}">
+      <div class="jd-match-status"><strong>${escapeHtml(row.requirement.id)} · ${labels[row.status]}</strong><span>${escapeHtml(row.requirement.kind)}</span></div>
+      <div class="jd-quote-pair"><div><small>JD Fact</small><blockquote>${escapeHtml(row.requirement.text)}</blockquote></div><div><small>${row.experience ? escapeHtml(`${row.experience.kind} · ${row.experience.label}`) : "내 프로필"}</small><blockquote>${row.profileEvidenceQuote ? escapeHtml(row.profileEvidenceQuote) : "연결 근거 없음"}</blockquote>${repeated}</div></div>
+      <p><span class="jd-interpretation-label">자동 연결 해석</span> ${escapeHtml(row.reasoning)}</p>
+      ${row.writingDirection ? `<p><span class="jd-fact-label">작성 방향</span> ${escapeHtml(row.writingDirection)}</p>` : ""}
     </article>`;
   }).join("");
   container.hidden = false;
@@ -534,6 +551,11 @@ function renderJdAnalysisV4(result) {
     ? result.studySuggestions.map((row) => `<article><strong>${escapeHtml(row.name)}</strong><p>${escapeHtml(row.reason)}</p>${jdEvidenceButtons(row.evidenceIds)}<small>공고의 요구 Tool이 아니라 공부 후보입니다.</small></article>`).join("")
     : '<p class="jd-empty-result">근거가 충분한 Tool 공부 후보를 만들지 않았습니다.</p>';
   document.querySelector("#jd-evidence-list").innerHTML = result.units.map((row) => `<article class="jd-evidence-card" id="evidence-${escapeHtml(row.id)}"><div><strong>${escapeHtml(row.id)}</strong><span class="jd-level">${escapeHtml(row.section)}</span>${row.verified ? '<span class="quote-ok">원문 확인</span>' : '<span class="quote-fail">검증 실패</span>'}</div><blockquote>${escapeHtml(row.text)}</blockquote></article>`).join("");
+  state.jdAnalysis = result;
+  document.querySelector("#jd-profile-connections").hidden = true;
+  document.querySelector("#jd-profile-connections").innerHTML = "";
+  document.querySelector("#jd-match-summary").hidden = true;
+  refreshJdProfileLink();
   document.querySelector(".jd-evidence-details").open = false;
   results.hidden = false;
   results.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -654,16 +676,16 @@ function renumberProfileEntries(containerSelector, label) {
 function refreshJdProfileLink() {
   const profile = window.CareerProfile.load(window.localStorage);
   const summary = window.CareerProfile.summary(profile);
+  const evidenceEntries = window.CareerProfile.toEvidenceEntries(profile);
   const container = document.querySelector("#jd-profile-link");
-  // JD 1단계는 프로필과 완전히 분리되어 이 영역이 없는 것이 정상이다.
   if (!container) return;
   const title = container.querySelector("strong");
   const copy = container.querySelector("span");
   const button = container.querySelector("button");
-  if (summary.ready) {
+  if (evidenceEntries.length) {
     container.classList.add("ready");
-    title.textContent = `내 프로필 경험 ${summary.experienceCount}개 사용`;
-    copy.textContent = "이 기기에 저장된 경험과 JD 요구사항을 비교합니다.";
+    title.textContent = `연결 가능한 프로필 근거 ${evidenceEntries.length}개`;
+    copy.textContent = `경험 ${summary.experienceCount}개와 학력·기술·자격·어학 원문을 요구사항별로 비교합니다.`;
     button.textContent = "프로필 수정";
   } else {
     container.classList.remove("ready");
@@ -855,6 +877,7 @@ function bindJdAnalyzer() {
     document.querySelector("#jd-analyze-button").hidden = true;
     document.querySelector("#jd-results").hidden = true;
     document.querySelector("#jd-subrole-picker").hidden = true;
+    state.jdAnalysis = null;
   });
   document.querySelector("#jd-reset").addEventListener("click", () => {
     document.querySelector("#jd-form").reset();
@@ -864,6 +887,32 @@ function bindJdAnalyzer() {
     document.querySelector("#jd-analyze-button").hidden = true;
     document.querySelector("#jd-cleaned-text").value = "";
     document.querySelector("#jd-subrole-picker").hidden = true;
+    state.jdAnalysis = null;
+  });
+  document.querySelector("#jd-match-profile-button").addEventListener("click", async () => {
+    const button = document.querySelector("#jd-match-profile-button");
+    try {
+      if (!state.jdAnalysis) throw new Error("먼저 JD 단독 분석을 완료해 주세요.");
+      const endpoint = window.JDAiClient.loadEndpoint(window.localStorage);
+      if (!endpoint) throw new Error("AI 분석 연결 주소를 먼저 설정해 주세요.");
+      const profile = window.CareerProfile.load(window.localStorage);
+      const profileEntries = window.CareerProfile.toEvidenceEntries(profile);
+      if (!profileEntries.length) throw new Error("내 프로필에 경험·학력·기술 중 하나 이상을 저장해 주세요.");
+      const requirements = jdProfileRequirements(state.jdAnalysis);
+      if (!requirements.length) throw new Error("연결할 JD Fact를 찾지 못했습니다. JD를 다시 분석해 주세요.");
+      button.disabled = true;
+      button.textContent = "프로필 원문 근거를 확인하며 연결 중…";
+      const result = await window.JDAiClient.matchProfile({
+        jdText: document.querySelector("#jd-cleaned-text").value,
+        requirements, profileEntries,
+      }, { endpoint });
+      renderProfileConnections(result);
+    } catch (error) {
+      window.alert(error.message || "JD와 프로필을 연결하지 못했습니다.");
+    } finally {
+      button.disabled = false;
+      button.textContent = "JD와 내 경험 연결 분석";
+    }
   });
   document.querySelector("#jd-results").addEventListener("click", (event) => {
     const button = event.target.closest("[data-evidence-id]");

@@ -52,7 +52,30 @@
     return assertResult(payload.result);
   }
 
-  root.JDAiClient = { ENDPOINT_KEY, normalizeEndpoint, loadEndpoint, saveEndpoint, assertResult, analyze };
+  function assertMatchResult(result) {
+    if (!result || !Array.isArray(result.matches) || !result.counts) throw new Error("경험 연결 결과 형식이 올바르지 않습니다.");
+    result.matches.forEach((row) => {
+      if (!row.requirement || !["direct", "indirect", "none"].includes(row.status)) throw new Error("경험 연결 상태가 올바르지 않습니다.");
+      if (row.status !== "none" && (!row.experience || !row.profileEvidenceQuote)) throw new Error("경험 연결 근거가 누락되었습니다.");
+    });
+    return result;
+  }
+
+  async function matchProfile(input, options = {}) {
+    const endpoint = normalizeEndpoint(options.endpoint);
+    if (!endpoint) throw new Error("AI 분석 연결 주소가 설정되지 않았습니다.");
+    const fetcher = options.fetcher || root.fetch.bind(root);
+    const response = await fetcher(endpoint, {
+      method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ ...input, action: "matchProfile" }), redirect: "follow",
+    });
+    if (!response.ok) throw new Error(`AI 분석 서버 연결 실패 (${response.status})`);
+    const payload = await response.json();
+    if (!payload.ok) throw new Error(payload.error || "AI가 경험 연결 결과를 만들지 못했습니다.");
+    return assertMatchResult(payload.result);
+  }
+
+  root.JDAiClient = { ENDPOINT_KEY, normalizeEndpoint, loadEndpoint, saveEndpoint, assertResult, assertMatchResult, analyze, matchProfile };
   if (typeof module !== "undefined" && module.exports) module.exports = root.JDAiClient;
 })(typeof window !== "undefined" ? window : globalThis);
 
