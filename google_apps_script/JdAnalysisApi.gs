@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v10';
+const JD_API_VERSION = 'jd-ai-v11';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -64,13 +64,14 @@ function jdBuildProfileMatchPrompt_(requirements, profileEntries) {
 
 규칙:
 1. requirements의 모든 항목을 정확히 한 번씩 출력한다.
-2. direct는 프로필 원문이 같은 구체 업무·도구·성과를 직접 입증할 때만 사용한다.
-3. indirect는 문제분석·검증·협업 같은 방법은 전이 가능하지만 대상이나 산업이 달라 추가 설명이 필요할 때만 사용한다.
-4. 근거가 없으면 none으로 표시한다. 그럴듯한 경험·도구·성과를 만들지 않는다.
-5. profileEvidenceQuote는 선택한 profileEntries.text에서 글자와 순서를 바꾸지 않은 짧은 연속 구절이다. none이면 빈 문자열이다.
-6. reasoning은 JD와 프로필에 실제 적힌 내용만 비교한다.
-7. writingDirection은 완성 문장을 대신 쓰지 말고, 직접·간접 연결에서 무엇을 더 설명해야 하는지만 제안한다. none이면 빈 문자열이다.
-8. 합격 가능성이나 지원자 우열을 판단하지 않는다.
+2. direct는 프로필 원문이 같은 구체 업무·도구·성과와 핵심 수행 행동까지 직접 입증할 때만 사용한다.
+3. indirect는 문제분석·검증·협업 같은 방법은 전이 가능하지만 대상·산업 또는 핵심 수행 행동이 달라 추가 설명이 필요할 때 사용한다.
+4. 교육·실습·장비 사용 경험만으로 공정 구현·최적화, 장비 Set-up·개조·개선 경험을 direct로 판정하지 않는다. 예: "측정 장비 담당"은 "장비 Set-up 및 개조"의 indirect이다.
+5. 근거가 없으면 none으로 표시한다. 그럴듯한 경험·도구·성과를 만들지 않는다.
+6. profileEvidenceQuote는 선택한 profileEntries.text에서 글자와 순서를 바꾸지 않은 짧은 연속 구절이다. none이면 빈 문자열이다.
+7. reasoning은 JD와 프로필에 실제 적힌 내용만 비교한다.
+8. writingDirection은 완성 문장을 대신 쓰지 말고, 직접·간접 연결에서 무엇을 더 설명해야 하는지만 제안한다. none이면 빈 문자열이다.
+9. 합격 가능성이나 지원자 우열을 판단하지 않는다.
 
 JSON 외의 글은 출력하지 않는다.
 {
@@ -101,6 +102,7 @@ function jdValidateProfileMatches_(raw, requirements, profileEntries) {
     const experience = entryMap[String(row.experienceId || '')] || null;
     const quote = experience ? jdVerifiedQuotes_([row.profileEvidenceQuote], experience.text)[0] || '' : '';
     if (!experience || !quote) status = 'none';
+    if (status === 'direct' && !jdHasDirectActionEvidence_(requirement, experience)) status = 'indirect';
     return {
       requirement, status,
       experience: status === 'none' ? null : { id: experience.id, kind: experience.kind, label: experience.label },
@@ -112,6 +114,25 @@ function jdValidateProfileMatches_(raw, requirements, profileEntries) {
   const counts = { direct: 0, indirect: 0, none: 0 };
   matches.forEach((row) => { counts[row.status] += 1; });
   return { matches, counts, requirementCount: requirements.length, profileEntryCount: profileEntries.length };
+}
+
+function jdHasDirectActionEvidence_(requirement, experience) {
+  if (String(requirement && requirement.kind || '') !== '주요 업무') return true;
+  const requirementText = String(requirement && requirement.text || '').toLowerCase();
+  const profileText = String(experience && experience.text || '').toLowerCase();
+  const specificActionPatterns = [
+    /구현/, /최적화/, /set[- ]?up|setup|셋업/, /개조/, /설계/, /구축/,
+  ];
+  const requiredSpecificActions = specificActionPatterns.filter((pattern) => pattern.test(requirementText));
+  if (requiredSpecificActions.length) {
+    return requiredSpecificActions.some((pattern) => pattern.test(profileText));
+  }
+  const actionPatterns = [
+    /운영/, /개발/, /검증/, /평가/, /분석/, /개선/, /관리/, /교육/, /협업/, /제[·\s-]?개정/,
+  ];
+  const requiredActions = actionPatterns.filter((pattern) => pattern.test(requirementText));
+  if (!requiredActions.length) return true;
+  return requiredActions.some((pattern) => pattern.test(profileText));
 }
 
 function jdConsumeQuota_() {

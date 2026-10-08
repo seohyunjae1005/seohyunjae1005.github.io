@@ -137,6 +137,15 @@ const matched = context.jdValidateProfileMatches_({ matches: [{
 }] }, matchRequirements, matchEntries);
 assert.equal(matched.counts.direct, 1);
 assert.equal(matched.matches[0].profileEvidenceQuote, '불량 데이터를 분석');
+const overstatedDirect = context.jdValidateProfileMatches_({ matches: [{
+  requirementId: 'R1', status: 'direct', experienceId: 'E1', profileEvidenceQuote: '제품 불량 데이터를 분석',
+  reasoning: '장비 경험이 있음', writingDirection: '구체화',
+}] }, [{ id: 'R1', kind: '주요 업무', text: '반도체 장비를 Set-up하고 개조·개선', evidenceQuote: '장비를 Set-up' }], matchEntries);
+assert.equal(overstatedDirect.matches[0].status, 'indirect');
+const optimizedOverstatement = context.jdValidateProfileMatches_({ matches: [{
+  requirementId: 'R1', status: 'direct', experienceId: 'E1', profileEvidenceQuote: '제품 불량 데이터를 분석',
+}] }, [{ id: 'R1', kind: '주요 업무', text: '생산 공정과 테스트를 구현하고 최적화', evidenceQuote: '공정을 구현' }], matchEntries);
+assert.equal(optimizedOverstatement.matches[0].status, 'indirect');
 const rejectedMatch = context.jdValidateProfileMatches_({ matches: [{
   requirementId: 'R1', status: 'direct', experienceId: 'E1', profileEvidenceQuote: '존재하지 않는 성과',
 }] }, matchRequirements, matchEntries);
