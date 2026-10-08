@@ -48,6 +48,21 @@ const transformedFacts = {
 context.jdEnsureCompetencyCoverage_(career, transformedFacts);
 assert.equal(career.competencyLinks.length, 4);
 assert.ok(career.competencyLinks.some((row) => row.requirement === 'MiniTab' && row.connectionType === '사용 맥락 미명시'));
+context.jdAnnotateCompetencyKinds_(career, transformedFacts);
+assert.equal(career.competencyLinks.find((row) => row.requirement === '관련 전공').sourceKind, '필수 조건');
+assert.equal(career.competencyLinks.find((row) => row.requirement === '영어 회화 역량').sourceKind, '우대 조건');
+assert.equal(career.competencyLinks.find((row) => row.requirement === 'MiniTab').sourceKind, '명시 Tool');
+
+const preparation = {
+  preparation: {
+    must: [{ title: '필수', evidenceIds: ['JD-04'] }, { title: '잘못 들어온 우대', evidenceIds: ['JD-06'] }],
+    strengths: [{ title: '우대', evidenceIds: ['JD-06'] }, { title: '잘못 들어온 필수', evidenceIds: ['JD-04'] }],
+    study: [],
+  },
+};
+context.jdEnforcePreparationSources_(preparation, transformedFacts);
+assert.deepEqual(Array.from(preparation.preparation.must, (row) => row.title), ['필수']);
+assert.deepEqual(Array.from(preparation.preparation.strengths, (row) => row.title), ['우대']);
 
 context.jdEnsureConcreteEmphasis_(career);
 assert.equal(career.emphasis.length, 3);
@@ -57,4 +72,6 @@ assert.deepEqual(Array.from(career.emphasis, (row) => row.label), ['개발품질
 const careerPrompt = context.jdBuildCareerPrompt_({}, jd, facts);
 assert.match(careerPrompt, /검증 Fact/);
 assert.match(careerPrompt, /facts\.required, facts\.preferred, facts\.tools의 모든 항목/);
+assert.match(careerPrompt, /수행 행위만으로 문제 상황을 역추정하지 않는다/);
+assert.match(careerPrompt, /facts\.required가 비어 있으면 반드시 빈 배열/);
 console.log('JD API two-stage pipeline tests passed');

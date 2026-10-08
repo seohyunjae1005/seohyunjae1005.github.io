@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v5';
+const JD_API_VERSION = 'jd-ai-v6';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -63,10 +63,11 @@ function jdBuildFactPrompt_(input, source) {
 1. 해석·추천·일반 직무상식을 쓰지 말고 원문에 직접 적힌 내용만 추출한다.
 2. 모든 항목의 evidenceQuotes는 원문에서 글자와 순서를 바꾸지 않은 짧은 연속 구절이다.
 3. duties는 수행업무의 각 의미 단위를 빠짐없이 별도 항목으로 만든다.
-4. required, preferred, tools는 원문의 해당 섹션 항목을 하나도 빠뜨리지 않는다. 자격증·교육·시스템·Software도 포함한다.
-5. metrics는 향상·감소·절감·안정화·단축·확보처럼 방향이 직접 표현된 성과 대상만 넣는다. 단순히 '관리' 또는 '활동'이라고만 적힌 대상은 지표로 만들지 않는다.
-6. JD에 없는 용어나 도구를 생성하지 않는다. 없으면 빈 배열로 둔다.
-7. 출력 직전에 duties, required, preferred, tools의 개수를 원문 섹션과 다시 대조한다.
+4. required, preferred는 원문의 해당 섹션 항목을 하나도 빠뜨리지 않는다. 자격증·교육도 포함한다.
+5. tools에는 '주요 활용 Tool'처럼 명시된 도구·Software·Programming Language 또는 지원자에게 사용 경험을 요구한 도구만 넣는다. 수행업무에 등장한 공정명, 설비 부품, 물류 장치, 시스템 구성요소는 tools로 중복 추출하지 않는다.
+6. metrics는 향상·감소·절감·안정화·단축·확보처럼 방향이 직접 표현된 성과 대상만 넣는다. 단순히 '관리' 또는 '활동'이라고만 적힌 대상은 지표로 만들지 않는다.
+7. JD에 없는 용어나 도구를 생성하지 않는다. 없으면 빈 배열로 둔다.
+8. 출력 직전에 duties, required, preferred, tools의 개수를 원문 섹션과 다시 대조한다.
 
 JSON 외의 글은 출력하지 않는다.
 {
@@ -100,13 +101,14 @@ function jdBuildCareerPrompt_(input, source, facts) {
 1. 아래 검증 Fact와 JD 원문 밖의 회사명·기술·지표·도구를 추가하지 않는다.
 2. 모든 항목에 원문 그대로의 짧은 evidenceQuotes를 넣는다.
 3. 업무축은 행위와 대상이 같은 업무를 3~6개로 묶고 모든 duties를 정확히 한 번 이상 포함한다.
-4. problems는 duties에 문제, 이슈, 고장, 불량, 위험, 지연, 개선, 안정화, 해결이 직접 언급되면 반드시 만든다. 결과가 없으면 "직접 명시 없음"이다.
+4. problems는 원문이 문제·이슈·고장·불량·위험·지연·저해·원인·한계·불안정 상태를 직접 언급할 때만 만든다. '개선·최적화·관리' 같은 수행 행위만으로 문제 상황을 역추정하지 않는다. 명시된 문제가 없으면 빈 배열로 둔다. 결과가 없으면 "직접 명시 없음"이다.
 5. competencyLinks는 facts.required, facts.preferred, facts.tools의 모든 항목을 각각 한 번 이상 포함한다. 직접 연결할 근거가 없으면 누락하지 말고 "사용 맥락 미명시"로 표시한다.
 6. performanceGroups는 facts.metrics만 사용한다. 절차서·설비·교육·계약·관리 행위는 지표가 아니다.
 7. deliveryGoals는 원문에 실제 적힌 문서·설비·구축·교육·검토 행위만 표시하고 새 산출물 이름을 만들지 않는다.
 8. emphasis의 label은 '관련 교과목', '우대사항', '자격요건' 같은 섹션명이 아니라 JD의 구체적인 행위-대상 주제여야 한다. 업무축이 3개 이상이면 최소 3개를 만든다.
-9. preparation.study는 3~5개로 하고 각 업무축의 구체적인 연습 주제를 검토한다. JD 필수조건이 아니라 AI 공부 후보임을 밝힌다.
-10. 사용자 경험·이력서·합격 가능성은 분석하지 않는다.
+9. preparation.must는 facts.required만 사용한다. facts.required가 비어 있으면 반드시 빈 배열이다. preparation.strengths는 facts.preferred 또는 facts.competencies만 사용한다. '있다면 더 좋습니다', '우대사항' 아래 항목을 must에 넣지 않는다.
+10. preparation.study는 3~5개로 하고 각 업무축의 구체적인 연습 주제를 검토한다. JD 필수조건이 아니라 AI 공부 후보임을 밝힌다.
+11. 사용자 경험·이력서·합격 가능성은 분석하지 않는다.
 
 JSON 외의 글은 출력하지 않는다.
 {
@@ -323,6 +325,8 @@ function jdValidateAndTransform_(raw, source) {
     },
   };
   jdEnsureCompetencyCoverage_(careerAnalysis, facts);
+  jdAnnotateCompetencyKinds_(careerAnalysis, facts);
+  jdEnforcePreparationSources_(careerAnalysis, facts);
   jdEnsureConcreteEmphasis_(careerAnalysis);
   const studySuggestions = careerAnalysis.preparation.study.map((row) => ({ name: row.title, reason: row.detail, evidenceIds: row.evidenceIds }));
   const warnings = (Array.isArray(raw.warnings) ? raw.warnings.map(String).filter(Boolean) : []);
@@ -351,6 +355,41 @@ function jdEnsureCompetencyCoverage_(careerAnalysis, facts) {
       evidenceIds: fact.evidenceIds,
     });
   });
+}
+
+function jdFactKind_(value, facts) {
+  const needle = jdComparable_(value);
+  const groups = [
+    ['필수 조건', facts.required || []],
+    ['우대 조건', facts.preferred || []],
+    ['명시 Tool', facts.tools || []],
+  ];
+  for (const [label, rows] of groups) {
+    if (rows.some((row) => {
+      const current = jdComparable_(row.value);
+      return current && needle && (current.includes(needle) || needle.includes(current));
+    })) return label;
+  }
+  return 'JD 언급 항목';
+}
+
+function jdAnnotateCompetencyKinds_(careerAnalysis, facts) {
+  careerAnalysis.competencyLinks.forEach((row) => {
+    row.sourceKind = jdFactKind_(row.requirement, facts);
+  });
+}
+
+function jdEnforcePreparationSources_(careerAnalysis, facts) {
+  const idSet = (rows) => new Set((rows || []).flatMap((row) => row.evidenceIds || []));
+  const overlaps = (row, ids) => (row.evidenceIds || []).some((id) => ids.has(id));
+  const requiredIds = idSet(facts.required);
+  const strengthIds = idSet([].concat(facts.preferred || [], facts.competencies || []));
+  careerAnalysis.preparation.must = requiredIds.size
+    ? careerAnalysis.preparation.must.filter((row) => overlaps(row, requiredIds))
+    : [];
+  careerAnalysis.preparation.strengths = strengthIds.size
+    ? careerAnalysis.preparation.strengths.filter((row) => overlaps(row, strengthIds))
+    : [];
 }
 
 function jdEnsureConcreteEmphasis_(careerAnalysis) {

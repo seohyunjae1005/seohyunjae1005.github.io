@@ -497,7 +497,7 @@ function renderJdAnalysisV4(result) {
     ? career.problems.map((row) => `<article><div><small>문제 상황</small><strong>${escapeHtml(row.problem)}</strong></div><div><small>살펴볼 대상</small><span>${escapeHtml(row.target)}</span></div><div><small>업무 방향</small><span>${escapeHtml(row.direction)}</span></div><div><small>기대 결과</small><span>${escapeHtml(row.result)}</span></div></article>`).join("")
     : '<p class="jd-empty-result">JD가 직접 언급한 문제·성과 표현만으로는 문제 해결 구조를 만들기 어렵습니다.</p>';
   document.querySelector("#jd-competency-links").innerHTML = career.competencyLinks.length
-    ? career.competencyLinks.map((row) => `<article><div><small>JD 요구</small><strong>${escapeHtml(row.requirement)}</strong></div><span class="jd-connection-arrow">→</span><div><small>${escapeHtml(row.connectionType || "해석 연결")}</small><strong>${escapeHtml(row.axisTitle || "사용 맥락 미명시")}</strong><p>${escapeHtml(row.reason)}</p></div></article>`).join("")
+    ? career.competencyLinks.map((row) => `<article><div><small>${escapeHtml(row.sourceKind || "JD 언급 항목")}</small><strong>${escapeHtml(row.requirement)}</strong></div><span class="jd-connection-arrow">→</span><div><small>${escapeHtml(row.connectionType || "해석 연결")}</small><strong>${escapeHtml(row.axisTitle || "사용 맥락 미명시")}</strong><p>${escapeHtml(row.reason)}</p></div></article>`).join("")
     : '<p class="jd-empty-result">업무와 직접 연결할 수 있는 요구 역량 문장을 찾지 못했습니다.</p>';
   document.querySelector("#jd-performance-groups").innerHTML = career.performanceGroups.length
     ? career.performanceGroups.map((row) => `<article><small>성과 관점</small><h4>${escapeHtml(row.category)}</h4><div class="jd-chip-row">${row.items.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div><p>${escapeHtml(row.connection)}</p></article>`).join("")
