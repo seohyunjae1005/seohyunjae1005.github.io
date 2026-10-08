@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 const sourceCode = fs.readFileSync('google_apps_script/JdAnalysisApi.gs', 'utf8');
-const context = { console };
+const context = { console, Utilities: { formatDate: () => '2026' } };
 vm.createContext(context);
 vm.runInContext(sourceCode, context);
 
@@ -27,6 +27,42 @@ assert.equal(facts.jobTitle.evidenceQuotes.length, 0);
 assert.equal(facts.required.length, 2);
 assert.equal(facts.preferred.length, 1);
 assert.equal(facts.tools.length, 1);
+
+const dnSource = `완제품 품질관리 및 품질개선 업무
+설치초기하자/ Field Claim/ 제품검사 DPU 분석 및 품질개선 활동
+공작기계 신제품/UNIT 개발 검증/평가 지원 (CFT 참여 및 기능/로직 검증 수행)
+고객 입회검사(FAT·SAT) 대응
+요건
+전공: 기계/전기/전자/제어 등 메카트로닉스 관련 전공, 산업공학
+학위: 학사 이상
+우대 사항
+공작기계 품질관리/검증평가 유경험자 우`;
+const dnFacts = context.jdEnrichVerifiedFacts_({
+  jobTitle: { value: '품질', evidenceQuotes: ['품질'] }, productContext: [], competencies: [], tools: [], preferred: [], keywords: [
+    { original: 'DPU', standardized: 'DPU', evidenceQuotes: ['DPU'] },
+    { original: 'FAT', standardized: 'FAT', evidenceQuotes: ['FAT'] },
+    { original: 'SAT', standardized: 'SAT', evidenceQuotes: ['SAT'] },
+    { original: 'CFT', standardized: 'CFT', evidenceQuotes: ['CFT'] },
+  ],
+  required: [
+    { value: '기계/전기/전자/제어 등 메카트로닉스 관련 전공, 산업공학', evidenceQuotes: ['전공: 기계/전기/전자/제어 등 메카트로닉스 관련 전공, 산업공학'] },
+    { value: '학사 이상', evidenceQuotes: ['학위: 학사 이상'] },
+  ],
+  knowledge: [], collaborators: [], metrics: [],
+  duties: [
+    { value: '설치초기하자/ Field Claim/ 제품검사 DPU 분석 및 품질개선 활동', evidenceQuotes: ['설치초기하자/ Field Claim/ 제품검사 DPU 분석 및 품질개선 활동'] },
+    { value: 'CFT 참여 및 기능/로직 검증 수행', evidenceQuotes: ['CFT 참여 및 기능/로직 검증 수행'] },
+    { value: '고객 입회검사(FAT·SAT) 대응', evidenceQuotes: ['고객 입회검사(FAT·SAT) 대응'] },
+  ],
+}, dnSource);
+assert.ok(dnFacts.knowledge.some((row) => /메카트로닉스/.test(row.value)));
+assert.ok(dnFacts.collaborators.some((row) => row.value === 'CFT'));
+assert.ok(dnFacts.collaborators.some((row) => row.value === '고객'));
+assert.ok(dnFacts.metrics.some((row) => row.value === '관리·분석 지표: DPU'));
+assert.ok(dnFacts.metrics.some((row) => row.value === '성과 목표: 품질 개선'));
+assert.equal(dnFacts.keywords.find((row) => row.original === 'DPU').standardized, 'Defects Per Unit');
+assert.equal(dnFacts.keywords.find((row) => row.original === 'CFT').standardized, 'Cross-Functional Team');
+assert.ok(context.jdSourceWarnings_(dnSource).some((warning) => /문장 중간/.test(warning)));
 
 const career = {
   workAxes: [
@@ -69,9 +105,19 @@ assert.equal(career.emphasis.length, 3);
 assert.equal(career.emphasis.some((row) => row.label === '관련 교과목'), false);
 assert.deepEqual(Array.from(career.emphasis, (row) => row.label), ['개발품질 검증', '제품 품질개선', '협력업체 품질보증']);
 
+const problemCareer = { problems: [
+  { problem: '설치초기하자', target: '설치초기하자', direction: 'DPU 분석 및 품질개선', result: '직접 명시 없음', evidenceIds: ['JD-10'] },
+  { problem: 'Field Claim', target: 'Field Claim', direction: 'DPU 분석 및 품질개선', result: '직접 명시 없음', evidenceIds: ['JD-10'] },
+] };
+context.jdMergeProblemFlows_(problemCareer, { metrics: [{ value: '성과 목표: 품질 개선', evidenceIds: ['JD-10'] }] });
+assert.equal(problemCareer.problems.length, 1);
+assert.match(problemCareer.problems[0].problem, /설치초기하자.*Field Claim/);
+assert.equal(problemCareer.problems[0].result, '품질 개선');
+
 const careerPrompt = context.jdBuildCareerPrompt_({}, jd, facts);
 assert.match(careerPrompt, /검증 Fact/);
 assert.match(careerPrompt, /facts\.required, facts\.preferred, facts\.tools의 모든 항목/);
 assert.match(careerPrompt, /수행 행위만으로 문제 상황을 역추정하지 않는다/);
 assert.match(careerPrompt, /facts\.required가 비어 있으면 반드시 빈 배열/);
+assert.match(careerPrompt, /같은 근거 문장에서 나온 초기하자/);
 console.log('JD API two-stage pipeline tests passed');
