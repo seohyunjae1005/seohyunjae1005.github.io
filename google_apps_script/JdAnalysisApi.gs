@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v12';
+const JD_API_VERSION = 'jd-ai-v13';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -322,6 +322,9 @@ function jdEnrichVerifiedFacts_(facts, source) {
     const standardized = keywordStandards[original.toUpperCase()] || String(row.standardized || '').trim() || '표준화 보류';
     return Object.assign({}, row, { standardized: standardized === original ? '표준화 보류' : standardized });
   });
+  // 일반 기술 개념은 JD가 요구한 구체 Tool/Software/Language처럼 표시하지 않는다.
+  const genericTechnologyOnly = /^(?:빅\s*데이터|big\s*data|ai|인공지능|비전|computer\s*vision|데이터\s*분석|자동화|스마트\s*팩토리|프로그래밍)$/i;
+  output.tools = (output.tools || []).filter((row) => !genericTechnologyOnly.test(String(row.value || '').trim()));
   return output;
 }
 

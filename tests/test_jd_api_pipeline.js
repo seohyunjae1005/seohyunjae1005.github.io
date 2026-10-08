@@ -66,6 +66,14 @@ assert.equal(dnFacts.keywords.find((row) => row.original === 'CFT').standardized
 const keywordlessFacts = context.jdEnrichVerifiedFacts_({ required: [], duties: [], knowledge: [], collaborators: [], metrics: [], keywords: [] }, dnSource);
 assert.equal(keywordlessFacts.keywords.find((row) => row.original === 'FAT').standardized, 'Factory Acceptance Test');
 assert.equal(keywordlessFacts.keywords.find((row) => row.original === 'SAT').standardized, 'Site Acceptance Test');
+const toolFacts = context.jdEnrichVerifiedFacts_({
+  required: [], duties: [], knowledge: [], collaborators: [], metrics: [], keywords: [],
+  tools: [
+    { value: '빅데이터', evidenceQuotes: ['빅데이터'] },
+    { value: 'E-FOREST', evidenceQuotes: ['E-FOREST'] },
+  ],
+}, '빅데이터 E-FOREST');
+assert.deepEqual(Array.from(toolFacts.tools, (row) => row.value), ['E-FOREST']);
 assert.ok(context.jdSourceWarnings_(dnSource).some((warning) => /문장 중간/.test(warning)));
 
 const career = {
