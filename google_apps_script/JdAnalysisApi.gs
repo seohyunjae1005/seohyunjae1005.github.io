@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v8';
+const JD_API_VERSION = 'jd-ai-v9';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -112,7 +112,7 @@ function jdBuildCareerPrompt_(input, source, facts) {
 9. preparation.must는 facts.required만 사용한다. facts.required가 비어 있으면 반드시 빈 배열이다. preparation.strengths는 facts.preferred 또는 facts.competencies만 사용한다. '있다면 더 좋습니다', '우대사항' 아래 항목을 must에 넣지 않는다.
 10. preparation.study는 3~5개로 하고 각 업무축의 구체적인 연습 주제를 검토한다. JD 필수조건이 아니라 AI 공부 후보임을 밝힌다.
 11. 사용자 경험·이력서·합격 가능성은 분석하지 않는다.
-12. definition은 원문의 직무요약 한 문장을 그대로 복사하지 말고, 근거 Fact가 충분하면 대상·핵심 행위·기대 결과를 한 문장으로 종합한다. JD에 없는 말은 추가하지 않는다.
+12. definition은 원문의 직무요약 한 문장을 그대로 복사하지 말고, 근거 Fact가 충분하면 대상·핵심 행위·조직이 얻는 업무 결과를 한 문장으로 종합한다. Career Vision의 '전문가로 성장', '경험 축적'처럼 지원자의 성장 방향은 직무 Mission이나 성과로 사용하지 않는다. JD에 없는 말은 추가하지 않는다.
 
 JSON 외의 글은 출력하지 않는다.
 {

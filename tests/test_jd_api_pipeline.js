@@ -124,4 +124,5 @@ assert.match(careerPrompt, /facts\.required, facts\.preferred, facts\.tools의 �
 assert.match(careerPrompt, /수행 행위만으로 문제 상황을 역추정하지 않는다/);
 assert.match(careerPrompt, /facts\.required가 비어 있으면 반드시 빈 배열/);
 assert.match(careerPrompt, /같은 근거 문장에서 나온 초기하자/);
+assert.match(careerPrompt, /전문가로 성장.*직무 Mission이나 성과로 사용하지 않는다/);
 console.log('JD API two-stage pipeline tests passed');
