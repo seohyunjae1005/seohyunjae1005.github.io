@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T01:23:37.318232+00:00",
+  "generated_at": "2026-10-09T01:32:19.588558+00:00",
   "article_count": 228,
   "company_counts": {
     "Samsung Electronics": 9,
@@ -29,13 +29,47 @@
   },
   "articles": [
     {
+      "source_id": "applied_materials",
+      "company": "Applied Materials",
+      "title": "Applied Materials and UCLA Engineering Accelerate Semiconductor Innovation at the EPIC Center",
+      "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-and-ucla-engineering-accelerate-semiconductor",
+      "published_at": "2026-10-08T20:05:00+00:00",
+      "summary": "R&amp;D programs to focus on speeding up the commercialization pipeline so chip technology moves from breakthrough research to full-scale manufacturing faster Collaborative work at the state-of-the-art facility in Silicon Valley pairs UCLA’s semiconductor research strength with Applied’s cutting-edge",
+      "collected_at": "2026-10-09T01:31:09.189661+00:00",
+      "selection_method": "applied_materials_official_rss_with_relevance_v1",
+      "matched_keywords": [
+        "semiconductor",
+        "epic center"
+      ],
+      "source_category": "News release",
+      "relevance": "high",
+      "tech_domains": [
+        "장비·Fab·인프라"
+      ],
+      "job_roles": [
+        "R&D공정·공정설계",
+        "설비기술·기반기술",
+        "인프라·안전"
+      ],
+      "signal_types": [
+        "기술·제품",
+        "투자·생산"
+      ],
+      "process_fit": "background",
+      "process_evidence": [],
+      "classification_version": "job_tech_taxonomy_v4",
+      "title_ko": "애플라이드 머티리얼즈와 UCLA 공과대학, EPIC 센터에서 반도체 혁신 가속화",
+      "summary_ko": "칩 기술이 획기적인 연구 단계에서 본격적인 양산 단계로 더 빠르게 전환될 수 있도록 상용화 과정을 가속화하는 데 중점을 둔 R&amp;D 프로그램. 실리콘밸리의 최첨단 시설에서 진행되는 공동 연구를 통해 UCLA의 반도체 연구 역량과 Applied의 최첨단 기술이 결합된다.",
+      "translation_provider": "DeepL"
+    },
+    {
       "source_id": "tokyo_electron",
       "company": "Tokyo Electron",
       "title": "SEMICON West 2026",
       "url": "https://www.tel.com/news/event/2026/20261007_001.html",
       "published_at": "2026-10-07T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -65,7 +99,7 @@
       "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-and-intel-collaborate-accelerate-chipmaking",
       "published_at": "2026-10-06T13:00:00+00:00",
       "summary": "Collaborations at Applied’s EPIC Center in Silicon Valley and Intel’s R&amp;D campus in Oregon aim to develop breakthroughs in next-generation transistors, interconnects and advanced packaging technologies for AI chips and systems&nbsp; Collaboration builds on the companies’ long history of working together",
-      "collected_at": "2026-10-08T01:22:10.335885+00:00",
+      "collected_at": "2026-10-09T01:31:09.189661+00:00",
       "selection_method": "applied_materials_official_rss_with_relevance_v1",
       "matched_keywords": [
         "chip"
@@ -100,7 +134,7 @@
       "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep3/",
       "published_at": "2026-10-02T00:00:00+00:00",
       "summary": "Tags: Agentic AI, CXL, GPU, HBM",
-      "collected_at": "2026-10-08T01:22:04.126659+00:00",
+      "collected_at": "2026-10-09T01:31:02.262460+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -135,7 +169,7 @@
       "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-and-besi-expand-strategic-partnership-advance",
       "published_at": "2026-10-01T13:00:00+00:00",
       "summary": "Besi joins Applied's EPIC Center as an Innovation Partner, extending a collaboration that began in 2020 with the companies' joint Hybrid Bonding Center of Excellence in Singapore Expanded collaboration targets next-generation 3D IC scaling, logic and memory integration, and photonics applications",
-      "collected_at": "2026-10-08T01:22:10.335885+00:00",
+      "collected_at": "2026-10-09T01:31:09.189661+00:00",
       "selection_method": "applied_materials_official_rss_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "News release",
@@ -167,7 +201,7 @@
       "url": "https://ir.kla.com/news-events/press-releases/detail/522/kla-announces-first-quarter-fiscal-year-2027-earnings-date",
       "published_at": "2026-10-01T09:00:00+00:00",
       "summary": "Official KLA press release",
-      "collected_at": "2026-10-08T01:22:36.231663+00:00",
+      "collected_at": "2026-10-09T01:31:35.283599+00:00",
       "selection_method": "kla_official_ir_and_advance_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -195,7 +229,7 @@
       "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep3/",
       "published_at": "2026-09-30T00:00:00+00:00",
       "summary": "Tags: AI, AI data center, AI Infrastructure",
-      "collected_at": "2026-10-08T01:22:04.126659+00:00",
+      "collected_at": "2026-10-09T01:31:02.262460+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "ai infrastructure"
@@ -224,7 +258,7 @@
       "url": "https://newsroom.lamresearch.com/2026-09-30-Lam-Research-Corporation-Announces-September-Quarter-Financial-Conference-Call",
       "published_at": "2026-09-30T00:00:00+00:00",
       "summary": "Lam Research Corp. (NASDAQ: LRCX) today announced that the company will host its quarterly financial conference call and webcast on Wednesday, October 21, 2026, beginning at 2:00 p.m. Pacific...",
-      "collected_at": "2026-10-08T01:22:35.481283+00:00",
+      "collected_at": "2026-10-09T01:31:34.313383+00:00",
       "selection_method": "lam_official_press_releases_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -253,7 +287,7 @@
       "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-and-kioxia-partner-epic-center-advance-next",
       "published_at": "2026-09-29T20:05:00+00:00",
       "summary": "Companies will collaborate to develop advanced memory structures, chip stacking technologies and materials engineering innovations to increase AI memory performance KIOXIA joins Applied Materials’ growing EPIC Center ecosystem, which includes chipmakers, chip designers, equipment partners and",
-      "collected_at": "2026-10-08T01:22:10.335885+00:00",
+      "collected_at": "2026-10-09T01:31:09.189661+00:00",
       "selection_method": "applied_materials_official_rss_with_relevance_v1",
       "matched_keywords": [
         "epic center"
@@ -290,7 +324,7 @@
       "url": "https://news.samsung.com/global/samsung-to-invest-usd-1-billion-in-ai-infrastructure-company-helix",
       "published_at": "2026-09-29T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-10-08T01:22:02.381056+00:00",
+      "collected_at": "2026-10-09T01:31:00.244696+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -321,7 +355,7 @@
       "url": "https://news.skhynix.com/en/tsmc-oip-conference-2026/",
       "published_at": "2026-09-28T00:00:00+00:00",
       "summary": "Tags: AI Semiconductor, eSSD, HBF, HBM, SOCAMM2, SSD, TSMC OIP",
-      "collected_at": "2026-10-08T01:22:04.126659+00:00",
+      "collected_at": "2026-10-09T01:31:02.262460+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -357,7 +391,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260928_001.html",
       "published_at": "2026-09-28T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -387,7 +421,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260925_001.html",
       "published_at": "2026-09-25T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -418,7 +452,7 @@
       "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-host-investor-breakfast-presentation-during",
       "published_at": "2026-09-21T11:30:00+00:00",
       "summary": "SANTA CLARA, Calif., Sept. 21, 2026 (GLOBE NEWSWIRE) -- Applied Materials, Inc. today announced that members of its executive leadership team will participate in an Investor Breakfast Presentation during SEMICON West on Tuesday, Oct. 13, 2026. The presentation will begin at 8:00 a.m.",
-      "collected_at": "2026-10-08T01:22:10.335885+00:00",
+      "collected_at": "2026-10-09T01:31:09.189661+00:00",
       "selection_method": "applied_materials_official_rss_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "News release",
@@ -447,7 +481,7 @@
       "url": "https://news.skhynix.com/en/ai-infra-summit-2026/",
       "published_at": "2026-09-17T00:00:00+00:00",
       "summary": "Tags: AI, AI Infra Summit, AI Memory, eSSD, HBF, PIM, SALT-KV",
-      "collected_at": "2026-10-08T01:22:04.126659+00:00",
+      "collected_at": "2026-10-09T01:31:02.262460+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "ai memory",
@@ -480,7 +514,7 @@
       "url": "https://www.tel.com/news/ir/2026/b4np7600000000ii-att/20260917_001_e.pdf",
       "published_at": "2026-09-17T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -510,7 +544,7 @@
       "url": "https://www.tel.com/news/ir/2026/qlfobq00000000ia-att/20260915_001_e.pdf",
       "published_at": "2026-09-15T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -540,7 +574,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260915_001.html",
       "published_at": "2026-09-15T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -571,7 +605,7 @@
       "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69",
       "published_at": "2026-09-10T20:05:00+00:00",
       "summary": "SANTA CLARA, Calif., Sept. 10, 2026 (GLOBE NEWSWIRE) -- Applied Materials, Inc. today announced that its Board of Directors has approved a quarterly cash dividend of $0.53 per share payable on the company’s common stock. The dividend is payable on Dec. 10, 2026 to shareholders of record as of Nov.",
-      "collected_at": "2026-10-08T01:22:10.335885+00:00",
+      "collected_at": "2026-10-09T01:31:09.189661+00:00",
       "selection_method": "applied_materials_official_rss_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "News release",
@@ -627,7 +661,7 @@
       "url": "https://news.samsung.com/global/samsung-and-mistral-ai-announce-strategic-partnership-for-intelligence-driven-semiconductor-infrastructure",
       "published_at": "2026-09-09T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-10-08T01:22:02.381056+00:00",
+      "collected_at": "2026-10-09T01:31:00.244696+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor"
@@ -658,7 +692,7 @@
       "url": "https://news.skhynix.com/en/future-forum-2026/",
       "published_at": "2026-09-09T00:00:00+00:00",
       "summary": "Tags: 3D Memory, AI Memory, AX, Future Semiconductor, SK hynix Future Forum",
-      "collected_at": "2026-10-08T01:22:04.126659+00:00",
+      "collected_at": "2026-10-09T01:31:02.262460+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -690,7 +724,7 @@
       "url": "https://news.samsung.com/global/samsung-electronics-and-asml-expand-strategic-collaboration-for-next-generation-semiconductor-manufacturing",
       "published_at": "2026-09-08T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-10-08T01:22:02.381056+00:00",
+      "collected_at": "2026-10-09T01:31:00.244696+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor"
@@ -754,7 +788,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260908_001.html",
       "published_at": "2026-09-08T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -819,7 +853,7 @@
       "url": "https://www.tel.com/news/event/2026/20260907__001.html",
       "published_at": "2026-09-07T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -877,7 +911,7 @@
       "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep2/",
       "published_at": "2026-09-03T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, HBF, HBM",
-      "collected_at": "2026-10-08T01:22:04.126659+00:00",
+      "collected_at": "2026-10-09T01:31:02.262460+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -974,7 +1008,7 @@
       "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep2/",
       "published_at": "2026-08-31T00:00:00+00:00",
       "summary": "Tags: AI data center, AI Infra, AI Memory, GPU",
-      "collected_at": "2026-10-08T01:22:04.126659+00:00",
+      "collected_at": "2026-10-09T01:31:02.262460+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "ai memory",
@@ -1006,7 +1040,7 @@
       "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-appoints-akash-palkhiwala-board-directors",
       "published_at": "2026-08-27T20:05:00+00:00",
       "summary": "SANTA CLARA, Calif., Aug. 27, 2026 (GLOBE NEWSWIRE) -- Applied Materials, Inc. today announced the appointment of Akash Palkhiwala to serve on its board of directors. As Chief Financial Officer and Chief Operating Officer of Qualcomm Incorporated, Mr.",
-      "collected_at": "2026-10-08T01:22:10.335885+00:00",
+      "collected_at": "2026-10-09T01:31:09.189661+00:00",
       "selection_method": "applied_materials_official_rss_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "News release",
@@ -1034,7 +1068,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260827-3.html",
       "published_at": "2026-08-27T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "memory industry"
@@ -1064,7 +1098,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260827-2.html",
       "published_at": "2026-08-27T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory",
@@ -1174,7 +1208,7 @@
       "url": "https://newsroom.lamresearch.com/2026-08-27-Lam-Research-Announces-Retirement-of-Michael-R-Cannon-and-Sohail-U-Ahmed-from-Board-of-Directors",
       "published_at": "2026-08-27T00:00:00+00:00",
       "summary": "Lam Research Corp. (NASDAQ: LRCX) today announced that Michael (\"Mike\") R. Cannon and Sohail U. Ahmed have informed the company of their respective decisions to retire from Lam's Board of...",
-      "collected_at": "2026-10-08T01:22:35.481283+00:00",
+      "collected_at": "2026-10-09T01:31:34.313383+00:00",
       "selection_method": "lam_official_press_releases_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -1202,7 +1236,7 @@
       "url": "https://newsroom.lamresearch.com/2026-08-27-Lam-Research-Corporation-Announces-a-27-Increase-in-Quarterly-Dividend",
       "published_at": "2026-08-27T00:00:00+00:00",
       "summary": "Lam Research Corporation (Nasdaq: LRCX) today announced that its Board of Directors has approved a $0.07, or 27%, increase in its quarterly dividend, from $0.26 to $0.33 per share of common stock....",
-      "collected_at": "2026-10-08T01:22:35.481283+00:00",
+      "collected_at": "2026-10-09T01:31:34.313383+00:00",
       "selection_method": "lam_official_press_releases_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -1230,7 +1264,7 @@
       "url": "https://news.samsung.com/global/samsung-showcases-p9-and-p7-ssds-featuring-usb4-at-gamescom-2026",
       "published_at": "2026-08-26T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-10-08T01:22:02.381056+00:00",
+      "collected_at": "2026-10-09T01:31:00.244696+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -1260,7 +1294,7 @@
       "url": "https://news.skhynix.com/en/dtf-2026/",
       "published_at": "2026-08-26T00:00:00+00:00",
       "summary": "Tags: AI Memory, cSSD, DellTechForum, DRAM, DTF, eSSD, HBM, NAND",
-      "collected_at": "2026-10-08T01:22:04.126659+00:00",
+      "collected_at": "2026-10-09T01:31:02.262460+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -1324,7 +1358,7 @@
       "url": "https://newsroom.lamresearch.com/2026-08-26-Lam-Research-Breaks-Ground-on-New-Oregon-Lab-to-Accelerate-AI-Era-Semiconductor-Research-Development-Locally,-Globally",
       "published_at": "2026-08-26T00:00:00+00:00",
       "summary": "State-of-the-art, Silicon Forest facility to support collaborative innovation with chip makers; first milestone in more than $3B planned expansion of global lab network TUALATIN, Ore., Aug. 26, 2026 /",
-      "collected_at": "2026-10-08T01:22:35.481283+00:00",
+      "collected_at": "2026-10-09T01:31:34.313383+00:00",
       "selection_method": "lam_official_press_releases_with_relevance_v1",
       "matched_keywords": [
         "semiconductor"
@@ -1357,7 +1391,7 @@
       "url": "https://newsroom.lamresearch.com/2026-08-26-Lam-Research-Corporation-Announces-Participation-at-Upcoming-Conferences",
       "published_at": "2026-08-26T00:00:00+00:00",
       "summary": "Lam Research Corp. (Nasdaq: LRCX) today announced that Doug Bettinger, Executive Vice President and Chief Financial Officer, will participate in the following upcoming investor events. Citi 2026...",
-      "collected_at": "2026-10-08T01:22:35.481283+00:00",
+      "collected_at": "2026-10-09T01:31:34.313383+00:00",
       "selection_method": "lam_official_press_releases_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -1416,7 +1450,7 @@
       "url": "https://news.skhynix.com/en/tech-note-series-ep2/",
       "published_at": "2026-08-25T00:00:00+00:00",
       "summary": "Tags: Advanced Packaging, back-end process, HBM, HBM4, Hybrid Bonding, Packaging",
-      "collected_at": "2026-10-08T01:22:04.126659+00:00",
+      "collected_at": "2026-10-09T01:31:02.262460+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -1584,7 +1618,7 @@
       "url": "https://www.tel.com/news/event/2026/20260824_001.html",
       "published_at": "2026-08-24T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -1614,7 +1648,7 @@
       "url": "https://ir.kla.com/news-events/press-releases/detail/521/kla-announces-upcoming-investor-webcasts",
       "published_at": "2026-08-20T01:20:00+00:00",
       "summary": "Official KLA press release",
-      "collected_at": "2026-10-08T01:22:36.231663+00:00",
+      "collected_at": "2026-10-09T01:31:35.283599+00:00",
       "selection_method": "kla_official_ir_and_advance_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -1642,7 +1676,7 @@
       "url": "https://news.skhynix.com/en/cpo-in-nature-electronics/",
       "published_at": "2026-08-20T00:00:00+00:00",
       "summary": "Tags: AI Infrastructure, AI Memory, CoPackagedOptics, CPO, HBM, HeterogeneousIntegration, NatureElectronics, Photonics",
-      "collected_at": "2026-10-08T01:22:04.126659+00:00",
+      "collected_at": "2026-10-09T01:31:02.262460+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -1730,7 +1764,7 @@
       "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep1/",
       "published_at": "2026-08-18T00:00:00+00:00",
       "summary": "Tags: Agentic AI, AI Infrastructure, AI Memory, semiconductor industry",
-      "collected_at": "2026-10-08T01:22:04.126659+00:00",
+      "collected_at": "2026-10-09T01:31:02.262460+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -1792,7 +1826,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260817_001.html",
       "published_at": "2026-08-17T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -1822,7 +1856,7 @@
       "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-participate-upcoming-investor-conferences-15",
       "published_at": "2026-08-14T11:30:00+00:00",
       "summary": "SANTA CLARA, Calif., Aug. 14, 2026 (GLOBE NEWSWIRE) -- Applied Materials, Inc. today announced that members of its management team will participate in fireside chats at upcoming investor conferences. Brice Hill, Senior Vice President and CFO, will participate at the Citi 2026 Global TMT Conference",
-      "collected_at": "2026-10-08T01:22:10.335885+00:00",
+      "collected_at": "2026-10-09T01:31:09.189661+00:00",
       "selection_method": "applied_materials_official_rss_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "News release",
@@ -1851,7 +1885,7 @@
       "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-third-quarter-2026-results",
       "published_at": "2026-08-13T20:01:00+00:00",
       "summary": "Record revenue $9.12 billion, up 25 percent year over year GAAP gross margin 50.3 percent and non-GAAP gross margin 50.4 percent GAAP EPS $3.17 and record non-GAAP EPS $3.50, up 43 percent and 41 percent year over year, respectively EPIC Center R&amp;D partnerships expand to 11 engagements with leading",
-      "collected_at": "2026-10-08T01:22:10.335885+00:00",
+      "collected_at": "2026-10-09T01:31:09.189661+00:00",
       "selection_method": "applied_materials_official_rss_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "News release",
@@ -1879,7 +1913,7 @@
       "url": "https://newsroom.lamresearch.com/2026-08-13-Lam-Research-Announces-Plans-to-Invest-More-than-3B-to-Expand-Global-Lab-Network,-Increase-Innovation-Velocity-in-the-AI-Era",
       "published_at": "2026-08-13T00:00:00+00:00",
       "summary": "Lam Research Corp. (NASDAQ: LRCX) today announced that it intends to invest more than $3 billion over the next five years to expand its global research and development (R&D) lab network. The...",
-      "collected_at": "2026-10-08T01:22:35.481283+00:00",
+      "collected_at": "2026-10-09T01:31:34.313383+00:00",
       "selection_method": "lam_official_press_releases_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -1908,7 +1942,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260812-1.html",
       "published_at": "2026-08-12T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory",
@@ -1940,7 +1974,7 @@
       "url": "https://newsroom.lamresearch.com/2026-08-12-Lam-Research-and-NY-Creates-Team-Up-to-Enable-Training-of-University-Students-for-the-Semiconductor-Workforce",
       "published_at": "2026-08-12T00:00:00+00:00",
       "summary": "Lam's Semiverse ® Solutions virtual fabrication platform expected to provide hands-on chip fabrication training for engineering students across NY Creates' workforce development network News Summary",
-      "collected_at": "2026-10-08T01:22:35.481283+00:00",
+      "collected_at": "2026-10-09T01:31:34.313383+00:00",
       "selection_method": "lam_official_press_releases_with_relevance_v1",
       "matched_keywords": [
         "semiconductor",
@@ -1973,7 +2007,7 @@
       "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/uc-berkeley-join-applied-materials-epic-center-speed-chip",
       "published_at": "2026-08-11T13:00:00+00:00",
       "summary": "Collaboration pairs UC Berkeley’s semiconductor research strength with Applied’s state-of-the-art equipment and process integration expertise Located in Silicon Valley, Applied’s EPIC Center provides industry-scale R&amp;D environment with access to cutting-edge chipmaking equipment to enable rapid",
-      "collected_at": "2026-10-08T01:22:10.335885+00:00",
+      "collected_at": "2026-10-09T01:31:09.189661+00:00",
       "selection_method": "applied_materials_official_rss_with_relevance_v1",
       "matched_keywords": [
         "chip",
@@ -2147,7 +2181,7 @@
       "url": "https://news.skhynix.com/en/ai-infrastructure-insigh-ep1/",
       "published_at": "2026-08-10T00:00:00+00:00",
       "summary": "Tags: AI, AI data center, AI Infrastructure, AI Memory",
-      "collected_at": "2026-10-08T01:22:04.126659+00:00",
+      "collected_at": "2026-10-09T01:31:02.262460+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "ai memory",
@@ -2262,7 +2296,7 @@
       "url": "https://news.skhynix.com/en/fms-2026/",
       "published_at": "2026-08-07T00:00:00+00:00",
       "summary": "Tags: CXL, DRAM, FMS, HBF, HBM, NAND, SSD",
-      "collected_at": "2026-10-08T01:22:05.093052+00:00",
+      "collected_at": "2026-10-09T01:31:03.361036+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -2327,7 +2361,7 @@
       "url": "https://ir.kla.com/news-events/press-releases/detail/520/kla-declares-regular-cash-dividend",
       "published_at": "2026-08-06T16:05:00+00:00",
       "summary": "Official KLA press release",
-      "collected_at": "2026-10-08T01:22:36.231663+00:00",
+      "collected_at": "2026-10-09T01:31:35.283599+00:00",
       "selection_method": "kla_official_ir_and_advance_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -2385,7 +2419,7 @@
       "url": "https://ir.kla.com/news-events/press-releases/detail/519/kla-corporation-recommends-stockholders-reject-mini-tender",
       "published_at": "2026-08-05T17:28:00+00:00",
       "summary": "Official KLA press release",
-      "collected_at": "2026-10-08T01:22:36.231663+00:00",
+      "collected_at": "2026-10-09T01:31:35.283599+00:00",
       "selection_method": "kla_official_ir_and_advance_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -2413,7 +2447,7 @@
       "url": "https://news.samsung.com/global/samsung-unveils-next-gen-3d-memory-vision-at-fms-2026-charting-the-future-of-ai-infrastructure",
       "published_at": "2026-08-05T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-10-08T01:22:02.381056+00:00",
+      "collected_at": "2026-10-09T01:31:00.244696+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -2443,7 +2477,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260805-1.html",
       "published_at": "2026-08-05T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "ssd"
@@ -2472,7 +2506,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260804-2.html",
       "published_at": "2026-08-04T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory",
@@ -2502,7 +2536,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260804-1.html",
       "published_at": "2026-08-04T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash storage"
@@ -2532,7 +2566,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260804-1.html",
       "published_at": "2026-08-04T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "ssd"
@@ -2561,7 +2595,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260803-1.html",
       "published_at": "2026-08-03T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "cxl"
@@ -2590,7 +2624,7 @@
       "url": "https://www.tel.com/news/ir/2026/ahl7jh00000000fd-att/20260803_001_e.pdf",
       "published_at": "2026-08-03T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -2682,7 +2716,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260731_001.html",
       "published_at": "2026-07-31T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -2712,7 +2746,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260730-1.html",
       "published_at": "2026-07-30T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "bics flash",
@@ -2743,7 +2777,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260730-1.html",
       "published_at": "2026-07-30T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory",
@@ -2775,7 +2809,7 @@
       "url": "https://www.tel.com/news/ir/2026/rf97m800000000g3-att/20260730_002_e.pdf",
       "published_at": "2026-07-30T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -2805,7 +2839,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260729-2.html",
       "published_at": "2026-07-29T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory",
@@ -2836,7 +2870,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260729-1.html",
       "published_at": "2026-07-29T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "ssd"
@@ -2901,7 +2935,7 @@
       "url": "https://newsroom.lamresearch.com/2026-07-29-Lam-Research-Corporation-Reports-Financial-Results-for-the-Quarter-Ended-June-28,-2026",
       "published_at": "2026-07-29T00:00:00+00:00",
       "summary": "Lam Research Corporation (the \"Company,\" \"Lam,\" \"Lam Research\") today announced financial results for the quarter ended June 28, 2026 (the \"June 2026 quarter\"). Highlights for the June 2026...",
-      "collected_at": "2026-10-08T01:22:35.481283+00:00",
+      "collected_at": "2026-10-09T01:31:34.313383+00:00",
       "selection_method": "lam_official_press_releases_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -2929,7 +2963,7 @@
       "url": "https://www.tel.com/news/disaster/2026/20260729_001.html",
       "published_at": "2026-07-29T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -2959,7 +2993,7 @@
       "url": "https://www.kla.com/advance/leadership/kla-announces-june-quarter-earnings-2026",
       "published_at": "2026-07-28T20:05:00+00:00",
       "summary": "The infographic below highlights KLA’s key financial information from the earnings report for the June quarter. To read the full",
-      "collected_at": "2026-10-08T01:22:36.231663+00:00",
+      "collected_at": "2026-10-09T01:31:35.283599+00:00",
       "selection_method": "kla_official_ir_and_advance_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "KLA Advance",
@@ -2987,7 +3021,7 @@
       "url": "https://ir.kla.com/news-events/press-releases/detail/518/kla-corporation-reports-fiscal-2026-fourth-quarter-and-full",
       "published_at": "2026-07-28T16:05:00+00:00",
       "summary": "Official KLA press release",
-      "collected_at": "2026-10-08T01:22:36.231663+00:00",
+      "collected_at": "2026-10-09T01:31:35.283599+00:00",
       "selection_method": "kla_official_ir_and_advance_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -3071,7 +3105,7 @@
       "url": "https://www.tel.com/news/disaster/2026/20260728_001.html",
       "published_at": "2026-07-28T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -3101,7 +3135,7 @@
       "url": "https://news.samsung.com/global/samsung-electronics-and-broadcom-expand-strategic-collaboration-across-memory-and-foundry-technologies",
       "published_at": "2026-07-25T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-10-08T01:22:02.381056+00:00",
+      "collected_at": "2026-10-09T01:31:00.244696+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -3310,35 +3344,6 @@
       "translation_provider": "DeepL"
     },
     {
-      "source_id": "applied_materials",
-      "company": "Applied Materials",
-      "title": "Applied Materials to Report Fiscal Third Quarter 2026 Results on Aug. 13, 2026",
-      "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-report-fiscal-third-quarter-2026-results-aug",
-      "published_at": "2026-07-23T11:30:00+00:00",
-      "summary": "SANTA CLARA, Calif., July 23, 2026 (GLOBE NEWSWIRE) -- Applied Materials, Inc. today announced that it will hold its fiscal third quarter 2026 earnings conference call on Thursday, Aug. 13, 2026, at 4:30 p.m. ET / 1:30 p.m. PT. The call will be webcast live at: https://ir.appliedmaterials.com.",
-      "collected_at": "2026-10-08T01:22:10.335885+00:00",
-      "selection_method": "applied_materials_official_rss_with_relevance_v1",
-      "matched_keywords": [],
-      "source_category": "News release",
-      "relevance": "context",
-      "tech_domains": [
-        "기업·산업 일반"
-      ],
-      "job_roles": [
-        "산업·사업 공통"
-      ],
-      "signal_types": [
-        "경영·실적",
-        "행사·인재"
-      ],
-      "process_fit": "background",
-      "process_evidence": [],
-      "classification_version": "job_tech_taxonomy_v4",
-      "title_ko": "애플라이드 머티리얼즈, 2026년 8월 13일 2026 회계연도 3분기 실적 발표 예정",
-      "summary_ko": "캘리포니아주 산타클라라, 2026년 7월 23일 (GLOBE NEWSWIRE) -- 애플라이드 머티리얼즈(Applied Materials, Inc.)는 오늘 2026 회계연도 3분기 실적 컨퍼런스 콜을 2026년 8월 13일 목요일, 동부 표준시(ET) 오후 4시 30분 / 태평양 표준시(PT) 오후 1시 30분에 개최할 것이라고 발표했습니다. 이번 컨퍼런스 콜은 https://ir.appliedmaterials.com에서 생중계될 예정입니다.",
-      "translation_provider": "DeepL"
-    },
-    {
       "source_id": "intel",
       "company": "Intel",
       "title": "Intel Reports Second-Quarter 2026 Financial Results",
@@ -3373,7 +3378,7 @@
       "url": "https://news.skhynix.com/en/research-inside-ep1/",
       "published_at": "2026-07-22T00:00:00+00:00",
       "summary": "Tags: 176 layer NAND, CTI, IEDM, IEEE, NAND, Research Inside, Scaling",
-      "collected_at": "2026-10-08T01:22:05.093052+00:00",
+      "collected_at": "2026-10-09T01:31:03.361036+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "mass production"
@@ -3406,7 +3411,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260721_001.html",
       "published_at": "2026-07-21T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -3580,7 +3585,7 @@
       "url": "https://www.tel.com/news/topics/2026/20260716_001.html",
       "published_at": "2026-07-16T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -3671,7 +3676,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260709_001.html",
       "published_at": "2026-07-09T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -3702,7 +3707,7 @@
       "url": "https://news.samsung.com/global/samsung-begins-mass-production-of-pm1763-ssd-optimized-for-next-generation-ai-infrastructure",
       "published_at": "2026-07-08T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-10-08T01:22:02.381056+00:00",
+      "collected_at": "2026-10-09T01:31:00.244696+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -3824,7 +3829,7 @@
       "url": "https://news.skhynix.com/en/hbm-to-essd/",
       "published_at": "2026-07-08T00:00:00+00:00",
       "summary": "Tags: AI, AI Infrastructure, AI Memory, cHBM, DRAM, eSSD, HBM, NAND",
-      "collected_at": "2026-10-08T01:22:05.093052+00:00",
+      "collected_at": "2026-10-09T01:31:03.361036+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -3859,7 +3864,7 @@
       "url": "https://newsroom.lamresearch.com/2026-07-08-Lam-Research-Corporation-Announces-June-Quarter-Financial-Conference-Call",
       "published_at": "2026-07-08T00:00:00+00:00",
       "summary": "Lam Research Corp. (NASDAQ: LRCX) today announced that the company will host its quarterly financial conference call and webcast on Wednesday, July 29, 2026, beginning at 2:00 p.m. Pacific...",
-      "collected_at": "2026-10-08T01:22:35.481283+00:00",
+      "collected_at": "2026-10-09T01:31:34.313383+00:00",
       "selection_method": "lam_official_press_releases_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -3888,7 +3893,7 @@
       "url": "https://news.skhynix.com/en/2026-expert-column-series-ep4/",
       "published_at": "2026-07-06T00:00:00+00:00",
       "summary": "Tags: AI, AI Infrastructure, artificial intelligence, HBM, Semiconductor Ecosystem, semiconductor industry",
-      "collected_at": "2026-10-08T01:22:05.093052+00:00",
+      "collected_at": "2026-10-09T01:31:03.361036+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -3920,7 +3925,7 @@
       "url": "https://news.skhynix.com/en/ai-competition-next-challenge/",
       "published_at": "2026-07-03T00:00:00+00:00",
       "summary": "Tags: AI, AI Infrastructure, AI Memory, DRAM, eSSD, HBM",
-      "collected_at": "2026-10-08T01:22:05.093052+00:00",
+      "collected_at": "2026-10-09T01:31:03.361036+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -3954,7 +3959,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260703-2.html",
       "published_at": "2026-07-03T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory",
@@ -3987,7 +3992,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260703-1.html",
       "published_at": "2026-07-03T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "bics flash",
@@ -4019,7 +4024,7 @@
       "url": "https://ir.kla.com/news-events/press-releases/detail/517/kla-announces-fourth-quarter-fiscal-year-2026-earnings-date",
       "published_at": "2026-07-01T12:00:00+00:00",
       "summary": "Official KLA press release",
-      "collected_at": "2026-10-08T01:22:36.231663+00:00",
+      "collected_at": "2026-10-09T01:31:35.283599+00:00",
       "selection_method": "kla_official_ir_and_advance_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -4107,7 +4112,7 @@
       "url": "https://www.tel.com/news/ir/2026/i242su00000001c4-att/20260701_001_e.pdf",
       "published_at": "2026-07-01T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4227,7 +4232,7 @@
       "url": "https://www.tel.com/news/ir/2026/i242su00000000ee-att/20260630_002_e.pdf",
       "published_at": "2026-06-30T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4257,7 +4262,7 @@
       "url": "https://www.tel.com/news/ir/2026/20260630_001.html",
       "published_at": "2026-06-30T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4319,7 +4324,7 @@
       "url": "https://www.tel.com/news/disaster/2026/20260629_001.html",
       "published_at": "2026-06-29T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4349,7 +4354,7 @@
       "url": "https://www.tel.com/news/topics/2026/20260626_001.html",
       "published_at": "2026-06-26T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [
         "semiconductor",
@@ -4390,7 +4395,7 @@
       "url": "https://www.tel.com/news/disaster/2026/20260625_001.html",
       "published_at": "2026-06-25T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4420,7 +4425,7 @@
       "url": "https://news.skhynix.com/en/2026-expert-column-series-ep3/",
       "published_at": "2026-06-24T00:00:00+00:00",
       "summary": "Tags: AI, AI Infrastructure, AI Memory, AI Semiconductor, Semiconductor infra, Yongin Semiconductor Cluster",
-      "collected_at": "2026-10-08T01:22:05.093052+00:00",
+      "collected_at": "2026-10-09T01:31:03.361036+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -4454,7 +4459,7 @@
       "url": "https://www.tel.com/news/ir/2026/dm494s00000000ed-att/20260624_001_e.pdf",
       "published_at": "2026-06-24T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4484,7 +4489,7 @@
       "url": "https://news.samsung.com/global/samsung-unveils-industrys-fastest-ufs-5-0-solution-for-next-gen-on-device-ai-applications",
       "published_at": "2026-06-23T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-10-08T01:22:02.381056+00:00",
+      "collected_at": "2026-10-09T01:31:00.244696+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -4517,7 +4522,7 @@
       "url": "https://news.skhynix.com/en/5-things-about-skhynix/",
       "published_at": "2026-06-23T00:00:00+00:00",
       "summary": "Tags: AI, AI Infrastructure, AI Memory, Datacenter, DRAM, HBM, NAND",
-      "collected_at": "2026-10-08T01:22:05.093052+00:00",
+      "collected_at": "2026-10-09T01:31:03.361036+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -4551,7 +4556,7 @@
       "url": "https://www.tel.com/news/ir/2026/qhnfr100000000i6-att/20260623_002_e.pdf",
       "published_at": "2026-06-23T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4581,7 +4586,7 @@
       "url": "https://www.tel.com/news/ir/2026/qhnfr100000000g9-att/20260623_001_e.pdf",
       "published_at": "2026-06-23T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4611,7 +4616,7 @@
       "url": "https://www.tel.com/news/ir/2026/20260622_001.html",
       "published_at": "2026-06-22T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4641,7 +4646,7 @@
       "url": "https://news.skhynix.com/en/hpe-discover-2026/",
       "published_at": "2026-06-19T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, CXL, eSSD, HBM, HEP Discover, HPE",
-      "collected_at": "2026-10-08T01:22:05.093052+00:00",
+      "collected_at": "2026-10-09T01:31:03.361036+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -4796,7 +4801,7 @@
       "url": "https://www.asml.com/en/company/stories/2026/machines-behind-machines",
       "published_at": "2026-06-12T08:26:00+00:00",
       "summary": "Discover how ASML is applying AI-native engineering for the next technology era.",
-      "collected_at": "2026-10-08T01:22:08.591486+00:00",
+      "collected_at": "2026-10-09T01:31:06.686156+00:00",
       "selection_method": "asml_official_sources_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Technology story",
@@ -4924,7 +4929,7 @@
       "url": "https://news.skhynix.com/en/computex-2026-review/",
       "published_at": "2026-06-11T00:00:00+00:00",
       "summary": "Tags: AI, AI factory, AI Infrastructure, AI Memory, COMPUTEX, HBM, iHBM, SOCAMM2",
-      "collected_at": "2026-10-08T01:22:05.093052+00:00",
+      "collected_at": "2026-10-09T01:31:03.361036+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -5040,7 +5045,7 @@
       "url": "https://news.skhynix.com/en/ai-partnership-foxconn-2026/",
       "published_at": "2026-06-04T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, Foxconn, HBM, semiconductor industry",
-      "collected_at": "2026-10-08T01:22:05.093052+00:00",
+      "collected_at": "2026-10-09T01:31:03.361036+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -5100,7 +5105,7 @@
       "url": "https://www.tel.com/news/ir/2026/20260604_001.html",
       "published_at": "2026-06-04T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5130,7 +5135,7 @@
       "url": "https://news.skhynix.com/en/ai-partnership-tsmc-2026/",
       "published_at": "2026-06-03T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, HBM, TSMC",
-      "collected_at": "2026-10-08T01:22:05.093052+00:00",
+      "collected_at": "2026-10-09T01:31:03.361036+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -5161,7 +5166,7 @@
       "url": "https://news.skhynix.com/en/computex-2026/",
       "published_at": "2026-06-02T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, COMPUTEX, CXL, HBM, LPCAMM2, LPDDR, SOCAMM2",
-      "collected_at": "2026-10-08T01:22:05.093052+00:00",
+      "collected_at": "2026-10-09T01:31:03.361036+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -5196,7 +5201,7 @@
       "url": "https://news.skhynix.com/en/computex-2026-booth-tour/",
       "published_at": "2026-06-02T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, COMPUTEX, NVIDIA",
-      "collected_at": "2026-10-08T01:22:05.767666+00:00",
+      "collected_at": "2026-10-09T01:31:04.319490+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "ai memory"
@@ -5226,7 +5231,7 @@
       "url": "https://www.kioxia-holdings.com/en-jp/news/2026/20260602-1.html",
       "published_at": "2026-06-02T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "ai inference"
@@ -5312,7 +5317,7 @@
       "url": "https://news.skhynix.com/en/gtc-taipei-2026-keynote/",
       "published_at": "2026-06-01T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, GTC, HBF, HBM",
-      "collected_at": "2026-10-08T01:22:05.767666+00:00",
+      "collected_at": "2026-10-09T01:31:04.319490+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -5430,7 +5435,7 @@
       "url": "https://www.tel.com/news/ir/2026/hdnjh300000000h4-att/20260601_002_e.pdf",
       "published_at": "2026-06-01T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5488,7 +5493,7 @@
       "url": "https://news.samsung.com/global/samsung-electronics-begins-shipment-of-industry-first-hbm4e-samples",
       "published_at": "2026-05-29T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-10-08T01:22:02.381056+00:00",
+      "collected_at": "2026-10-09T01:31:00.244696+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -5518,7 +5523,7 @@
       "url": "https://www.tel.com/news/ir/2026/qncnjq00000000p7-att/20260529_003_e.pdf",
       "published_at": "2026-05-29T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5548,7 +5553,7 @@
       "url": "https://www.tel.com/news/ir/2026/qncnjq00000000na-att/20260529_002_e.pdf",
       "published_at": "2026-05-29T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5579,7 +5584,7 @@
       "url": "https://www.tel.com/news/ir/2026/qncnjq00000000ld-att/20260529_001_e.pdf",
       "published_at": "2026-05-29T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5669,7 +5674,7 @@
       "url": "https://www.tel.com/news/ir/2026/20260522_001.html",
       "published_at": "2026-05-22T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5727,7 +5732,7 @@
       "url": "https://newsroom.lamresearch.com/2026-05-21-Lam-Research-Corporation-Declares-Quarterly-Dividend",
       "published_at": "2026-05-21T00:00:00+00:00",
       "summary": "Lam Research Corporation (Nasdaq: LRCX) today announced that its Board of Directors has approved a quarterly dividend of $0.26 per share of common stock. The dividend payment will be made on July...",
-      "collected_at": "2026-10-08T01:22:35.481283+00:00",
+      "collected_at": "2026-10-09T01:31:34.313383+00:00",
       "selection_method": "lam_official_press_releases_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -5755,7 +5760,7 @@
       "url": "https://news.skhynix.com/en/dtw-2026/",
       "published_at": "2026-05-20T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, cSSD, DTW, eSSD, HBM",
-      "collected_at": "2026-10-08T01:22:05.767666+00:00",
+      "collected_at": "2026-10-09T01:31:04.319490+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -5843,7 +5848,7 @@
       "url": "https://newsroom.lamresearch.com/Lam-Research-Establishes-Panel-Level-Packaging-CoE",
       "published_at": "2026-05-20T00:00:00+00:00",
       "summary": "SALZBURG, Austria, May 20, 2026 — Lam Research Corp. (Nasdaq: LRCX) today announced the establishment of its Panel-Level Packaging Center of Excellence (CoE) in Salzburg, Austria, marking...",
-      "collected_at": "2026-10-08T01:22:35.481283+00:00",
+      "collected_at": "2026-10-09T01:31:34.313383+00:00",
       "selection_method": "lam_official_press_releases_with_relevance_v1",
       "matched_keywords": [
         "panel-level"
@@ -5992,7 +5997,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260515-1.html",
       "published_at": "2026-05-15T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash storage"
@@ -6051,7 +6056,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260515_001.html",
       "published_at": "2026-05-15T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -6081,7 +6086,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260514-1.html",
       "published_at": "2026-05-14T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "ssd"
@@ -6138,7 +6143,7 @@
       "url": "https://www.kla.com/advance/innovation/innovation-beyond-the-chip-exploring-advanced-packaging-architectures",
       "published_at": "2026-05-13T16:00:00+00:00",
       "summary": "Explore five advanced packaging architectures—hybrid bonding, interposers, embedded bridges, glass substrates and co-packaged optics—driving AI, HPC and next-generation semiconductor innovation.",
-      "collected_at": "2026-10-08T01:22:36.231663+00:00",
+      "collected_at": "2026-10-09T01:31:35.283599+00:00",
       "selection_method": "kla_official_ir_and_advance_with_relevance_v1",
       "matched_keywords": [
         "semiconductor",
@@ -6263,7 +6268,7 @@
       "url": "https://www.asml.com/en/company/stories/2026/marco-pieters-asml-cto",
       "published_at": "2026-05-12T07:45:00+00:00",
       "summary": "ASML’s new CTO, Marco Pieters, brings decades of innovation and customer focus to ASML’s next chapter.",
-      "collected_at": "2026-10-08T01:22:08.591486+00:00",
+      "collected_at": "2026-10-09T01:31:06.686156+00:00",
       "selection_method": "asml_official_sources_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Technology story",
@@ -6291,7 +6296,7 @@
       "url": "https://news.skhynix.com/en/tech-note-series-ep1/",
       "published_at": "2026-05-12T00:00:00+00:00",
       "summary": "Tags: AI, HBF, HBM, Physical AI, Yongin Semiconductor Cluster",
-      "collected_at": "2026-10-08T01:22:05.767666+00:00",
+      "collected_at": "2026-10-09T01:31:04.319490+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -6323,7 +6328,7 @@
       "url": "https://www.tel.com/news/ir/2026/gdv06900000000fd-att/20260512_001_e.pdf",
       "published_at": "2026-05-12T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -6353,7 +6358,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260512_001.html",
       "published_at": "2026-05-12T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -6514,7 +6519,7 @@
       "url": "https://ir.kla.com/news-events/press-releases/detail/515/kla-corporation-announces-ten-to-one-stock-split-and",
       "published_at": "2026-05-07T16:15:00+00:00",
       "summary": "Official KLA press release",
-      "collected_at": "2026-10-08T01:22:36.231663+00:00",
+      "collected_at": "2026-10-09T01:31:35.283599+00:00",
       "selection_method": "kla_official_ir_and_advance_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -6655,7 +6660,7 @@
       "url": "https://www.tel.com/news/event/2026/20260501_001.html",
       "published_at": "2026-05-01T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -6685,7 +6690,7 @@
       "url": "https://www.kla.com/advance/leadership/kla-announces-march-quarter-earnings-2026",
       "published_at": "2026-04-29T21:17:51+00:00",
       "summary": "Read about KLA’s March Quarter Earnings",
-      "collected_at": "2026-10-08T01:22:36.231663+00:00",
+      "collected_at": "2026-10-09T01:31:35.283599+00:00",
       "selection_method": "kla_official_ir_and_advance_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "KLA Advance",
@@ -6713,7 +6718,7 @@
       "url": "https://ir.kla.com/news-events/press-releases/detail/514/kla-corporation-reports-fiscal-2026-third-quarter-results",
       "published_at": "2026-04-29T16:05:00+00:00",
       "summary": "Official KLA press release",
-      "collected_at": "2026-10-08T01:22:36.231663+00:00",
+      "collected_at": "2026-10-09T01:31:35.283599+00:00",
       "selection_method": "kla_official_ir_and_advance_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -6801,7 +6806,7 @@
       "url": "https://news.skhynix.com/en/opinion-local-economy-pt7/",
       "published_at": "2026-04-27T00:00:00+00:00",
       "summary": "Tags: Advanced Packaging, AI Infrastructure, Balanced Regional Development, P&T7, Package, Regional Revitalization, semiconductor industry",
-      "collected_at": "2026-10-08T01:22:05.767666+00:00",
+      "collected_at": "2026-10-09T01:31:04.319490+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -6835,7 +6840,7 @@
       "url": "https://www.tel.com/news/notice/2026/iuqupt00000000ff-att/20260427_001_e.pdf",
       "published_at": "2026-04-27T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -6897,7 +6902,7 @@
       "url": "https://www.tel.com/news/topics/2026/20260424_001.html",
       "published_at": "2026-04-24T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -6927,7 +6932,7 @@
       "url": "https://news.skhynix.com/en/tsmc-technology-symposium-2026/",
       "published_at": "2026-04-23T00:00:00+00:00",
       "summary": "Tags: HBM, HBM3E, HBM4, TSMC",
-      "collected_at": "2026-10-08T01:22:05.767666+00:00",
+      "collected_at": "2026-10-09T01:31:04.319490+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm"
@@ -6957,7 +6962,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260423-1.html",
       "published_at": "2026-04-23T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "ssd"
@@ -7131,7 +7136,7 @@
       "url": "https://news.skhynix.com/en/skhynix-chungju-pt7/",
       "published_at": "2026-04-22T00:00:00+00:00",
       "summary": "Tags: Advanced Packaging, AI Infrastructure, AI Memory, Balanced Regional Development, P&T7, Regional Revitalization",
-      "collected_at": "2026-10-08T01:22:05.767666+00:00",
+      "collected_at": "2026-10-09T01:31:04.319490+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "advanced packaging",
@@ -7167,7 +7172,7 @@
       "url": "https://newsroom.lamresearch.com/2026-04-22-Lam-Research-Corporation-Reports-Financial-Results-for-the-Quarter-Ended-March-29,-2026",
       "published_at": "2026-04-22T00:00:00+00:00",
       "summary": "Lam Research Corporation (the \"Company,\" \"Lam,\" \"Lam Research\") today announced financial results for the quarter ended March 29, 2026 (the \"March 2026 quarter\"). Highlights for the March 2026...",
-      "collected_at": "2026-10-08T01:22:35.481283+00:00",
+      "collected_at": "2026-10-09T01:31:34.313383+00:00",
       "selection_method": "lam_official_press_releases_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Press release",
@@ -7195,7 +7200,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260421-1.html",
       "published_at": "2026-04-21T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-10-08T01:22:07.503500+00:00",
+      "collected_at": "2026-10-09T01:31:05.654655+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "ssd"
@@ -7224,7 +7229,7 @@
       "url": "https://www.tel.com/news/disaster/2026/20260420_001.html",
       "published_at": "2026-04-20T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -7338,7 +7343,7 @@
       "url": "https://www.tel.com/news/product/2026/20260416_001.html",
       "published_at": "2026-04-16T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-10-08T01:22:35.739869+00:00",
+      "collected_at": "2026-10-09T01:31:34.555889+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [
         "prober",
@@ -7916,30 +7921,26 @@
     "notice": "AI가 공식 원문을 바탕으로 작성하고 기계적으로 근거를 검사한 참고용 초안입니다."
   },
   "trend_summary": {
-    "reference_at": "2026-10-08T01:23:37.318232+00:00",
+    "reference_at": "2026-10-09T01:32:19.588558+00:00",
     "methodology": "공식 기사 중 핵심 기술로 분류된 기사만 기술·직무 빈도에 사용하며, 최근 30일과 직전 30일의 기사 건수 차이를 상승 신호로 계산합니다.",
     "windows": {
       "7": {
-        "article_count": 5,
+        "article_count": 3,
         "high_relevance_count": 2,
-        "company_count": 4,
+        "company_count": 2,
         "top_companies": [
           {
             "name": "Applied Materials",
-            "count": 1
-          },
-          {
-            "name": "SK hynix",
-            "count": 1
+            "count": 2
           }
         ],
         "top_tech_domains": [
           {
             "name": "AI·데이터",
-            "count": 2
+            "count": 1
           },
           {
-            "name": "DRAM·HBM",
+            "name": "장비·Fab·인프라",
             "count": 1
           },
           {
@@ -7949,23 +7950,23 @@
         ],
         "top_job_roles": [
           {
-            "name": "SW·데이터·AI",
+            "name": "R&D공정·공정설계",
             "count": 2
           },
           {
-            "name": "AE·솔루션",
-            "count": 1
+            "name": "설비기술·기반기술",
+            "count": 2
           },
           {
             "name": "P&T·패키지개발",
             "count": 1
           },
           {
-            "name": "R&D공정·공정설계",
+            "name": "SW·데이터·AI",
             "count": 1
           },
           {
-            "name": "설계",
+            "name": "인프라·안전",
             "count": 1
           }
         ],
@@ -7973,6 +7974,10 @@
           {
             "name": "기술·제품",
             "count": 2
+          },
+          {
+            "name": "투자·생산",
+            "count": 1
           },
           {
             "name": "협업·공급망",
@@ -7981,31 +7986,35 @@
         ]
       },
       "30": {
-        "article_count": 21,
-        "high_relevance_count": 9,
+        "article_count": 20,
+        "high_relevance_count": 8,
         "company_count": 7,
         "top_companies": [
           {
             "name": "SK hynix",
-            "count": 5
+            "count": 4
           },
           {
             "name": "Applied Materials",
-            "count": 2
+            "count": 3
           },
           {
             "name": "Samsung Electronics",
-            "count": 2
+            "count": 1
           }
         ],
         "top_tech_domains": [
           {
             "name": "AI·데이터",
-            "count": 9
+            "count": 7
           },
           {
             "name": "DRAM·HBM",
-            "count": 5
+            "count": 4
+          },
+          {
+            "name": "장비·Fab·인프라",
+            "count": 2
           },
           {
             "name": "NAND·스토리지",
@@ -8014,19 +8023,19 @@
           {
             "name": "소재·부품",
             "count": 1
-          },
-          {
-            "name": "장비·Fab·인프라",
-            "count": 1
           }
         ],
         "top_job_roles": [
           {
             "name": "SW·데이터·AI",
-            "count": 6
+            "count": 5
           },
           {
             "name": "R&D공정·공정설계",
+            "count": 4
+          },
+          {
+            "name": "설비기술·기반기술",
             "count": 3
           },
           {
@@ -8034,36 +8043,32 @@
             "count": 2
           },
           {
-            "name": "설비기술·기반기술",
-            "count": 2
-          },
-          {
-            "name": "평가분석·품질·PE",
+            "name": "인프라·안전",
             "count": 2
           }
         ],
         "top_signal_types": [
           {
             "name": "기술·제품",
-            "count": 9
+            "count": 8
+          },
+          {
+            "name": "투자·생산",
+            "count": 2
           },
           {
             "name": "행사·인재",
-            "count": 3
+            "count": 2
           },
           {
             "name": "협업·공급망",
             "count": 2
-          },
-          {
-            "name": "투자·생산",
-            "count": 1
           }
         ]
       },
       "90": {
         "article_count": 108,
-        "high_relevance_count": 49,
+        "high_relevance_count": 50,
         "company_count": 10,
         "top_companies": [
           {
@@ -8102,7 +8107,7 @@
           },
           {
             "name": "장비·Fab·인프라",
-            "count": 7
+            "count": 8
           },
           {
             "name": "파운드리·로직·소자",
@@ -8116,7 +8121,7 @@
           },
           {
             "name": "R&D공정·공정설계",
-            "count": 14
+            "count": 15
           },
           {
             "name": "평가분석·품질·PE",
@@ -8127,18 +8132,18 @@
             "count": 8
           },
           {
-            "name": "AE·솔루션",
-            "count": 6
+            "name": "인프라·안전",
+            "count": 7
           }
         ],
         "top_signal_types": [
           {
             "name": "기술·제품",
-            "count": 49
+            "count": 50
           },
           {
             "name": "투자·생산",
-            "count": 11
+            "count": 12
           },
           {
             "name": "협업·공급망",
@@ -8173,15 +8178,15 @@
     "company_profiles_30d": [
       {
         "company": "SK hynix",
-        "high_relevance_count": 5,
+        "high_relevance_count": 4,
         "top_tech_domains": [
           {
             "name": "AI·데이터",
-            "count": 5
+            "count": 4
           },
           {
             "name": "DRAM·HBM",
-            "count": 4
+            "count": 3
           },
           {
             "name": "NAND·스토리지",
@@ -8191,7 +8196,7 @@
         "top_job_roles": [
           {
             "name": "SW·데이터·AI",
-            "count": 4
+            "count": 3
           },
           {
             "name": "AE·솔루션",
@@ -8205,51 +8210,46 @@
       },
       {
         "company": "Applied Materials",
-        "high_relevance_count": 2,
+        "high_relevance_count": 3,
         "top_tech_domains": [
           {
             "name": "AI·데이터",
             "count": 2
           },
           {
-            "name": "DRAM·HBM",
-            "count": 1
+            "name": "장비·Fab·인프라",
+            "count": 2
           },
           {
-            "name": "소재·부품",
+            "name": "DRAM·HBM",
             "count": 1
           }
         ],
         "top_job_roles": [
           {
             "name": "R&D공정·공정설계",
-            "count": 2
-          },
-          {
-            "name": "SW·데이터·AI",
-            "count": 2
+            "count": 3
           },
           {
             "name": "설비기술·기반기술",
+            "count": 3
+          },
+          {
+            "name": "SW·데이터·AI",
             "count": 2
           }
         ]
       },
       {
         "company": "Samsung Electronics",
-        "high_relevance_count": 2,
+        "high_relevance_count": 1,
         "top_tech_domains": [
           {
             "name": "AI·데이터",
-            "count": 2
-          }
-        ],
-        "top_job_roles": [
-          {
-            "name": "공정기술·양산기술",
             "count": 1
           }
-        ]
+        ],
+        "top_job_roles": []
       }
     ]
   },

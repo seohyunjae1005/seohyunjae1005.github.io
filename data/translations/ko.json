@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-08T01:23:38.399565+00:00",
+  "updated_at": "2026-10-09T01:32:21.079595+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1581,6 +1581,12 @@
       "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
       "source_fingerprint": "3282d30e64f926d4359b12030b0bcb75b15f030b59f6529bad2168c63fcaee8a",
       "translated_at": "2026-10-08T01:23:38.399540+00:00"
+    },
+    "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-and-ucla-engineering-accelerate-semiconductor": {
+      "title_ko": "애플라이드 머티리얼즈와 UCLA 공과대학, EPIC 센터에서 반도체 혁신 가속화",
+      "summary_ko": "칩 기술이 획기적인 연구 단계에서 본격적인 양산 단계로 더 빠르게 전환될 수 있도록 상용화 과정을 가속화하는 데 중점을 둔 R&amp;D 프로그램. 실리콘밸리의 최첨단 시설에서 진행되는 공동 연구를 통해 UCLA의 반도체 연구 역량과 Applied의 최첨단 기술이 결합된다.",
+      "source_fingerprint": "492271ba949b01131a8139eda09c839a97c811fb5cbbdd72bb14636aebda6cd4",
+      "translated_at": "2026-10-09T01:32:21.079571+00:00"
     }
   }
 }
