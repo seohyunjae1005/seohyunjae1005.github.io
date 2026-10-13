@@ -75,7 +75,32 @@
     return assertMatchResult(payload.result);
   }
 
-  root.JDAiClient = { ENDPOINT_KEY, normalizeEndpoint, loadEndpoint, saveEndpoint, assertResult, assertMatchResult, analyze, matchProfile };
+  function assertExperienceResult(result) {
+    const fields = ["role", "situation", "action", "result", "tools"];
+    if (!result || typeof result !== "object" || !result.fields) throw new Error("경험 정리 결과 형식이 올바르지 않습니다.");
+    fields.forEach((key) => {
+      const row = result.fields[key];
+      if (!row || typeof row.value !== "string" || !Array.isArray(row.evidenceQuotes)) throw new Error(`경험 정리 결과의 ${key} 형식이 올바르지 않습니다.`);
+    });
+    if (!Array.isArray(result.questions)) throw new Error("경험 보완 질문 형식이 올바르지 않습니다.");
+    return result;
+  }
+
+  async function organizeExperience(input, options = {}) {
+    const endpoint = normalizeEndpoint(options.endpoint);
+    if (!endpoint) throw new Error("AI 분석 연결 주소가 설정되지 않았습니다.");
+    const fetcher = options.fetcher || root.fetch.bind(root);
+    const response = await fetcher(endpoint, {
+      method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ ...input, action: "organizeExperience" }), redirect: "follow",
+    });
+    if (!response.ok) throw new Error(`AI 분석 서버 연결 실패 (${response.status})`);
+    const payload = await response.json();
+    if (!payload.ok) throw new Error(payload.error || "AI가 경험을 정리하지 못했습니다.");
+    return assertExperienceResult(payload.result);
+  }
+
+  root.JDAiClient = { ENDPOINT_KEY, normalizeEndpoint, loadEndpoint, saveEndpoint, assertResult, assertMatchResult, assertExperienceResult, analyze, matchProfile, organizeExperience };
   if (typeof module !== "undefined" && module.exports) module.exports = root.JDAiClient;
 })(typeof window !== "undefined" ? window : globalThis);
 

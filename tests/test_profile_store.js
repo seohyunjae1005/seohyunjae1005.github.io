@@ -27,6 +27,7 @@ const saved = profileStore.save({
     id: "exp-1",
     type: "공정·분석 실습",
     title: "반도체 공정 실습",
+    rawNotes: "조건별 측정값을 비교하고 이상 원인 후보를 정리했다.",
     role: "측정 데이터 분석",
     action: "조건별 측정 데이터를 비교함",
     result: "이상 원인 후보를 정리함",
@@ -45,6 +46,8 @@ assert.equal(profileStore.summary(saved).experienceCount, 2);
 assert.equal(profileStore.summary(saved).educationCount, 1);
 assert.equal(profileStore.summary(saved).ready, true);
 assert.match(profileStore.toExperienceText(saved), /공정 실습/);
+assert.doesNotMatch(profileStore.toExperienceText(saved), /경험 메모/);
+assert.match(profileStore.toExperienceText({ experiences: [{ rawNotes: "자유 메모만 작성" }] }), /경험 메모 자유 메모만 작성/);
 assert.match(profileStore.toExperienceText(saved), /보유 기술 및 교육: Python/);
 assert.match(profileStore.toExperienceText(saved), /AI 문제해결 경험/);
 const evidenceEntries = profileStore.toEvidenceEntries(saved);

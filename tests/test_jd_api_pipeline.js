@@ -159,4 +159,17 @@ const rejectedMatch = context.jdValidateProfileMatches_({ matches: [{
   requirementId: 'R1', status: 'direct', experienceId: 'E1', profileEvidenceQuote: '존재하지 않는 성과',
 }] }, matchRequirements, matchEntries);
 assert.equal(rejectedMatch.matches[0].status, 'none');
+
+const organizedExperience = context.jdValidateExperienceExtraction_({ fields: {
+  role: { evidenceQuotes: ['측정 데이터 분석 담당'] },
+  situation: { evidenceQuotes: ['조건별 편차의 원인을 확인해야 했다'] },
+  action: { evidenceQuotes: ['측정값을 조건별로 비교했다'] },
+  result: { evidenceQuotes: ['원인 후보를 두 가지로 좁혔다', '존재하지 않는 30% 개선'] },
+  tools: { evidenceQuotes: [] },
+} }, '측정 데이터 분석 담당. 조건별 편차의 원인을 확인해야 했다. 측정값을 조건별로 비교했다. 원인 후보를 두 가지로 좁혔다.');
+assert.equal(organizedExperience.fields.result.value, '원인 후보를 두 가지로 좁혔다');
+assert.equal(organizedExperience.fields.tools.value, '');
+assert.ok(organizedExperience.questions.some((row) => row.field === 'tools'));
+assert.ok(!organizedExperience.summary.includes('30%'));
+assert.match(context.jdBuildExperiencePrompt_('테스트 경험'), /새로운 사실, 수치, 도구, 성과, 역할을 만들거나/);
 console.log('JD API two-stage pipeline tests passed');

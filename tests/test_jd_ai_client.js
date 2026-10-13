@@ -26,6 +26,28 @@ assert.throws(() => client.assertResult({ ...validResult, facts: { ...validResul
 })().catch((error) => { console.error(error); process.exitCode = 1; });
 
 (async () => {
+  const organized = {
+    summary: "측정 데이터를 비교함 → 이상 원인 후보를 정리함",
+    fields: {
+      role: { value: "측정 데이터 분석", evidenceQuotes: ["측정 데이터 분석"] },
+      situation: { value: "", evidenceQuotes: [] },
+      action: { value: "조건별 측정 데이터를 비교함", evidenceQuotes: ["조건별 측정 데이터를 비교함"] },
+      result: { value: "이상 원인 후보를 정리함", evidenceQuotes: ["이상 원인 후보를 정리함"] },
+      tools: { value: "", evidenceQuotes: [] },
+    },
+    questions: [{ field: "tools", question: "사용한 도구가 있었나요?" }],
+  };
+  const result = await client.organizeExperience({ experienceText: "측정 데이터 분석" }, {
+    endpoint: "https://script.google.com/macros/s/test/exec",
+    fetcher: async (_url, options) => {
+      assert.equal(JSON.parse(options.body).action, "organizeExperience");
+      return { ok: true, json: async () => ({ ok: true, result: organized }) };
+    },
+  });
+  assert.equal(result.fields.action.value, "조건별 측정 데이터를 비교함");
+})().catch((error) => { console.error(error); process.exitCode = 1; });
+
+(async () => {
   const matchResult = {
     counts: { direct: 1, indirect: 0, none: 0 },
     matches: [{

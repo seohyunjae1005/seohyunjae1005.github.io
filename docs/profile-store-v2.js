@@ -10,7 +10,7 @@
     updatedAt: "",
   });
   const EDUCATION_FIELDS = ["id", "level", "school", "status", "startDate", "endDate", "major", "secondaryMajor", "transfer", "region", "gpa", "gpaScale", "credits", "coursework", "advisor", "lab", "research", "theses", "conferences"];
-  const EXPERIENCE_FIELDS = ["id", "type", "title", "organization", "startDate", "endDate", "role", "situation", "action", "result", "tools"];
+  const EXPERIENCE_FIELDS = ["id", "type", "title", "organization", "startDate", "endDate", "rawNotes", "role", "situation", "action", "result", "tools"];
   const AI_FIELDS = ["title", "context", "period", "role", "aiUse", "verification", "result"];
 
   function clean(value) {
@@ -119,9 +119,11 @@
   }
 
   function experienceText(row) {
+    const hasStructuredDetail = [row.role, row.situation, row.action, row.result, row.tools].some((value) => clean(value));
     return compact([
       row.type, row.title, row.organization,
       row.startDate || row.endDate ? `${row.startDate || "?"}~${row.endDate || "?"}` : "",
+      !hasStructuredDetail && row.rawNotes ? `경험 메모 ${row.rawNotes}` : "",
       row.role ? `역할 ${row.role}` : "",
       row.situation ? `문제·목표 ${row.situation}` : "",
       row.action ? `행동 ${row.action}` : "",

@@ -617,12 +617,58 @@ function experienceEntryTemplate(row = {}, index = 0) {
         <label><span>기관·팀</span><input data-field="organization" type="text" value="${escapeHtml(row.organization || "")}" /></label>
         <label><span>기간</span><span class="profile-inline-fields"><input data-field="startDate" type="month" value="${escapeHtml(row.startDate || "")}" /><input data-field="endDate" type="month" value="${escapeHtml(row.endDate || "")}" /></span></label>
       </div>
+      <details class="experience-helper">
+        <summary>경험 정리 도우미 <small>자유롭게 적은 메모를 이력서 항목별로 나눕니다.</small></summary>
+        <div class="experience-helper-body">
+          <label><span>경험 메모 <small>순서 없이 편하게 작성</small></span><textarea data-field="rawNotes" rows="6" placeholder="무슨 활동이었는지, 내가 맡은 일, 발생한 문제, 실제로 한 행동, 결과를 기억나는 대로 적으세요. 없는 수치나 성과는 만들지 마세요.">${escapeHtml(row.rawNotes || "")}</textarea></label>
+          <p class="experience-helper-notice">정리 버튼을 누를 때 이 경험의 입력 내용만 AI 분석 서버로 전송됩니다. 결과는 미리보기이며, 확인 전에는 아래 입력란을 바꾸지 않습니다.</p>
+          <button class="jd-secondary experience-organize-button" type="button" data-organize-experience>입력 내용 정리하기</button>
+          <div class="experience-helper-result" data-experience-result hidden></div>
+        </div>
+      </details>
       <label><span>내 역할</span><textarea data-field="role" rows="2" placeholder="팀 전체가 아니라 내가 맡은 역할을 적으세요.">${escapeHtml(row.role || "")}</textarea></label>
       <label><span>문제·목표</span><textarea data-field="situation" rows="2" placeholder="어떤 문제나 목표가 있었는지 적으세요.">${escapeHtml(row.situation || "")}</textarea></label>
       <label><span>내가 한 행동</span><textarea data-field="action" rows="3" placeholder="분석, 실험, 조정, 의사결정 등 구체적인 행동을 적으세요.">${escapeHtml(row.action || "")}</textarea></label>
       <label><span>결과·배운 점</span><textarea data-field="result" rows="3" placeholder="수치, 산출물, 개선 효과와 배운 점을 적으세요.">${escapeHtml(row.result || "")}</textarea></label>
       <label><span>사용 기술·장비·도구</span><input data-field="tools" type="text" value="${escapeHtml(row.tools || "")}" placeholder="예: SEM, Excel, Python" /></label>
     </article>`;
+}
+
+function experienceCardSource(card) {
+  const field = (name) => card.querySelector(`[data-field="${name}"]`)?.value.trim() || "";
+  const raw = field("rawNotes");
+  if (raw) return raw;
+  return [
+    ["경험명", field("title")], ["기관·팀", field("organization")], ["내 역할", field("role")],
+    ["문제·목표", field("situation")], ["내가 한 행동", field("action")],
+    ["결과·배운 점", field("result")], ["사용 기술·장비·도구", field("tools")],
+  ].filter(([, value]) => value).map(([label, value]) => `[${label}]\n${value}`).join("\n");
+}
+
+function renderExperienceHelperResult(card, result) {
+  const labels = { role: "내 역할", situation: "문제·목표", action: "내가 한 행동", result: "결과·배운 점", tools: "사용 기술·장비·도구" };
+  const rows = Object.entries(labels).map(([key, label]) => {
+    const item = result.fields[key];
+    return `<div class="experience-preview-row"><strong>${label}</strong><p>${item.value ? escapeHtml(item.value) : '<span class="experience-missing">확인된 내용 없음</span>'}</p>${item.evidenceQuotes.length ? `<small>내 메모 근거 · “${escapeHtml(item.evidenceQuotes.join(" / "))}”</small>` : ""}</div>`;
+  }).join("");
+  const questions = result.questions.length
+    ? `<section class="experience-questions"><strong>더 적으면 좋은 내용</strong><ul>${result.questions.map((row) => `<li>${escapeHtml(row.question)}</li>`).join("")}</ul></section>`
+    : '<p class="experience-complete">역할·문제·행동·결과·도구가 모두 확인되었습니다.</p>';
+  const container = card.querySelector("[data-experience-result]");
+  container.innerHTML = `${result.summary ? `<div class="experience-summary"><span>이력서용 정리 초안</span><p>${escapeHtml(result.summary)}</p></div>` : ""}${rows}${questions}<button class="jd-primary" type="button" data-apply-experience>검토한 내용을 입력란에 적용</button>`;
+  container.hidden = false;
+  card._experienceDraft = result;
+}
+
+function applyExperienceDraft(card) {
+  const draft = card._experienceDraft;
+  if (!draft) return;
+  ["role", "situation", "action", "result", "tools"].forEach((key) => {
+    const value = draft.fields[key]?.value || "";
+    if (value) card.querySelector(`[data-field="${key}"]`).value = value;
+  });
+  const container = card.querySelector("[data-experience-result]");
+  container.insertAdjacentHTML("afterbegin", '<p class="experience-applied">입력란에 적용했습니다. 내용을 직접 수정한 뒤 프로필을 저장하세요.</p>');
 }
 
 function readProfileEntries(selector) {
@@ -711,6 +757,32 @@ function bindProfileForm() {
     const list = document.querySelector("#profile-experience-list");
     list.insertAdjacentHTML("beforeend", experienceEntryTemplate({}, list.children.length));
     list.lastElementChild.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+
+  document.querySelector("#profile-experience-list").addEventListener("click", async (event) => {
+    const organizeButton = event.target.closest("[data-organize-experience]");
+    const applyButton = event.target.closest("[data-apply-experience]");
+    if (applyButton) {
+      applyExperienceDraft(applyButton.closest(".profile-experience-entry"));
+      return;
+    }
+    if (!organizeButton) return;
+    const card = organizeButton.closest(".profile-experience-entry");
+    try {
+      const experienceText = experienceCardSource(card);
+      if (experienceText.length < 20) throw new Error("경험 메모나 기존 입력 내용을 조금 더 적어 주세요.");
+      const endpoint = window.JDAiClient.loadEndpoint(window.localStorage);
+      if (!endpoint) throw new Error("JD 분석 화면에서 AI 분석 연결 주소를 먼저 저장해 주세요.");
+      organizeButton.disabled = true;
+      organizeButton.textContent = "내 메모 근거를 확인하며 정리 중…";
+      const result = await window.JDAiClient.organizeExperience({ experienceText }, { endpoint });
+      renderExperienceHelperResult(card, result);
+    } catch (error) {
+      window.alert(error.message || "경험을 정리하지 못했습니다.");
+    } finally {
+      organizeButton.disabled = false;
+      organizeButton.textContent = "입력 내용 정리하기";
+    }
   });
 
   [

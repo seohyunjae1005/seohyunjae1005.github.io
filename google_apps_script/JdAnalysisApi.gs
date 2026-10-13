@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v13';
+const JD_API_VERSION = 'jd-ai-v14';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -17,15 +17,20 @@ function doGet() {
 function doPost(event) {
   try {
     const body = JSON.parse(event && event.postData && event.postData.contents || '{}');
-    const source = String(body.jdText || '').trim();
-    if (!source) throw new Error('분석할 JD 원문이 없습니다.');
-    if (source.length > JD_MAX_SOURCE_LENGTH) throw new Error(`JD 원문은 ${JD_MAX_SOURCE_LENGTH}자 이하만 분석할 수 있습니다.`);
+    const action = String(body.action || 'analyze');
+    const source = String(action === 'organizeExperience' ? body.experienceText : body.jdText || '').trim();
+    if (!source) throw new Error(action === 'organizeExperience' ? '정리할 경험 내용이 없습니다.' : '분석할 JD 원문이 없습니다.');
+    if (source.length > JD_MAX_SOURCE_LENGTH) throw new Error(`입력 원문은 ${JD_MAX_SOURCE_LENGTH}자 이하만 분석할 수 있습니다.`);
     jdConsumeQuota_();
 
     const properties = PropertiesService.getScriptProperties();
     const apiKey = String(properties.getProperty('GEMINI_API_KEY') || '').trim();
     if (!apiKey) throw new Error('Apps Script의 GEMINI_API_KEY가 설정되지 않았습니다.');
     const model = String(properties.getProperty('GEMINI_MODEL') || 'gemini-3.5-flash-lite').trim();
+    if (action === 'organizeExperience') {
+      const experienceResult = jdOrganizeExperience_(source, apiKey, model);
+      return jdJsonResponse_({ ok: true, version: JD_API_VERSION, model, result: experienceResult });
+    }
     if (body.action === 'matchProfile') {
       const matchResult = jdMatchProfile_(body, source, apiKey, model);
       return jdJsonResponse_({ ok: true, version: JD_API_VERSION, model, result: matchResult });
@@ -38,6 +43,72 @@ function doPost(event) {
   } catch (error) {
     return jdJsonResponse_({ ok: false, version: JD_API_VERSION, error: String(error && error.message || error) });
   }
+}
+
+function jdOrganizeExperience_(source, apiKey, model) {
+  const raw = jdCallGemini_(jdBuildExperiencePrompt_(source), apiKey, model);
+  return jdValidateExperienceExtraction_(raw, source);
+}
+
+function jdValidateExperienceExtraction_(raw, source) {
+  const fieldNames = ['role', 'situation', 'action', 'result', 'tools'];
+  const fields = {};
+  fieldNames.forEach((field) => {
+    const row = raw && raw.fields && raw.fields[field] || {};
+    const quotes = jdVerifiedQuotes_(row.evidenceQuotes, source);
+    fields[field] = {
+      // 사용자가 쓴 원문만 적용 대상으로 돌려보내 AI가 수치·성과를 새로 만들 수 없게 한다.
+      value: quotes.join(' / '),
+      evidenceQuotes: quotes,
+    };
+  });
+  const questionsByField = {
+    role: '이 경험에서 팀 전체가 아니라 본인이 맡은 범위와 책임은 무엇이었나요?',
+    situation: '처음 해결하려던 문제 또는 달성하려던 목표는 무엇이었나요?',
+    action: '목표를 위해 본인이 직접 분석·실험·조정·의사결정한 행동은 무엇이었나요?',
+    result: '결과를 확인할 수 있는 수치·산출물·변화가 있었나요? 없다면 무엇을 배웠나요?',
+    tools: '직접 사용한 장비·소프트웨어·분석 방법이 있었다면 무엇인가요?',
+  };
+  const questions = fieldNames.filter((field) => !fields[field].value).map((field) => ({
+    field, question: questionsByField[field], reason: `${field}에 해당하는 내용을 입력 원문에서 확인하지 못했습니다.`,
+  }));
+  const summaryParts = [fields.action.value, fields.result.value].filter(Boolean);
+  if (!summaryParts.length) summaryParts.push(fields.role.value || fields.situation.value);
+  return {
+    summary: summaryParts.filter(Boolean).join(' → '),
+    fields,
+    questions,
+    validation: { status: 'pass', groundedFieldCount: fieldNames.filter((field) => fields[field].value).length },
+  };
+}
+
+function jdBuildExperiencePrompt_(source) {
+  return `당신은 사용자가 자유롭게 쓴 경험 메모를 이력서용 항목으로 나누는 추출기다.
+
+규칙:
+1. 새로운 사실, 수치, 도구, 성과, 역할을 만들거나 일반 지식으로 보충하지 않는다.
+2. role은 사용자 본인의 역할·책임, situation은 문제·목표·배경, action은 본인이 직접 한 행동, result는 확인된 결과·산출물·배운 점, tools는 직접 사용했다고 쓴 장비·Software·방법이다.
+3. 각 evidenceQuotes는 아래 원문에서 글자와 순서를 바꾸지 않은 짧은 연속 구절이다.
+4. 한 구절을 여러 필드에 중복 배치하지 않는다.
+5. 해당 내용이 없으면 빈 배열로 둔다. 특히 결과 수치가 없으면 절대 만들지 않는다.
+6. 정돈된 문장, 평가, 추천, 질문은 만들지 않는다. 분류용 정확 인용만 반환한다.
+
+JSON 외의 글은 출력하지 않는다.
+{
+  "fields": {
+    "role": {"evidenceQuotes":[]},
+    "situation": {"evidenceQuotes":[]},
+    "action": {"evidenceQuotes":[]},
+    "result": {"evidenceQuotes":[]},
+    "tools": {"evidenceQuotes":[]}
+  }
+}
+
+경험 원문 시작
+---
+${source}
+---
+경험 원문 끝`;
 }
 
 function jdMatchProfile_(body, source, apiKey, model) {
