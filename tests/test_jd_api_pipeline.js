@@ -172,4 +172,12 @@ assert.equal(organizedExperience.fields.tools.value, '');
 assert.ok(organizedExperience.questions.some((row) => row.field === 'tools'));
 assert.ok(!organizedExperience.summary.includes('30%'));
 assert.match(context.jdBuildExperiencePrompt_('테스트 경험'), /새로운 사실, 수치, 도구, 성과, 역할을 만들거나/);
+const mixedActionResult = context.jdValidateExperienceExtraction_({ fields: {
+  role: { evidenceQuotes: ['측정 데이터 분석을 담당했다'] }, situation: { evidenceQuotes: ['공정 실습에서'] },
+  action: { evidenceQuotes: ['조건별 측정값을 Excel로 비교했고', '이상 원인 후보를 두 가지로 좁혔다'] },
+  result: { evidenceQuotes: [] }, tools: { evidenceQuotes: ['Excel'] },
+} }, '공정 실습에서 측정 데이터 분석을 담당했다. 조건별 측정값을 Excel로 비교했고, 이상 원인 후보를 두 가지로 좁혔다.');
+assert.equal(mixedActionResult.fields.action.value, '조건별 측정값을 Excel로 비교했고');
+assert.equal(mixedActionResult.fields.result.value, '이상 원인 후보를 두 가지로 좁혔다');
+assert.equal(mixedActionResult.questions.some((row) => row.field === 'result'), false);
 console.log('JD API two-stage pipeline tests passed');

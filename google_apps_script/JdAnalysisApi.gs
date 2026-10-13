@@ -62,6 +62,15 @@ function jdValidateExperienceExtraction_(raw, source) {
       evidenceQuotes: quotes,
     };
   });
+  // 모델이 행동 뒤에 적힌 결과 문장까지 action에 묶는 경우를 보수적으로 교정한다.
+  if (!fields.result.value && fields.action.evidenceQuotes.length > 1) {
+    const resultQuotes = fields.action.evidenceQuotes.filter(jdLooksLikeExperienceResult_);
+    if (resultQuotes.length) {
+      fields.result = { value: resultQuotes.join(' / '), evidenceQuotes: resultQuotes };
+      const remaining = fields.action.evidenceQuotes.filter((quote) => !resultQuotes.includes(quote));
+      fields.action = { value: remaining.join(' / '), evidenceQuotes: remaining };
+    }
+  }
   const questionsByField = {
     role: '이 경험에서 팀 전체가 아니라 본인이 맡은 범위와 책임은 무엇이었나요?',
     situation: '처음 해결하려던 문제 또는 달성하려던 목표는 무엇이었나요?',
@@ -80,6 +89,10 @@ function jdValidateExperienceExtraction_(raw, source) {
     questions,
     validation: { status: 'pass', groundedFieldCount: fieldNames.filter((field) => fields[field].value).length },
   };
+}
+
+function jdLooksLikeExperienceResult_(quote) {
+  return /(?:\d+(?:\.\d+)?\s*(?:%|건|개|회|명|시간|일|점)|개선(?:했|함|되)|향상(?:했|함|되)|감소(?:했|함|되)|증가(?:했|함|되)|절감(?:했|함|되)|단축(?:했|함|되)|달성(?:했|함)|완료(?:했|함)|확보(?:했|함)|해결(?:했|함)|도출(?:했|함)|좁혔|선정(?:했|함)|수상(?:했|함)|배웠|깨달)/i.test(String(quote || ''));
 }
 
 function jdBuildExperiencePrompt_(source) {
