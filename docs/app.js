@@ -617,7 +617,7 @@ function experienceEntryTemplate(row = {}, index = 0) {
         <label><span>기관·팀</span><input data-field="organization" type="text" value="${escapeHtml(row.organization || "")}" /></label>
         <label><span>기간</span><span class="profile-inline-fields"><input data-field="startDate" type="month" value="${escapeHtml(row.startDate || "")}" /><input data-field="endDate" type="month" value="${escapeHtml(row.endDate || "")}" /></span></label>
       </div>
-      <details class="experience-helper">
+      <details class="experience-helper"${index === 0 ? " open" : ""}>
         <summary>경험 정리 도우미 <small>자유롭게 적은 메모를 이력서 항목별로 나눕니다.</small></summary>
         <div class="experience-helper-body">
           <label><span>경험 메모 <small>순서 없이 편하게 작성</small></span><textarea data-field="rawNotes" rows="6" placeholder="무슨 활동이었는지, 내가 맡은 일, 발생한 문제, 실제로 한 행동, 결과를 기억나는 대로 적으세요. 없는 수치나 성과는 만들지 마세요.">${escapeHtml(row.rawNotes || "")}</textarea></label>
