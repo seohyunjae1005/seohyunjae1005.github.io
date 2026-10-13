@@ -82,6 +82,11 @@
       const row = result.fields[key];
       if (!row || typeof row.value !== "string" || !Array.isArray(row.evidenceQuotes)) throw new Error(`경험 정리 결과의 ${key} 형식이 올바르지 않습니다.`);
     });
+    const activityTypes = ["observed", "performed", "assigned", "ongoing", "planned"];
+    if (!result.activities || activityTypes.some((key) => !Array.isArray(result.activities[key]))) throw new Error("경험 수행 수준 분류가 누락되었습니다.");
+    activityTypes.forEach((key) => {
+      if (result.activities[key].some((row) => !row || typeof row.quote !== "string")) throw new Error("경험 수행 수준의 근거 형식이 올바르지 않습니다.");
+    });
     if (!Array.isArray(result.questions)) throw new Error("경험 보완 질문 형식이 올바르지 않습니다.");
     return result;
   }

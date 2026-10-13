@@ -28,6 +28,9 @@ assert.throws(() => client.assertResult({ ...validResult, facts: { ...validResul
 (async () => {
   const organized = {
     summary: "측정 데이터를 비교함 → 이상 원인 후보를 정리함",
+    activities: {
+      observed: [], performed: [{ quote: "조건별 측정 데이터를 비교함" }], assigned: [], ongoing: [], planned: [],
+    },
     fields: {
       role: { value: "측정 데이터 분석", evidenceQuotes: ["측정 데이터 분석"] },
       situation: { value: "", evidenceQuotes: [] },

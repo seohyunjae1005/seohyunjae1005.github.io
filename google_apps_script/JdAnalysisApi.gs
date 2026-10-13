@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v14';
+const JD_API_VERSION = 'jd-ai-v15';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -51,44 +51,92 @@ function jdOrganizeExperience_(source, apiKey, model) {
 }
 
 function jdValidateExperienceExtraction_(raw, source) {
+  const activityTypes = ['observed', 'performed', 'assigned', 'ongoing', 'planned'];
+  const activities = {};
+  const usedQuotes = new Set();
+  activityTypes.forEach((type) => { activities[type] = []; });
+
+  activityTypes.forEach((requestedType) => {
+    const rows = raw && raw.activities && raw.activities[requestedType] || [];
+    (Array.isArray(rows) ? rows : []).forEach((row) => {
+      const quote = jdVerifiedQuotes_([typeof row === 'string' ? row : row && row.quote], source)[0] || '';
+      if (!quote || usedQuotes.has(quote)) return;
+      const type = jdExperienceActivityType_(quote, requestedType);
+      activities[type].push({ quote });
+      usedQuotes.add(quote);
+    });
+  });
+
   const fieldNames = ['role', 'situation', 'action', 'result', 'tools'];
   const fields = {};
   fieldNames.forEach((field) => {
     const row = raw && raw.fields && raw.fields[field] || {};
     const quotes = jdVerifiedQuotes_(row.evidenceQuotes, source);
+    let value = jdExperienceDraftValue_(row.value, quotes, source);
+    if (field === 'action') {
+      const validActionQuotes = quotes.filter((quote) => !['observed', 'planned'].includes(jdExperienceActivityType_(quote, 'performed')));
+      value = jdExperienceDraftValue_(row.value, validActionQuotes, source);
+    }
     fields[field] = {
-      // 사용자가 쓴 원문만 적용 대상으로 돌려보내 AI가 수치·성과를 새로 만들 수 없게 한다.
-      value: quotes.join(' / '),
+      value,
       evidenceQuotes: quotes,
     };
   });
-  // 모델이 행동 뒤에 적힌 결과 문장까지 action에 묶는 경우를 보수적으로 교정한다.
-  if (!fields.result.value && fields.action.evidenceQuotes.length > 1) {
-    const resultQuotes = fields.action.evidenceQuotes.filter(jdLooksLikeExperienceResult_);
-    if (resultQuotes.length) {
-      fields.result = { value: resultQuotes.join(' / '), evidenceQuotes: resultQuotes };
-      const remaining = fields.action.evidenceQuotes.filter((quote) => !resultQuotes.includes(quote));
-      fields.action = { value: remaining.join(' / '), evidenceQuotes: remaining };
-    }
-  }
+
+  // 완료되지 않은 계획과 단순 참관을 실제 수행 행동으로 적용하지 않는다.
+  fields.action.evidenceQuotes = fields.action.evidenceQuotes.filter((quote) => !['observed', 'planned'].includes(jdExperienceActivityType_(quote, 'performed')));
+  if (!fields.action.evidenceQuotes.length) fields.action.value = '';
+
   const questionsByField = {
     role: '이 경험에서 팀 전체가 아니라 본인이 맡은 범위와 책임은 무엇이었나요?',
     situation: '처음 해결하려던 문제 또는 달성하려던 목표는 무엇이었나요?',
     action: '목표를 위해 본인이 직접 분석·실험·조정·의사결정한 행동은 무엇이었나요?',
-    result: '결과를 확인할 수 있는 수치·산출물·변화가 있었나요? 없다면 무엇을 배웠나요?',
+    result: '현재까지 확인된 결과·산출물·변화는 무엇인가요? 아직 진행 전이라면 완료 후 기록하세요.',
     tools: '직접 사용한 장비·소프트웨어·분석 방법이 있었다면 무엇인가요?',
   };
   const questions = fieldNames.filter((field) => !fields[field].value).map((field) => ({
     field, question: questionsByField[field], reason: `${field}에 해당하는 내용을 입력 원문에서 확인하지 못했습니다.`,
   }));
-  const summaryParts = [fields.action.value, fields.result.value].filter(Boolean);
-  if (!summaryParts.length) summaryParts.push(fields.role.value || fields.situation.value);
+  const summaryRow = raw && raw.summary || {};
+  const summaryQuotes = jdVerifiedQuotes_(summaryRow.evidenceQuotes, source);
+  const summary = jdExperienceDraftValue_(summaryRow.value, summaryQuotes, source);
   return {
-    summary: summaryParts.filter(Boolean).join(' → '),
+    summary,
+    activities,
     fields,
     questions,
-    validation: { status: 'pass', groundedFieldCount: fieldNames.filter((field) => fields[field].value).length },
+    validation: {
+      status: 'pass',
+      groundedFieldCount: fieldNames.filter((field) => fields[field].value).length,
+      activityCount: activityTypes.reduce((count, type) => count + activities[type].length, 0),
+    },
   };
+}
+
+function jdExperienceActivityType_(quote, fallback) {
+  const text = String(quote || '');
+  if (/(?:예정|계획|향후|앞으로|추후|방학간|방학\s*중).{0,30}(?:진행|수행|구축|분석|실시|할|예정)|(?:진행|수행|구축|분석|실시).{0,15}(?:예정|계획)/i.test(text)) return 'planned';
+  if (/(?:참관|관찰|견학|지켜봤|봤어|보았|보고(?:\s|,|\.|$))/i.test(text) && !/(?:직접|수행|조작|운전|실시)/i.test(text)) return 'observed';
+  if (/(?:배정|담당|맡았|역할)/i.test(text)) return 'assigned';
+  if (/(?:진행\s*중|수행\s*중|현재|하고\s*있)/i.test(text)) return 'ongoing';
+  return fallback === 'observed' ? 'observed' : 'performed';
+}
+
+function jdExperienceDraftValue_(value, quotes, source) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim().slice(0, 900);
+  if (!text || !quotes.length) return '';
+  const evidence = quotes.join(' ');
+  // AI가 원문에 없는 수치나 영문 기술·도구명을 보태면 초안을 폐기하고 정확 인용으로 대체한다.
+  const numberTokens = text.match(/\d+(?:\.\d+)?/g) || [];
+  const latinTokens = text.match(/[A-Za-z][A-Za-z0-9+.#-]{1,}/g) || [];
+  const unsupported = [...numberTokens, ...latinTokens].some((token) => !String(source).toLowerCase().includes(String(token).toLowerCase()));
+  if (unsupported) return quotes.join(' / ');
+  const futureOnly = quotes.every((quote) => jdExperienceActivityType_(quote, 'performed') === 'planned');
+  if (futureOnly && /(?:완료|구축했다|분석했다|수행했다|개선했다|달성했다)/.test(text)) return quotes.join(' / ');
+  const resultClaims = /(?:향상|개선|감소|증가|절감|달성|완료|해결)/g;
+  const claimed = text.match(resultClaims) || [];
+  if (claimed.some((token) => !evidence.includes(token) && !String(source).includes(token))) return quotes.join(' / ');
+  return text;
 }
 
 function jdLooksLikeExperienceResult_(quote) {
@@ -96,24 +144,34 @@ function jdLooksLikeExperienceResult_(quote) {
 }
 
 function jdBuildExperiencePrompt_(source) {
-  return `당신은 사용자가 자유롭게 쓴 경험 메모를 이력서용 항목으로 나누는 추출기다.
+  return `당신은 사용자가 자유롭게 쓴 경험 메모를 사실 수준별로 구분하고, 근거 있는 이력서 초안을 만드는 편집기다.
 
 규칙:
 1. 새로운 사실, 수치, 도구, 성과, 역할을 만들거나 일반 지식으로 보충하지 않는다.
-2. role은 사용자 본인의 역할·책임, situation은 문제·목표·배경, action은 본인이 직접 한 행동, result는 확인된 결과·산출물·배운 점, tools는 직접 사용했다고 쓴 장비·Software·방법이다.
-3. 각 evidenceQuotes는 아래 원문에서 글자와 순서를 바꾸지 않은 짧은 연속 구절이다.
-4. 한 구절을 여러 필드에 중복 배치하지 않는다.
-5. 해당 내용이 없으면 빈 배열로 둔다. 특히 결과 수치가 없으면 절대 만들지 않는다.
-6. 정돈된 문장, 평가, 추천, 질문은 만들지 않는다. 분류용 정확 인용만 반환한다.
+2. 먼저 활동을 observed(참관·관찰), performed(직접 완료), assigned(배정받은 책임), ongoing(현재 진행), planned(향후 예정)로 나눈다. 예정 활동을 완료 행동으로, 참관을 직접 수행으로 바꾸지 않는다.
+3. role은 본인의 역할·책임, situation은 문제·목표, action은 직접 완료했거나 현재 진행 중인 행동만, result는 확인된 결과·산출물·명시한 배운 점만, tools는 사용 상태가 드러나게 정리한다.
+4. summary와 fields.value는 존댓말 없이 간결한 이력서 문체로 다시 쓸 수 있지만, 아래 원문과 연결된 evidenceQuotes의 사실 범위를 넘지 않는다.
+5. 각 quote와 evidenceQuotes는 아래 원문에서 글자와 순서를 바꾸지 않은 짧은 연속 구절이다.
+6. 해당 내용이 없으면 빈 문자열·빈 배열로 둔다. 특히 결과 수치가 없으면 절대 만들지 않는다.
+7. 관찰한 공정·장비는 '참관', 직접 사용한 것은 '직접 수행', 배정 또는 예정 업무는 그 상태를 문장에 명시한다.
+8. casual한 표현은 자연스럽게 다듬되 의미를 확대하지 않는다.
 
 JSON 외의 글은 출력하지 않는다.
 {
+  "summary":{"value":"사실 수준을 구분한 2~3문장 이력서 초안","evidenceQuotes":[]},
+  "activities": {
+    "observed":[{"quote":""}],
+    "performed":[{"quote":""}],
+    "assigned":[{"quote":""}],
+    "ongoing":[{"quote":""}],
+    "planned":[{"quote":""}]
+  },
   "fields": {
-    "role": {"evidenceQuotes":[]},
-    "situation": {"evidenceQuotes":[]},
-    "action": {"evidenceQuotes":[]},
-    "result": {"evidenceQuotes":[]},
-    "tools": {"evidenceQuotes":[]}
+    "role": {"value":"","evidenceQuotes":[]},
+    "situation": {"value":"","evidenceQuotes":[]},
+    "action": {"value":"","evidenceQuotes":[]},
+    "result": {"value":"","evidenceQuotes":[]},
+    "tools": {"value":"","evidenceQuotes":[]}
   }
 }
 

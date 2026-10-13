@@ -160,24 +160,52 @@ const rejectedMatch = context.jdValidateProfileMatches_({ matches: [{
 }] }, matchRequirements, matchEntries);
 assert.equal(rejectedMatch.matches[0].status, 'none');
 
-const organizedExperience = context.jdValidateExperienceExtraction_({ fields: {
-  role: { evidenceQuotes: ['측정 데이터 분석 담당'] },
-  situation: { evidenceQuotes: ['조건별 편차의 원인을 확인해야 했다'] },
-  action: { evidenceQuotes: ['측정값을 조건별로 비교했다'] },
-  result: { evidenceQuotes: ['원인 후보를 두 가지로 좁혔다', '존재하지 않는 30% 개선'] },
-  tools: { evidenceQuotes: [] },
-} }, '측정 데이터 분석 담당. 조건별 편차의 원인을 확인해야 했다. 측정값을 조건별로 비교했다. 원인 후보를 두 가지로 좁혔다.');
-assert.equal(organizedExperience.fields.result.value, '원인 후보를 두 가지로 좁혔다');
+const organizedExperience = context.jdValidateExperienceExtraction_({
+  summary: { value: '측정값을 비교해 원인 후보를 두 가지로 좁힘', evidenceQuotes: ['측정값을 조건별로 비교했다', '원인 후보를 두 가지로 좁혔다'] },
+  activities: { observed: [], performed: [{ quote: '측정값을 조건별로 비교했다' }], assigned: [{ quote: '측정 데이터 분석 담당' }], ongoing: [], planned: [] },
+  fields: {
+    role: { value: '측정 데이터 분석 담당', evidenceQuotes: ['측정 데이터 분석 담당'] },
+    situation: { value: '조건별 편차 원인 확인', evidenceQuotes: ['조건별 편차의 원인을 확인해야 했다'] },
+    action: { value: '측정값을 조건별로 비교함', evidenceQuotes: ['측정값을 조건별로 비교했다'] },
+    result: { value: '원인 후보를 두 가지로 좁힘', evidenceQuotes: ['원인 후보를 두 가지로 좁혔다', '존재하지 않는 30% 개선'] },
+    tools: { value: '', evidenceQuotes: [] },
+  },
+}, '측정 데이터 분석 담당. 조건별 편차의 원인을 확인해야 했다. 측정값을 조건별로 비교했다. 원인 후보를 두 가지로 좁혔다.');
+assert.equal(organizedExperience.fields.result.value, '원인 후보를 두 가지로 좁힘');
 assert.equal(organizedExperience.fields.tools.value, '');
 assert.ok(organizedExperience.questions.some((row) => row.field === 'tools'));
 assert.ok(!organizedExperience.summary.includes('30%'));
 assert.match(context.jdBuildExperiencePrompt_('테스트 경험'), /새로운 사실, 수치, 도구, 성과, 역할을 만들거나/);
-const mixedActionResult = context.jdValidateExperienceExtraction_({ fields: {
-  role: { evidenceQuotes: ['측정 데이터 분석을 담당했다'] }, situation: { evidenceQuotes: ['공정 실습에서'] },
-  action: { evidenceQuotes: ['조건별 측정값을 Excel로 비교했고', '이상 원인 후보를 두 가지로 좁혔다'] },
-  result: { evidenceQuotes: [] }, tools: { evidenceQuotes: ['Excel'] },
-} }, '공정 실습에서 측정 데이터 분석을 담당했다. 조건별 측정값을 Excel로 비교했고, 이상 원인 후보를 두 가지로 좁혔다.');
-assert.equal(mixedActionResult.fields.action.value, '조건별 측정값을 Excel로 비교했고');
-assert.equal(mixedActionResult.fields.result.value, '이상 원인 후보를 두 가지로 좁혔다');
+const mixedActionResult = context.jdValidateExperienceExtraction_({
+  summary: { value: '조건별 측정값을 Excel로 비교해 이상 원인 후보를 두 가지로 좁힘', evidenceQuotes: ['조건별 측정값을 Excel로 비교했고', '이상 원인 후보를 두 가지로 좁혔다'] },
+  activities: { observed: [], performed: [{ quote: '조건별 측정값을 Excel로 비교했고' }], assigned: [{ quote: '측정 데이터 분석을 담당했다' }], ongoing: [], planned: [] },
+  fields: {
+    role: { value: '측정 데이터 분석 담당', evidenceQuotes: ['측정 데이터 분석을 담당했다'] }, situation: { value: '공정 실습', evidenceQuotes: ['공정 실습에서'] },
+    action: { value: '조건별 측정값을 Excel로 비교함', evidenceQuotes: ['조건별 측정값을 Excel로 비교했고'] },
+    result: { value: '이상 원인 후보를 두 가지로 좁힘', evidenceQuotes: ['이상 원인 후보를 두 가지로 좁혔다'] }, tools: { value: 'Excel', evidenceQuotes: ['Excel'] },
+  },
+}, '공정 실습에서 측정 데이터 분석을 담당했다. 조건별 측정값을 Excel로 비교했고, 이상 원인 후보를 두 가지로 좁혔다.');
+assert.equal(mixedActionResult.fields.action.value, '조건별 측정값을 Excel로 비교함');
+assert.equal(mixedActionResult.fields.result.value, '이상 원인 후보를 두 가지로 좁힘');
 assert.equal(mixedActionResult.questions.some((row) => row.field === 'result'), false);
+
+const statusSource = 'CMOS 공정을 참관했음. 열증착기는 직접 한번 해봤고. 측정 장비 담당으로 배정받았다. B1500 데이터 분석은 방학간 진행예정이다.';
+const statusResult = context.jdValidateExperienceExtraction_({
+  summary: { value: 'CMOS 공정을 참관하고 열증착기를 직접 사용했으며, B1500 데이터 분석을 완료했다.', evidenceQuotes: ['CMOS 공정을 참관했음', '열증착기는 직접 한번 해봤고', 'B1500 데이터 분석은 방학간 진행예정이다'] },
+  activities: {
+    observed: [{ quote: 'CMOS 공정을 참관했음' }], performed: [{ quote: '열증착기는 직접 한번 해봤고' }],
+    assigned: [{ quote: '측정 장비 담당으로 배정받았다' }], ongoing: [], planned: [{ quote: 'B1500 데이터 분석은 방학간 진행예정이다' }],
+  },
+  fields: {
+    role: { value: '측정 장비 담당', evidenceQuotes: ['측정 장비 담당으로 배정받았다'] }, situation: { value: '', evidenceQuotes: [] },
+    action: { value: 'CMOS 공정을 참관하고 열증착기를 직접 사용했으며 B1500 데이터 분석을 완료함', evidenceQuotes: ['CMOS 공정을 참관했음', '열증착기는 직접 한번 해봤고', 'B1500 데이터 분석은 방학간 진행예정이다'] },
+    result: { value: '', evidenceQuotes: [] }, tools: { value: '열증착기 직접 사용, B1500 사용 예정', evidenceQuotes: ['열증착기는 직접 한번 해봤고', 'B1500 데이터 분석은 방학간 진행예정이다'] },
+  },
+}, statusSource);
+assert.equal(statusResult.activities.observed.length, 1);
+assert.equal(statusResult.activities.performed.length, 1);
+assert.equal(statusResult.activities.planned.length, 1);
+assert.deepEqual(Array.from(statusResult.fields.action.evidenceQuotes), ['열증착기는 직접 한번 해봤고']);
+assert.doesNotMatch(statusResult.fields.action.value, /B1500|참관/);
+assert.doesNotMatch(statusResult.summary, /완료했다/);
 console.log('JD API two-stage pipeline tests passed');

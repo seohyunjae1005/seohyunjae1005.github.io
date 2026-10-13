@@ -647,6 +647,18 @@ function experienceCardSource(card) {
 
 function renderExperienceHelperResult(card, result) {
   const labels = { role: "내 역할", situation: "문제·목표", action: "내가 한 행동", result: "결과·배운 점", tools: "사용 기술·장비·도구" };
+  const activityLabels = {
+    observed: ["참관·관찰", "직접 수행으로 보지 않음"],
+    performed: ["직접 수행", "완료한 행동"],
+    assigned: ["담당·배정", "맡은 책임"],
+    ongoing: ["현재 진행", "진행 중인 행동"],
+    planned: ["향후 예정", "아직 성과로 사용하지 않음"],
+  };
+  const activityRows = Object.entries(activityLabels).map(([key, [label, note]]) => {
+    const items = result.activities[key] || [];
+    if (!items.length) return "";
+    return `<div class="experience-level-row experience-level-${key}"><strong>${label}</strong><span>${note}</span><ul>${items.map((item) => `<li>${escapeHtml(item.quote)}</li>`).join("")}</ul></div>`;
+  }).join("");
   const rows = Object.entries(labels).map(([key, label]) => {
     const item = result.fields[key];
     return `<div class="experience-preview-row"><strong>${label}</strong><p>${item.value ? escapeHtml(item.value) : '<span class="experience-missing">확인된 내용 없음</span>'}</p>${item.evidenceQuotes.length ? `<small>내 메모 근거 · “${escapeHtml(item.evidenceQuotes.join(" / "))}”</small>` : ""}</div>`;
@@ -655,7 +667,7 @@ function renderExperienceHelperResult(card, result) {
     ? `<section class="experience-questions"><strong>더 적으면 좋은 내용</strong><ul>${result.questions.map((row) => `<li>${escapeHtml(row.question)}</li>`).join("")}</ul></section>`
     : '<p class="experience-complete">역할·문제·행동·결과·도구가 모두 확인되었습니다.</p>';
   const container = card.querySelector("[data-experience-result]");
-  container.innerHTML = `${result.summary ? `<div class="experience-summary"><span>이력서용 정리 초안</span><p>${escapeHtml(result.summary)}</p></div>` : ""}${rows}${questions}<button class="jd-primary" type="button" data-apply-experience>검토한 내용을 입력란에 적용</button>`;
+  container.innerHTML = `${activityRows ? `<section class="experience-levels"><div class="experience-result-heading"><strong>먼저 사실 수준 확인</strong><span>참관과 예정 활동은 직접 수행 실적으로 합치지 않습니다.</span></div>${activityRows}</section>` : ""}${result.summary ? `<div class="experience-summary"><span>AI 정리 초안 · 아래 원문 근거 범위에서만 작성</span><p>${escapeHtml(result.summary)}</p></div>` : '<div class="experience-summary"><span>AI 정리 초안</span><p class="experience-missing">완성 문장을 만들 근거가 부족합니다. 아래 질문에 답한 뒤 다시 정리해 주세요.</p></div>'}<section class="experience-structured-preview"><div class="experience-result-heading"><strong>입력란에 적용할 내용</strong><span>확인된 내용만 채우며, 빈 항목은 기존 내용을 덮어쓰지 않습니다.</span></div>${rows}</section>${questions}<button class="jd-primary" type="button" data-apply-experience>검토한 초안을 입력란에 적용</button>`;
   container.hidden = false;
   card._experienceDraft = result;
 }

@@ -494,6 +494,17 @@ main { max-width: var(--max); margin: 0 auto; padding: 2rem 1.25rem 5rem; }
 .experience-helper-notice { margin: 0; color: var(--muted); font-size: 0.68rem; line-height: 1.55; }
 .experience-organize-button { justify-self: start; }
 .experience-helper-result { display: grid; gap: 0.65rem; padding-top: 0.8rem; border-top: 1px solid var(--line); }
+.experience-result-heading { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.35rem 1rem; margin-bottom: 0.65rem; }
+.experience-result-heading strong { font-size: 0.78rem; }
+.experience-result-heading span { color: var(--muted); font-size: 0.64rem; }
+.experience-levels, .experience-structured-preview { border: 1px solid var(--line); padding: 0.85rem; }
+.experience-level-row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.7rem; padding: 0.62rem 0; border-top: 1px solid var(--line); }
+.experience-level-row strong { font-size: 0.7rem; }
+.experience-level-row > span { color: var(--muted); font-size: 0.62rem; }
+.experience-level-row ul { grid-column: 2; margin: 0.25rem 0 0; padding-left: 1rem; font-size: 0.7rem; line-height: 1.55; }
+.experience-level-observed, .experience-level-planned { background: #fafafa; }
+.experience-level-performed strong { color: #156b3a; }
+.experience-level-planned strong { color: #8a5a00; }
 .experience-summary { padding: 0.85rem; background: #f5f5f7; }
 .experience-summary span { color: var(--muted); font-size: 0.65rem; font-weight: 750; }
 .experience-summary p { margin: 0.35rem 0 0; font-size: 0.78rem; line-height: 1.55; }
@@ -510,6 +521,8 @@ main { max-width: var(--max); margin: 0 auto; padding: 2rem 1.25rem 5rem; }
 @media (max-width: 640px) {
   .experience-preview-row { grid-template-columns: 1fr; }
   .experience-preview-row small { grid-column: 1; }
+  .experience-level-row { grid-template-columns: 1fr; }
+  .experience-level-row ul { grid-column: 1; }
 }
 .profile-guide-note { display: grid; grid-template-columns: auto 1fr; gap: 0.65rem; padding: 0.75rem; background: var(--accent-soft); color: var(--muted); font-size: 0.68rem; line-height: 1.55; }
 .profile-guide-note b { color: var(--accent-strong); }
