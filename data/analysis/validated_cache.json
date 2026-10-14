@@ -1,6 +1,6 @@
 {
   "schema_version": "validated_analysis_cache_v1",
-  "updated_at": "2026-10-10T01:20:54.663581+00:00",
+  "updated_at": "2026-10-14T00:40:56.460564+00:00",
   "review_notice": "Machine-validated draft cache. Human approval is required before publication.",
   "company_count": 11,
   "companies": {
@@ -604,72 +604,82 @@
     },
     "Tokyo Electron": {
       "company": "Tokyo Electron",
-      "title": "Tokyo Electron Releases Prexa™ SDP, a New Device Prober",
-      "url": "https://www.tel.com/news/product/2026/20260416_001.html",
+      "title": "Tokyo Electron Wins “AI Semiconductor Manufacturing Solution of the Year” Award in 2026 AI Breakthrough Awards Program",
+      "url": "https://www.tel.com/news/topics/2026/20260626_001.html",
       "model": "gemini-3.5-flash-lite",
-      "generated_at": "2026-09-15T05:41:18.514639+00:00",
+      "generated_at": "2026-10-14T00:40:45.648089+00:00",
       "analysis_version": "semiconductor_job_analysis_v1",
       "extraction_method": "filtered_html_blocks",
       "source_scope": "official_article_body",
       "validation_status": "PASS",
       "review_status": "machine_validated",
       "publish_ready": false,
-      "normalization_notes": [
-        "사실 1: 근거 구절이 25단어를 넘어 제외"
-      ],
+      "normalization_notes": [],
       "analysis": {
         "analysis_version": "semiconductor_job_analysis_v1",
-        "summary_ko": "도쿄일렉트론(Tokyo Electron)이 2.5D/3D 패키징 및 고성능 컴퓨팅(HPC)·AI 분야의 KGD(Known Good Device) 선별 요구에 대응하는 싱귤레이티드 디바이스 프로버 신제품 'Prexa™ SDP'를 출시했습니다.",
+        "summary_ko": "도쿄일렉트론(TEL)이 2026 AI Breakthrough Awards에서 'AI Semiconductor Manufacturing Solution of the Year' 상을 수상하였으며, 3D Integration(3DI) 기술과 장비 내 AI 기반 공정 제어 솔루션을 통해 고성능 AI 반도체 양산을 지원하고 있음을 발표했습니다.",
         "facts": [
           {
-            "statement_ko": "Prexa™ SDP는 고발열 디바이스를 다루기 위한 우수한 열 흡수 기능과 고정밀 액티브 온도 조절이 가능한 서멀 헤드를 특징으로 한다.",
-            "evidence_en": "features superior heat absorption capabilities for handling high-heat-generating devices, and a thermal head capable of high-precision active thermal control."
+            "statement_ko": "도쿄일렉트론은 3D Integration(3DI) 기술을 통해 로직과 메모리의 정밀한 적층 및 통합을 지원합니다.",
+            "evidence_en": "The company’s 3D Integration (3DI) technology enables the precise stacking and integration of logic and memory"
           },
           {
-            "statement_ko": "KGD는 테스트를 거쳐 결함이 없는 것으로 입증된 패키징되지 않은 디바이스를 의미한다.",
-            "evidence_en": "KGD: Known Good Device. The term refers to unpackaged devices that have been tested and proven defect-free."
+            "statement_ko": "도쿄일렉트론은 장비에 AI를 직접 내장하여 첨단 소프트웨어와 AI 기반 공정 제어를 통해 수율, 균일성, 신뢰성을 향상시킵니다.",
+            "evidence_en": "Additionally, TEL embeds AI directly into semiconductor manufacturing. Through advanced software and AI-driven process control, TEL’s equipment helps customers improve yield, uniformity, and reliability"
+          },
+          {
+            "statement_ko": "도쿄일렉트론은 작년 말 새로운 DX 솔루션 개념인 Epsira™를 도입했습니다.",
+            "evidence_en": "At TEL, we introduced our new DX solutions concept, Epsira™, at the end of last year"
           }
         ],
         "technology_signals": [
-          "Prexa™ SDP device prober",
-          "2.5D/3D packaging technology",
-          "Known Good Device (KGD) screening test",
-          "thermal control technology for high-heat-generating devices"
+          "3D Integration (3DI)",
+          "AI-driven process control",
+          "Epsira™ DX solutions"
         ],
         "company_implications": [
           {
+            "target_company": "Samsung Electronics",
+            "inference_ko": "TEL의 3DI 및 AI 기반 공정 제어 장비를 도입하여 HBM 등 고성능 메모리 및 첨단 패키징 생산 효율성을 높일 수 있습니다.",
+            "basis_ko": "기사에서 TEL의 3DI 기술이 로직과 메모리의 적층을 통해 대역폭을 개선하고 전력 소비를 줄인다고 언급했기 때문입니다.",
+            "confidence": "medium"
+          },
+          {
             "target_company": "SK hynix",
-            "inference_ko": "HBM 등 첨단 2.5D/3D 패키징 공정에서 KGD 선별 및 테스트 품질을 향상하는 데 본 장비를 활용할 수 있다.",
-            "basis_ko": "기사에서 고성능 컴퓨팅 및 AI용 반도체에서 2.5D/3D 패키징과 KGD 선별의 중요성을 강조했기 때문이다.",
+            "inference_ko": "TEL의 장비와 데이터 연계 솔루션을 활용해 첨단 패키징 라인의 가동률과 수율을 최적화하는 데 도움을 받을 수 있습니다.",
+            "basis_ko": "TEL이 장비와 고객사 사이트를 데이터로 연결하여 장비 생산성과 전체 제조 성능을 향상시킨다고 밝혔기 때문입니다.",
             "confidence": "medium"
           }
         ],
         "role_insights": [
           {
-            "role": "설비기술·기반기술",
-            "why_relevant_ko": "신형 디바이스 프로버의 온도 제어, 웨이퍼 및 디바이스 핸들링 설비의 유지보수 및 가동률 확보가 중요하기 때문이다.",
+            "role": "공정기술·양산기술",
+            "why_relevant_ko": "TEL의 3DI 및 AI 공정 제어 장비 도입에 따른 양산 라인 수율 및 균일성 확보가 직무와 직접적으로 연관되기 때문입니다.",
             "considerations_ko": [
-              "고발열 디바이스 테스트 시 열 제어 장치의 안정성 확보 방안"
+              "AI 기반 장비 도입 시 기존 공정 레시피와의 호환성 검토",
+              "3D 적층 공정에서의 불량률 관리 방안"
             ],
             "study_points_ko": [
-              "반도체 테스트 장비의 열 관리(Thermal Management) 기술",
-              "핸들링 및 프로브 마크 검사 설비 메커니즘"
+              "첨단 패키징 및 3D Integration 구조 이해",
+              "반도체 제조 공정 데이터 분석 기초"
             ]
           },
           {
-            "role": "P&T·패키지개발",
-            "why_relevant_ko": "싱귤레이티드 디바이스의 KGD 테스트를 통해 최종 수율을 개선하는 패키징 공정 연계 때문이다.",
+            "role": "설비기술·기반기술",
+            "why_relevant_ko": "장비 내 AI 임베디드 기능과 Epsira™ 같은 DX 솔루션을 현장 장비에 적용하고 유지보수해야 하기 때문입니다.",
             "considerations_ko": [
-              "패키징 전후 테스트 단계에서 불량 검출 및 수율 최적화 공정"
+              "스마트 팹 환경에서 장비 데이터 연동 및 가동률 최적화",
+              "AI 기반 프로세스 제어 장비의 유지보수 특이사항"
             ],
             "study_points_ko": [
-              "2.5D/3D 패키징 구조와 KGD(Known Good Device) 테스트 공정의 이해"
+              "장비 센서 데이터 활용 및 헬스케어 시스템",
+              "반도체 장비 자동화 및 통신 프로토콜"
             ]
           }
         ],
         "uncertainties_ko": [
-          "Prexa™ SDP 장비의 구체적인 처리 용량, 테스트 소요 시간 및 가격 정보는 기사에서 알 수 없다.",
-          "실제 양산 라인 도입에 따른 수율 향상 수치는 본문에 제시되어 있지 않다."
+          "Epsira™ 솔루션의 구체적인 구현 방식과 적용 장비 모델",
+          "3DI 기술이 적용되는 구체적인 고객사 및 양산 일정"
         ],
         "overall_confidence": "high"
       }

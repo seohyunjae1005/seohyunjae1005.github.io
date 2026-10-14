@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-10T01:20:46.241885+00:00",
+  "updated_at": "2026-10-14T00:40:41.152497+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1593,6 +1593,24 @@
       "summary_ko": "공식 분류: 보도자료",
       "source_fingerprint": "b34389d592a23e818d24e837dfa31a78251c2a24bae1bd71ec12075a61479e05",
       "translated_at": "2026-10-10T01:20:46.241841+00:00"
+    },
+    "https://news.skhynix.com/en/research-inside-ep2/": {
+      "title_ko": "[연구 속으로] AI 시대에 NAND는 단순한 저장 장치를 넘어 컴퓨팅 영역으로 확장되고 있다… IEEE에서 발표된 3D FeNAND 공동 최적화",
+      "summary_ko": "태그: 3D Fe-NAND, 3D NAND, A-CiM, AI, CiM, CTN, 강유전체",
+      "source_fingerprint": "b613fbf115a4f6aafec304013f6fa973b5e23efcff7e117a824ad5cec33a72a5",
+      "translated_at": "2026-10-14T00:40:41.152466+00:00"
+    },
+    "https://www.kioxia.com/en-jp/business/news/2026/20261013-1.html": {
+      "title_ko": "키옥시아, 엔터프라이즈 SSD용 직접 액체 냉각 지원 기능 출시",
+      "summary_ko": "공식 분류: 보도자료",
+      "source_fingerprint": "e9920166d80afd7ebab38a832a5820ba98392ba9def539569dc531b195b35d56",
+      "translated_at": "2026-10-14T00:40:41.152466+00:00"
+    },
+    "https://www.tel.com/news/sustainability/2026/20261013_001.html": {
+      "title_ko": "TEL Manufacturing and Engineering of America, RBA VAP에서 플래티넘 등급 획득",
+      "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
+      "source_fingerprint": "aac12e04908008a27debc1259862b74a15f10fb7fba3131ac6f74962ecbb9b84",
+      "translated_at": "2026-10-14T00:40:41.152466+00:00"
     }
   }
 }
