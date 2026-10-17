@@ -1,6 +1,6 @@
 {
   "schema_version": "validated_analysis_cache_v1",
-  "updated_at": "2026-10-14T00:40:56.460564+00:00",
+  "updated_at": "2026-10-17T23:32:43.203220+00:00",
   "review_notice": "Machine-validated draft cache. Human approval is required before publication.",
   "company_count": 11,
   "companies": {
@@ -94,10 +94,10 @@
     },
     "SK hynix": {
       "company": "SK hynix",
-      "title": "[Tech Note] Hybrid Bonding: Evolving into a Foundational Technology for Improving Semiconductor Performance",
-      "url": "https://news.skhynix.com/en/tech-note-series-ep2/",
+      "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
+      "url": "https://news.skhynix.com/en/dtf-2026/",
       "model": "gemini-3.5-flash-lite",
-      "generated_at": "2026-09-15T05:40:48.955927+00:00",
+      "generated_at": "2026-10-17T23:32:37.455612+00:00",
       "analysis_version": "semiconductor_job_analysis_v1",
       "extraction_method": "filtered_html_blocks",
       "source_scope": "official_article_body",
@@ -106,96 +106,60 @@
       "publish_ready": false,
       "normalization_notes": [
         "사실 1: 원문과 정확히 일치하지 않아 제외",
-        "사실 2: 근거 구절이 25단어를 넘어 제외",
-        "사실 3: 원문과 정확히 일치하지 않아 제외",
+        "사실 2: 원문과 정확히 일치하지 않아 제외",
+        "사실 3: 근거 구절이 25단어를 넘어 제외",
         "검증 가능한 짧은 근거가 없어 사실 항목을 1회 재생성"
       ],
       "analysis": {
         "analysis_version": "semiconductor_job_analysis_v1",
-        "summary_ko": "본문은 AI 시대의 고성능 반도체 요구에 대응하기 위한 핵심 기술로 하이브리드 본딩(Hybrid Bonding)을 조명합니다. 기존 범프와 TCB 방식의 한계를 극복하기 위해 구리 대 구리(Cu-Cu) 직접 접합 방식을 도입하며, 특히 HBM4E 및 HBM5 세대부터 본격적인 적용이 검토될 것으로 전망합니다.",
+        "summary_ko": "SK하이닉스는 'DTF 2026'에 참가해 AI 인프라에 최적화된 HBM, eSSD, cSSD, 서버용 DRAM 등 전 영역의 메모리 솔루션 포트폴리오를 선보였다.",
         "facts": [
           {
-            "statement_ko": "구리 대 구리(Cu-Cu) 직접 본딩을 통해 피치를 1µm 미만으로 줄인다.",
-            "evidence_en": "Cu–Cu hybrid bonding shrinks the pitch to below 1µm."
+            "statement_ko": "SK하이닉스는 10나노급 6세대(1c) 공정 기술을 기반으로 구축된 64GB RDIMM을 선보였다.",
+            "evidence_en": "built on the world’s first 10-nanometer (nm) class sixth-generation (1c) * process technology."
           },
           {
-            "statement_ko": "SK하이닉스는 하이브리드 본딩을 적용한 400단 이상 낸드 제품을 2026년까지 개발하고 2027년 양산을 목표로 하고 있다.",
-            "evidence_en": "SK hynix is reportedly also developing NAND products with more than 400 layers incorporating hybrid bonding by 2026, with mass production targeted for 2027."
+            "statement_ko": "HBM 제품군에는 HBM3E, HBM4, HBM4E가 포함된다.",
+            "evidence_en": "the HBM * lineup — HBM3E, HBM4, and HBM4E —"
           },
           {
-            "statement_ko": "하이브리드 본딩은 기존 TCB 기술 대비 속도가 약 11.9배 향상된다.",
-            "evidence_en": "Speed increases by approximately 11.9 times"
+            "statement_ko": "AI DRAM 존에는 SOCAMM2, 3DS RDIMM, RDIMM, CSODIMM, LPCAMM2, LPDDR5X, GDDR7 등이 포함되었다.",
+            "evidence_en": "including SOCAMM2, 3DS RDIMM, RDIMM, CSODIMM * , LPCAMM2 * , LPDDR * 5X, and GDDR7."
           }
         ],
         "technology_signals": [
-          "Hybrid Bonding",
-          "Cu-Cu direct bonding",
-          "Wafer-to-Wafer (W2W)",
-          "Die-to-Wafer (D2W)",
-          "TCB (Thermal Compression Bonding)"
+          "HBM3E",
+          "HBM4",
+          "HBM4E",
+          "QLC eSSD",
+          "MRDIMM",
+          "3DS RDIMM",
+          "CMM-DDR5",
+          "GDDR7"
         ],
         "company_implications": [
           {
             "target_company": "SK hynix",
-            "inference_ko": "하이브리드 본딩 기술 내재화 및 HBM 적용을 위한 공정 전환을 가속화할 것으로 예상된다.",
-            "basis_ko": "기사에서 SK hynix가 2026년까지 하이브리드 본딩을 적용한 400단 이상 낸드 제품 개발 및 2027년 양산 목표를 언급하였으며, 향후 HBM 세대 진화에 따른 공정 변화가 불가피하기 때문이다.",
+            "inference_ko": "델과의 파트너십 강화를 통해 서버 및 데이터센터용 AI 메모리 공급 채널을 안정적으로 확대할 수 있다.",
+            "basis_ko": "델 테크놀로지스 포럼(DTF) 2026 참가 및 기조연설, 서버 시스템 연동 제품 전시 내용",
             "confidence": "high"
           }
         ],
         "role_insights": [
           {
-            "role": "공정기술·양산기술",
-            "why_relevant_ko": "기존 범프 공정에서 Cu-Cu 직접 접합 및 미세 피치 하이브리드 본딩 공정으로의 전환을 담당하기 때문이다.",
+            "role": "SW·데이터·AI",
+            "why_relevant_ko": "AI 인프라 및 서버 환경에 최적화된 메모리 솔루션과 시스템 연동 성능 검증이 강조되기 때문이다.",
             "considerations_ko": [
-              "W2W 및 D2W 공정의 수율 관리 방안",
-              "미세 피치 형성에 따른 세정 및 표면 활성화 공정 조건"
+              "AI 서버 시스템에서 메모리 대역폭과 용량이 미치는 영향 파악"
             ],
             "study_points_ko": [
-              "하이브리드 본딩 메커니즘 및 표면 접합 공정 이해",
-              "기존 TCB 공정과의 수율 및 공정 마진 비교"
-            ]
-          },
-          {
-            "role": "P&T·패키지개발",
-            "why_relevant_ko": "HBM4E 및 HBM5 등 고단 적층 패키지에서 하이브리드 본딩 적용과 패키지 높이 제한 극복을 연구하기 때문이다.",
-            "considerations_ko": [
-              "16단 이상 적층 시 열적 스트레스 및 휨(Warpage) 현상 제어",
-              "언더필(Underfill) 제거에 따른 신뢰성 확보 방안"
-            ],
-            "study_points_ko": [
-              "3D  HBM 패키지 구조 및 열팽창계수(CTE) 매칭",
-              "CPO 및 3D V-Cache 등 타사 패키징 적용 사례"
-            ]
-          },
-          {
-            "role": "설비기술·기반기술",
-            "why_relevant_ko": "하이브리드 본딩 구현을 위해 요구되는 고정밀(nm 단위) 장비 개발 및 가동률 확보가 필수적이기 때문이다.",
-            "considerations_ko": [
-              "국내외 장비 공급망 간 기술 격차 극복",
-              "초정밀 얼라인먼트 및 본딩 장비의 가용성(Availability)"
-            ],
-            "study_points_ko": [
-              "D2W 및 W2W 장비의 정밀도 요구사항 (50nm, 25nm 수준)",
-              "장비 오차 범위 내에서 수율을 유지하는 제어 기술"
-            ]
-          },
-          {
-            "role": "평가분석·품질·PE",
-            "why_relevant_ko": "미세 피치 구조와 다층 적층 패키지의 전기적 특성 및 열 분산 성능을 검증해야 하기 때문이다.",
-            "considerations_ko": [
-              "구리-구리 접합부의 결함 검사 및 신뢰성 평가",
-              "신호 지연 및 열 저항 감소 효과 측정"
-            ],
-            "study_points_ko": [
-              "초미세 패턴 및 KGD(Known Good Die) 선별 검사 기법",
-              "열 전도 및 방열 성능 평가 방법론"
+              "AI 데이터센터 아키텍처 및 메모리 계층 구조"
             ]
           }
         ],
         "uncertainties_ko": [
-          "하이브리드 본딩 장비의 구체적인 국산화 완성 시기 및 성능 수준",
-          "HBM4E 및 HBM5 도입 시점에서의 정확한 양산 수율 데이터",
-          "플립칩 패키지 대비 2~3배 높은 제조 비용을 절감하기 위한 구체적인 경제성 확보 방안"
+          "HBM4 및 신규 QLC eSSD 제품의 구체적인 양산 수율 및 출시 일정",
+          "델 서버 시스템 공급에 따른 구체적인 매출 및 물량 규모"
         ],
         "overall_confidence": "high"
       }
