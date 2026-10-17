@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-14T00:40:41.152497+00:00",
+  "updated_at": "2026-10-17T00:00:18.443056+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1611,6 +1611,12 @@
       "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
       "source_fingerprint": "aac12e04908008a27debc1259862b74a15f10fb7fba3131ac6f74962ecbb9b84",
       "translated_at": "2026-10-14T00:40:41.152466+00:00"
+    },
+    "https://news.skhynix.com/en/ocp-global-summit-2026/": {
+      "title_ko": "“메모리 중심 서버 시스템이 미래다”: SK하이닉스, ‘OCP 글로벌 서밋 2026’에서 차세대 AI 인프라 비전 제시",
+      "summary_ko": "태그: 에이전트 기반 AI, AI, CXL, DRAM, eSSD, HBF, HBM, OCP 글로벌 서밋",
+      "source_fingerprint": "9f4061c7cf2f82c7f295373cb66c4e067e34531f2a9d8dce972120153e277ce1",
+      "translated_at": "2026-10-17T00:00:18.443032+00:00"
     }
   }
 }
