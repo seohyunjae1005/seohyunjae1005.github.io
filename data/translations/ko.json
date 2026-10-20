@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-17T00:00:18.443056+00:00",
+  "updated_at": "2026-10-20T00:45:58.001435+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1617,6 +1617,12 @@
       "summary_ko": "태그: 에이전트 기반 AI, AI, CXL, DRAM, eSSD, HBF, HBM, OCP 글로벌 서밋",
       "source_fingerprint": "9f4061c7cf2f82c7f295373cb66c4e067e34531f2a9d8dce972120153e277ce1",
       "translated_at": "2026-10-17T00:00:18.443032+00:00"
+    },
+    "https://news.samsung.com/global/samsung-electronics-expands-ssd-brand-campaign-across-global-landmarks": {
+      "title_ko": "삼성전자, 전 세계 랜드마크에서 SSD 브랜드 캠페인 확대",
+      "summary_ko": "공식 분류: 반도체",
+      "source_fingerprint": "21c6f6ab36b35f5f662925f2fe409ed4a495d86c87960f97bd50751a6eee82ef",
+      "translated_at": "2026-10-20T00:45:58.001411+00:00"
     }
   }
 }
