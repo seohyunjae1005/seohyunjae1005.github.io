@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-20T00:45:58.001435+00:00",
+  "updated_at": "2026-10-21T00:12:21.124285+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -89,10 +89,10 @@
       "translated_at": "2026-09-12T12:42:22.938872+00:00"
     },
     "https://news.skhynix.com/en/ai-ecosystem-series-ep2/": {
-      "title_ko": "[AI 생태계] 진정한 병목 현상: 연산 능력이 아닌 데이터",
-      "summary_ko": "태그: AI, AI 메모리, HBF, HBM",
-      "source_fingerprint": "789500862ac7e7af730c9b7c8ff0ca57eac95f77688545fdcee23e8d2d3fa5db",
-      "translated_at": "2026-09-12T12:42:22.938872+00:00"
+      "title_ko": "[AI 생태계] 진정한 병목 현상: 연산 능력이 아니라 데이터",
+      "summary_ko": "태그: AI, AI 생태계, AI 메모리, HBF, HBM",
+      "source_fingerprint": "d65dae9607193b0f726948107ccdb6c776c5f242060286ac705776cb4d970494",
+      "translated_at": "2026-10-21T00:12:21.124255+00:00"
     },
     "https://www.micron.com/about/blog/memory/dram/redefining-local-ai-computing": {
       "title_ko": "지역 AI 컴퓨팅의 재정의",
@@ -222,9 +222,9 @@
     },
     "https://news.skhynix.com/en/ai-ecosystem-series-ep1/": {
       "title_ko": "[AI 생태계] AI 컴퓨팅의 패러다임 전환",
-      "summary_ko": "태그: 에이전트 기반 AI, AI 인프라, AI 메모리, 반도체 산업",
-      "source_fingerprint": "e70c79da59d99a4135e0a39c66209c3616168f461e202be3f259c7d92334bf8e",
-      "translated_at": "2026-09-12T12:42:24.148527+00:00"
+      "summary_ko": "태그: 에이전트 기반 AI, AI 생태계, AI 인프라, AI 메모리, 반도체 산업",
+      "source_fingerprint": "fb0328d41f8dc260e5d339181bc6bbc4b9c0794a13a418250f6ed2f184ac07b4",
+      "translated_at": "2026-10-21T00:12:21.124255+00:00"
     },
     "https://www.intel.com/content/www/us/en/newsroom/news/corporate/intel-corporation-to-participate-in-upcoming-investor-conference-august-2026.html": {
       "title_ko": "인텔, 다가오는 투자자 컨퍼런스에 참가 예정",
@@ -516,9 +516,9 @@
     },
     "https://news.skhynix.com/en/research-inside-ep1/": {
       "title_ko": "[연구 속으로] SK하이닉스의 CTI 혁신, 176층 3D NAND 양산 가속화",
-      "summary_ko": "태그: 176층 NAND, CTI, IEDM, IEEE, NAND, Research Inside, 미세화",
-      "source_fingerprint": "4a06bac5f736f84502ddd46d91f951590f7c4926a1cb99a27422d7a0028fbdf8",
-      "translated_at": "2026-09-12T12:42:27.415961+00:00"
+      "summary_ko": "태그: 176층 NAND, CTI, IEDM, IEEE, 연구 속으로, NAND, Research Inside, 미세화",
+      "source_fingerprint": "3eb89edbfec6bac2c959316edf5d0599aff2f247b4ae84e97516b88b9cbd4912",
+      "translated_at": "2026-10-21T00:12:21.124255+00:00"
     },
     "https://www.tel.com/news/sustainability/2026/20260721_001.html": {
       "title_ko": "도쿄 일렉트로닉이 “FTSE4Good 지수 시리즈”, “FTSE JPX 블로섬 재팬 지수” 및 “FTSE JPX 블로섬 재팬 섹터 상대 지수”에 편입되었습니다.",
@@ -1541,10 +1541,10 @@
       "translated_at": "2026-09-29T22:01:50.255324+00:00"
     },
     "https://news.skhynix.com/en/ai-infrastructure-insight-ep3/": {
-      "title_ko": "[AI 인프라 인사이트] 전력 및 냉각이 AI 데이터 센터의 차기 과제가 된 이유",
-      "summary_ko": "태그: AI, AI 데이터 센터, AI 인프라",
-      "source_fingerprint": "7cd2cf1c276fe7a43e957b937a0ac12c6baa427aa643d55fadbd13b1f8c3b16a",
-      "translated_at": "2026-09-30T22:02:43.699545+00:00"
+      "title_ko": "[AI 인프라 인사이트] 전력 및 냉각이 AI 데이터 센터의 다음 과제가 된 이유",
+      "summary_ko": "태그: AI, AI 데이터 센터, AI 인프라, AI 인프라 인사이트",
+      "source_fingerprint": "4cc2debf5692a3540a1176490bb3035d524355691fa91b47057d53ca42378fbf",
+      "translated_at": "2026-10-21T00:12:21.124255+00:00"
     },
     "https://newsroom.lamresearch.com/2026-09-30-Lam-Research-Corporation-Announces-September-Quarter-Financial-Conference-Call": {
       "title_ko": "램 리서치 코퍼레이션, 9월 분기 실적 설명회 개최 발표",
@@ -1554,9 +1554,9 @@
     },
     "https://news.skhynix.com/en/ai-ecosystem-series-ep3/": {
       "title_ko": "[AI 생태계] 인프라 재설계: 아키텍처가 성능을 좌우하는 이유",
-      "summary_ko": "태그: 에이전트 기반 AI, CXL, GPU, HBM",
-      "source_fingerprint": "a3c5e92bbb1b945e6fbd8d784f62cfa92d125dfa4b6b80ef14f4dabccdc2e76f",
-      "translated_at": "2026-10-02T01:07:43.756551+00:00"
+      "summary_ko": "태그: 에이전트 기반 AI, AI 생태계, CXL, GPU, HBM",
+      "source_fingerprint": "971cd023a4deab1feba464f577bf8358488e5903ce6d5ab8904c71bf15d9dbb3",
+      "translated_at": "2026-10-21T00:12:21.124255+00:00"
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-and-besi-expand-strategic-partnership-advance": {
       "title_ko": "애플라이드 머티리얼즈와 베시, AI 확장성을 위한 차세대 패키징 기술 발전을 위해 전략적 파트너십 확대",
@@ -1623,6 +1623,12 @@
       "summary_ko": "공식 분류: 반도체",
       "source_fingerprint": "21c6f6ab36b35f5f662925f2fe409ed4a495d86c87960f97bd50751a6eee82ef",
       "translated_at": "2026-10-20T00:45:58.001411+00:00"
+    },
+    "https://news.skhynix.com/en/ai-ecosystem-series-ep4/": {
+      "title_ko": "[AI 생태계] 반도체 패러다임이 메모리 중심으로 전환되고 있다",
+      "summary_ko": "태그: AI 생태계, HBM, 하이브리드 본딩, PIM",
+      "source_fingerprint": "38ac5ec8549600cbdb57cbed2f4fbc8f1a8770defe891e34691e82b22ec14353",
+      "translated_at": "2026-10-21T00:12:21.124255+00:00"
     }
   }
 }
