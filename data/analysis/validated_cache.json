@@ -1,6 +1,6 @@
 {
   "schema_version": "validated_analysis_cache_v1",
-  "updated_at": "2026-10-17T23:32:43.203220+00:00",
+  "updated_at": "2026-10-22T00:17:28.732249+00:00",
   "review_notice": "Machine-validated draft cache. Human approval is required before publication.",
   "company_count": 11,
   "companies": {
@@ -94,10 +94,10 @@
     },
     "SK hynix": {
       "company": "SK hynix",
-      "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
-      "url": "https://news.skhynix.com/en/dtf-2026/",
+      "title": "“Memory-Centric Server Systems Are the Future”: SK hynix Presents Its Next-Generation AI Infrastructure Vision at OCP Global Summit 2026",
+      "url": "https://news.skhynix.com/en/ocp-global-summit-2026/",
       "model": "gemini-3.5-flash-lite",
-      "generated_at": "2026-10-17T23:32:37.455612+00:00",
+      "generated_at": "2026-10-22T00:17:23.120918+00:00",
       "analysis_version": "semiconductor_job_analysis_v1",
       "extraction_method": "filtered_html_blocks",
       "source_scope": "official_article_body",
@@ -105,61 +105,77 @@
       "review_status": "machine_validated",
       "publish_ready": false,
       "normalization_notes": [
-        "사실 1: 원문과 정확히 일치하지 않아 제외",
-        "사실 2: 원문과 정확히 일치하지 않아 제외",
-        "사실 3: 근거 구절이 25단어를 넘어 제외",
-        "검증 가능한 짧은 근거가 없어 사실 항목을 1회 재생성"
+        "사실 2: 원문과 정확히 일치하지 않아 제외"
       ],
       "analysis": {
         "analysis_version": "semiconductor_job_analysis_v1",
-        "summary_ko": "SK하이닉스는 'DTF 2026'에 참가해 AI 인프라에 최적화된 HBM, eSSD, cSSD, 서버용 DRAM 등 전 영역의 메모리 솔루션 포트폴리오를 선보였다.",
+        "summary_ko": "SK하이닉스는 OCP 글로벌 서밋 2026에서 CXL 3.2 기반 CMM-DDR5, MARS 랙 시스템, CMM-Ax 등 차세대 AI 인프라 솔루션을 공개하고 메모리 중심 서버 시스템 비전을 제시했습니다.",
         "facts": [
           {
-            "statement_ko": "SK하이닉스는 10나노급 6세대(1c) 공정 기술을 기반으로 구축된 64GB RDIMM을 선보였다.",
-            "evidence_en": "built on the world’s first 10-nanometer (nm) class sixth-generation (1c) * process technology."
+            "statement_ko": "SK하이닉스는 CXL 3.2 기반의 256GB 용량 CMM-DDR5 제2세대 제품을 공개했습니다.",
+            "evidence_en": "SK hynix unveiled its second-generation product (256GB), optimized for AI workloads and based on CXL 3.2."
           },
           {
-            "statement_ko": "HBM 제품군에는 HBM3E, HBM4, HBM4E가 포함된다.",
-            "evidence_en": "the HBM * lineup — HBM3E, HBM4, and HBM4E —"
-          },
-          {
-            "statement_ko": "AI DRAM 존에는 SOCAMM2, 3DS RDIMM, RDIMM, CSODIMM, LPCAMM2, LPDDR5X, GDDR7 등이 포함되었다.",
-            "evidence_en": "including SOCAMM2, 3DS RDIMM, RDIMM, CSODIMM * , LPCAMM2 * , LPDDR * 5X, and GDDR7."
+            "statement_ko": "SK하이닉스는 연산 기능을 메모리와 결합한 차세대 메모리 솔루션 CMM-Ax를 선보였습니다.",
+            "evidence_en": "CMM-Ax is a next-generation memory solution that combines computation functions with memory."
           }
         ],
         "technology_signals": [
-          "HBM3E",
-          "HBM4",
-          "HBM4E",
-          "QLC eSSD",
-          "MRDIMM",
-          "3DS RDIMM",
-          "CMM-DDR5",
-          "GDDR7"
+          "CMM-DDR5 (CXL 3.2, 256GB)",
+          "MARS (Memory Centric AI Rack System)",
+          "CMM-Ax (Computational Memory / PIM)",
+          "HBM4 / HBM4E",
+          "HBF (High Bandwidth Flash)"
         ],
         "company_implications": [
           {
             "target_company": "SK hynix",
-            "inference_ko": "델과의 파트너십 강화를 통해 서버 및 데이터센터용 AI 메모리 공급 채널을 안정적으로 확대할 수 있다.",
-            "basis_ko": "델 테크놀로지스 포럼(DTF) 2026 참가 및 기조연설, 서버 시스템 연동 제품 전시 내용",
+            "inference_ko": "CXL 및 PIM 기반 솔루션의 실제 시스템 검증 확대를 통해 AI 서버 시장에서 메모리 중심 아키텍처 주도권을 강화할 수 있습니다.",
+            "basis_ko": "나이버클라우드 등 파트너사와의 PoC 결과 공개 및 OCP 2026 라이브 데모 진행.",
             "confidence": "high"
           }
         ],
         "role_insights": [
           {
-            "role": "SW·데이터·AI",
-            "why_relevant_ko": "AI 인프라 및 서버 환경에 최적화된 메모리 솔루션과 시스템 연동 성능 검증이 강조되기 때문이다.",
+            "role": "R&D공정·공정설계",
+            "why_relevant_ko": "HBM4 및 차세대 DRAM, NAND 고용량화 공정 개발과 직접 연관됩니다.",
             "considerations_ko": [
-              "AI 서버 시스템에서 메모리 대역폭과 용량이 미치는 영향 파악"
+              "TSV 및 Advanced MR-MUF 등 적층 기술 이해",
+              "미세 공정 적용 시 수율 안정화 방안"
             ],
             "study_points_ko": [
-              "AI 데이터센터 아키텍처 및 메모리 계층 구조"
+              "선단 패키징 및 3D integration 공정 구조",
+              "메모리 대역폭 한계 극복을 위한 설계 기법"
+            ]
+          },
+          {
+            "role": "AE·솔루션",
+            "why_relevant_ko": "CXL 풀드 메모리 및 MARS 랙 시스템 등 고객사 서버 환경 적용 검증에 필수적입니다.",
+            "considerations_ko": [
+              "데이터 센터 워크로드 분석 능력",
+              "고객사 시스템과의 호환성 검증 프로세스"
+            ],
+            "study_points_ko": [
+              "CXL 인터페이스 표준 및 메모리 풀링 구조",
+              "AI 인프라 시스템 아키텍처"
+            ]
+          },
+          {
+            "role": "SW·데이터·AI",
+            "why_relevant_ko": "PIM/PNM 및 KV 캐시 공유 등 메모리와 소프트웨어 프레임워크 간 연동이 중요합니다.",
+            "considerations_ko": [
+              "하드웨어와 소프트웨어 간 API 통합 및 표준화",
+              "AI 추론 성능 가속화를 위한 SW 알고리즘"
+            ],
+            "study_points_ko": [
+              "컴퓨터 아키텍처 및 LLM 서빙 시스템 구조",
+              "이종 컴퓨팅 환경에서의 데이터 병목 현상 완화 기법"
             ]
           }
         ],
         "uncertainties_ko": [
-          "HBM4 및 신규 QLC eSSD 제품의 구체적인 양산 수율 및 출시 일정",
-          "델 서버 시스템 공급에 따른 구체적인 매출 및 물량 규모"
+          "CMM-DDR5 및 MARS 랙 시스템의 구체적인 양산 수율 및 비용",
+          "고객사 상용화 일정 및 구체적인 공급 계약 규모"
         ],
         "overall_confidence": "high"
       }

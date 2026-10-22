@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-21T00:12:21.124285+00:00",
+  "updated_at": "2026-10-22T00:17:18.838498+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1629,6 +1629,18 @@
       "summary_ko": "태그: AI 생태계, HBM, 하이브리드 본딩, PIM",
       "source_fingerprint": "38ac5ec8549600cbdb57cbed2f4fbc8f1a8770defe891e34691e82b22ec14353",
       "translated_at": "2026-10-21T00:12:21.124255+00:00"
+    },
+    "https://www.kla.com/advance/innovation/learning-velocity-accelerating-the-future-of-semiconductor-innovation": {
+      "title_ko": "학습 속도: 반도체 혁신의 미래를 가속화하다  | 혁신 | KLA",
+      "summary_ko": "학습 속도, 공정 제어, 생태계 간 협력이 어떻게 AI 칩 혁신과 반도체 제조를 가속화하고 있는지 알아보세요.",
+      "source_fingerprint": "9f6f944153bc507a42ad37a0c100a629d251894de311132349b8c22bbb6a2785",
+      "translated_at": "2026-10-22T00:17:18.838471+00:00"
+    },
+    "https://newsroom.lamresearch.com/2026-10-21-Lam-Research-Corporation-Reports-Financial-Results-for-the-Quarter-Ended-September-27,-2026": {
+      "title_ko": "램 리서치 코퍼레이션, 2026년 9월 27일 종료된 분기 실적 발표",
+      "summary_ko": "램 리서치 코퍼레이션(이하 “회사”, “램”, “램 리서치”)은 오늘 2026년 9월 27일로 종료된 분기(이하 “2026년 9월 분기”)의 재무 실적을 발표했습니다. 주요 내용은 다음과 같습니다...",
+      "source_fingerprint": "3266f892f527c5e6731cbff0610714694e1d47059064afdfb1ca4d37764dfe79",
+      "translated_at": "2026-10-22T00:17:18.838471+00:00"
     }
   }
 }
