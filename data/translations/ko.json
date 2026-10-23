@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-22T00:17:18.838498+00:00",
+  "updated_at": "2026-10-23T00:13:41.417236+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1641,6 +1641,18 @@
       "summary_ko": "램 리서치 코퍼레이션(이하 “회사”, “램”, “램 리서치”)은 오늘 2026년 9월 27일로 종료된 분기(이하 “2026년 9월 분기”)의 재무 실적을 발표했습니다. 주요 내용은 다음과 같습니다...",
       "source_fingerprint": "3266f892f527c5e6731cbff0610714694e1d47059064afdfb1ca4d37764dfe79",
       "translated_at": "2026-10-22T00:17:18.838471+00:00"
+    },
+    "https://news.skhynix.com/en/fact-12/": {
+      "title_ko": "솔리디그, 잠재적 기업공개(IPO) 검토 중단…장기적 성장과 주주 가치 창출에 대한 의지 재확인",
+      "summary_ko": "▪ 솔리디그(Solidigm)는 증가하는 AI 메모리 수요를 충족하기 위해 미국에 새로운 팹을 건설할 자금을 조달하기 위해 잠재적인 기업공개(IPO)를 포함한 다양한 자금 조달 방안을 모색해 왔다. ▪ 기업공개(IPO)는 투자 부담을 덜어주고 주주들을 위해 생산 능력을 확대할 것으로 기대되었으나",
+      "source_fingerprint": "c3329939daa048d93c2058ae80d315ee90332e776bc30ca584e1d532406ca058",
+      "translated_at": "2026-10-23T00:13:41.417197+00:00"
+    },
+    "https://news.skhynix.com/en/ai-infrastructure-insight-ep4/": {
+      "title_ko": "[AI 인프라 인사이트] 미래를 위한 AI 인프라는 어떻게 설계될 것인가",
+      "summary_ko": "태그: 에이전트 기반 AI, AI 데이터 센터, AI 인프라, AI 인프라 인사이트, HBM, 랙 스케일 시스템",
+      "source_fingerprint": "9a7222a9c24c07a002139762445235fca9bf5c7926a27ad2a923866cdafc4d24",
+      "translated_at": "2026-10-23T00:13:41.417197+00:00"
     }
   }
 }
