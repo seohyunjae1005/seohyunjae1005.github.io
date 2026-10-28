@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-23T00:13:41.417236+00:00",
+  "updated_at": "2026-10-28T00:47:21.519901+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1653,6 +1653,18 @@
       "summary_ko": "태그: 에이전트 기반 AI, AI 데이터 센터, AI 인프라, AI 인프라 인사이트, HBM, 랙 스케일 시스템",
       "source_fingerprint": "9a7222a9c24c07a002139762445235fca9bf5c7926a27ad2a923866cdafc4d24",
       "translated_at": "2026-10-23T00:13:41.417197+00:00"
+    },
+    "https://news.skhynix.com/en/q3-2026-business-results/": {
+      "title_ko": "SK하이닉스, 2026년 3분기 실적 발표",
+      "summary_ko": "▪ 매출 104.6155조 원, 영업이익 83.3338조 원, 순이익 39.7756조 원 기록; 분기 매출 사상 처음으로 100조 원 돌파 ▪ HBM4 및 고부가가치 서버 제품 매출 확대; HBM4 전망",
+      "source_fingerprint": "231a39a8d925c88c87b219e1183ee5fc2339c7f9d4d46c7f0461e042ed90c9b0",
+      "translated_at": "2026-10-28T00:47:21.519874+00:00"
+    },
+    "https://www.tel.com/news/sustainability/2026/20261027_001.html": {
+      "title_ko": "도쿄 일렉트로닉 테크놀로지 솔루션즈 후지이 본사 및 호사카 지사, RBA VAP에서 플래티넘 등급 획득",
+      "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
+      "source_fingerprint": "219be7ac4ab93eb2c2155981f4502552f289e2de63e260ea3815a7f1a1648f37",
+      "translated_at": "2026-10-28T00:47:21.519874+00:00"
     }
   }
 }
