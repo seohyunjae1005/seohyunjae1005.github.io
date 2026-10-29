@@ -461,17 +461,28 @@ function renderProfileConnections(connectionResult) {
   const labels = { direct: "직접 근거", indirect: "간접 연결", none: "근거 없음" };
   const reuse = {};
   connectionResult.matches.forEach((row) => { if (row.experience?.id) reuse[row.experience.id] = (reuse[row.experience.id] || 0) + 1; });
-  summary.innerHTML = `<strong>연결 결과</strong><span>직접 ${connectionResult.counts.direct}개</span><span>간접 ${connectionResult.counts.indirect}개</span><span>근거 없음 ${connectionResult.counts.none}개</span>`;
+  const connected = connectionResult.matches
+    .filter((row) => row.status !== "none")
+    .sort((left, right) => ({ direct: 0, indirect: 1 }[left.status] - { direct: 0, indirect: 1 }[right.status]));
+  const missing = connectionResult.matches.filter((row) => row.status === "none");
+  summary.innerHTML = `<div><strong>경험 연결 요약</strong><p>지원 적합도 점수가 아니라, 저장한 경험에서 확인되는 근거만 셌습니다.</p></div><span>직접 ${connectionResult.counts.direct}개</span><span>간접 ${connectionResult.counts.indirect}개</span><span>추가 근거 필요 ${connectionResult.counts.none}개</span>`;
   summary.hidden = false;
-  container.innerHTML = connectionResult.matches.map((row) => {
+  const connectedCards = connected.map((row) => {
     const repeated = row.experience?.id && reuse[row.experience.id] > 1 ? `<small class="jd-reuse-note">같은 경험이 ${reuse[row.experience.id]}개 요구사항에 연결됨</small>` : "";
     return `<article class="jd-match-card ${escapeHtml(row.status)}">
-      <div class="jd-match-status"><strong>${escapeHtml(row.requirement.id)} · ${labels[row.status]}</strong><span>${escapeHtml(row.requirement.kind)}</span></div>
-      <div class="jd-quote-pair"><div><small>JD Fact</small><blockquote>${escapeHtml(row.requirement.text)}</blockquote></div><div><small>${row.experience ? escapeHtml(`${row.experience.kind} · ${row.experience.label}`) : "내 프로필"}</small><blockquote>${row.profileEvidenceQuote ? escapeHtml(row.profileEvidenceQuote) : "연결 근거 없음"}</blockquote>${repeated}</div></div>
-      <p><span class="jd-interpretation-label">자동 연결 해석</span> ${escapeHtml(row.reasoning)}</p>
-      ${row.writingDirection ? `<p><span class="jd-fact-label">작성 방향</span> ${escapeHtml(row.writingDirection)}</p>` : ""}
+      <div class="jd-match-status"><strong>${labels[row.status]}</strong><span>${escapeHtml(row.requirement.kind)}</span></div>
+      <div class="jd-match-requirement"><small>JD에서 요구한 내용</small><strong>${escapeHtml(row.requirement.text)}</strong></div>
+      <div class="jd-match-experience"><small>연결할 경험</small><strong>${row.experience ? escapeHtml(`${row.experience.kind} · ${row.experience.label}`) : "연결 경험 없음"}</strong><blockquote>${escapeHtml(row.profileEvidenceQuote)}</blockquote>${repeated}</div>
+      <div class="jd-match-guidance"><p><span class="jd-interpretation-label">연결 판단</span>${escapeHtml(row.reasoning)}</p>${row.writingDirection ? `<p><span class="jd-fact-label">자소서 작성 방향</span>${escapeHtml(row.writingDirection)}</p>` : ""}</div>
     </article>`;
   }).join("");
+  const connectedSection = connectedCards
+    ? `<section class="jd-connected-section"><div class="jd-match-heading"><strong>우선 활용할 경험</strong><span>JD 문장과 경험 원문을 함께 확인한 뒤 작성 방향을 참고하세요.</span></div>${connectedCards}</section>`
+    : '<p class="jd-empty-result">현재 저장된 경험에서 연결할 근거를 찾지 못했습니다. 없는 경험을 만들지 말고 실제로 수행한 활동을 추가해 주세요.</p>';
+  const missingSection = missing.length
+    ? `<details class="jd-missing-requirements"><summary>추가 근거가 필요한 JD 요구사항 ${missing.length}개</summary><p>경험이 없다는 판정이 아니라, 현재 저장된 프로필 원문에서 근거를 찾지 못했다는 뜻입니다.</p><ul>${missing.map((row) => `<li><span>${escapeHtml(row.requirement.kind)}</span><strong>${escapeHtml(row.requirement.text)}</strong></li>`).join("")}</ul></details>`
+    : '<p class="jd-match-complete">모든 JD 요구사항에서 직접 또는 간접 연결 근거를 확인했습니다.</p>';
+  container.innerHTML = `${connectedSection}${missingSection}`;
   container.hidden = false;
 }
 
