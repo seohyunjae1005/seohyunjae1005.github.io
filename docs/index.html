@@ -60,47 +60,44 @@
           </div>
         </div>
 
-        <section class="monthly-ai-report" id="monthly-ai-report" aria-labelledby="monthly-report-title" hidden>
-          <div class="monthly-report-heading">
-            <div>
-              <p class="momentum-kicker">AI PROCESS JOB BRIEF</p>
-              <h3 id="monthly-report-title"></h3>
-            </div>
-            <span id="monthly-report-date"></span>
-          </div>
+        <details class="monthly-ai-report" id="monthly-ai-report" hidden>
+          <summary class="monthly-report-heading">
+            <span><small class="momentum-kicker">MONTHLY BRIEF</small><strong id="monthly-report-title"></strong></span>
+            <time id="monthly-report-date"></time>
+          </summary>
           <p class="monthly-report-summary" id="monthly-report-summary"></p>
           <button class="process-focus-button" id="process-focus-button" type="button">
-            공정·양산기술 핵심 기사만 보기
+            공정·양산 기사 보기
           </button>
           <div class="monthly-report-grid">
-            <section><h4>핵심 변화</h4><div id="monthly-findings"></div></section>
-            <section><h4>공정·양산기술 준비 포인트</h4><div id="monthly-role-actions"></div></section>
-            <section><h4>기업별 관찰</h4><div id="monthly-company-insights"></div></section>
+            <section><h4>변화</h4><div id="monthly-findings"></div></section>
+            <section><h4>준비</h4><div id="monthly-role-actions"></div></section>
+            <section><h4>기업</h4><div id="monthly-company-insights"></div></section>
           </div>
           <details class="monthly-evidence">
             <summary>통계·기사 근거와 분석 한계 보기</summary>
             <div id="monthly-evidence-list"></div>
             <ul id="monthly-limitations"></ul>
           </details>
-        </section>
+        </details>
 
         <div class="trend-metrics" aria-label="선택 기간 동향 현황">
-          <div><strong id="trend-article-count">-</strong><span>전체 공식 기사</span></div>
-          <div><strong id="trend-high-count">-</strong><span>핵심 기술 기사</span></div>
-          <div><strong id="trend-company-count">-</strong><span>발표 기업</span></div>
+          <div><strong id="trend-article-count">-</strong><span>전체</span></div>
+          <div><strong id="trend-high-count">-</strong><span>핵심</span></div>
+          <div><strong id="trend-company-count">-</strong><span>기업</span></div>
         </div>
 
         <div class="trend-columns">
           <section class="trend-panel">
-            <h3>많이 등장한 기술 분야</h3>
+            <h3>기술</h3>
             <ol id="trend-tech-list"></ol>
           </section>
           <section class="trend-panel">
-            <h3>연관성이 높은 직무</h3>
+            <h3>직무</h3>
             <ol id="trend-job-list"></ol>
           </section>
           <section class="trend-panel">
-            <h3>핵심 발표가 많은 기업</h3>
+            <h3>기업</h3>
             <ol id="trend-company-list"></ol>
           </section>
         </div>
@@ -116,14 +113,13 @@
           </div>
         </section>
 
-        <section class="company-trend-panel" aria-labelledby="company-trend-title">
-          <div>
+        <details class="company-trend-panel">
+          <summary>
             <p class="momentum-kicker">COMPANY</p>
             <h3 id="company-trend-title">기업별 기술·직무</h3>
-            <p>기업을 누르면 관련 기사만 표시합니다.</p>
-          </div>
+          </summary>
           <div class="company-profile-list" id="company-profile-list"></div>
-        </section>
+        </details>
         <p class="trend-methodology" id="trend-methodology"></p>
       </section>
       </section>

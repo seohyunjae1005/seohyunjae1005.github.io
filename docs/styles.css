@@ -802,6 +802,18 @@ footer { max-width: var(--max); margin: 0 auto; padding: 1.5rem 1.25rem 2.5rem; 
 .article-card { min-height: 12rem; padding: 0.9rem; border-radius: 0.45rem; }
 .article-card h2 { margin: 0.65rem 0 0.5rem; font-size: 0.98rem; line-height: 1.38; }
 .result-line { margin: 0.8rem 0; font-size: 0.78rem; }
+.monthly-ai-report { margin-top: 0.65rem; padding: 0; }
+.monthly-ai-report > summary, .company-trend-panel > summary { list-style: none; cursor: pointer; }
+.monthly-ai-report > summary::-webkit-details-marker, .company-trend-panel > summary::-webkit-details-marker { display: none; }
+.monthly-report-heading { align-items: center; padding: 0.7rem 0.8rem; }
+.monthly-report-heading > span { display: grid; gap: 0.15rem; }
+.monthly-report-heading strong { color: var(--text); font-size: 0.9rem; }
+.monthly-report-heading time { color: var(--muted); font-size: 0.66rem; }
+.monthly-ai-report > :not(summary) { margin-right: 0.8rem; margin-left: 0.8rem; }
+.monthly-ai-report > :last-child { margin-bottom: 0.8rem; }
+.company-trend-panel > summary { display: flex; align-items: baseline; gap: 0.6rem; }
+.company-trend-panel > summary .momentum-kicker { margin: 0; }
+.company-trend-panel > .company-profile-list { margin-top: 0.7rem; }
 
 @media (max-width: 760px) {
   .topbar, .controls { align-items: stretch; flex-direction: column; }
