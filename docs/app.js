@@ -587,8 +587,9 @@ function educationEntryTemplate(row = {}, index = 0) {
   const statuses = ["", "재학", "휴학", "졸업예정", "졸업", "수료", "중퇴"];
   const transfers = ["", "비해당", "편입 전", "편입 후"];
   return `
-    <article class="profile-entry-card profile-education-entry" data-entry-id="${escapeHtml(id)}">
-      <div class="profile-entry-heading"><strong>학력 ${index + 1}</strong><button type="button" data-remove-entry>삭제</button></div>
+    <details class="profile-entry-card profile-education-entry" data-entry-id="${escapeHtml(id)}"${index === 0 ? " open" : ""}>
+      <summary class="profile-entry-heading"><span><strong>학력 ${index + 1}</strong><small>${escapeHtml(row.school || row.level || "내용 입력")}</small></span><button type="button" data-remove-entry>삭제</button></summary>
+      <div class="profile-entry-body">
       <div class="profile-field-grid profile-entry-fields">
         <label><span>학력 구분</span><select data-field="level">${profileOptions(levels, row.level || "")}</select></label>
         <label><span>학교명</span><input data-field="school" type="text" value="${escapeHtml(row.school || "")}" placeholder="학교명을 입력하세요" /></label>
@@ -613,15 +614,17 @@ function educationEntryTemplate(row = {}, index = 0) {
         <label class="profile-graduate-fields"><span>논문 실적 <small>한 줄에 하나</small></span><textarea data-field="theses" rows="3" placeholder="논문명 · 저널 · SCIE 여부 · 저자 · 출판일 · IF">${escapeHtml(row.theses || "")}</textarea></label>
         <label class="profile-graduate-fields"><span>학회 경험 <small>한 줄에 하나</small></span><textarea data-field="conferences" rows="3" placeholder="학회명 · 발표 주제 · 발표 내용 · 발표일 · Oral 여부">${escapeHtml(row.conferences || "")}</textarea></label>
       </details>
-    </article>`;
+      </div>
+    </details>`;
 }
 
 function experienceEntryTemplate(row = {}, index = 0) {
   const id = row.id || profileEntryId("experience");
   const types = ["", "프로젝트", "공정·분석 실습", "인턴", "연구", "공모전", "학회", "동아리", "봉사", "아르바이트", "기타"];
   return `
-    <article class="profile-entry-card profile-experience-entry" data-entry-id="${escapeHtml(id)}">
-      <div class="profile-entry-heading"><strong>경험 ${index + 1}</strong><button type="button" data-remove-entry>삭제</button></div>
+    <details class="profile-entry-card profile-experience-entry" data-entry-id="${escapeHtml(id)}"${index === 0 ? " open" : ""}>
+      <summary class="profile-entry-heading"><span><strong>경험 ${index + 1}</strong><small>${escapeHtml(row.title || row.type || "내용 입력")}</small></span><button type="button" data-remove-entry>삭제</button></summary>
+      <div class="profile-entry-body">
       <div class="profile-field-grid profile-entry-fields">
         <label><span>경험 유형</span><select data-field="type">${profileOptions(types, row.type || "")}</select></label>
         <label><span>경험명</span><input data-field="title" type="text" value="${escapeHtml(row.title || "")}" placeholder="예: 반도체 소자 제작 실습" /></label>
@@ -642,7 +645,8 @@ function experienceEntryTemplate(row = {}, index = 0) {
       <label><span>내가 한 행동</span><textarea data-field="action" rows="3" placeholder="분석, 실험, 조정, 의사결정 등 구체적인 행동을 적으세요.">${escapeHtml(row.action || "")}</textarea></label>
       <label><span>결과·배운 점</span><textarea data-field="result" rows="3" placeholder="수치, 산출물, 개선 효과와 배운 점을 적으세요.">${escapeHtml(row.result || "")}</textarea></label>
       <label><span>사용 기술·장비·도구</span><input data-field="tools" type="text" value="${escapeHtml(row.tools || "")}" placeholder="예: SEM, Excel, Python" /></label>
-    </article>`;
+      </div>
+    </details>`;
 }
 
 function experienceCardSource(card) {
@@ -812,11 +816,22 @@ function bindProfileForm() {
     ["#profile-education-list", "학력"],
     ["#profile-experience-list", "경험"],
   ].forEach(([selector, label]) => {
-    document.querySelector(selector).addEventListener("click", (event) => {
+    const container = document.querySelector(selector);
+    container.addEventListener("click", (event) => {
       const button = event.target.closest("[data-remove-entry]");
       if (!button) return;
+      event.preventDefault();
+      event.stopPropagation();
       button.closest("[data-entry-id]").remove();
       renumberProfileEntries(selector, label);
+    });
+    container.addEventListener("input", (event) => {
+      const card = event.target.closest("[data-entry-id]");
+      if (!card) return;
+      const summary = card.querySelector(".profile-entry-heading small");
+      const primary = card.querySelector(`[data-field="${label === "학력" ? "school" : "title"}"]`)?.value.trim();
+      const fallback = card.querySelector(`[data-field="${label === "학력" ? "level" : "type"}"]`)?.value.trim();
+      if (summary) summary.textContent = primary || fallback || "내용 입력";
     });
   });
 
