@@ -208,4 +208,19 @@ assert.equal(statusResult.activities.planned.length, 1);
 assert.deepEqual(Array.from(statusResult.fields.action.evidenceQuotes), ['열증착기는 직접 한번 해봤고']);
 assert.doesNotMatch(statusResult.fields.action.value, /B1500|참관/);
 assert.doesNotMatch(statusResult.summary, /완료했다/);
+
+const mixedStatusDraft = context.jdValidateExperienceExtraction_({
+  summary: { value: 'CMOS 공정을 참관하고 열증착을 직접 수행했으며 분석 환경 구축을 준비 중임', evidenceQuotes: ['CMOS 공정을 참관했음', '열증착기는 직접 한번 해봤고', 'B1500 데이터 분석은 방학간 진행예정이다'] },
+  activities: {
+    observed: [{ quote: 'CMOS 공정을 참관했음' }], performed: [{ quote: '열증착기는 직접 한번 해봤고' }],
+    assigned: [{ quote: '측정 장비 담당으로 배정받았다' }], ongoing: [], planned: [{ quote: 'B1500 데이터 분석은 방학간 진행예정이다' }],
+  },
+  fields: {
+    role: { value: '측정 장비 담당', evidenceQuotes: ['측정 장비 담당으로 배정받았다'] }, situation: { value: '', evidenceQuotes: [] },
+    action: { value: 'CMOS 공정 관람, 열증착 직접 수행, B1500 데이터 분석 준비', evidenceQuotes: ['CMOS 공정을 참관했음', '열증착기는 직접 한번 해봤고', 'B1500 데이터 분석은 방학간 진행예정이다'] },
+    result: { value: '', evidenceQuotes: [] }, tools: { value: '', evidenceQuotes: [] },
+  },
+}, statusSource);
+assert.equal(mixedStatusDraft.fields.action.value, '열증착기는 직접 한번 해봤고');
+assert.deepEqual(Array.from(mixedStatusDraft.fields.action.evidenceQuotes), ['열증착기는 직접 한번 해봤고']);
 console.log('JD API two-stage pipeline tests passed');

@@ -76,6 +76,10 @@ function jdValidateExperienceExtraction_(raw, source) {
     if (field === 'action') {
       const validActionQuotes = quotes.filter((quote) => !['observed', 'planned'].includes(jdExperienceActivityType_(quote, 'performed')));
       value = jdExperienceDraftValue_(row.value, validActionQuotes, source);
+      // 참관·예정 근거가 하나라도 섞여 있으면 AI가 다듬은 문장 대신
+      // 직접 수행·현재 진행 근거만 다시 조합한다. 표시 분류와 적용 초안이
+      // 서로 다르게 보이는 과대서술을 막기 위한 마지막 방어선이다.
+      if (validActionQuotes.length !== quotes.length) value = validActionQuotes.join(' / ');
     }
     fields[field] = {
       value,
