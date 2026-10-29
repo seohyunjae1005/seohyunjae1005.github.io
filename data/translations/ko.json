@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-28T00:47:21.519901+00:00",
+  "updated_at": "2026-10-29T01:19:26.243571+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1665,6 +1665,24 @@
       "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
       "source_fingerprint": "219be7ac4ab93eb2c2155981f4502552f289e2de63e260ea3815a7f1a1648f37",
       "translated_at": "2026-10-28T00:47:21.519874+00:00"
+    },
+    "https://news.skhynix.com/en/tech-note-series-ep3/": {
+      "title_ko": "[기술 노트] 수만 개의 GPU를 갖추고도 AI는 왜 여전히 기다려야 할까? 실리콘 포토닉스와 CPO가 어떻게 ‘빛의 고속도로’를 구축하고 있는지",
+      "summary_ko": "태그: AI, CPO, 데이터 센터, HBM, 실리콘 포토닉스",
+      "source_fingerprint": "58d750a17f1c96d889e922d5f8a12578b46c960ba82dec78809855a2c21b46fe",
+      "translated_at": "2026-10-29T01:19:26.243543+00:00"
+    },
+    "https://www.kla.com/advance/leadership/kla-announces-september-quarter-earnings-2026": {
+      "title_ko": "KLA, 9월 분기 실적 발표 | 경영진 | KLA",
+      "summary_ko": "아래 인포그래픽은 9월 분기 실적 보고서에서 발췌한 KLA의 주요 재무 정보를 보여줍니다. 전문을 보시려면",
+      "source_fingerprint": "2b169a36ec3429357660dd7690e5cdd7550a6dae351b9c2a30056420008be036",
+      "translated_at": "2026-10-29T01:19:26.243543+00:00"
+    },
+    "https://ir.kla.com/news-events/press-releases/detail/523/kla-corporation-reports-fiscal-2027-first-quarter-results": {
+      "title_ko": "KLA 코퍼레이션, 2027 회계연도 1분기 실적 발표",
+      "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
+      "source_fingerprint": "70915a517eb2eea35cb0b17d7d9e9c4ae67c1cfd560a971ad1f0b8eead6da53f",
+      "translated_at": "2026-10-29T01:19:26.243543+00:00"
     }
   }
 }
