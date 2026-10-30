@@ -4,6 +4,13 @@ const client = require("../docs/jd-ai-client.js");
 assert.throws(() => client.normalizeEndpoint("http://example.com"), /https/);
 assert.throws(() => client.normalizeEndpoint("https://example.com/exec"), /Google Apps Script/);
 assert.match(client.normalizeEndpoint("https://script.google.com/macros/s/test/exec"), /^https:\/\/script\.google\.com/);
+assert.deepEqual(client.parseQuestions("1. 지원 직무 관련 경험을 작성해 주세요.\n2) 협업 경험을 작성해 주세요.\n3번 어려운 목표에 도전한 경험을 작성해 주세요."), [
+  "지원 직무 관련 경험을 작성해 주세요.", "협업 경험을 작성해 주세요.", "어려운 목표에 도전한 경험을 작성해 주세요.",
+]);
+assert.deepEqual(client.parseQuestions("지원동기를 작성해 주세요.\n\n직무 역량 경험을 작성해 주세요."), ["지원동기를 작성해 주세요.", "직무 역량 경험을 작성해 주세요."]);
+assert.deepEqual(client.parseQuestions("Q1. 문제 해결 경험을 작성해 주세요.\n구체적인 행동과 결과를 포함하세요.\nQ2. 협업 경험을 작성해 주세요."), [
+  "문제 해결 경험을 작성해 주세요. 구체적인 행동과 결과를 포함하세요.", "협업 경험을 작성해 주세요.",
+]);
 
 const validResult = {
   units: [{ id: "JD-01", section: "AI가 선택한 원문 근거", text: "품질 문제의 근본 원인을 조사합니다.", verified: true }],

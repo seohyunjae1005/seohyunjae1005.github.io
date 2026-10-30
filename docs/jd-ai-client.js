@@ -23,6 +23,26 @@
     return endpoint;
   }
 
+  function parseQuestions(value) {
+    const text = String(value || "").replace(/\r\n/g, "\n").trim();
+    if (!text) return [];
+    let blocks = text.split(/\n\s*\n+/).map((row) => row.replace(/\s+/g, " ").trim()).filter(Boolean);
+    if (blocks.length === 1) {
+      const lines = text.split("\n").map((row) => row.trim()).filter(Boolean);
+      const marker = /^(?:Q\s*\d+|\d+|문항\s*\d+)\s*[.)번:]\s*/i;
+      if (lines.filter((line) => marker.test(line)).length >= 2) {
+        blocks = [];
+        lines.forEach((line) => {
+          if (marker.test(line)) blocks.push(line.replace(marker, "").trim());
+          else if (blocks.length) blocks[blocks.length - 1] = `${blocks[blocks.length - 1]} ${line}`.trim();
+        });
+      } else if (lines.length >= 2 && lines.every((line) => line.length >= 8)) {
+        blocks = lines;
+      }
+    }
+    return [...new Set(blocks.map((row) => row.replace(/\s+/g, " ").trim()).filter(Boolean))].slice(0, 8);
+  }
+
   function assertResult(result) {
     if (!result || typeof result !== "object") throw new Error("AI 분석 결과 형식이 올바르지 않습니다.");
     if (!result.facts || !result.careerAnalysis || !Array.isArray(result.units)) throw new Error("AI 분석 결과의 필수 항목이 누락되었습니다.");
@@ -128,7 +148,7 @@
     return assertQuestionMapResult(payload.result);
   }
 
-  root.JDAiClient = { ENDPOINT_KEY, normalizeEndpoint, loadEndpoint, saveEndpoint, assertResult, assertMatchResult, assertExperienceResult, assertQuestionMapResult, analyze, matchProfile, organizeExperience, mapQuestions };
+  root.JDAiClient = { ENDPOINT_KEY, normalizeEndpoint, loadEndpoint, saveEndpoint, parseQuestions, assertResult, assertMatchResult, assertExperienceResult, assertQuestionMapResult, analyze, matchProfile, organizeExperience, mapQuestions };
   if (typeof module !== "undefined" && module.exports) module.exports = root.JDAiClient;
 })(typeof window !== "undefined" ? window : globalThis);
 

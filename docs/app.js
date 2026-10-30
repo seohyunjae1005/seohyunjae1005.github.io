@@ -487,10 +487,7 @@ function renderProfileConnections(connectionResult) {
 }
 
 function parseApplicationQuestions(value) {
-  const text = String(value || "").replace(/\r\n/g, "\n").trim();
-  if (!text) return [];
-  const blocks = text.split(/\n\s*\n+/).map((row) => row.replace(/\s+/g, " ").trim()).filter(Boolean);
-  return blocks.slice(0, 8);
+  return window.JDAiClient.parseQuestions(value);
 }
 
 function renderQuestionPlacements(result) {
@@ -500,6 +497,7 @@ function renderQuestionPlacements(result) {
     const evidence = row.status === "missing" ? "" : `<blockquote>${escapeHtml(row.profileEvidenceQuote)}</blockquote>`;
     const experience = row.experience ? `<strong>${escapeHtml(`${row.experience.kind} · ${row.experience.label}`)}</strong>${evidence}` : '<strong class="jd-none">연결할 경험 없음</strong>';
     const jdLink = row.jdRequirement ? `<p><span>JD 연결</span>${escapeHtml(row.jdRequirement.text)}</p>` : "";
+    const reasoning = row.reasoning ? `<p><span>연결 판단</span>${escapeHtml(row.reasoning)}</p>` : "";
     const angle = row.writingAngle ? `<p><span>작성 방향</span>${escapeHtml(row.writingAngle)}</p>` : "";
     const missing = row.missingInfo ? `<p><span>보완할 내용</span>${escapeHtml(row.missingInfo)}</p>` : "";
     return `<article class="jd-question-placement ${escapeHtml(row.status)}">
@@ -507,7 +505,7 @@ function renderQuestionPlacements(result) {
       <h4>${escapeHtml(row.question.text)}</h4>
       <div class="jd-question-intent"><span>문항 의도</span>${escapeHtml(row.intent)}</div>
       <div class="jd-question-experience"><span>배치 경험</span>${experience}</div>
-      <div class="jd-question-guidance">${jdLink}${angle}${missing}</div>
+      <div class="jd-question-guidance">${jdLink}${reasoning}${angle}${missing}</div>
     </article>`;
   }).join("");
   container.innerHTML = `<div class="jd-question-map-summary"><strong>배치 결과</strong><span>우선 ${result.counts.strong} · 보조 ${result.counts.usable} · 부족 ${result.counts.missing}</span></div>${cards}`;
