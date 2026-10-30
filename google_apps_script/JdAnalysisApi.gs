@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v17';
+const JD_API_VERSION = 'jd-ai-v18';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -18,7 +18,7 @@ function doPost(event) {
   try {
     const body = JSON.parse(event && event.postData && event.postData.contents || '{}');
     const action = String(body.action || 'analyze');
-    const experienceAction = action === 'organizeExperience' || action === 'buildQuestionOutline';
+    const experienceAction = ['organizeExperience', 'buildQuestionOutline', 'reviewApplicationDraft'].includes(action);
     const source = String(experienceAction ? body.experienceText : body.jdText || '').trim();
     if (!source) throw new Error(experienceAction ? '정리할 경험 내용이 없습니다.' : '분석할 JD 원문이 없습니다.');
     if (source.length > JD_MAX_SOURCE_LENGTH) throw new Error(`입력 원문은 ${JD_MAX_SOURCE_LENGTH}자 이하만 분석할 수 있습니다.`);
@@ -35,6 +35,10 @@ function doPost(event) {
     if (action === 'buildQuestionOutline') {
       const outlineResult = jdBuildQuestionOutline_(body, source, apiKey, model);
       return jdJsonResponse_({ ok: true, version: JD_API_VERSION, model, result: outlineResult });
+    }
+    if (action === 'reviewApplicationDraft') {
+      const reviewResult = jdReviewApplicationDraft_(body, source, apiKey, model);
+      return jdJsonResponse_({ ok: true, version: JD_API_VERSION, model, result: reviewResult });
     }
     if (body.action === 'matchProfile') {
       const matchResult = jdMatchProfile_(body, source, apiKey, model);
@@ -62,6 +66,95 @@ function jdOrganizeExperience_(source, apiKey, model) {
 function jdBuildQuestionOutline_(input, source, apiKey, model) {
   const raw = jdCallGemini_(jdBuildQuestionOutlinePrompt_(input, source), apiKey, model);
   return jdValidateQuestionOutline_(raw, source);
+}
+
+function jdReviewApplicationDraft_(input, source, apiKey, model) {
+  const draft = String(input.draftText || '').replace(/\s+/g, ' ').trim();
+  if (!draft) throw new Error('검토할 자기소개서 답변이 없습니다.');
+  if (draft.length > 5000) throw new Error('자기소개서 답변은 5000자 이하만 검토할 수 있습니다.');
+  const raw = jdCallGemini_(jdBuildDraftReviewPrompt_(input, source, draft), apiKey, model);
+  return jdValidateDraftReview_(raw, source, draft);
+}
+
+function jdValidateDraftReview_(raw, source, draft) {
+  const supportedPoints = [];
+  const supportedDraftQuotes = new Set();
+  (Array.isArray(raw && raw.supportedPoints) ? raw.supportedPoints : []).forEach((row) => {
+    const draftQuote = jdVerifiedQuotes_([row && row.draftQuote], draft)[0] || '';
+    const evidenceQuote = jdVerifiedQuotes_([row && row.evidenceQuote], source)[0] || '';
+    if (!draftQuote || !evidenceQuote || supportedDraftQuotes.has(draftQuote)) return;
+    supportedPoints.push({ draftQuote, evidenceQuote, note: jdCleanMatchNarrative_(row.note) });
+    supportedDraftQuotes.add(draftQuote);
+  });
+
+  const unsupportedClaims = [];
+  const unsupportedQuotes = new Set();
+  const addUnsupported = (quote, reason) => {
+    const draftQuote = jdVerifiedQuotes_([quote], draft)[0] || '';
+    if (!draftQuote || supportedDraftQuotes.has(draftQuote) || unsupportedQuotes.has(draftQuote)) return;
+    unsupportedClaims.push({ draftQuote, reason: jdCleanMatchNarrative_(reason) || '선택한 경험 원문에서 이 표현을 뒷받침하는 근거를 찾지 못했습니다.' });
+    unsupportedQuotes.add(draftQuote);
+  };
+  (Array.isArray(raw && raw.unsupportedClaims) ? raw.unsupportedClaims : []).forEach((row) => addUnsupported(row && row.draftQuote, row && row.reason));
+  (String(draft).match(/[^.!?。]+[.!?。]?/g) || []).map((row) => row.trim()).filter(Boolean).forEach((sentence) => {
+    const numbers = sentence.match(/\d+(?:\.\d+)?(?:\s*%|\s*건|\s*개|\s*회|\s*명|\s*시간|\s*일|\s*점)?/g) || [];
+    if (numbers.some((token) => !String(source).includes(token.trim()))) addUnsupported(sentence, '경험 원문에서 확인되지 않는 수치가 포함되어 있습니다.');
+  });
+
+  const allowedFields = ['situation', 'role', 'action', 'result', 'question_fit', 'jd_link'];
+  const structureGaps = (Array.isArray(raw && raw.structureGaps) ? raw.structureGaps : []).map((row) => ({
+    field: allowedFields.includes(String(row && row.field || '')) ? String(row.field) : 'question_fit',
+    message: jdCleanMatchNarrative_(row && row.message),
+  })).filter((row) => row.message).slice(0, 6);
+  const revisionPlan = (Array.isArray(raw && raw.revisionPlan) ? raw.revisionPlan : []).map((row, index) => ({
+    priority: Math.max(1, Math.min(5, Number(row && row.priority) || index + 1)),
+    instruction: jdCleanMatchNarrative_(row && row.instruction),
+  })).filter((row) => row.instruction).sort((a, b) => a.priority - b.priority).slice(0, 5);
+  const status = unsupportedClaims.length || structureGaps.length ? 'needs_review' : 'grounded';
+  return {
+    status,
+    summary: status === 'grounded' ? '선택한 경험 원문과 답변의 핵심 주장이 연결됩니다.' : `근거 확인이 필요한 표현 ${unsupportedClaims.length}개와 빠진 구성 ${structureGaps.length}개를 확인했습니다.`,
+    supportedPoints,
+    unsupportedClaims,
+    structureGaps,
+    revisionPlan,
+    validation: { status: 'pass', draftLength: draft.length, supportedCount: supportedPoints.length },
+  };
+}
+
+function jdBuildDraftReviewPrompt_(input, source, draft) {
+  return `당신은 사용자가 직접 작성한 자기소개서 답변을 경험 원문과 대조하는 검토자다.
+
+규칙:
+1. 답변을 대신 완성하거나 새로운 역할·행동·수치·도구·성과를 만들지 않는다.
+2. supportedPoints에는 답변의 주장과 경험 원문이 의미상 연결되는 경우만 넣는다. draftQuote는 답변에서, evidenceQuote는 경험 원문에서 글자와 순서를 바꾸지 않은 짧은 연속 구절이다.
+3. unsupportedClaims에는 경험 원문에서 근거를 찾을 수 없거나, 예정·참관을 완료한 수행처럼 확대한 답변 표현을 넣는다. draftQuote는 답변의 정확 인용이다.
+4. structureGaps는 문항에 답하는 데 필요한 상황·본인 역할·직접 행동·결과·JD 연결 중 답변에서 빠진 것만 표시한다.
+5. revisionPlan은 삭제·구체화·순서 조정처럼 사용자가 직접 고칠 방법만 제안한다. 경험 원문에 없는 내용을 넣으라고 제안하지 않는다.
+6. 문체 취향보다 사실 근거와 문항 적합성을 우선한다. 합격 가능성이나 지원자 우열은 판단하지 않는다.
+
+JSON 외의 글은 출력하지 않는다.
+{
+  "supportedPoints":[{"draftQuote":"","evidenceQuote":"","note":""}],
+  "unsupportedClaims":[{"draftQuote":"","reason":""}],
+  "structureGaps":[{"field":"situation|role|action|result|question_fit|jd_link","message":""}],
+  "revisionPlan":[{"priority":1,"instruction":""}]
+}
+
+자기소개서 문항: ${String(input.questionText || '').trim()}
+연결된 JD 요구사항: ${String(input.jdRequirement || '').trim()}
+
+경험 원문 시작
+---
+${source}
+---
+경험 원문 끝
+
+작성 답변 시작
+---
+${draft}
+---
+작성 답변 끝`;
 }
 
 function jdValidateQuestionOutline_(raw, source) {

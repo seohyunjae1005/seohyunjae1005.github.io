@@ -526,7 +526,16 @@ function renderQuestionOutline(result) {
   }).join("");
   const questions = result.missingQuestions.length
     ? `<div class="jd-outline-missing"><strong>더 확인할 내용</strong><ul>${result.missingQuestions.map((row) => `<li>${escapeHtml(row.question)}</li>`).join("")}</ul></div>` : "";
-  return `<div class="jd-outline-head"><span>근거 기반 작성 개요</span><button type="button" data-copy-outline>개요 복사</button></div><h5>${escapeHtml(result.headline.value || "핵심 메시지 근거 부족")}</h5><div class="jd-outline-grid">${rows}</div>${questions}`;
+  return `<div class="jd-outline-head"><span>근거 기반 작성 개요</span><button type="button" data-copy-outline>개요 복사</button></div><h5>${escapeHtml(result.headline.value || "핵심 메시지 근거 부족")}</h5><div class="jd-outline-grid">${rows}</div>${questions}<div class="jd-draft-review-input"><strong>작성한 답변 검토</strong><textarea rows="5" data-application-draft placeholder="위 개요를 참고해 직접 쓴 답변을 붙여넣으세요."></textarea><small>검토 버튼을 누르면 답변과 배치된 경험 원문이 AI 분석 서버로 전송됩니다.</small><button type="button" data-review-draft>근거·구조 검토</button></div><div class="jd-draft-review-result" data-draft-review-result hidden></div>`;
+}
+
+function renderDraftReview(result) {
+  const status = result.status === "grounded" ? "근거 확인" : "수정 필요";
+  const supported = result.supportedPoints.length ? `<div><strong>경험 근거가 연결된 내용</strong><ul>${result.supportedPoints.map((row) => `<li><span>답변 “${escapeHtml(row.draftQuote)}”</span><small>경험 근거 “${escapeHtml(row.evidenceQuote)}”</small></li>`).join("")}</ul></div>` : "";
+  const unsupported = result.unsupportedClaims.length ? `<div class="needs-review"><strong>근거를 확인하지 못한 표현</strong><ul>${result.unsupportedClaims.map((row) => `<li><span>“${escapeHtml(row.draftQuote)}”</span><small>${escapeHtml(row.reason)}</small></li>`).join("")}</ul></div>` : "";
+  const gaps = result.structureGaps.length ? `<div><strong>빠진 구성</strong><ul>${result.structureGaps.map((row) => `<li>${escapeHtml(row.message)}</li>`).join("")}</ul></div>` : "";
+  const plan = result.revisionPlan.length ? `<div><strong>수정 순서</strong><ol>${result.revisionPlan.map((row) => `<li>${escapeHtml(row.instruction)}</li>`).join("")}</ol></div>` : "";
+  return `<div class="jd-draft-review-status ${escapeHtml(result.status)}"><strong>${status}</strong><span>${escapeHtml(result.summary)}</span></div>${supported}${unsupported}${gaps}${plan}`;
 }
 
 function jdEvidenceButtons(ids) {
@@ -1109,6 +1118,33 @@ function bindJdAnalyzer() {
     if (event.target.closest("[data-copy-outline]")) {
       await navigator.clipboard.writeText(output.innerText.replace("개요 복사", "").trim());
       event.target.textContent = "복사됨";
+      return;
+    }
+    const reviewButton = event.target.closest("[data-review-draft]");
+    if (reviewButton) {
+      try {
+        const placement = state.questionMap?.placements[Number(card.dataset.placementIndex)];
+        const entryIndex = Number(String(placement?.experience?.id || "").replace("E", "")) - 1;
+        const entry = state.questionProfileEntries[entryIndex];
+        const draft = output.querySelector("[data-application-draft]")?.value.trim() || "";
+        if (!draft) throw new Error("검토할 자기소개서 답변을 입력해 주세요.");
+        if (!placement || !entry) throw new Error("배치된 경험 원문을 찾지 못했습니다. 경험 배치를 다시 실행해 주세요.");
+        reviewButton.disabled = true;
+        reviewButton.textContent = "근거 대조 중…";
+        const result = await window.JDAiClient.reviewApplicationDraft({
+          experienceText: entry.text, draftText: draft, questionText: placement.question.text,
+          jdRequirement: placement.jdRequirement?.text || "",
+        }, { endpoint: window.JDAiClient.loadEndpoint(window.localStorage) });
+        const reviewOutput = output.querySelector("[data-draft-review-result]");
+        reviewOutput.innerHTML = renderDraftReview(result);
+        reviewOutput.hidden = false;
+        reviewButton.textContent = "다시 검토";
+      } catch (error) {
+        window.alert(error.message || "작성 답변을 검토하지 못했습니다.");
+        reviewButton.textContent = "근거·구조 검토";
+      } finally {
+        reviewButton.disabled = false;
+      }
       return;
     }
     const button = event.target.closest("[data-build-outline]");

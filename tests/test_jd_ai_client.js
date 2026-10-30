@@ -117,3 +117,21 @@ assert.throws(() => client.assertResult({ ...validResult, facts: { ...validResul
   assert.equal(result.fields.action.value, "조건별 데이터를 비교");
 })().catch((error) => { console.error(error); process.exitCode = 1; });
 
+(async () => {
+  const review = {
+    status: "needs_review", summary: "근거 확인 필요",
+    supportedPoints: [{ draftQuote: "조건별 데이터를 비교했다", evidenceQuote: "조건별 데이터를 비교했다", note: "행동 근거 확인" }],
+    unsupportedClaims: [{ draftQuote: "수율을 30% 높였다", reason: "경험 원문에 수치 없음" }],
+    structureGaps: [{ field: "role", message: "본인 역할이 빠졌습니다." }],
+    revisionPlan: [{ priority: 1, instruction: "근거 없는 수치를 삭제하세요." }],
+  };
+  const result = await client.reviewApplicationDraft({ experienceText: "경험", draftText: "답변" }, {
+    endpoint: "https://script.google.com/macros/s/test/exec",
+    fetcher: async (_url, options) => {
+      assert.equal(JSON.parse(options.body).action, "reviewApplicationDraft");
+      return { ok: true, json: async () => ({ ok: true, result: review }) };
+    },
+  });
+  assert.equal(result.status, "needs_review");
+})().catch((error) => { console.error(error); process.exitCode = 1; });
+

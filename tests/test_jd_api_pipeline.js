@@ -217,6 +217,21 @@ assert.equal(deduplicatedOutline.fields.action.value, '조건별 측정값을 �
 assert.equal(Array.from(deduplicatedOutline.fields.action.evidenceQuotes).join('|'), '조건별 측정값을 비교했다');
 assert.match(context.jdBuildQuestionOutlinePrompt_({ questionText: '문제 해결 경험' }, '실험 경험'), /완성 자기소개서를 쓰지 말고/);
 
+const draftReview = context.jdValidateDraftReview_({
+  supportedPoints: [{ draftQuote: '조건별 측정값을 비교했다', evidenceQuote: '조건별 측정값을 비교했다', note: '직접 행동이 확인됨' }],
+  unsupportedClaims: [{ draftQuote: '수율을 30% 높였다', reason: '경험 원문에 없는 성과' }],
+  structureGaps: [{ field: 'role', message: '본인의 역할 설명이 빠졌습니다.' }],
+  revisionPlan: [{ priority: 1, instruction: '근거 없는 수치 표현을 삭제하세요.' }],
+}, outlineSource, '조건별 측정값을 비교했다. 수율을 30% 높였다.');
+assert.equal(draftReview.status, 'needs_review');
+assert.equal(draftReview.supportedPoints[0].evidenceQuote, '조건별 측정값을 비교했다');
+assert.equal(draftReview.unsupportedClaims[0].draftQuote, '수율을 30% 높였다');
+assert.ok(draftReview.structureGaps.some((row) => row.field === 'role'));
+const numericGuard = context.jdValidateDraftReview_({ supportedPoints: [], unsupportedClaims: [], structureGaps: [], revisionPlan: [] }, '조건별 데이터를 비교했다.', '조건별 데이터를 비교해 불량을 25% 줄였다.');
+assert.equal(numericGuard.status, 'needs_review');
+assert.equal(numericGuard.unsupportedClaims.length, 1);
+assert.match(context.jdBuildDraftReviewPrompt_({ questionText: '문제 해결 경험' }, '실험 경험', '작성 답변'), /답변을 대신 완성하거나/);
+
 const organizedExperience = context.jdValidateExperienceExtraction_({
   summary: { value: '측정값을 비교해 원인 후보를 두 가지로 좁힘', evidenceQuotes: ['측정값을 조건별로 비교했다', '원인 후보를 두 가지로 좁혔다'] },
   activities: { observed: [], performed: [{ quote: '측정값을 조건별로 비교했다' }], assigned: [{ quote: '측정 데이터 분석 담당' }], ongoing: [], planned: [] },

@@ -523,6 +523,20 @@ main { max-width: var(--max); margin: 0 auto; padding: 0.9rem 1.25rem 3rem; }
 .jd-outline-missing { margin-top: 0.6rem; padding: 0.6rem; background: #f5f5f7; }
 .jd-outline-missing ul { margin: 0.35rem 0 0; padding-left: 1rem; font-size: 0.68rem; }
 @media (max-width: 680px) { .jd-outline-grid { grid-template-columns: 1fr; } .jd-outline-grid > div:nth-child(odd) { border-right: 0; } }
+.jd-draft-review-input { display: grid; gap: 0.4rem; margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px solid var(--line); }
+.jd-draft-review-input strong { font-size: 0.7rem; }
+.jd-draft-review-input textarea { width: 100%; box-sizing: border-box; resize: vertical; border: 1px solid var(--line); padding: 0.6rem; font: inherit; font-size: 0.72rem; line-height: 1.5; }
+.jd-draft-review-input small { color: var(--muted); font-size: 0.58rem; }
+.jd-draft-review-input button { justify-self: start; border: 1px solid #1d1d1f; background: #fff; border-radius: 999px; padding: 0.4rem 0.7rem; font-size: 0.66rem; font-weight: 750; cursor: pointer; }
+.jd-draft-review-result { display: grid; gap: 0.55rem; margin-top: 0.65rem; }
+.jd-draft-review-result > div { padding: 0.6rem; border: 1px solid var(--line); }
+.jd-draft-review-result strong { font-size: 0.68rem; }
+.jd-draft-review-result ul, .jd-draft-review-result ol { margin: 0.35rem 0 0; padding-left: 1rem; font-size: 0.68rem; line-height: 1.5; }
+.jd-draft-review-result li small { display: block; color: var(--muted); }
+.jd-draft-review-result .needs-review { border-left: 3px solid #b54708; }
+.jd-draft-review-status { display: flex; gap: 0.6rem; align-items: center; }
+.jd-draft-review-status span { color: var(--muted); font-size: 0.66rem; }
+.jd-draft-review-status.grounded { border-left: 3px solid #2f6f44; }
 .jd-question-intent, .jd-question-experience { display: grid; grid-template-columns: 5rem 1fr; gap: 0.6rem; padding: 0.6rem 0.7rem; border-top: 1px solid var(--line); font-size: 0.7rem; line-height: 1.5; }
 .jd-question-intent > span, .jd-question-experience > span, .jd-question-guidance p > span { color: var(--muted); font-size: 0.63rem; font-weight: 750; }
 .jd-question-experience blockquote { grid-column: 2; margin: 0.25rem 0 0; padding-left: 0.6rem; border-left: 2px solid var(--line-strong); }
