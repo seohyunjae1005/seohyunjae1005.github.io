@@ -22,6 +22,7 @@ const state = {
 const grid = document.querySelector("#article-grid");
 const empty = document.querySelector("#empty");
 const resultLine = document.querySelector("#result-line");
+const APPLICATION_DRAFT_KEY = "aiproject.applicationDrafts.v1";
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -492,6 +493,32 @@ function parseApplicationQuestions(value) {
   return window.JDAiClient.parseQuestions(value);
 }
 
+function applicationDraftId(placement) {
+  return `${placement?.question?.text || ""}::${placement?.experience?.id || "none"}`;
+}
+
+function loadApplicationDraft(placement) {
+  try {
+    const drafts = JSON.parse(window.localStorage.getItem(APPLICATION_DRAFT_KEY) || "{}");
+    return String(drafts[applicationDraftId(placement)] || "");
+  } catch (_error) {
+    return "";
+  }
+}
+
+function saveApplicationDraft(placement, value) {
+  try {
+    const drafts = JSON.parse(window.localStorage.getItem(APPLICATION_DRAFT_KEY) || "{}");
+    const id = applicationDraftId(placement);
+    if (value) drafts[id] = value;
+    else delete drafts[id];
+    window.localStorage.setItem(APPLICATION_DRAFT_KEY, JSON.stringify(drafts));
+    return true;
+  } catch (_error) {
+    return false;
+  }
+}
+
 function renderQuestionPlacements(result) {
   const container = document.querySelector("#jd-question-map-results");
   const labels = { strong: "우선 배치", usable: "보조 후보", missing: "근거 부족" };
@@ -516,7 +543,7 @@ function renderQuestionPlacements(result) {
   container.hidden = false;
 }
 
-function renderQuestionOutline(result) {
+function renderQuestionOutline(result, placement) {
   const labels = { situation: "상황·문제", role: "내 역할", action: "직접 행동", result: "결과·배운 점" };
   const rows = Object.entries(labels).map(([key, label]) => {
     const row = result.fields[key];
@@ -526,7 +553,8 @@ function renderQuestionOutline(result) {
   }).join("");
   const questions = result.missingQuestions.length
     ? `<div class="jd-outline-missing"><strong>더 확인할 내용</strong><ul>${result.missingQuestions.map((row) => `<li>${escapeHtml(row.question)}</li>`).join("")}</ul></div>` : "";
-  return `<div class="jd-outline-head"><span>근거 기반 작성 개요</span><button type="button" data-copy-outline>개요 복사</button></div><h5>${escapeHtml(result.headline.value || "핵심 메시지 근거 부족")}</h5><div class="jd-outline-grid">${rows}</div>${questions}<div class="jd-draft-review-input"><strong>작성한 답변 검토</strong><textarea rows="5" data-application-draft placeholder="위 개요를 참고해 직접 쓴 답변을 붙여넣으세요."></textarea><small>검토 버튼을 누르면 답변과 배치된 경험 원문이 AI 분석 서버로 전송됩니다.</small><button type="button" data-review-draft>근거·구조 검토</button></div><div class="jd-draft-review-result" data-draft-review-result hidden></div>`;
+  const savedDraft = loadApplicationDraft(placement);
+  return `<div class="jd-outline-head"><span>근거 기반 작성 개요</span><button type="button" data-copy-outline>개요 복사</button></div><h5>${escapeHtml(result.headline.value || "핵심 메시지 근거 부족")}</h5><div class="jd-outline-grid">${rows}</div>${questions}<div class="jd-draft-review-input"><strong>작성한 답변 검토</strong><textarea rows="5" data-application-draft placeholder="위 개요를 참고해 직접 쓴 답변을 붙여넣으세요.">${escapeHtml(savedDraft)}</textarea><div class="jd-draft-meta"><small data-draft-save-status>${savedDraft ? "이 기기에 임시 저장됨" : "입력하면 이 기기에 자동 저장됩니다."}</small><span data-draft-count>${savedDraft.length}자</span></div><small>검토 버튼을 누르면 답변과 배치된 경험 원문이 AI 분석 서버로 전송됩니다.</small><button type="button" data-review-draft>근거·구조 검토</button></div><div class="jd-draft-review-result" data-draft-review-result hidden></div>`;
 }
 
 function renderDraftReview(result) {
@@ -1161,7 +1189,7 @@ function bindJdAnalyzer() {
         evidenceQuote: placement.profileEvidenceQuote, jdRequirement: placement.jdRequirement?.text || "",
         writingAngle: placement.writingAngle || "",
       }, { endpoint: window.JDAiClient.loadEndpoint(window.localStorage) });
-      output.innerHTML = renderQuestionOutline(result);
+      output.innerHTML = renderQuestionOutline(result, placement);
       output.hidden = false;
       button.textContent = "개요 다시 만들기";
     } catch (error) {
@@ -1170,6 +1198,16 @@ function bindJdAnalyzer() {
     } finally {
       button.disabled = false;
     }
+  });
+  document.querySelector("#jd-question-map-results").addEventListener("input", (event) => {
+    const textarea = event.target.closest("[data-application-draft]");
+    if (!textarea) return;
+    const card = textarea.closest("[data-placement-index]");
+    const placement = state.questionMap?.placements[Number(card?.dataset.placementIndex)];
+    const output = textarea.closest("[data-outline-result]");
+    const saved = saveApplicationDraft(placement, textarea.value);
+    output.querySelector("[data-draft-count]").textContent = `${textarea.value.length}자`;
+    output.querySelector("[data-draft-save-status]").textContent = saved ? "이 기기에 임시 저장됨" : "임시 저장 실패";
   });
   document.querySelector("#jd-results").addEventListener("click", (event) => {
     const button = event.target.closest("[data-evidence-id]");
