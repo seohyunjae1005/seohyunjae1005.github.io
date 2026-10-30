@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-29T01:19:26.243571+00:00",
+  "updated_at": "2026-10-30T01:23:17.713259+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1067,10 +1067,10 @@
       "translated_at": "2026-09-12T12:42:31.632491+00:00"
     },
     "https://news.skhynix.com/en/tech-note-series-ep1/": {
-      "title_ko": "[테크 노트 EP.1] ‘메모리가 관건이다’, AI의 미래는 메모리에 달려 있다",
+      "title_ko": "[기술 노트] ‘메모리가 관건이다’, AI의 미래는 메모리에 달려 있다",
       "summary_ko": "태그: AI, HBF, HBM, 물리적 AI, 용인 반도체 클러스터",
-      "source_fingerprint": "a737c159749c21e02498e2d06844e484dcfecf4bd9c967c38619e75981c2b413",
-      "translated_at": "2026-09-12T12:42:31.632491+00:00"
+      "source_fingerprint": "6202b65d11f5af5a893692bea9eb2c566479872468f14142a159ffce90cc6e9a",
+      "translated_at": "2026-10-30T01:23:17.713233+00:00"
     },
     "https://www.tel.com/news/ir/2026/gdv06900000000fd-att/20260512_001_e.pdf": {
       "title_ko": "잉여금 배당금 지급에 관한 공고 (2026년 3월 31일 종료 회계연도)",
