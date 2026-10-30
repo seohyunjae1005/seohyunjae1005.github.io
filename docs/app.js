@@ -486,6 +486,34 @@ function renderProfileConnections(connectionResult) {
   container.hidden = false;
 }
 
+function parseApplicationQuestions(value) {
+  const text = String(value || "").replace(/\r\n/g, "\n").trim();
+  if (!text) return [];
+  const blocks = text.split(/\n\s*\n+/).map((row) => row.replace(/\s+/g, " ").trim()).filter(Boolean);
+  return blocks.slice(0, 8);
+}
+
+function renderQuestionPlacements(result) {
+  const container = document.querySelector("#jd-question-map-results");
+  const labels = { strong: "우선 배치", usable: "보조 후보", missing: "근거 부족" };
+  const cards = result.placements.map((row, index) => {
+    const evidence = row.status === "missing" ? "" : `<blockquote>${escapeHtml(row.profileEvidenceQuote)}</blockquote>`;
+    const experience = row.experience ? `<strong>${escapeHtml(`${row.experience.kind} · ${row.experience.label}`)}</strong>${evidence}` : '<strong class="jd-none">연결할 경험 없음</strong>';
+    const jdLink = row.jdRequirement ? `<p><span>JD 연결</span>${escapeHtml(row.jdRequirement.text)}</p>` : "";
+    const angle = row.writingAngle ? `<p><span>작성 방향</span>${escapeHtml(row.writingAngle)}</p>` : "";
+    const missing = row.missingInfo ? `<p><span>보완할 내용</span>${escapeHtml(row.missingInfo)}</p>` : "";
+    return `<article class="jd-question-placement ${escapeHtml(row.status)}">
+      <header><span>Q${index + 1}</span><strong>${labels[row.status]}</strong>${row.reuseCount > 1 ? `<small>같은 경험 ${row.reuseCount}회 사용</small>` : ""}</header>
+      <h4>${escapeHtml(row.question.text)}</h4>
+      <div class="jd-question-intent"><span>문항 의도</span>${escapeHtml(row.intent)}</div>
+      <div class="jd-question-experience"><span>배치 경험</span>${experience}</div>
+      <div class="jd-question-guidance">${jdLink}${angle}${missing}</div>
+    </article>`;
+  }).join("");
+  container.innerHTML = `<div class="jd-question-map-summary"><strong>배치 결과</strong><span>우선 ${result.counts.strong} · 보조 ${result.counts.usable} · 부족 ${result.counts.missing}</span></div>${cards}`;
+  container.hidden = false;
+}
+
 function jdEvidenceButtons(ids) {
   return (ids || []).length
     ? ids.map((id) => `<button class="jd-evidence-link" type="button" data-evidence-id="${escapeHtml(id)}">${escapeHtml(id)}</button>`).join(" ")
@@ -987,6 +1015,7 @@ function bindJdAnalyzer() {
     document.querySelector("#jd-analyze-button").hidden = true;
     document.querySelector("#jd-results").hidden = true;
     document.querySelector("#jd-subrole-picker").hidden = true;
+    document.querySelector("#jd-question-map-results").hidden = true;
     state.jdAnalysis = null;
   });
   document.querySelector("#jd-reset").addEventListener("click", () => {
@@ -997,6 +1026,8 @@ function bindJdAnalyzer() {
     document.querySelector("#jd-analyze-button").hidden = true;
     document.querySelector("#jd-cleaned-text").value = "";
     document.querySelector("#jd-subrole-picker").hidden = true;
+    document.querySelector("#jd-question-map-results").hidden = true;
+    document.querySelector("#jd-application-questions").value = "";
     state.jdAnalysis = null;
   });
   document.querySelector("#jd-match-profile-button").addEventListener("click", async () => {
@@ -1022,6 +1053,32 @@ function bindJdAnalyzer() {
     } finally {
       button.disabled = false;
       button.textContent = "JD와 내 경험 연결 분석";
+    }
+  });
+  document.querySelector("#jd-map-questions-button").addEventListener("click", async () => {
+    const button = document.querySelector("#jd-map-questions-button");
+    try {
+      if (!state.jdAnalysis) throw new Error("먼저 JD 단독 분석을 완료해 주세요.");
+      const endpoint = window.JDAiClient.loadEndpoint(window.localStorage);
+      if (!endpoint) throw new Error("AI 분석 연결 주소를 먼저 설정해 주세요.");
+      const questions = parseApplicationQuestions(document.querySelector("#jd-application-questions").value);
+      if (!questions.length) throw new Error("자기소개서 문항을 한 개 이상 입력해 주세요.");
+      const profile = window.CareerProfile.load(window.localStorage);
+      const profileEntries = window.CareerProfile.toEvidenceEntries(profile);
+      if (!profileEntries.length) throw new Error("내 프로필에 경험·학력·기술 중 하나 이상을 저장해 주세요.");
+      const requirements = jdProfileRequirements(state.jdAnalysis);
+      button.disabled = true;
+      button.textContent = "문항과 경험 근거를 비교 중…";
+      const result = await window.JDAiClient.mapQuestions({
+        jdText: document.querySelector("#jd-cleaned-text").value,
+        questions, requirements, profileEntries,
+      }, { endpoint });
+      renderQuestionPlacements(result);
+    } catch (error) {
+      window.alert(error.message || "문항별 경험 배치를 만들지 못했습니다.");
+    } finally {
+      button.disabled = false;
+      button.textContent = "경험 배치 추천";
     }
   });
   document.querySelector("#jd-results").addEventListener("click", (event) => {

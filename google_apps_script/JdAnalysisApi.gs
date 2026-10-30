@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v15';
+const JD_API_VERSION = 'jd-ai-v16';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -34,6 +34,10 @@ function doPost(event) {
     if (body.action === 'matchProfile') {
       const matchResult = jdMatchProfile_(body, source, apiKey, model);
       return jdJsonResponse_({ ok: true, version: JD_API_VERSION, model, result: matchResult });
+    }
+    if (body.action === 'mapQuestions') {
+      const questionResult = jdMapQuestions_(body, source, apiKey, model);
+      return jdJsonResponse_({ ok: true, version: JD_API_VERSION, model, result: questionResult });
     }
     const factResponse = jdCallGemini_(jdBuildFactPrompt_(body, source), apiKey, model);
     const verifiedFacts = jdEnrichVerifiedFacts_(jdVerifyRawFacts_(factResponse, source), source);
@@ -261,6 +265,102 @@ function jdValidateProfileMatches_(raw, requirements, profileEntries) {
   const counts = { direct: 0, indirect: 0, none: 0 };
   matches.forEach((row) => { counts[row.status] += 1; });
   return { matches, counts, requirementCount: requirements.length, profileEntryCount: profileEntries.length };
+}
+
+function jdMapQuestions_(body, source, apiKey, model) {
+  const questions = (Array.isArray(body.questions) ? body.questions : []).slice(0, 8).map((value, index) => ({
+    id: `Q${index + 1}`, text: String(value || '').replace(/\s+/g, ' ').trim().slice(0, 1200),
+  })).filter((row) => row.text);
+  const requirements = (Array.isArray(body.requirements) ? body.requirements : []).slice(0, 20).map((row, index) => {
+    const quote = jdVerifiedQuotes_([row && row.evidenceQuote], source)[0] || '';
+    return quote ? {
+      id: `R${index + 1}`, kind: String(row.kind || 'JD Fact').slice(0, 30),
+      text: String(row.text || quote).slice(0, 500), evidenceQuote: quote,
+    } : null;
+  }).filter(Boolean);
+  const profileEntries = (Array.isArray(body.profileEntries) ? body.profileEntries : []).slice(0, 40).map((row, index) => ({
+    id: `E${index + 1}`, kind: String(row && row.kind || '경험').slice(0, 30),
+    label: String(row && row.label || `경험 ${index + 1}`).slice(0, 100),
+    text: String(row && row.text || '').trim().slice(0, 1800),
+  })).filter((row) => row.text);
+  if (!questions.length) throw new Error('배치할 자기소개서 문항이 없습니다.');
+  if (!profileEntries.length) throw new Error('연결할 프로필 경험이 없습니다. 내 프로필을 먼저 작성해 주세요.');
+  const raw = jdCallGemini_(jdBuildQuestionMapPrompt_(questions, requirements, profileEntries), apiKey, model);
+  return jdValidateQuestionMap_(raw, questions, requirements, profileEntries);
+}
+
+function jdBuildQuestionMapPrompt_(questions, requirements, profileEntries) {
+  return `당신은 실제 자기소개서 문항마다 사용자의 어떤 경험을 배치할지 정하는 근거 기반 편집기다.
+
+규칙:
+1. questions의 모든 문항을 정확히 한 번씩 출력한다.
+2. 문항 의도를 먼저 해석하되 회사나 직무가 묻지 않은 의미를 추가하지 않는다.
+3. strong은 문항 의도와 JD 요구사항을 함께 보여주는 직접 행동 근거가 있을 때만 사용한다.
+4. usable은 연결 가능한 행동은 있지만 대상·성과·역할 중 일부 설명이 더 필요할 때 사용한다.
+5. 근거가 없으면 missing으로 표시한다. 경험·수치·도구·성과를 만들지 않는다.
+6. profileEvidenceQuote는 선택한 profileEntries.text에서 글자와 순서를 바꾸지 않은 짧은 연속 구절이다. missing이면 빈 문자열이다.
+7. jdRequirementId는 실제 연결되는 requirements 항목이 있을 때만 선택하고, 없으면 빈 문자열이다.
+8. 같은 경험을 여러 문항에 배치할 수 있지만 더 적합한 다른 경험이 있으면 분산한다. 억지로 분산하지 않는다.
+9. writingAngle은 완성 자소서 문장이 아니라 이 문항에서 어떤 행동·판단·결과를 중심으로 쓸지 1문장으로 제안한다.
+10. missingInfo는 현재 입력에서 빠진 역할·행동·결과 중 실제로 추가 확인해야 할 내용만 쓴다.
+11. 합격 가능성이나 지원자 우열을 판단하지 않는다. Q1·R1·E1 같은 내부 번호를 서술문에 쓰지 않는다.
+
+JSON 외의 글은 출력하지 않는다.
+{
+  "placements":[{
+    "questionId":"Q1", "intent":"", "status":"strong|usable|missing",
+    "experienceId":"E1 또는 빈 문자열", "profileEvidenceQuote":"",
+    "jdRequirementId":"R1 또는 빈 문자열", "reasoning":"",
+    "writingAngle":"", "missingInfo":""
+  }]
+}
+
+자기소개서 문항:
+${JSON.stringify(questions)}
+
+검증된 JD 요구사항:
+${JSON.stringify(requirements)}
+
+사용자 프로필 원문:
+${JSON.stringify(profileEntries)}`;
+}
+
+function jdValidateQuestionMap_(raw, questions, requirements, profileEntries) {
+  const questionMap = Object.fromEntries(questions.map((row) => [row.id, row]));
+  const requirementMap = Object.fromEntries(requirements.map((row) => [row.id, row]));
+  const entryMap = Object.fromEntries(profileEntries.map((row) => [row.id, row]));
+  const rawMap = {};
+  (Array.isArray(raw && raw.placements) ? raw.placements : []).forEach((row) => {
+    const id = String(row && row.questionId || '');
+    if (questionMap[id] && !rawMap[id]) rawMap[id] = row;
+  });
+  const placements = questions.map((question) => {
+    const row = rawMap[question.id] || {};
+    let status = ['strong', 'usable', 'missing'].includes(String(row.status || '')) ? String(row.status) : 'missing';
+    const experience = entryMap[String(row.experienceId || '')] || null;
+    const quote = experience ? jdVerifiedQuotes_([row.profileEvidenceQuote], experience.text)[0] || '' : '';
+    const requirement = requirementMap[String(row.jdRequirementId || '')] || null;
+    if (!experience || !quote) status = 'missing';
+    if (status === 'strong' && requirement && !jdHasDirectActionEvidence_(requirement, experience)) status = 'usable';
+    return {
+      question,
+      intent: jdCleanMatchNarrative_(row.intent) || '문항 의도를 구체적으로 해석할 근거가 부족합니다.',
+      status,
+      experience: status === 'missing' ? null : { id: experience.id, kind: experience.kind, label: experience.label },
+      profileEvidenceQuote: status === 'missing' ? '' : quote,
+      jdRequirement: requirement ? { id: requirement.id, kind: requirement.kind, text: requirement.text } : null,
+      reasoning: status === 'missing' ? '현재 저장된 프로필 원문에서 이 문항에 배치할 근거를 확인하지 못했습니다.' : jdCleanMatchNarrative_(row.reasoning),
+      writingAngle: status === 'missing' ? '' : jdCleanMatchNarrative_(row.writingAngle),
+      missingInfo: jdCleanMatchNarrative_(row.missingInfo) || (status === 'missing' ? '문항과 관련된 본인의 역할·행동·결과를 프로필에 추가로 기록해 주세요.' : ''),
+      reuseCount: 0,
+    };
+  });
+  const reuse = {};
+  placements.forEach((row) => { if (row.experience && row.experience.id) reuse[row.experience.id] = (reuse[row.experience.id] || 0) + 1; });
+  placements.forEach((row) => { row.reuseCount = row.experience ? reuse[row.experience.id] || 1 : 0; });
+  const counts = { strong: 0, usable: 0, missing: 0 };
+  placements.forEach((row) => { counts[row.status] += 1; });
+  return { placements, counts, questionCount: questions.length, profileEntryCount: profileEntries.length };
 }
 
 function jdCleanMatchNarrative_(value) {

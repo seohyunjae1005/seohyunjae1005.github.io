@@ -160,6 +160,26 @@ const rejectedMatch = context.jdValidateProfileMatches_({ matches: [{
 }] }, matchRequirements, matchEntries);
 assert.equal(rejectedMatch.matches[0].status, 'none');
 
+const questionPrompt = context.jdBuildQuestionMapPrompt_(
+  [{ id: 'Q1', text: '품질 문제를 개선한 경험을 작성해 주세요.' }],
+  matchRequirements,
+  matchEntries,
+);
+assert.match(questionPrompt, /문항마다 사용자의 어떤 경험을 배치/);
+assert.match(questionPrompt, /완성 자소서 문장이 아니라/);
+const questionMap = context.jdValidateQuestionMap_({ placements: [{
+  questionId: 'Q1', intent: '품질 문제 해결 행동 확인', status: 'strong', experienceId: 'E1',
+  profileEvidenceQuote: '불량 데이터를 분석', jdRequirementId: 'R1',
+  reasoning: '품질 데이터 분석 행동이 확인됨', writingAngle: '분석 기준과 개선 결과를 중심으로 작성', missingInfo: '',
+}] }, [{ id: 'Q1', text: '품질 문제를 개선한 경험을 작성해 주세요.' }], matchRequirements, matchEntries);
+assert.equal(questionMap.counts.strong, 1);
+assert.equal(questionMap.placements[0].profileEvidenceQuote, '불량 데이터를 분석');
+assert.equal(questionMap.placements[0].jdRequirement.text, '제품검사 DPU 분석');
+const badQuestionMap = context.jdValidateQuestionMap_({ placements: [{
+  questionId: 'Q1', status: 'strong', experienceId: 'E1', profileEvidenceQuote: '존재하지 않는 성과', jdRequirementId: 'R1',
+}] }, [{ id: 'Q1', text: '품질 경험' }], matchRequirements, matchEntries);
+assert.equal(badQuestionMap.placements[0].status, 'missing');
+
 const organizedExperience = context.jdValidateExperienceExtraction_({
   summary: { value: '측정값을 비교해 원인 후보를 두 가지로 좁힘', evidenceQuotes: ['측정값을 조건별로 비교했다', '원인 후보를 두 가지로 좁혔다'] },
   activities: { observed: [], performed: [{ quote: '측정값을 조건별로 비교했다' }], assigned: [{ quote: '측정 데이터 분석 담당' }], ongoing: [], planned: [] },

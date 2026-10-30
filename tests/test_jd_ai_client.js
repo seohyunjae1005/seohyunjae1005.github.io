@@ -69,3 +69,23 @@ assert.throws(() => client.assertResult({ ...validResult, facts: { ...validResul
   assert.equal(result.matches[0].status, "direct");
 })().catch((error) => { console.error(error); process.exitCode = 1; });
 
+(async () => {
+  const questionResult = {
+    counts: { strong: 1, usable: 0, missing: 0 },
+    placements: [{
+      question: { id: "Q1", text: "품질 개선 경험을 작성해 주세요." }, status: "strong",
+      experience: { id: "E1", kind: "경험", label: "품질 실습" }, profileEvidenceQuote: "불량 데이터를 분석",
+      jdRequirement: { id: "R1", kind: "주요 업무", text: "DPU 분석" }, intent: "품질 문제 분석 경험 확인",
+      reasoning: "분석 행동이 확인됨", writingAngle: "분석 기준과 결과 중심", missingInfo: "", reuseCount: 1,
+    }],
+  };
+  const result = await client.mapQuestions({ jdText: "DPU 분석", questions: ["품질 개선 경험"], requirements: [], profileEntries: [] }, {
+    endpoint: "https://script.google.com/macros/s/test/exec",
+    fetcher: async (_url, options) => {
+      assert.equal(JSON.parse(options.body).action, "mapQuestions");
+      return { ok: true, json: async () => ({ ok: true, result: questionResult }) };
+    },
+  });
+  assert.equal(result.placements[0].status, "strong");
+})().catch((error) => { console.error(error); process.exitCode = 1; });
+

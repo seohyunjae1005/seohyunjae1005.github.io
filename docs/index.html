@@ -8,13 +8,13 @@
       content="주요 반도체 기업의 공식 뉴스룸에서 기술 동향과 기업 맥락을 추적합니다."
     />
     <title>반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261029-1" />
+    <link rel="stylesheet" href="styles.css?v=20261030-1" />
     <script src="pdf-import.js?v=20261001-2" defer></script>
     <script src="jd-analyzer-v4.js?v=20261007-7" defer></script>
-    <script src="jd-ai-client.js?v=20261013-2" defer></script>
+    <script src="jd-ai-client.js?v=20261030-1" defer></script>
     <script src="profile-store-v2.js?v=20261013-1" defer></script>
     <script src="role-normalizer.js?v=20261001-1" defer></script>
-    <script src="app.js?v=20261029-1" defer></script>
+    <script src="app.js?v=20261030-1" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -386,6 +386,14 @@
             <button class="jd-primary" id="jd-match-profile-button" type="button">JD와 내 경험 연결 분석</button>
             <div class="jd-match-summary" id="jd-match-summary" hidden></div>
             <div class="jd-profile-connections" id="jd-profile-connections" hidden></div>
+          </section>
+
+          <section class="jd-result-section jd-question-map-section">
+            <div class="jd-section-title"><span>9</span><div><h3>문항별 경험 배치</h3></div></div>
+            <p class="jd-profile-consent">실제 자기소개서 문항을 문항 사이 한 줄씩 비워 붙여 넣으세요. 저장한 경험의 원문 근거만 사용하며 완성 자소서는 만들지 않습니다.</p>
+            <label class="jd-question-input"><span>자기소개서 문항</span><textarea id="jd-application-questions" rows="5" placeholder="지원 직무와 관련된 경험을 작성해 주세요.&#10;&#10;어려운 목표에 도전한 경험을 작성해 주세요."></textarea></label>
+            <button class="jd-primary" id="jd-map-questions-button" type="button">경험 배치 추천</button>
+            <div class="jd-question-map-results" id="jd-question-map-results" hidden></div>
           </section>
 
           <details class="jd-evidence-details">
