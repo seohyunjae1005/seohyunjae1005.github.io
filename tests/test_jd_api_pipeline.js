@@ -226,6 +226,7 @@ const draftReview = context.jdValidateDraftReview_({
 assert.equal(draftReview.status, 'needs_review');
 assert.equal(draftReview.supportedPoints[0].evidenceQuote, '조건별 측정값을 비교했다');
 assert.equal(draftReview.unsupportedClaims[0].draftQuote, '수율을 30% 높였다');
+assert.equal(draftReview.unsupportedClaims.length, 1);
 assert.ok(draftReview.structureGaps.some((row) => row.field === 'role'));
 const numericGuard = context.jdValidateDraftReview_({ supportedPoints: [], unsupportedClaims: [], structureGaps: [], revisionPlan: [] }, '조건별 데이터를 비교했다.', '조건별 데이터를 비교해 불량을 25% 줄였다.');
 assert.equal(numericGuard.status, 'needs_review');

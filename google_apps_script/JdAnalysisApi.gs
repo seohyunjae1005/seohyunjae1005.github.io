@@ -91,7 +91,8 @@ function jdValidateDraftReview_(raw, source, draft) {
   const unsupportedQuotes = new Set();
   const addUnsupported = (quote, reason) => {
     const draftQuote = jdVerifiedQuotes_([quote], draft)[0] || '';
-    if (!draftQuote || supportedDraftQuotes.has(draftQuote) || unsupportedQuotes.has(draftQuote)) return;
+    const overlapsExisting = Array.from(unsupportedQuotes).some((existing) => existing.includes(draftQuote) || draftQuote.includes(existing));
+    if (!draftQuote || supportedDraftQuotes.has(draftQuote) || unsupportedQuotes.has(draftQuote) || overlapsExisting) return;
     unsupportedClaims.push({ draftQuote, reason: jdCleanMatchNarrative_(reason) || '선택한 경험 원문에서 이 표현을 뒷받침하는 근거를 찾지 못했습니다.' });
     unsupportedQuotes.add(draftQuote);
   };
