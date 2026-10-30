@@ -494,16 +494,19 @@ function parseApplicationQuestions(value) {
 }
 
 function applicationDraftId(placement) {
-  return `${placement?.question?.text || ""}::${placement?.experience?.id || "none"}`;
+  return window.ApplicationWorkspace.draftId(placement);
+}
+
+function loadApplicationDrafts() {
+  try {
+    return JSON.parse(window.localStorage.getItem(APPLICATION_DRAFT_KEY) || "{}");
+  } catch (_error) {
+    return {};
+  }
 }
 
 function loadApplicationDraft(placement) {
-  try {
-    const drafts = JSON.parse(window.localStorage.getItem(APPLICATION_DRAFT_KEY) || "{}");
-    return String(drafts[applicationDraftId(placement)] || "");
-  } catch (_error) {
-    return "";
-  }
+  return window.ApplicationWorkspace.readDraft(loadApplicationDrafts(), placement);
 }
 
 function saveApplicationDraft(placement, value) {
@@ -522,6 +525,20 @@ function saveApplicationDraft(placement, value) {
 function renderQuestionPlacements(result) {
   const container = document.querySelector("#jd-question-map-results");
   const labels = { strong: "우선 배치", usable: "보조 후보", missing: "근거 부족" };
+  const workspace = window.ApplicationWorkspace.summarize(result.placements);
+  const usageWarnings = workspace.warnings.length
+    ? `<div class="application-workspace-warnings">${workspace.warnings.map((row) => `<p class="${escapeHtml(row.type)}">${escapeHtml(row.message)}</p>`).join("")}</div>`
+    : '<p class="application-workspace-clear">경험 반복·근거 부족·JD 연결 누락 경고가 없습니다.</p>';
+  const matrix = result.placements.map((row, index) => `<div class="application-workspace-row">
+    <strong>Q${index + 1}</strong><span>${escapeHtml(row.question.text)}</span>
+    <b>${row.experience ? escapeHtml(row.experience.label) : "근거 부족"}</b>
+    <small>${row.jdRequirement ? escapeHtml(row.jdRequirement.text) : "JD 직접 연결 없음"}</small>
+  </div>`).join("");
+  const dashboard = `<section class="application-workspace">
+    <div class="application-workspace-head"><div><strong>지원서 전체 배치표</strong><span data-application-progress>초안 0/${workspace.questionCount}</span></div><div><button type="button" data-copy-application-plan>배치표 복사</button><button type="button" data-download-application-drafts>초안 백업</button></div></div>
+    <div class="application-workspace-stats"><span><b>${workspace.questionCount}</b>문항</span><span><b>${workspace.uniqueExperienceCount}</b>개 경험</span><span><b>${workspace.repeatedExperienceCount}</b>개 반복</span><span><b>${workspace.missingCount}</b>개 근거 부족</span></div>
+    ${usageWarnings}<div class="application-workspace-matrix">${matrix}</div>
+  </section>`;
   const cards = result.placements.map((row, index) => {
     const evidence = row.status === "missing" ? "" : `<blockquote>${escapeHtml(row.profileEvidenceQuote)}</blockquote>`;
     const experience = row.experience ? `<strong>${escapeHtml(`${row.experience.kind} · ${row.experience.label}`)}</strong>${evidence}` : '<strong class="jd-none">연결할 경험 없음</strong>';
@@ -539,8 +556,38 @@ function renderQuestionPlacements(result) {
       ${outlineButton}<div class="jd-outline-result" data-outline-result hidden></div>
     </article>`;
   }).join("");
-  container.innerHTML = `<div class="jd-question-map-summary"><strong>배치 결과</strong><span>우선 ${result.counts.strong} · 보조 ${result.counts.usable} · 부족 ${result.counts.missing}</span></div>${cards}`;
+  container.innerHTML = `${dashboard}<div class="jd-question-map-summary"><strong>문항별 상세</strong><span>우선 ${result.counts.strong} · 보조 ${result.counts.usable} · 부족 ${result.counts.missing}</span></div>${cards}`;
   container.hidden = false;
+  updateApplicationProgress();
+}
+
+function updateApplicationProgress() {
+  const progress = document.querySelector("[data-application-progress]");
+  if (!progress || !state.questionMap) return;
+  const completed = state.questionMap.placements.filter((row) => loadApplicationDraft(row).trim()).length;
+  progress.textContent = `초안 ${completed}/${state.questionMap.placements.length}`;
+}
+
+function applicationWorkspaceText(includeDrafts = false) {
+  return window.ApplicationWorkspace.buildText({
+    company: document.querySelector("#jd-company").value.trim(),
+    role: document.querySelector("#jd-role").value.trim(),
+    placements: state.questionMap?.placements || [],
+    drafts: loadApplicationDrafts(),
+    includeDrafts,
+  });
+}
+
+function downloadApplicationDrafts() {
+  const content = applicationWorkspaceText(true);
+  const company = document.querySelector("#jd-company").value.trim() || "지원회사";
+  const role = document.querySelector("#jd-role").value.trim() || "지원직무";
+  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${company}_${role}_지원서_작업본.txt`.replace(/[\\/:*?"<>|]/g, "_");
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(link.href), 0);
 }
 
 function renderQuestionOutline(result, placement) {
@@ -1140,6 +1187,16 @@ function bindJdAnalyzer() {
     }
   });
   document.querySelector("#jd-question-map-results").addEventListener("click", async (event) => {
+    const copyPlanButton = event.target.closest("[data-copy-application-plan]");
+    if (copyPlanButton) {
+      await navigator.clipboard.writeText(applicationWorkspaceText(false));
+      copyPlanButton.textContent = "복사됨";
+      return;
+    }
+    if (event.target.closest("[data-download-application-drafts]")) {
+      downloadApplicationDrafts();
+      return;
+    }
     const card = event.target.closest("[data-placement-index]");
     if (!card) return;
     const output = card.querySelector("[data-outline-result]");
@@ -1208,6 +1265,7 @@ function bindJdAnalyzer() {
     const saved = saveApplicationDraft(placement, textarea.value);
     output.querySelector("[data-draft-count]").textContent = `${textarea.value.length}자`;
     output.querySelector("[data-draft-save-status]").textContent = saved ? "이 기기에 임시 저장됨" : "임시 저장 실패";
+    updateApplicationProgress();
   });
   document.querySelector("#jd-results").addEventListener("click", (event) => {
     const button = event.target.closest("[data-evidence-id]");
