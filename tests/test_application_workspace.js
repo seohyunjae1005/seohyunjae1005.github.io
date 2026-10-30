@@ -34,4 +34,22 @@ assert.match(text, /조건별 데이터를 비교했다/);
 assert.match(text, /아직 작성하지 않음/);
 
 assert.equal(workspace.readDraft({ [key]: { current: "이전 형식 호환" } }, placements[0]), "이전 형식 호환");
+
+let history = {};
+history = workspace.addHistory(history, placements[0], "첫 번째 초안", "2026-10-30T10:00:00.000Z");
+history = workspace.addHistory(history, placements[0], "두 번째 초안", "2026-10-30T11:00:00.000Z");
+history = workspace.addHistory(history, placements[0], "두 번째 초안", "2026-10-30T12:00:00.000Z");
+assert.equal(workspace.historyFor(history, placements[0]).length, 2);
+assert.equal(workspace.historyFor(history, placements[0])[0].value, "두 번째 초안");
+
+const duplicateDrafts = {
+  [workspace.draftId(placements[0])]: "품질 실습에서 조건별 측정 데이터를 비교하고 불량 원인 후보를 두 가지로 좁혔습니다.",
+  [workspace.draftId(placements[1])]: "공정 실습에서 조건별 측정 데이터를 비교하고 불량 원인 후보를 두 가지로 좁힌 뒤 개선안을 정리했습니다.",
+};
+const overlaps = workspace.findDraftOverlaps(placements, duplicateDrafts);
+assert.equal(overlaps.length, 1);
+assert.equal(overlaps[0].leftIndex, 0);
+assert.equal(overlaps[0].rightIndex, 1);
+assert.ok(overlaps[0].sharedTerms.includes("조건별"));
+
 console.log("application workspace tests passed");

@@ -67,6 +67,60 @@
     return typeof stored?.current === "string" ? stored.current : "";
   }
 
+  function addHistory(historyMap = {}, placement, value, savedAt = new Date().toISOString(), limit = 5) {
+    const next = { ...historyMap };
+    const id = draftId(placement);
+    const cleaned = String(value || "").trim();
+    if (!cleaned) return next;
+    const current = Array.isArray(next[id]) ? next[id].filter((row) => row && typeof row.value === "string") : [];
+    const deduplicated = current.filter((row) => row.value.trim() !== cleaned);
+    next[id] = [{ value: cleaned, savedAt }, ...deduplicated].slice(0, Math.max(1, limit));
+    return next;
+  }
+
+  function historyFor(historyMap = {}, placement) {
+    const rows = historyMap?.[draftId(placement)];
+    return Array.isArray(rows) ? rows.filter((row) => row && typeof row.value === "string" && row.value.trim()) : [];
+  }
+
+  const DUPLICATE_STOPWORDS = new Set([
+    "그리고", "하지만", "통해", "대한", "위해", "관련", "업무", "경험", "과정", "결과", "문제", "역할",
+    "진행", "수행", "활용", "했습니다", "하였습니다", "있습니다", "저는", "제가", "이를", "해당", "있는", "하는",
+  ]);
+
+  function draftTokens(value) {
+    const matches = String(value || "").toLowerCase().match(/[가-힣a-z0-9]+/g) || [];
+    return Array.from(new Set(matches.filter((token) => token.length >= 2 && !DUPLICATE_STOPWORDS.has(token))));
+  }
+
+  function findDraftOverlaps(placements = [], drafts = {}) {
+    const entries = placements.map((placement, index) => ({
+      index,
+      text: readDraft(drafts, placement).trim(),
+      tokens: draftTokens(readDraft(drafts, placement)),
+    })).filter((row) => row.text.length >= 40 && row.tokens.length >= 6);
+    const overlaps = [];
+    for (let left = 0; left < entries.length; left += 1) {
+      for (let right = left + 1; right < entries.length; right += 1) {
+        const leftTokens = new Set(entries[left].tokens);
+        const rightTokens = new Set(entries[right].tokens);
+        const shared = entries[left].tokens.filter((token) => rightTokens.has(token));
+        const unionSize = new Set([...leftTokens, ...rightTokens]).size;
+        const similarity = unionSize ? shared.length / unionSize : 0;
+        const containment = Math.min(leftTokens.size, rightTokens.size) ? shared.length / Math.min(leftTokens.size, rightTokens.size) : 0;
+        if (shared.length >= 5 && (similarity >= 0.4 || containment >= 0.65)) {
+          overlaps.push({
+            leftIndex: entries[left].index,
+            rightIndex: entries[right].index,
+            similarity: Math.round(similarity * 100),
+            sharedTerms: shared.slice(0, 8),
+          });
+        }
+      }
+    }
+    return overlaps;
+  }
+
   function buildText({ company = "", role = "", placements = [], drafts = {}, includeDrafts = false }) {
     const title = [company, role].filter(Boolean).join(" · ") || "지원서 경험 배치";
     const lines = [title, "=".repeat(title.length), ""];
@@ -88,7 +142,7 @@
     return lines.join("\n").trim();
   }
 
-  const api = { STATUS_LABELS, draftId, summarize, readDraft, buildText };
+  const api = { STATUS_LABELS, draftId, summarize, readDraft, addHistory, historyFor, draftTokens, findDraftOverlaps, buildText };
   root.ApplicationWorkspace = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : globalThis);

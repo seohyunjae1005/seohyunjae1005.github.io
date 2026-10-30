@@ -23,6 +23,7 @@ const grid = document.querySelector("#article-grid");
 const empty = document.querySelector("#empty");
 const resultLine = document.querySelector("#result-line");
 const APPLICATION_DRAFT_KEY = "aiproject.applicationDrafts.v1";
+const APPLICATION_DRAFT_HISTORY_KEY = "aiproject.applicationDraftHistory.v1";
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -522,6 +523,41 @@ function saveApplicationDraft(placement, value) {
   }
 }
 
+function loadApplicationDraftHistory() {
+  try {
+    return JSON.parse(window.localStorage.getItem(APPLICATION_DRAFT_HISTORY_KEY) || "{}");
+  } catch (_error) {
+    return {};
+  }
+}
+
+function saveApplicationDraftVersion(placement, value) {
+  try {
+    const next = window.ApplicationWorkspace.addHistory(loadApplicationDraftHistory(), placement, value);
+    window.localStorage.setItem(APPLICATION_DRAFT_HISTORY_KEY, JSON.stringify(next));
+    return window.ApplicationWorkspace.historyFor(next, placement);
+  } catch (_error) {
+    return null;
+  }
+}
+
+function applicationDraftHistoryOptions(placement) {
+  const history = window.ApplicationWorkspace.historyFor(loadApplicationDraftHistory(), placement);
+  const options = history.map((row, index) => {
+    const savedAt = new Date(row.savedAt);
+    const label = Number.isNaN(savedAt.getTime()) ? `이전 버전 ${index + 1}` : savedAt.toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+    const preview = row.value.replace(/\s+/g, " ").slice(0, 24);
+    return `<option value="${index}">${escapeHtml(`${label} · ${preview}${row.value.length > 24 ? "…" : ""}`)}</option>`;
+  }).join("");
+  return `<option value="">${history.length ? "보관한 버전 선택" : "보관한 버전 없음"}</option>${options}`;
+}
+
+function refreshDraftHistoryControls(output, placement) {
+  const select = output.querySelector("[data-draft-history]");
+  if (!select) return;
+  select.innerHTML = applicationDraftHistoryOptions(placement);
+}
+
 function renderQuestionPlacements(result) {
   const container = document.querySelector("#jd-question-map-results");
   const labels = { strong: "우선 배치", usable: "보조 후보", missing: "근거 부족" };
@@ -537,7 +573,7 @@ function renderQuestionPlacements(result) {
   const dashboard = `<section class="application-workspace">
     <div class="application-workspace-head"><div><strong>지원서 전체 배치표</strong><span data-application-progress>초안 0/${workspace.questionCount}</span></div><div><button type="button" data-copy-application-plan>배치표 복사</button><button type="button" data-download-application-drafts>초안 백업</button></div></div>
     <div class="application-workspace-stats"><span><b>${workspace.questionCount}</b>문항</span><span><b>${workspace.uniqueExperienceCount}</b>개 경험</span><span><b>${workspace.repeatedExperienceCount}</b>개 반복</span><span><b>${workspace.missingCount}</b>개 근거 부족</span></div>
-    ${usageWarnings}<div class="application-workspace-matrix">${matrix}</div>
+    ${usageWarnings}<div class="application-draft-overlaps" data-draft-overlaps></div><div class="application-workspace-matrix">${matrix}</div>
   </section>`;
   const cards = result.placements.map((row, index) => {
     const evidence = row.status === "missing" ? "" : `<blockquote>${escapeHtml(row.profileEvidenceQuote)}</blockquote>`;
@@ -564,8 +600,19 @@ function renderQuestionPlacements(result) {
 function updateApplicationProgress() {
   const progress = document.querySelector("[data-application-progress]");
   if (!progress || !state.questionMap) return;
-  const completed = state.questionMap.placements.filter((row) => loadApplicationDraft(row).trim()).length;
+  const drafts = loadApplicationDrafts();
+  const completed = state.questionMap.placements.filter((row) => window.ApplicationWorkspace.readDraft(drafts, row).trim()).length;
   progress.textContent = `초안 ${completed}/${state.questionMap.placements.length}`;
+  const overlapOutput = document.querySelector("[data-draft-overlaps]");
+  if (!overlapOutput) return;
+  const overlaps = window.ApplicationWorkspace.findDraftOverlaps(state.questionMap.placements, drafts);
+  if (overlaps.length) {
+    overlapOutput.innerHTML = `<strong>문항 간 반복 표현 확인</strong>${overlaps.map((row) => `<p><b>Q${row.leftIndex + 1}·Q${row.rightIndex + 1}</b><span>공통 표현 ${escapeHtml(row.sharedTerms.join(" · "))}</span><small>같은 사례를 쓰더라도 문항별 핵심 행동과 결론이 겹치지 않는지 확인하세요.</small></p>`).join("")}`;
+    overlapOutput.classList.add("has-warning");
+  } else {
+    overlapOutput.innerHTML = `<span>${completed >= 2 ? "현재 저장된 초안에서 뚜렷한 문항 간 반복 표현을 찾지 못했습니다." : "초안을 2개 이상 작성하면 문항 간 반복 표현을 확인합니다."}</span>`;
+    overlapOutput.classList.remove("has-warning");
+  }
 }
 
 function applicationWorkspaceText(includeDrafts = false) {
@@ -601,7 +648,7 @@ function renderQuestionOutline(result, placement) {
   const questions = result.missingQuestions.length
     ? `<div class="jd-outline-missing"><strong>더 확인할 내용</strong><ul>${result.missingQuestions.map((row) => `<li>${escapeHtml(row.question)}</li>`).join("")}</ul></div>` : "";
   const savedDraft = loadApplicationDraft(placement);
-  return `<div class="jd-outline-head"><span>근거 기반 작성 개요</span><button type="button" data-copy-outline>개요 복사</button></div><h5>${escapeHtml(result.headline.value || "핵심 메시지 근거 부족")}</h5><div class="jd-outline-grid">${rows}</div>${questions}<div class="jd-draft-review-input"><strong>작성한 답변 검토</strong><textarea rows="5" data-application-draft placeholder="위 개요를 참고해 직접 쓴 답변을 붙여넣으세요.">${escapeHtml(savedDraft)}</textarea><div class="jd-draft-meta"><small data-draft-save-status>${savedDraft ? "이 기기에 임시 저장됨" : "입력하면 이 기기에 자동 저장됩니다."}</small><span data-draft-count>${savedDraft.length}자</span></div><small>검토 버튼을 누르면 답변과 배치된 경험 원문이 AI 분석 서버로 전송됩니다.</small><button type="button" data-review-draft>근거·구조 검토</button></div><div class="jd-draft-review-result" data-draft-review-result hidden></div>`;
+  return `<div class="jd-outline-head"><span>근거 기반 작성 개요</span><button type="button" data-copy-outline>개요 복사</button></div><h5>${escapeHtml(result.headline.value || "핵심 메시지 근거 부족")}</h5><div class="jd-outline-grid">${rows}</div>${questions}<div class="jd-draft-review-input"><strong>작성한 답변 검토</strong><textarea rows="5" data-application-draft placeholder="위 개요를 참고해 직접 쓴 답변을 붙여넣으세요.">${escapeHtml(savedDraft)}</textarea><div class="jd-draft-meta"><small data-draft-save-status>${savedDraft ? "이 기기에 임시 저장됨" : "입력하면 이 기기에 자동 저장됩니다."}</small><span data-draft-count>${savedDraft.length}자</span></div><div class="jd-draft-history"><button type="button" data-save-draft-version>현재 버전 보관</button><select data-draft-history aria-label="보관한 자기소개서 버전">${applicationDraftHistoryOptions(placement)}</select><button type="button" data-restore-draft>선택 버전 복원</button></div><small>검토 버튼을 누르면 답변과 배치된 경험 원문이 AI 분석 서버로 전송됩니다.</small><button type="button" data-review-draft>근거·구조 검토</button></div><div class="jd-draft-review-result" data-draft-review-result hidden></div>`;
 }
 
 function renderDraftReview(result) {
@@ -1189,8 +1236,12 @@ function bindJdAnalyzer() {
   document.querySelector("#jd-question-map-results").addEventListener("click", async (event) => {
     const copyPlanButton = event.target.closest("[data-copy-application-plan]");
     if (copyPlanButton) {
-      await navigator.clipboard.writeText(applicationWorkspaceText(false));
-      copyPlanButton.textContent = "복사됨";
+      try {
+        await navigator.clipboard.writeText(applicationWorkspaceText(false));
+        copyPlanButton.textContent = "복사됨";
+      } catch (_error) {
+        window.alert("브라우저가 복사를 허용하지 않았습니다. 초안 백업을 이용해 주세요.");
+      }
       return;
     }
     if (event.target.closest("[data-download-application-drafts]")) {
@@ -1200,15 +1251,57 @@ function bindJdAnalyzer() {
     const card = event.target.closest("[data-placement-index]");
     if (!card) return;
     const output = card.querySelector("[data-outline-result]");
+    const placement = state.questionMap?.placements[Number(card.dataset.placementIndex)];
+    const saveVersionButton = event.target.closest("[data-save-draft-version]");
+    if (saveVersionButton) {
+      const textarea = output.querySelector("[data-application-draft]");
+      if (!textarea?.value.trim()) {
+        window.alert("보관할 초안을 먼저 작성해 주세요.");
+        return;
+      }
+      const history = saveApplicationDraftVersion(placement, textarea.value);
+      if (!history) {
+        window.alert("이 기기에 버전을 저장하지 못했습니다.");
+        return;
+      }
+      refreshDraftHistoryControls(output, placement);
+      output.querySelector("[data-draft-save-status]").textContent = `현재 버전을 보관했습니다. (${history.length}/5)`;
+      return;
+    }
+    const restoreButton = event.target.closest("[data-restore-draft]");
+    if (restoreButton) {
+      const select = output.querySelector("[data-draft-history]");
+      const history = window.ApplicationWorkspace.historyFor(loadApplicationDraftHistory(), placement);
+      const selected = select?.value === "" ? null : history[Number(select?.value)];
+      if (!selected) {
+        window.alert("복원할 버전을 선택해 주세요.");
+        return;
+      }
+      const textarea = output.querySelector("[data-application-draft]");
+      if (textarea.value.trim()) saveApplicationDraftVersion(placement, textarea.value);
+      textarea.value = selected.value;
+      saveApplicationDraft(placement, selected.value);
+      refreshDraftHistoryControls(output, placement);
+      output.querySelector("[data-draft-count]").textContent = `${selected.value.length}자`;
+      output.querySelector("[data-draft-save-status]").textContent = "선택한 버전을 복원했습니다.";
+      const reviewOutput = output.querySelector("[data-draft-review-result]");
+      reviewOutput.hidden = true;
+      reviewOutput.innerHTML = "";
+      updateApplicationProgress();
+      return;
+    }
     if (event.target.closest("[data-copy-outline]")) {
-      await navigator.clipboard.writeText(output.innerText.replace("개요 복사", "").trim());
-      event.target.textContent = "복사됨";
+      try {
+        await navigator.clipboard.writeText(output.innerText.replace("개요 복사", "").trim());
+        event.target.textContent = "복사됨";
+      } catch (_error) {
+        window.alert("브라우저가 복사를 허용하지 않았습니다.");
+      }
       return;
     }
     const reviewButton = event.target.closest("[data-review-draft]");
     if (reviewButton) {
       try {
-        const placement = state.questionMap?.placements[Number(card.dataset.placementIndex)];
         const entryIndex = Number(String(placement?.experience?.id || "").replace("E", "")) - 1;
         const entry = state.questionProfileEntries[entryIndex];
         const draft = output.querySelector("[data-application-draft]")?.value.trim() || "";
@@ -1235,7 +1328,6 @@ function bindJdAnalyzer() {
     const button = event.target.closest("[data-build-outline]");
     if (!button) return;
     try {
-      const placement = state.questionMap?.placements[Number(card.dataset.placementIndex)];
       const entryIndex = Number(String(placement?.experience?.id || "").replace("E", "")) - 1;
       const entry = state.questionProfileEntries[entryIndex];
       if (!placement || !entry) throw new Error("배치된 경험 원문을 찾지 못했습니다. 경험 배치를 다시 실행해 주세요.");
