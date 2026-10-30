@@ -15,6 +15,8 @@ const state = {
   processFocus: false,
   chapter: "trend",
   jdAnalysis: null,
+  questionMap: null,
+  questionProfileEntries: [],
 };
 
 const grid = document.querySelector("#article-grid");
@@ -500,16 +502,31 @@ function renderQuestionPlacements(result) {
     const reasoning = row.reasoning ? `<p><span>연결 판단</span>${escapeHtml(row.reasoning)}</p>` : "";
     const angle = row.writingAngle ? `<p><span>작성 방향</span>${escapeHtml(row.writingAngle)}</p>` : "";
     const missing = row.missingInfo ? `<p><span>보완할 내용</span>${escapeHtml(row.missingInfo)}</p>` : "";
-    return `<article class="jd-question-placement ${escapeHtml(row.status)}">
+    const outlineButton = row.status === "missing" ? "" : '<button class="jd-outline-button" type="button" data-build-outline>작성 개요 만들기</button>';
+    return `<article class="jd-question-placement ${escapeHtml(row.status)}" data-placement-index="${index}">
       <header><span>Q${index + 1}</span><strong>${labels[row.status]}</strong>${row.reuseCount > 1 ? `<small>같은 경험 ${row.reuseCount}회 사용</small>` : ""}</header>
       <h4>${escapeHtml(row.question.text)}</h4>
       <div class="jd-question-intent"><span>문항 의도</span>${escapeHtml(row.intent)}</div>
       <div class="jd-question-experience"><span>배치 경험</span>${experience}</div>
       <div class="jd-question-guidance">${jdLink}${reasoning}${angle}${missing}</div>
+      ${outlineButton}<div class="jd-outline-result" data-outline-result hidden></div>
     </article>`;
   }).join("");
   container.innerHTML = `<div class="jd-question-map-summary"><strong>배치 결과</strong><span>우선 ${result.counts.strong} · 보조 ${result.counts.usable} · 부족 ${result.counts.missing}</span></div>${cards}`;
   container.hidden = false;
+}
+
+function renderQuestionOutline(result) {
+  const labels = { situation: "상황·문제", role: "내 역할", action: "직접 행동", result: "결과·배운 점" };
+  const rows = Object.entries(labels).map(([key, label]) => {
+    const row = result.fields[key];
+    const value = row.value || "근거 부족";
+    const quotes = row.evidenceQuotes.length ? `<small>근거: ${row.evidenceQuotes.map(escapeHtml).join(" / ")}</small>` : "";
+    return `<div><strong>${label}</strong><p>${escapeHtml(value)}</p>${quotes}</div>`;
+  }).join("");
+  const questions = result.missingQuestions.length
+    ? `<div class="jd-outline-missing"><strong>더 확인할 내용</strong><ul>${result.missingQuestions.map((row) => `<li>${escapeHtml(row.question)}</li>`).join("")}</ul></div>` : "";
+  return `<div class="jd-outline-head"><span>근거 기반 작성 개요</span><button type="button" data-copy-outline>개요 복사</button></div><h5>${escapeHtml(result.headline.value || "핵심 메시지 근거 부족")}</h5><div class="jd-outline-grid">${rows}</div>${questions}`;
 }
 
 function jdEvidenceButtons(ids) {
@@ -1015,6 +1032,8 @@ function bindJdAnalyzer() {
     document.querySelector("#jd-subrole-picker").hidden = true;
     document.querySelector("#jd-question-map-results").hidden = true;
     state.jdAnalysis = null;
+    state.questionMap = null;
+    state.questionProfileEntries = [];
   });
   document.querySelector("#jd-reset").addEventListener("click", () => {
     document.querySelector("#jd-form").reset();
@@ -1027,6 +1046,8 @@ function bindJdAnalyzer() {
     document.querySelector("#jd-question-map-results").hidden = true;
     document.querySelector("#jd-application-questions").value = "";
     state.jdAnalysis = null;
+    state.questionMap = null;
+    state.questionProfileEntries = [];
   });
   document.querySelector("#jd-match-profile-button").addEventListener("click", async () => {
     const button = document.querySelector("#jd-match-profile-button");
@@ -1071,12 +1092,47 @@ function bindJdAnalyzer() {
         jdText: document.querySelector("#jd-cleaned-text").value,
         questions, requirements, profileEntries,
       }, { endpoint });
+      state.questionMap = result;
+      state.questionProfileEntries = profileEntries;
       renderQuestionPlacements(result);
     } catch (error) {
       window.alert(error.message || "문항별 경험 배치를 만들지 못했습니다.");
     } finally {
       button.disabled = false;
       button.textContent = "경험 배치 추천";
+    }
+  });
+  document.querySelector("#jd-question-map-results").addEventListener("click", async (event) => {
+    const card = event.target.closest("[data-placement-index]");
+    if (!card) return;
+    const output = card.querySelector("[data-outline-result]");
+    if (event.target.closest("[data-copy-outline]")) {
+      await navigator.clipboard.writeText(output.innerText.replace("개요 복사", "").trim());
+      event.target.textContent = "복사됨";
+      return;
+    }
+    const button = event.target.closest("[data-build-outline]");
+    if (!button) return;
+    try {
+      const placement = state.questionMap?.placements[Number(card.dataset.placementIndex)];
+      const entryIndex = Number(String(placement?.experience?.id || "").replace("E", "")) - 1;
+      const entry = state.questionProfileEntries[entryIndex];
+      if (!placement || !entry) throw new Error("배치된 경험 원문을 찾지 못했습니다. 경험 배치를 다시 실행해 주세요.");
+      button.disabled = true;
+      button.textContent = "근거 확인 중…";
+      const result = await window.JDAiClient.buildQuestionOutline({
+        experienceText: entry.text, experienceLabel: entry.label, questionText: placement.question.text,
+        evidenceQuote: placement.profileEvidenceQuote, jdRequirement: placement.jdRequirement?.text || "",
+        writingAngle: placement.writingAngle || "",
+      }, { endpoint: window.JDAiClient.loadEndpoint(window.localStorage) });
+      output.innerHTML = renderQuestionOutline(result);
+      output.hidden = false;
+      button.textContent = "개요 다시 만들기";
+    } catch (error) {
+      window.alert(error.message || "작성 개요를 만들지 못했습니다.");
+      button.textContent = "작성 개요 만들기";
+    } finally {
+      button.disabled = false;
     }
   });
   document.querySelector("#jd-results").addEventListener("click", (event) => {

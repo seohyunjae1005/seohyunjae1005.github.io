@@ -6,7 +6,7 @@
  * 실제 존재하는지 서버에서 검사한다.
  */
 
-const JD_API_VERSION = 'jd-ai-v16';
+const JD_API_VERSION = 'jd-ai-v17';
 const JD_MAX_SOURCE_LENGTH = 30000;
 const JD_DAILY_LIMIT = 100;
 
@@ -18,8 +18,9 @@ function doPost(event) {
   try {
     const body = JSON.parse(event && event.postData && event.postData.contents || '{}');
     const action = String(body.action || 'analyze');
-    const source = String(action === 'organizeExperience' ? body.experienceText : body.jdText || '').trim();
-    if (!source) throw new Error(action === 'organizeExperience' ? '정리할 경험 내용이 없습니다.' : '분석할 JD 원문이 없습니다.');
+    const experienceAction = action === 'organizeExperience' || action === 'buildQuestionOutline';
+    const source = String(experienceAction ? body.experienceText : body.jdText || '').trim();
+    if (!source) throw new Error(experienceAction ? '정리할 경험 내용이 없습니다.' : '분석할 JD 원문이 없습니다.');
     if (source.length > JD_MAX_SOURCE_LENGTH) throw new Error(`입력 원문은 ${JD_MAX_SOURCE_LENGTH}자 이하만 분석할 수 있습니다.`);
     jdConsumeQuota_();
 
@@ -30,6 +31,10 @@ function doPost(event) {
     if (action === 'organizeExperience') {
       const experienceResult = jdOrganizeExperience_(source, apiKey, model);
       return jdJsonResponse_({ ok: true, version: JD_API_VERSION, model, result: experienceResult });
+    }
+    if (action === 'buildQuestionOutline') {
+      const outlineResult = jdBuildQuestionOutline_(body, source, apiKey, model);
+      return jdJsonResponse_({ ok: true, version: JD_API_VERSION, model, result: outlineResult });
     }
     if (body.action === 'matchProfile') {
       const matchResult = jdMatchProfile_(body, source, apiKey, model);
@@ -52,6 +57,82 @@ function doPost(event) {
 function jdOrganizeExperience_(source, apiKey, model) {
   const raw = jdCallGemini_(jdBuildExperiencePrompt_(source), apiKey, model);
   return jdValidateExperienceExtraction_(raw, source);
+}
+
+function jdBuildQuestionOutline_(input, source, apiKey, model) {
+  const raw = jdCallGemini_(jdBuildQuestionOutlinePrompt_(input, source), apiKey, model);
+  return jdValidateQuestionOutline_(raw, source);
+}
+
+function jdValidateQuestionOutline_(raw, source) {
+  const fieldNames = ['situation', 'role', 'action', 'result'];
+  const verifiedRow = (row, field) => {
+    const quotes = jdVerifiedQuotes_(row && row.evidenceQuotes, source);
+    let validQuotes = quotes;
+    if (field === 'action') validQuotes = quotes.filter((quote) => !['observed', 'planned'].includes(jdExperienceActivityType_(quote, 'performed')));
+    if (field === 'action' && validQuotes.some((quote) => !jdLooksLikeExperienceResult_(quote))) {
+      validQuotes = validQuotes.filter((quote) => !jdLooksLikeExperienceResult_(quote));
+    }
+    if (field === 'result') validQuotes = quotes.filter(jdLooksLikeExperienceResult_);
+    let value = jdExperienceDraftValue_(row && row.value, validQuotes, source);
+    if (validQuotes.length !== quotes.length) value = validQuotes.join(' / ');
+    return { value, evidenceQuotes: validQuotes };
+  };
+  const fields = {};
+  fieldNames.forEach((field) => { fields[field] = verifiedRow(raw && raw.fields && raw.fields[field], field); });
+  const headline = verifiedRow(raw && raw.headline, 'headline');
+  const questionByField = {
+    situation: '이 경험에서 처음 해결하려던 문제나 달성하려던 목표는 무엇이었나요?',
+    role: '팀 전체가 아니라 본인이 맡은 범위와 책임은 무엇이었나요?',
+    action: '문제를 해결하기 위해 본인이 직접 한 분석·실험·조정·의사결정은 무엇이었나요?',
+    result: '확인된 결과·산출물·변화 또는 배운 점은 무엇인가요?',
+  };
+  const missingQuestions = fieldNames.filter((field) => !fields[field].value).map((field) => ({
+    field, question: questionByField[field], reason: `${field} 근거를 경험 원문에서 확인하지 못했습니다.`,
+  }));
+  return {
+    headline,
+    fields,
+    missingQuestions,
+    validation: { status: 'pass', groundedFieldCount: fieldNames.filter((field) => fields[field].value).length },
+  };
+}
+
+function jdBuildQuestionOutlinePrompt_(input, source) {
+  return `당신은 자기소개서 문항에 배치된 경험을 사실 기반 작성 개요로 정리하는 편집기다.
+
+규칙:
+1. 완성 자기소개서를 쓰지 말고 핵심 메시지와 상황·역할·행동·결과의 짧은 개요만 만든다.
+2. 새로운 경험, 역할, 수치, 도구, 성과, 배운 점을 만들지 않는다.
+3. action에는 사용자가 직접 완료했거나 현재 수행 중인 행동만 넣는다. 참관·관찰과 향후 예정 활동은 행동으로 쓰지 않는다.
+4. result에는 경험 원문에 확인된 결과·산출물·변화·명시된 배운 점만 넣는다. 없으면 빈 값으로 둔다.
+5. 모든 evidenceQuotes는 경험 원문에서 글자와 순서를 바꾸지 않은 짧은 연속 구절이다.
+6. JD 요구사항과 작성 방향은 초점 선택에만 사용하며, 경험 원문에 없는 사실을 보충하는 근거로 사용하지 않는다.
+7. 해당 내용이 없으면 value를 빈 문자열, evidenceQuotes를 빈 배열로 둔다.
+8. headline도 경험 원문으로 뒷받침되는 핵심 메시지만 쓴다.
+
+JSON 외의 글은 출력하지 않는다.
+{
+  "headline":{"value":"","evidenceQuotes":[]},
+  "fields":{
+    "situation":{"value":"","evidenceQuotes":[]},
+    "role":{"value":"","evidenceQuotes":[]},
+    "action":{"value":"","evidenceQuotes":[]},
+    "result":{"value":"","evidenceQuotes":[]}
+  }
+}
+
+자기소개서 문항: ${String(input.questionText || '').trim()}
+배치 경험명: ${String(input.experienceLabel || '').trim()}
+배치 판단에 사용한 경험 근거: ${String(input.evidenceQuote || '').trim()}
+연결된 JD 요구사항: ${String(input.jdRequirement || '').trim()}
+기존 작성 방향: ${String(input.writingAngle || '').trim()}
+
+경험 원문 시작
+---
+${source}
+---
+경험 원문 끝`;
 }
 
 function jdValidateExperienceExtraction_(raw, source) {

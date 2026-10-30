@@ -96,3 +96,24 @@ assert.throws(() => client.assertResult({ ...validResult, facts: { ...validResul
   assert.equal(result.placements[0].status, "strong");
 })().catch((error) => { console.error(error); process.exitCode = 1; });
 
+(async () => {
+  const outline = {
+    headline: { value: "불량 원인 후보를 좁힌 분석 경험", evidenceQuotes: ["불량 원인 후보를 좁혔다"] },
+    fields: {
+      situation: { value: "불량 원인 확인", evidenceQuotes: ["불량 원인을 확인해야 했다"] },
+      role: { value: "데이터 분석 담당", evidenceQuotes: ["데이터 분석을 담당했다"] },
+      action: { value: "조건별 데이터를 비교", evidenceQuotes: ["조건별 데이터를 비교했다"] },
+      result: { value: "원인 후보를 좁힘", evidenceQuotes: ["불량 원인 후보를 좁혔다"] },
+    },
+    missingQuestions: [],
+  };
+  const result = await client.buildQuestionOutline({ experienceText: "경험", questionText: "문제 해결 경험" }, {
+    endpoint: "https://script.google.com/macros/s/test/exec",
+    fetcher: async (_url, options) => {
+      assert.equal(JSON.parse(options.body).action, "buildQuestionOutline");
+      return { ok: true, json: async () => ({ ok: true, result: outline }) };
+    },
+  });
+  assert.equal(result.fields.action.value, "조건별 데이터를 비교");
+})().catch((error) => { console.error(error); process.exitCode = 1; });
+

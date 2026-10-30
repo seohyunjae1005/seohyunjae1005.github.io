@@ -148,7 +148,31 @@
     return assertQuestionMapResult(payload.result);
   }
 
-  root.JDAiClient = { ENDPOINT_KEY, normalizeEndpoint, loadEndpoint, saveEndpoint, parseQuestions, assertResult, assertMatchResult, assertExperienceResult, assertQuestionMapResult, analyze, matchProfile, organizeExperience, mapQuestions };
+  function assertOutlineResult(result) {
+    const fields = ["situation", "role", "action", "result"];
+    if (!result || typeof result !== "object" || !result.headline || !result.fields) throw new Error("작성 개요 결과 형식이 올바르지 않습니다.");
+    [result.headline, ...fields.map((key) => result.fields[key])].forEach((row) => {
+      if (!row || typeof row.value !== "string" || !Array.isArray(row.evidenceQuotes)) throw new Error("작성 개요의 근거 형식이 올바르지 않습니다.");
+    });
+    if (!Array.isArray(result.missingQuestions)) throw new Error("작성 개요의 보완 질문 형식이 올바르지 않습니다.");
+    return result;
+  }
+
+  async function buildQuestionOutline(input, options = {}) {
+    const endpoint = normalizeEndpoint(options.endpoint);
+    if (!endpoint) throw new Error("AI 분석 연결 주소가 설정되지 않았습니다.");
+    const fetcher = options.fetcher || root.fetch.bind(root);
+    const response = await fetcher(endpoint, {
+      method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ ...input, action: "buildQuestionOutline" }), redirect: "follow",
+    });
+    if (!response.ok) throw new Error(`AI 분석 서버 연결 실패 (${response.status})`);
+    const payload = await response.json();
+    if (!payload.ok) throw new Error(payload.error || "AI가 작성 개요를 만들지 못했습니다.");
+    return assertOutlineResult(payload.result);
+  }
+
+  root.JDAiClient = { ENDPOINT_KEY, normalizeEndpoint, loadEndpoint, saveEndpoint, parseQuestions, assertResult, assertMatchResult, assertExperienceResult, assertQuestionMapResult, assertOutlineResult, analyze, matchProfile, organizeExperience, mapQuestions, buildQuestionOutline };
   if (typeof module !== "undefined" && module.exports) module.exports = root.JDAiClient;
 })(typeof window !== "undefined" ? window : globalThis);
 

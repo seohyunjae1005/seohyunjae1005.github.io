@@ -180,6 +180,43 @@ const badQuestionMap = context.jdValidateQuestionMap_({ placements: [{
 }] }, [{ id: 'Q1', text: '품질 경험' }], matchRequirements, matchEntries);
 assert.equal(badQuestionMap.placements[0].status, 'missing');
 
+const outlineSource = '품질 실습에서 데이터 분석을 담당했다. 불량 원인을 확인해야 했다. 조건별 측정값을 비교했다. 원인 후보를 두 가지로 좁혔다.';
+const outline = context.jdValidateQuestionOutline_({
+  headline: { value: '측정값 비교로 원인 후보를 좁힌 경험', evidenceQuotes: ['조건별 측정값을 비교했다', '원인 후보를 두 가지로 좁혔다'] },
+  fields: {
+    situation: { value: '불량 원인 확인', evidenceQuotes: ['불량 원인을 확인해야 했다'] },
+    role: { value: '데이터 분석 담당', evidenceQuotes: ['데이터 분석을 담당했다'] },
+    action: { value: '조건별 측정값 비교', evidenceQuotes: ['조건별 측정값을 비교했다'] },
+    result: { value: '원인 후보를 두 가지로 좁힘', evidenceQuotes: ['원인 후보를 두 가지로 좁혔다'] },
+  },
+}, outlineSource);
+assert.equal(outline.fields.action.value, '조건별 측정값 비교');
+assert.equal(outline.fields.result.value, '원인 후보를 두 가지로 좁힘');
+assert.equal(outline.missingQuestions.length, 0);
+const guardedOutline = context.jdValidateQuestionOutline_({
+  headline: { value: 'B1500 분석 경험', evidenceQuotes: ['B1500 분석은 다음 달 진행 예정이다'] },
+  fields: {
+    situation: { value: '', evidenceQuotes: [] }, role: { value: '', evidenceQuotes: [] },
+    action: { value: 'B1500 분석 완료', evidenceQuotes: ['B1500 분석은 다음 달 진행 예정이다'] },
+    result: { value: '수율 20% 개선', evidenceQuotes: ['B1500 분석은 다음 달 진행 예정이다'] },
+  },
+}, 'B1500 분석은 다음 달 진행 예정이다.');
+assert.equal(guardedOutline.fields.action.value, '');
+assert.equal(guardedOutline.fields.result.value, '');
+assert.ok(guardedOutline.missingQuestions.some((row) => row.field === 'action'));
+assert.ok(guardedOutline.missingQuestions.some((row) => row.field === 'result'));
+const deduplicatedOutline = context.jdValidateQuestionOutline_({
+  headline: { value: '분석 경험', evidenceQuotes: ['조건별 측정값을 비교했다'] },
+  fields: {
+    situation: { value: '', evidenceQuotes: [] }, role: { value: '', evidenceQuotes: [] },
+    action: { value: '측정값 비교 후 원인 후보를 좁힘', evidenceQuotes: ['조건별 측정값을 비교했다', '원인 후보를 두 가지로 좁혔다'] },
+    result: { value: '원인 후보를 두 가지로 좁힘', evidenceQuotes: ['원인 후보를 두 가지로 좁혔다'] },
+  },
+}, outlineSource);
+assert.equal(deduplicatedOutline.fields.action.value, '조건별 측정값을 비교했다');
+assert.equal(Array.from(deduplicatedOutline.fields.action.evidenceQuotes).join('|'), '조건별 측정값을 비교했다');
+assert.match(context.jdBuildQuestionOutlinePrompt_({ questionText: '문제 해결 경험' }, '실험 경험'), /완성 자기소개서를 쓰지 말고/);
+
 const organizedExperience = context.jdValidateExperienceExtraction_({
   summary: { value: '측정값을 비교해 원인 후보를 두 가지로 좁힘', evidenceQuotes: ['측정값을 조건별로 비교했다', '원인 후보를 두 가지로 좁혔다'] },
   activities: { observed: [], performed: [{ quote: '측정값을 조건별로 비교했다' }], assigned: [{ quote: '측정 데이터 분석 담당' }], ongoing: [], planned: [] },
