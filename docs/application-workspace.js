@@ -291,6 +291,14 @@
     return limits.length ? Math.min(...limits) : null;
   }
 
+  function placeholderMarkers(value) {
+    const source = String(value || "");
+    const bracketed = source.match(/\[(?:(?:회사명|직무명|내용|수치|경험|추가|작성)[^\]]*)\]/gi) || [];
+    const asciiTokens = source.match(/\b(?:OO|XX|TBD|TODO)\b/gi) || [];
+    const koreanTokens = source.match(/(?:○○|미작성|추후\s*작성)/g) || [];
+    return [...new Set([...bracketed, ...asciiTokens, ...koreanTokens])];
+  }
+
   function buildSubmissionChecklist({ placements = [], drafts = {}, profileEntries = [], currentCompany = "", knownCompanies = [] } = {}) {
     const packageReview = reviewPackage(placements, drafts, profileEntries);
     const overlaps = findDraftOverlaps(placements, drafts);
@@ -307,6 +315,7 @@
       const evidenceMissing = !placement?.experience || placement.status === "missing";
       const jdAnchorMissing = !placement?.jdRequirement;
       const companyMentions = otherCompanies.filter((company) => draft.toLowerCase().includes(company.toLowerCase()));
+      const placeholders = placeholderMarkers(draft);
       const warnings = [];
       if (!draft) warnings.push("초안 미작성");
       if (evidenceMissing) warnings.push("경험 근거 부족");
@@ -316,6 +325,7 @@
       if (overlapRows.length) warnings.push("다른 문항과 표현 반복");
       if (overLimit) warnings.push(`글자 수 ${draft.length - characterLimit}자 초과`);
       if (companyMentions.length) warnings.push(`다른 저장 작업 회사명 확인: ${companyMentions.join(" · ")}`);
+      if (placeholders.length) warnings.push(`임시 표기 확인: ${placeholders.join(" · ")}`);
       return {
         index,
         drafted: Boolean(draft),
@@ -323,6 +333,7 @@
         characterLimit,
         overLimit,
         companyMentions,
+        placeholders,
         evidenceMissing,
         jdAnchorMissing,
         unsupportedNumbers,
@@ -336,8 +347,9 @@
     const jdAnchorMissingCount = questions.filter((row) => row.jdAnchorMissing).length;
     const overLimitCount = questions.filter((row) => row.overLimit).length;
     const companyMentionCount = questions.reduce((sum, row) => sum + row.companyMentions.length, 0);
+    const placeholderCount = questions.reduce((sum, row) => sum + row.placeholders.length, 0);
     const issueCount = evidenceMissingCount + jdAnchorMissingCount + packageReview.unsupportedNumbers.length
-      + packageReview.numericConflicts.length + overlaps.length + overLimitCount + companyMentionCount;
+      + packageReview.numericConflicts.length + overlaps.length + overLimitCount + companyMentionCount + placeholderCount;
     const status = completedCount < placements.length
       ? "writing"
       : issueCount > 0 ? "review" : "basic_pass";
@@ -352,6 +364,7 @@
       overlapCount: overlaps.length,
       overLimitCount,
       companyMentionCount,
+      placeholderCount,
       questions,
       packageReview,
       overlaps,
@@ -381,7 +394,8 @@
       lines.push(`- 수치 표현 불일치: ${checklist.numericConflictCount}`);
       lines.push(`- 문항 간 반복 표현: ${checklist.overlapCount}`);
       lines.push(`- 글자 수 초과: ${checklist.overLimitCount}`);
-      lines.push(`- 다른 저장 작업 회사명 확인: ${checklist.companyMentionCount}`, "");
+      lines.push(`- 다른 저장 작업 회사명 확인: ${checklist.companyMentionCount}`);
+      lines.push(`- 임시 표기 확인: ${checklist.placeholderCount}`, "");
     } else {
       lines.push("");
     }
@@ -427,7 +441,7 @@
     mergeWorkspaceLibraries, buildWorkspaceBackup, normalizeWorkspaceBackup,
     compareWorkspaceFacts,
     summarize, readDraft, addHistory, historyFor, draftTokens,
-    findDraftOverlaps, numericClaims, reviewPackage, inferCharacterLimit, buildSubmissionChecklist,
+    findDraftOverlaps, numericClaims, reviewPackage, inferCharacterLimit, placeholderMarkers, buildSubmissionChecklist,
     buildSubmissionText, buildText,
   };
   root.ApplicationWorkspace = api;

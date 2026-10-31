@@ -172,5 +172,15 @@ const companyChecklist = workspace.buildSubmissionChecklist({
 assert.equal(companyChecklist.companyMentionCount, 1);
 assert.equal(companyChecklist.status, "review");
 assert.match(companyChecklist.questions[0].warnings.join(" "), /B사/);
+assert.deepEqual(workspace.placeholderMarkers("OO회사에서 [수치 입력]을 TODO로 남김"), ["[수치 입력]", "OO", "TODO"]);
+assert.deepEqual(workspace.placeholderMarkers("TOOL 활용 경험"), []);
+const placeholderDrafts = { [workspace.draftId(groundedPlacements[0])]: "[회사명] 지원을 위해 추후 작성" };
+const placeholderChecklist = workspace.buildSubmissionChecklist({
+  placements: groundedPlacements,
+  drafts: placeholderDrafts,
+  profileEntries: [{ text: "지원 동기를 정리했다." }],
+});
+assert.equal(placeholderChecklist.placeholderCount, 2);
+assert.equal(placeholderChecklist.status, "review");
 
 console.log("application workspace tests passed");
