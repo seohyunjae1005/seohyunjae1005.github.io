@@ -31,7 +31,7 @@ class TesterPageTest(unittest.TestCase):
         self.parser.feed(self.html)
 
     def test_required_controls_exist(self) -> None:
-        self.assertTrue({"tester-form", "tester-result", "feedback-output", "copy-feedback"} <= self.parser.ids)
+        self.assertTrue({"tester-form", "tester-track", "tester-result", "feedback-output", "copy-feedback"} <= self.parser.ids)
 
     def test_five_tasks_are_required(self) -> None:
         task_names = {item.get("name") for item in self.parser.inputs if "required" in item}
@@ -41,6 +41,11 @@ class TesterPageTest(unittest.TestCase):
         self.assertNotIn("action=", self.html)
         self.assertNotIn('type="email"', self.html)
         self.assertIn("어디에도 자동 전송되거나 저장되지 않습니다", self.html)
+
+    def test_career_track_is_available(self) -> None:
+        script = (ROOT / "docs" / "tester.js").read_text(encoding="utf-8")
+        self.assertIn('label: "JD·취업 준비"', script)
+        self.assertIn("지원 작업 저장·백업 위치", script)
 
 
 if __name__ == "__main__":

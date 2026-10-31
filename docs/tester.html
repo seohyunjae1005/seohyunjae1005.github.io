@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="반도체 산업 동향 사이트의 개인정보 없는 사용성 테스트입니다." />
     <title>3분 사용성 테스트 | 반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261001-2" />
-    <script src="tester.js" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20261031-7" />
+    <script src="tester.js?v=20261031-1" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -23,7 +23,7 @@
       <section class="tester-intro">
         <p class="eyebrow">WEEK 12 · USER TEST</p>
         <h2>설명 없이도 원하는 정보를 찾을 수 있는지 확인해 주세요</h2>
-        <p>아래 5가지 행동을 실제 사이트에서 해 본 뒤 결과를 표시해 주세요. 입력 내용은 어디에도 자동 전송되거나 저장되지 않습니다.</p>
+        <p>확인할 기능을 고른 뒤 5가지 행동을 실제 사이트에서 해 보고 결과를 표시해 주세요. 입력 내용은 어디에도 자동 전송되거나 저장되지 않습니다.</p>
       </section>
 
       <form id="tester-form" class="tester-form">
@@ -33,29 +33,35 @@
             <option value="">선택</option>
             <option>테스터 A</option><option>테스터 B</option><option>테스터 C</option><option>추가 테스터</option>
           </select>
+          <label for="tester-track"><strong>확인할 기능</strong><span>산업 동향 또는 취업 준비 기능 중 하나를 선택합니다.</span></label>
+          <select id="tester-track" name="testerTrack" required>
+            <option value="">선택</option>
+            <option value="trend">산업 동향·뉴스</option>
+            <option value="career">JD·취업 준비</option>
+          </select>
         </section>
 
         <fieldset class="tester-panel task-list">
           <legend>기능 확인 5가지</legend>
           <p class="panel-help">각 행동을 시도하고 성공 여부를 선택하세요.</p>
           <div class="test-task" data-task="1">
-            <p><strong>1. 최근 갱신일과 전체 기사 수를 찾았다.</strong><span>첫 화면 위쪽을 확인하세요.</span></p>
+            <p><strong id="tester-task1-title">1. 최근 갱신일과 전체 기사 수를 찾았다.</strong><span id="tester-task1-help">첫 화면 위쪽을 확인하세요.</span></p>
             <div class="task-options"><label><input type="radio" name="task1" value="성공" required /> 성공</label><label><input type="radio" name="task1" value="부분 성공" /> 부분 성공</label><label><input type="radio" name="task1" value="실패" /> 실패</label></div>
           </div>
           <div class="test-task" data-task="2">
-            <p><strong>2. 삼성전자 기사만 골라 보았다.</strong><span>회사 버튼을 사용하세요.</span></p>
+            <p><strong id="tester-task2-title">2. 삼성전자 기사만 골라 보았다.</strong><span id="tester-task2-help">회사 버튼을 사용하세요.</span></p>
             <div class="task-options"><label><input type="radio" name="task2" value="성공" required /> 성공</label><label><input type="radio" name="task2" value="부분 성공" /> 부분 성공</label><label><input type="radio" name="task2" value="실패" /> 실패</label></div>
           </div>
           <div class="test-task" data-task="3">
-            <p><strong>3. 공정·양산 관련 기사만 골라 보았다.</strong><span>‘공정·양산 집중 보기’를 사용하세요.</span></p>
+            <p><strong id="tester-task3-title">3. 공정·양산 관련 기사만 골라 보았다.</strong><span id="tester-task3-help">‘공정·양산 집중 보기’를 사용하세요.</span></p>
             <div class="task-options"><label><input type="radio" name="task3" value="성공" required /> 성공</label><label><input type="radio" name="task3" value="부분 성공" /> 부분 성공</label><label><input type="radio" name="task3" value="실패" /> 실패</label></div>
           </div>
           <div class="test-task" data-task="4">
-            <p><strong>4. 기사 한 건의 공정 관련 판단 근거를 찾았다.</strong><span>기사 카드의 직접·간접 관련 표시를 확인하세요.</span></p>
+            <p><strong id="tester-task4-title">4. 기사 한 건의 공정 관련 판단 근거를 찾았다.</strong><span id="tester-task4-help">기사 카드의 직접·간접 관련 표시를 확인하세요.</span></p>
             <div class="task-options"><label><input type="radio" name="task4" value="성공" required /> 성공</label><label><input type="radio" name="task4" value="부분 성공" /> 부분 성공</label><label><input type="radio" name="task4" value="실패" /> 실패</label></div>
           </div>
           <div class="test-task" data-task="5">
-            <p><strong>5. AI 직무 인사이트와 공식 원문을 구분했다.</strong><span>AI 분석이 있는 카드와 공식 원문 링크를 확인하세요.</span></p>
+            <p><strong id="tester-task5-title">5. AI 직무 인사이트와 공식 원문을 구분했다.</strong><span id="tester-task5-help">AI 분석이 있는 카드와 공식 원문 링크를 확인하세요.</span></p>
             <div class="task-options"><label><input type="radio" name="task5" value="성공" required /> 성공</label><label><input type="radio" name="task5" value="부분 성공" /> 부분 성공</label><label><input type="radio" name="task5" value="실패" /> 실패</label></div>
           </div>
         </fieldset>
