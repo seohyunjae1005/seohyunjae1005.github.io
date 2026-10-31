@@ -819,6 +819,36 @@ function downloadSubmissionReview() {
   window.setTimeout(() => URL.revokeObjectURL(link.href), 0);
 }
 
+function downloadApplicationWorkspaceBackup() {
+  const backup = window.ApplicationWorkspace.buildWorkspaceBackup({
+    library: loadApplicationWorkspaceLibrary(),
+    drafts: loadApplicationDrafts(),
+    history: loadApplicationDraftHistory(),
+  });
+  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json;charset=utf-8" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `지원작업_백업_${new Date().toISOString().slice(0, 10)}.json`;
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(link.href), 0);
+}
+
+async function importApplicationWorkspaceBackup(file) {
+  if (!file) return false;
+  if (file.size > 2 * 1024 * 1024) throw new Error("백업 파일이 2MB를 넘습니다. 올바른 지원 작업 백업인지 확인해 주세요.");
+  const imported = window.ApplicationWorkspace.normalizeWorkspaceBackup(JSON.parse(await file.text()));
+  const library = window.ApplicationWorkspace.mergeWorkspaceLibraries(loadApplicationWorkspaceLibrary(), imported.library, 8);
+  const drafts = { ...loadApplicationDrafts(), ...imported.drafts };
+  const history = { ...loadApplicationDraftHistory(), ...imported.history };
+  window.localStorage.setItem(APPLICATION_WORKSPACE_LIBRARY_KEY, JSON.stringify(library));
+  window.localStorage.setItem(APPLICATION_DRAFT_KEY, JSON.stringify(drafts));
+  window.localStorage.setItem(APPLICATION_DRAFT_HISTORY_KEY, JSON.stringify(history));
+  const active = library.items[library.activeId];
+  if (active) window.localStorage.setItem(APPLICATION_WORKSPACE_KEY, JSON.stringify(active));
+  refreshApplicationWorkspaceOptions(library.activeId);
+  return restoreApplicationWorkspace(library.activeId);
+}
+
 function renderQuestionOutline(result, placement) {
   const labels = { situation: "상황·문제", role: "내 역할", action: "직접 행동", result: "결과·배운 점" };
   const rows = Object.entries(labels).map(([key, label]) => {
@@ -1306,6 +1336,24 @@ function bindJdAnalyzer() {
     if (!window.confirm(`“${select.selectedOptions[0]?.textContent || "선택한 작업"}”을 이 기기에서 삭제할까요? 초안 백업 파일은 삭제되지 않습니다.`)) return;
     clearApplicationWorkspace(id);
     document.querySelector("#jd-reset").click();
+  });
+  document.querySelector("#jd-workspace-export").addEventListener("click", () => {
+    if (!Object.keys(loadApplicationWorkspaceLibrary().items).length) {
+      window.alert("백업할 지원 작업이 없습니다.");
+      return;
+    }
+    downloadApplicationWorkspaceBackup();
+  });
+  document.querySelector("#jd-workspace-import").addEventListener("change", async (event) => {
+    const input = event.target;
+    try {
+      const restored = await importApplicationWorkspaceBackup(input.files?.[0]);
+      window.alert(restored ? "지원 작업 백업을 불러왔습니다." : "백업에서 복원할 지원 작업을 찾지 못했습니다.");
+    } catch (error) {
+      window.alert(error.message || "지원 작업 백업을 불러오지 못했습니다.");
+    } finally {
+      input.value = "";
+    }
   });
   document.querySelector("#jd-ai-save").addEventListener("click", () => {
     try {

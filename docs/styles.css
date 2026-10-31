@@ -228,6 +228,9 @@ main { max-width: var(--max); margin: 0 auto; padding: 0.9rem 1.25rem 3rem; }
 .jd-workspace-switcher label span { color: var(--muted); font-size: 0.62rem; font-weight: 700; }
 .jd-workspace-switcher select { min-height: 2.15rem; border: 1px solid var(--line); background: #fff; color: var(--text); padding: 0.42rem 0.55rem; font: inherit; font-size: 0.68rem; }
 .jd-workspace-switcher button { min-height: 2.15rem; }
+.jd-workspace-backup-actions { grid-column: 1 / -1; display: flex; gap: 0.35rem; }
+.jd-workspace-backup-actions button, .jd-workspace-backup-actions label { min-height: 1.85rem; box-sizing: border-box; display: inline-flex; align-items: center; border: 1px solid var(--line); background: #fff; color: var(--text); padding: 0.35rem 0.5rem; font: inherit; font-size: 0.6rem; cursor: pointer; }
+.jd-workspace-backup-actions input { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); }
 .jd-workspace-switcher > small { grid-column: 1 / -1; color: var(--muted); font-size: 0.58rem; }
 @media (max-width: 640px) {
   .jd-workspace-switcher { grid-template-columns: 1fr 1fr; }

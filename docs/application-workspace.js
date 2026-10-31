@@ -50,6 +50,43 @@
     return next;
   }
 
+  function mergeWorkspaceLibraries(base = {}, incoming = {}, limit = 8) {
+    const merged = normalizeWorkspaceLibrary(base);
+    const imported = normalizeWorkspaceLibrary(incoming);
+    Object.values(imported.items).forEach((snapshot) => {
+      const current = merged.items[snapshot.id];
+      if (!current || String(snapshot.savedAt || "") >= String(current.savedAt || "")) merged.items[snapshot.id] = snapshot;
+    });
+    const ordered = Object.values(merged.items)
+      .sort((left, right) => String(right.savedAt || "").localeCompare(String(left.savedAt || "")))
+      .slice(0, Math.max(1, limit));
+    merged.items = Object.fromEntries(ordered.map((row) => [row.id, row]));
+    merged.activeId = merged.items[imported.activeId] ? imported.activeId : ordered[0]?.id || "";
+    return merged;
+  }
+
+  function buildWorkspaceBackup({ library = {}, drafts = {}, history = {} } = {}) {
+    return {
+      type: "aiproject-application-workspace",
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      library: normalizeWorkspaceLibrary(library),
+      drafts: drafts && typeof drafts === "object" && !Array.isArray(drafts) ? drafts : {},
+      history: history && typeof history === "object" && !Array.isArray(history) ? history : {},
+    };
+  }
+
+  function normalizeWorkspaceBackup(value = {}) {
+    if (value?.type !== "aiproject-application-workspace" || value?.version !== 1) {
+      throw new Error("이 사이트에서 만든 지원 작업 백업 파일이 아닙니다.");
+    }
+    return buildWorkspaceBackup({
+      library: value.library,
+      drafts: value.drafts,
+      history: value.history,
+    });
+  }
+
   function summarize(placements = []) {
     const usage = new Map();
     let assignedCount = 0;
@@ -351,6 +388,7 @@
 
   const api = {
     STATUS_LABELS, draftId, workspaceScope, normalizeWorkspaceLibrary, upsertWorkspace, removeWorkspace,
+    mergeWorkspaceLibraries, buildWorkspaceBackup, normalizeWorkspaceBackup,
     summarize, readDraft, addHistory, historyFor, draftTokens,
     findDraftOverlaps, numericClaims, reviewPackage, inferCharacterLimit, buildSubmissionChecklist,
     buildSubmissionText, buildText,

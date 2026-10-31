@@ -38,6 +38,17 @@ assert.equal(library.activeId, secondScope);
 library = workspace.removeWorkspace(library, secondScope);
 assert.equal(Object.keys(library.items).length, 1);
 assert.equal(library.activeId, firstScope);
+const backup = workspace.buildWorkspaceBackup({ library, drafts: { sample: "초안" }, history: { sample: [] } });
+const normalizedBackup = workspace.normalizeWorkspaceBackup(backup);
+assert.equal(normalizedBackup.type, "aiproject-application-workspace");
+assert.equal(normalizedBackup.drafts.sample, "초안");
+const mergedLibrary = workspace.mergeWorkspaceLibraries(library, {
+  activeId: secondScope,
+  items: { [secondScope]: { id: secondScope, savedAt: "2026-11-01T10:00:00Z", company: "B사" } },
+});
+assert.equal(Object.keys(mergedLibrary.items).length, 2);
+assert.equal(mergedLibrary.activeId, secondScope);
+assert.throws(() => workspace.normalizeWorkspaceBackup({ type: "unknown", version: 1 }), /백업 파일/);
 const text = workspace.buildText({
   company: "테스트기업", role: "품질", placements,
   drafts: { [key]: "조건별 데이터를 비교했다." }, includeDrafts: true,
