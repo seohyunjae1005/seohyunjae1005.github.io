@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-30T01:23:17.713259+00:00",
+  "updated_at": "2026-10-31T01:07:45.515512+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1683,6 +1683,18 @@
       "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
       "source_fingerprint": "70915a517eb2eea35cb0b17d7d9e9c4ae67c1cfd560a971ad1f0b8eead6da53f",
       "translated_at": "2026-10-29T01:19:26.243543+00:00"
+    },
+    "https://www.tel.com/news/ir/2026/k6c2lu00000000gf-att/20261030_003_e.pdf": {
+      "title_ko": "자사주 매입 제도 도입에 관한 공고",
+      "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
+      "source_fingerprint": "ea2423945200168ba168455b21c37b53e8128ce8d4fb33ad01c73b0b827301c3",
+      "translated_at": "2026-10-31T01:07:45.515484+00:00"
+    },
+    "https://www.tel.com/news/ir/2026/kdpgc400000000n0-att/20261030_002_e.pdf": {
+      "title_ko": "잉여금에 대한 중간배당 공고 (2027년 3월 31일 종료 회계연도 상반기)",
+      "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
+      "source_fingerprint": "65d70e1560ee03894a7b5e3c2cecbeef8a0c9a1585baa02a0f896f98963ed6c1",
+      "translated_at": "2026-10-31T01:07:45.515484+00:00"
     }
   }
 }
