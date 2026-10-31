@@ -8,14 +8,14 @@
       content="주요 반도체 기업의 공식 뉴스룸에서 기술 동향과 기업 맥락을 추적합니다."
     />
     <title>반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261031-7" />
+    <link rel="stylesheet" href="styles.css?v=20261031-8" />
     <script src="pdf-import.js?v=20261001-2" defer></script>
     <script src="jd-analyzer-v4.js?v=20261007-7" defer></script>
     <script src="jd-ai-client.js?v=20261030-2" defer></script>
     <script src="profile-store-v2.js?v=20261013-1" defer></script>
     <script src="role-normalizer.js?v=20261001-1" defer></script>
-    <script src="application-workspace.js?v=20261031-7" defer></script>
-    <script src="app.js?v=20261031-7" defer></script>
+    <script src="application-workspace.js?v=20261031-8" defer></script>
+    <script src="app.js?v=20261031-8" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -286,6 +286,11 @@
           <div class="jd-workspace-backup-actions"><button type="button" id="jd-workspace-export">전체 백업</button><label for="jd-workspace-import">백업 불러오기</label><input id="jd-workspace-import" type="file" accept="application/json,.json" /></div>
           <small>분석·문항 배치를 이 기기에 최대 8건 저장합니다. 백업 파일에는 JD와 자기소개서 초안 등 개인 작성 내용이 포함됩니다.</small>
         </div>
+        <details class="jd-common-facts" id="jd-common-facts" hidden>
+          <summary>저장 JD 공통 준비 항목 <span id="jd-common-facts-count"></span></summary>
+          <p>서로 다른 저장 공고의 원문 기반 표준 키워드와 직접 요구 Tool만 집계합니다. 등장 횟수는 중요도나 합격 조건이 아닙니다.</p>
+          <div id="jd-common-facts-list"></div>
+        </details>
 
         <form class="jd-form" id="jd-form">
           <div class="jd-field-grid">

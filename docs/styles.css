@@ -232,9 +232,21 @@ main { max-width: var(--max); margin: 0 auto; padding: 0.9rem 1.25rem 3rem; }
 .jd-workspace-backup-actions button, .jd-workspace-backup-actions label { min-height: 1.85rem; box-sizing: border-box; display: inline-flex; align-items: center; border: 1px solid var(--line); background: #fff; color: var(--text); padding: 0.35rem 0.5rem; font: inherit; font-size: 0.6rem; cursor: pointer; }
 .jd-workspace-backup-actions input { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); }
 .jd-workspace-switcher > small { grid-column: 1 / -1; color: var(--muted); font-size: 0.58rem; }
+.jd-common-facts { margin-top: 0.5rem; border-bottom: 1px solid var(--line); }
+.jd-common-facts summary { display: flex; justify-content: space-between; gap: 0.7rem; padding: 0.6rem 0; color: var(--text); font-size: 0.7rem; font-weight: 750; cursor: pointer; }
+.jd-common-facts summary span { color: var(--muted); font-size: 0.6rem; font-weight: 500; }
+.jd-common-facts > p { margin: 0 0 0.55rem; color: var(--muted); font-size: 0.6rem; line-height: 1.5; }
+#jd-common-facts-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin-bottom: 0.65rem; border: 1px solid var(--line); }
+#jd-common-facts-list article { display: grid; gap: 0.2rem; padding: 0.55rem; border-bottom: 1px solid var(--line); }
+#jd-common-facts-list article:nth-child(odd) { border-right: 1px solid var(--line); }
+#jd-common-facts-list article > div { display: flex; justify-content: space-between; gap: 0.5rem; }
+#jd-common-facts-list strong { font-size: 0.68rem; }
+#jd-common-facts-list span, #jd-common-facts-list small { color: var(--muted); font-size: 0.56rem; line-height: 1.4; }
 @media (max-width: 640px) {
   .jd-workspace-switcher { grid-template-columns: 1fr 1fr; }
   .jd-workspace-switcher label { grid-column: 1 / -1; }
+  #jd-common-facts-list { grid-template-columns: 1fr; }
+  #jd-common-facts-list article:nth-child(odd) { border-right: 0; }
 }
 .jd-ai-settings { padding: 0.9rem 1rem; border: 1px solid var(--line); background: var(--surface); }
 .jd-ai-settings summary { cursor: pointer; font-weight: 750; }

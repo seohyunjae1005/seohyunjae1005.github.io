@@ -585,6 +585,21 @@ function refreshApplicationWorkspaceOptions(selectedId = "") {
   }).join("") : '<option value="">저장한 작업 없음</option>';
   const target = selectedId || library.activeId;
   if (target && library.items[target]) select.value = target;
+  renderCommonWorkspaceFacts(library);
+}
+
+function renderCommonWorkspaceFacts(library) {
+  const details = document.querySelector("#jd-common-facts");
+  if (!details) return;
+  const comparison = window.ApplicationWorkspace.compareWorkspaceFacts(Object.values(library.items));
+  details.hidden = comparison.comparedCount < 2;
+  document.querySelector("#jd-common-facts-count").textContent = comparison.comparedCount >= 2 ? `${comparison.comparedCount}개 공고 비교` : "";
+  const output = document.querySelector("#jd-common-facts-list");
+  if (!comparison.common.length) {
+    output.innerHTML = '<p class="jd-empty-result">두 공고 이상에서 반복된 표준 키워드나 직접 요구 Tool이 없습니다.</p>';
+    return;
+  }
+  output.innerHTML = comparison.common.map((row) => `<article><div><strong>${escapeHtml(row.label)}</strong><span>${escapeHtml(row.kind)} · ${row.count}개 공고</span></div><small>${escapeHtml(row.companies.join(" / "))}</small></article>`).join("");
 }
 
 function clearApplicationWorkspace(id = "") {

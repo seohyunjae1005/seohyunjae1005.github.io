@@ -49,6 +49,20 @@ const mergedLibrary = workspace.mergeWorkspaceLibraries(library, {
 assert.equal(Object.keys(mergedLibrary.items).length, 2);
 assert.equal(mergedLibrary.activeId, secondScope);
 assert.throws(() => workspace.normalizeWorkspaceBackup({ type: "unknown", version: 1 }), /백업 파일/);
+const comparison = workspace.compareWorkspaceFacts([
+  {
+    id: "w1", company: "A사", role: "생산기술",
+    jdAnalysis: { facts: { keywords: [{ original: "생산성 개선", standardized: "Productivity Improvement" }], tools: [{ value: "Python" }] } },
+  },
+  {
+    id: "w2", company: "B사", role: "품질",
+    jdAnalysis: { facts: { keywords: [{ original: "생산 효율 개선", standardized: "Productivity Improvement" }], tools: [{ value: "Python" }] } },
+  },
+]);
+assert.equal(comparison.comparedCount, 2);
+assert.equal(comparison.common.length, 2);
+assert.equal(comparison.common.find((row) => row.label === "Productivity Improvement").count, 2);
+assert.equal(comparison.common.find((row) => row.label === "Python").kind, "JD 직접 요구 Tool");
 const text = workspace.buildText({
   company: "테스트기업", role: "품질", placements,
   drafts: { [key]: "조건별 데이터를 비교했다." }, includeDrafts: true,

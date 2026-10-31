@@ -87,6 +87,33 @@
     });
   }
 
+  function compareWorkspaceFacts(workspaces = []) {
+    const rows = Array.isArray(workspaces) ? workspaces.filter((row) => row?.jdAnalysis?.facts) : [];
+    const buckets = new Map();
+    const add = (key, label, kind, workspace, original = "") => {
+      const normalized = String(key || "").replace(/\s+/g, " ").trim().toLowerCase();
+      if (!normalized) return;
+      const current = buckets.get(`${kind}:${normalized}`) || { label, kind, workspaces: new Set(), companies: new Set(), originals: new Set() };
+      current.workspaces.add(workspace.id || `${workspace.company}|${workspace.role}`);
+      current.companies.add([workspace.company, workspace.role].filter(Boolean).join(" · ") || "회사·직무 미입력");
+      if (original) current.originals.add(original);
+      buckets.set(`${kind}:${normalized}`, current);
+    };
+    rows.forEach((workspace) => {
+      const facts = workspace.jdAnalysis.facts;
+      (facts.keywords || []).forEach((row) => add(row.standardized || row.original, row.standardized || row.original, "표준 키워드", workspace, row.original));
+      (facts.tools || []).forEach((row) => add(row.value, row.value, "JD 직접 요구 Tool", workspace, row.value));
+    });
+    const common = Array.from(buckets.values()).map((row) => ({
+      label: row.label,
+      kind: row.kind,
+      count: row.workspaces.size,
+      companies: Array.from(row.companies),
+      originals: Array.from(row.originals),
+    })).filter((row) => row.count >= 2).sort((left, right) => right.count - left.count || left.label.localeCompare(right.label, "ko"));
+    return { comparedCount: rows.length, common };
+  }
+
   function summarize(placements = []) {
     const usage = new Map();
     let assignedCount = 0;
@@ -389,6 +416,7 @@
   const api = {
     STATUS_LABELS, draftId, workspaceScope, normalizeWorkspaceLibrary, upsertWorkspace, removeWorkspace,
     mergeWorkspaceLibraries, buildWorkspaceBackup, normalizeWorkspaceBackup,
+    compareWorkspaceFacts,
     summarize, readDraft, addHistory, historyFor, draftTokens,
     findDraftOverlaps, numericClaims, reviewPackage, inferCharacterLimit, buildSubmissionChecklist,
     buildSubmissionText, buildText,
