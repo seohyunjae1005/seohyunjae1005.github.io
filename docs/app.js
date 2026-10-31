@@ -573,7 +573,16 @@ function renderQuestionPlacements(result) {
   const dashboard = `<section class="application-workspace">
     <div class="application-workspace-head"><div><strong>지원서 전체 배치표</strong><span data-application-progress>초안 0/${workspace.questionCount}</span></div><div><button type="button" data-copy-application-plan>배치표 복사</button><button type="button" data-download-application-drafts>초안 백업</button></div></div>
     <div class="application-workspace-stats"><span><b>${workspace.questionCount}</b>문항</span><span><b>${workspace.uniqueExperienceCount}</b>개 경험</span><span><b>${workspace.repeatedExperienceCount}</b>개 반복</span><span><b>${workspace.missingCount}</b>개 근거 부족</span></div>
-    ${usageWarnings}<div class="application-package-checks" data-package-checks></div><div class="application-draft-overlaps" data-draft-overlaps></div><div class="application-workspace-matrix">${matrix}</div>
+    ${usageWarnings}<div class="application-package-checks" data-package-checks></div><div class="application-draft-overlaps" data-draft-overlaps></div>
+    <section class="application-submission-checklist">
+      <div class="application-submission-head"><div><strong>최종 제출 점검</strong><span data-submission-status>작성 중</span></div><small>실제 채용 페이지의 문항·글자 수는 마지막에 직접 확인하세요.</small></div>
+      <div class="application-submission-stats">
+        <span><b data-submission-completed>0/${workspace.questionCount}</b>초안</span><span><b data-submission-evidence>0</b>근거 부족</span><span><b data-submission-anchor>0</b>JD 미연결</span><span><b data-submission-facts>0</b>수치 확인</span><span><b data-submission-overlaps>0</b>표현 반복</span>
+      </div>
+      <p data-submission-note>문항별 초안을 작성하면 제출 전 점검 결과가 표시됩니다.</p>
+      <div class="application-submission-actions"><label><span>내보내기 형식</span><select data-submission-format><option value="sectioned">문항·답변형</option><option value="numbered">번호형</option><option value="answers">답변만</option></select></label><button type="button" data-copy-submission>제출본 복사</button><button type="button" data-download-submission-review>검토본 받기</button></div>
+    </section>
+    <div class="application-workspace-matrix">${matrix}</div>
   </section>`;
   const cards = result.placements.map((row, index) => {
     const evidence = row.status === "missing" ? "" : `<blockquote>${escapeHtml(row.profileEvidenceQuote)}</blockquote>`;
@@ -605,6 +614,26 @@ function updateApplicationProgress() {
   progress.textContent = `초안 ${completed}/${state.questionMap.placements.length}`;
   const packageOutput = document.querySelector("[data-package-checks]");
   const packageReview = window.ApplicationWorkspace.reviewPackage(state.questionMap.placements, drafts, state.questionProfileEntries);
+  const submissionReview = window.ApplicationWorkspace.buildSubmissionChecklist({
+    placements: state.questionMap.placements,
+    drafts,
+    profileEntries: state.questionProfileEntries,
+  });
+  const submissionStatusLabels = { writing: "작성 중", review: "검토 필요", basic_pass: "기본 점검 통과" };
+  const submissionStatus = document.querySelector("[data-submission-status]");
+  if (submissionStatus) {
+    submissionStatus.textContent = submissionStatusLabels[submissionReview.status];
+    submissionStatus.dataset.status = submissionReview.status;
+    document.querySelector("[data-submission-completed]").textContent = `${submissionReview.completedCount}/${submissionReview.questionCount}`;
+    document.querySelector("[data-submission-evidence]").textContent = submissionReview.evidenceMissingCount;
+    document.querySelector("[data-submission-anchor]").textContent = submissionReview.jdAnchorMissingCount;
+    document.querySelector("[data-submission-facts]").textContent = submissionReview.unsupportedNumberCount + submissionReview.numericConflictCount;
+    document.querySelector("[data-submission-overlaps]").textContent = submissionReview.overlapCount;
+    const note = document.querySelector("[data-submission-note]");
+    if (submissionReview.status === "basic_pass") note.textContent = "저장된 JD·경험 원문 기준의 자동 점검을 통과했습니다. 제출 화면의 제한 조건만 마지막으로 대조하세요.";
+    else if (submissionReview.status === "review") note.textContent = "초안은 모두 작성됐지만 근거·수치·반복 표현 중 다시 확인할 항목이 있습니다.";
+    else note.textContent = `미작성 초안 ${submissionReview.questionCount - submissionReview.completedCount}개가 남았습니다.`;
+  }
   if (packageOutput) {
     const unsupported = packageReview.unsupportedNumbers.map((row) => `<li><b>Q${row.questionIndex + 1}</b><span>“${escapeHtml(row.value)}”은 배치된 경험 원문에서 확인되지 않습니다.</span><small>${escapeHtml(row.context)}</small></li>`).join("");
     const conflicts = packageReview.numericConflicts.map((row) => `<li><b>Q${row.leftIndex + 1}·Q${row.rightIndex + 1}</b><span>같은 경험에 ${escapeHtml(row.leftValue)}와 ${escapeHtml(row.rightValue)}가 사용되었습니다.</span><small>서로 다른 지표라면 설명하고, 같은 지표라면 원문 기록을 확인하세요.</small></li>`).join("");
@@ -646,6 +675,29 @@ function downloadApplicationDrafts() {
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
   link.download = `${company}_${role}_지원서_작업본.txt`.replace(/[\\/:*?"<>|]/g, "_");
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(link.href), 0);
+}
+
+function submissionExportText(includeReview = false) {
+  return window.ApplicationWorkspace.buildSubmissionText({
+    company: document.querySelector("#jd-company").value.trim(),
+    role: document.querySelector("#jd-role").value.trim(),
+    placements: state.questionMap?.placements || [],
+    drafts: loadApplicationDrafts(),
+    profileEntries: state.questionProfileEntries || [],
+    format: document.querySelector("[data-submission-format]")?.value || "sectioned",
+    includeReview,
+  });
+}
+
+function downloadSubmissionReview() {
+  const company = document.querySelector("#jd-company").value.trim() || "지원회사";
+  const role = document.querySelector("#jd-role").value.trim() || "지원직무";
+  const blob = new Blob([submissionExportText(true)], { type: "text/plain;charset=utf-8" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${company}_${role}_제출전_검토본.txt`.replace(/[\\/:*?"<>|]/g, "_");
   link.click();
   window.setTimeout(() => URL.revokeObjectURL(link.href), 0);
 }
@@ -1259,6 +1311,21 @@ function bindJdAnalyzer() {
     }
     if (event.target.closest("[data-download-application-drafts]")) {
       downloadApplicationDrafts();
+      return;
+    }
+    const copySubmissionButton = event.target.closest("[data-copy-submission]");
+    if (copySubmissionButton) {
+      try {
+        await navigator.clipboard.writeText(submissionExportText(false));
+        copySubmissionButton.textContent = "복사됨";
+        window.setTimeout(() => { copySubmissionButton.textContent = "제출본 복사"; }, 1400);
+      } catch (_error) {
+        window.alert("브라우저가 복사를 허용하지 않았습니다. 검토본을 내려받아 답변 부분을 사용해 주세요.");
+      }
+      return;
+    }
+    if (event.target.closest("[data-download-submission-review]")) {
+      downloadSubmissionReview();
       return;
     }
     const card = event.target.closest("[data-placement-index]");

@@ -178,6 +178,99 @@
     return { unsupportedNumbers, numericConflicts };
   }
 
+  function buildSubmissionChecklist({ placements = [], drafts = {}, profileEntries = [] } = {}) {
+    const packageReview = reviewPackage(placements, drafts, profileEntries);
+    const overlaps = findDraftOverlaps(placements, drafts);
+    const questions = placements.map((placement, index) => {
+      const draft = readDraft(drafts, placement).trim();
+      const unsupportedNumbers = packageReview.unsupportedNumbers.filter((row) => row.questionIndex === index);
+      const conflicts = packageReview.numericConflicts.filter((row) => row.leftIndex === index || row.rightIndex === index);
+      const overlapRows = overlaps.filter((row) => row.leftIndex === index || row.rightIndex === index);
+      const evidenceMissing = !placement?.experience || placement.status === "missing";
+      const jdAnchorMissing = !placement?.jdRequirement;
+      const warnings = [];
+      if (!draft) warnings.push("초안 미작성");
+      if (evidenceMissing) warnings.push("경험 근거 부족");
+      if (jdAnchorMissing) warnings.push("JD 직접 연결 없음");
+      if (unsupportedNumbers.length) warnings.push("경험 원문에서 확인되지 않은 수치");
+      if (conflicts.length) warnings.push("다른 문항과 수치 표현 불일치");
+      if (overlapRows.length) warnings.push("다른 문항과 표현 반복");
+      return {
+        index,
+        drafted: Boolean(draft),
+        characterCount: draft.length,
+        evidenceMissing,
+        jdAnchorMissing,
+        unsupportedNumbers,
+        conflicts,
+        overlaps: overlapRows,
+        warnings,
+      };
+    });
+    const completedCount = questions.filter((row) => row.drafted).length;
+    const evidenceMissingCount = questions.filter((row) => row.evidenceMissing).length;
+    const jdAnchorMissingCount = questions.filter((row) => row.jdAnchorMissing).length;
+    const issueCount = evidenceMissingCount + jdAnchorMissingCount + packageReview.unsupportedNumbers.length
+      + packageReview.numericConflicts.length + overlaps.length;
+    const status = completedCount < placements.length
+      ? "writing"
+      : issueCount > 0 ? "review" : "basic_pass";
+    return {
+      status,
+      questionCount: placements.length,
+      completedCount,
+      evidenceMissingCount,
+      jdAnchorMissingCount,
+      unsupportedNumberCount: packageReview.unsupportedNumbers.length,
+      numericConflictCount: packageReview.numericConflicts.length,
+      overlapCount: overlaps.length,
+      questions,
+      packageReview,
+      overlaps,
+    };
+  }
+
+  function submissionAnswerBlock(format, index, question, answer) {
+    if (format === "answers") return answer || "[미작성]";
+    if (format === "numbered") return `${index + 1}. ${question}\n${answer || "[미작성]"}`;
+    return `Q${index + 1}. ${question}\n\n${answer || "[미작성]"}`;
+  }
+
+  function buildSubmissionText({
+    company = "", role = "", placements = [], drafts = {}, profileEntries = [],
+    format = "sectioned", includeReview = false,
+  } = {}) {
+    const title = [company, role].filter(Boolean).join(" · ") || "지원서";
+    const checklist = buildSubmissionChecklist({ placements, drafts, profileEntries });
+    const lines = [title];
+    if (includeReview) {
+      const statusLabels = { writing: "작성 중", review: "검토 필요", basic_pass: "기본 점검 통과" };
+      lines.push("=".repeat(title.length), "", `[최종 점검: ${statusLabels[checklist.status]}]`);
+      lines.push(`- 초안 완료: ${checklist.completedCount}/${checklist.questionCount}`);
+      lines.push(`- 경험 근거 부족: ${checklist.evidenceMissingCount}`);
+      lines.push(`- JD 직접 연결 없음: ${checklist.jdAnchorMissingCount}`);
+      lines.push(`- 경험 원문 미확인 수치: ${checklist.unsupportedNumberCount}`);
+      lines.push(`- 수치 표현 불일치: ${checklist.numericConflictCount}`);
+      lines.push(`- 문항 간 반복 표현: ${checklist.overlapCount}`, "");
+    } else {
+      lines.push("");
+    }
+    placements.forEach((placement, index) => {
+      const answer = readDraft(drafts, placement).trim();
+      lines.push(submissionAnswerBlock(format, index, placement?.question?.text || "문항 없음", answer));
+      if (includeReview) {
+        const questionReview = checklist.questions[index];
+        lines.push(`- 글자 수: ${questionReview.characterCount}자`);
+        lines.push(`- 점검: ${questionReview.warnings.length ? questionReview.warnings.join(" / ") : "자동 점검 항목 없음"}`);
+      }
+      lines.push("");
+    });
+    if (includeReview) {
+      lines.push("※ 이 점검은 저장된 JD·경험 원문과 초안의 기계적 대조 결과입니다. 실제 채용 페이지의 문항과 글자 수 제한은 제출 전에 직접 확인하세요.");
+    }
+    return lines.join("\n").trim();
+  }
+
   function buildText({ company = "", role = "", placements = [], drafts = {}, includeDrafts = false }) {
     const title = [company, role].filter(Boolean).join(" · ") || "지원서 경험 배치";
     const lines = [title, "=".repeat(title.length), ""];
@@ -199,7 +292,11 @@
     return lines.join("\n").trim();
   }
 
-  const api = { STATUS_LABELS, draftId, summarize, readDraft, addHistory, historyFor, draftTokens, findDraftOverlaps, numericClaims, reviewPackage, buildText };
+  const api = {
+    STATUS_LABELS, draftId, summarize, readDraft, addHistory, historyFor, draftTokens,
+    findDraftOverlaps, numericClaims, reviewPackage, buildSubmissionChecklist,
+    buildSubmissionText, buildText,
+  };
   root.ApplicationWorkspace = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : globalThis);

@@ -63,4 +63,45 @@ assert.equal(packageReview.numericConflicts.length, 1);
 assert.equal(packageReview.numericConflicts[0].leftValue, "2개");
 assert.equal(packageReview.numericConflicts[0].rightValue, "3개");
 
+const submissionChecklist = workspace.buildSubmissionChecklist({
+  placements,
+  drafts: numericDrafts,
+  profileEntries: [{ text: "조건별 측정으로 원인 후보를 2개로 좁혔다." }],
+});
+assert.equal(submissionChecklist.status, "writing");
+assert.equal(submissionChecklist.completedCount, 2);
+assert.equal(submissionChecklist.evidenceMissingCount, 1);
+assert.equal(submissionChecklist.unsupportedNumberCount, 1);
+assert.equal(submissionChecklist.numericConflictCount, 1);
+
+const groundedPlacements = [placements[0]];
+const groundedDrafts = { [workspace.draftId(placements[0])]: "조건별 측정으로 원인 후보를 2개로 좁혔다." };
+const groundedChecklist = workspace.buildSubmissionChecklist({
+  placements: groundedPlacements,
+  drafts: groundedDrafts,
+  profileEntries: [{ text: "조건별 측정으로 원인 후보를 2개로 좁혔다." }],
+});
+assert.equal(groundedChecklist.status, "basic_pass");
+assert.equal(groundedChecklist.completedCount, 1);
+assert.equal(groundedChecklist.unsupportedNumberCount, 0);
+
+const cleanSubmission = workspace.buildSubmissionText({
+  company: "테스트기업", role: "품질", placements: groundedPlacements,
+  drafts: groundedDrafts, profileEntries: [{ text: "조건별 측정으로 원인 후보를 2개로 좁혔다." }],
+  format: "sectioned", includeReview: false,
+});
+assert.match(cleanSubmission, /Q1\. 직무 관련 경험/);
+assert.match(cleanSubmission, /원인 후보를 2개로/);
+assert.doesNotMatch(cleanSubmission, /최종 점검|경험 근거 부족|JD 직접 연결 없음/);
+
+const reviewSubmission = workspace.buildSubmissionText({
+  company: "테스트기업", role: "품질", placements,
+  drafts: numericDrafts, profileEntries: [{ text: "조건별 측정으로 원인 후보를 2개로 좁혔다." }],
+  format: "numbered", includeReview: true,
+});
+assert.match(reviewSubmission, /최종 점검: 작성 중/);
+assert.match(reviewSubmission, /경험 원문 미확인 수치: 1/);
+assert.match(reviewSubmission, /1\. 직무 관련 경험/);
+assert.match(reviewSubmission, /글자 수:/);
+
 console.log("application workspace tests passed");
