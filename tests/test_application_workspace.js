@@ -161,4 +161,16 @@ assert.equal(limitChecklist.overLimitCount, 1);
 assert.equal(limitChecklist.questions[0].characterLimit, 20);
 assert.match(limitChecklist.questions[0].warnings.join(" "), /1자 초과/);
 
+const companyDrafts = { [workspace.draftId(groundedPlacements[0])]: "B사 생산 현장의 품질 문제를 분석했습니다." };
+const companyChecklist = workspace.buildSubmissionChecklist({
+  placements: groundedPlacements,
+  drafts: companyDrafts,
+  profileEntries: [{ text: "B사 생산 현장의 품질 문제를 분석했습니다." }],
+  currentCompany: "A사",
+  knownCompanies: ["A사", "B사"],
+});
+assert.equal(companyChecklist.companyMentionCount, 1);
+assert.equal(companyChecklist.status, "review");
+assert.match(companyChecklist.questions[0].warnings.join(" "), /B사/);
+
 console.log("application workspace tests passed");

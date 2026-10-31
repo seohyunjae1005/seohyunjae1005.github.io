@@ -708,7 +708,7 @@ function renderQuestionPlacements(result) {
     <section class="application-submission-checklist">
       <div class="application-submission-head"><div><strong>최종 제출 점검</strong><span data-submission-status>작성 중</span></div><small>실제 채용 페이지의 문항·글자 수는 마지막에 직접 확인하세요.</small></div>
       <div class="application-submission-stats">
-        <span><b data-submission-completed>0/${workspace.questionCount}</b>초안</span><span><b data-submission-evidence>0</b>근거 부족</span><span><b data-submission-anchor>0</b>JD 미연결</span><span><b data-submission-facts>0</b>수치 확인</span><span><b data-submission-overlaps>0</b>표현 반복</span><span><b data-submission-limit>0</b>글자 초과</span>
+        <span><b data-submission-completed>0/${workspace.questionCount}</b>초안</span><span><b data-submission-evidence>0</b>근거 부족</span><span><b data-submission-anchor>0</b>JD 미연결</span><span><b data-submission-facts>0</b>수치 확인</span><span><b data-submission-overlaps>0</b>표현 반복</span><span><b data-submission-limit>0</b>글자 초과</span><span><b data-submission-company>0</b>회사명 확인</span>
       </div>
       <p data-submission-note>문항별 초안을 작성하면 제출 전 점검 결과가 표시됩니다.</p>
       <div class="application-submission-actions"><label><span>내보내기 형식</span><select data-submission-format><option value="sectioned">문항·답변형</option><option value="numbered">번호형</option><option value="answers">답변만</option></select></label><button type="button" data-copy-submission>제출본 복사</button><button type="button" data-download-submission-review>검토본 받기</button></div>
@@ -749,6 +749,8 @@ function updateApplicationProgress() {
     placements: state.questionMap.placements,
     drafts,
     profileEntries: state.questionProfileEntries,
+    currentCompany: document.querySelector("#jd-company").value.trim(),
+    knownCompanies: Object.values(loadApplicationWorkspaceLibrary().items).map((row) => row.company),
   });
   const submissionStatusLabels = { writing: "작성 중", review: "검토 필요", basic_pass: "기본 점검 통과" };
   const submissionStatus = document.querySelector("[data-submission-status]");
@@ -761,6 +763,7 @@ function updateApplicationProgress() {
     document.querySelector("[data-submission-facts]").textContent = submissionReview.unsupportedNumberCount + submissionReview.numericConflictCount;
     document.querySelector("[data-submission-overlaps]").textContent = submissionReview.overlapCount;
     document.querySelector("[data-submission-limit]").textContent = submissionReview.overLimitCount;
+    document.querySelector("[data-submission-company]").textContent = submissionReview.companyMentionCount;
     const note = document.querySelector("[data-submission-note]");
     if (submissionReview.status === "basic_pass") note.textContent = "저장된 JD·경험 원문 기준의 자동 점검을 통과했습니다. 제출 화면의 제한 조건만 마지막으로 대조하세요.";
     else if (submissionReview.status === "review") note.textContent = "초안은 모두 작성됐지만 근거·수치·반복 표현 중 다시 확인할 항목이 있습니다.";
@@ -818,6 +821,7 @@ function submissionExportText(includeReview = false) {
     placements: state.questionMap?.placements || [],
     drafts: loadApplicationDrafts(),
     profileEntries: state.questionProfileEntries || [],
+    knownCompanies: Object.values(loadApplicationWorkspaceLibrary().items).map((row) => row.company),
     format: document.querySelector("[data-submission-format]")?.value || "sectioned",
     includeReview,
   });

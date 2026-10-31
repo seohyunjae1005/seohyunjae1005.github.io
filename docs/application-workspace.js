@@ -291,9 +291,12 @@
     return limits.length ? Math.min(...limits) : null;
   }
 
-  function buildSubmissionChecklist({ placements = [], drafts = {}, profileEntries = [] } = {}) {
+  function buildSubmissionChecklist({ placements = [], drafts = {}, profileEntries = [], currentCompany = "", knownCompanies = [] } = {}) {
     const packageReview = reviewPackage(placements, drafts, profileEntries);
     const overlaps = findDraftOverlaps(placements, drafts);
+    const normalizedCurrentCompany = String(currentCompany || "").replace(/\s+/g, "").toLowerCase();
+    const otherCompanies = [...new Set(knownCompanies.map((value) => String(value || "").trim()).filter((value) => value.length >= 2))]
+      .filter((value) => value.replace(/\s+/g, "").toLowerCase() !== normalizedCurrentCompany);
     const questions = placements.map((placement, index) => {
       const draft = readDraft(drafts, placement).trim();
       const characterLimit = inferCharacterLimit(placement?.question?.text);
@@ -303,6 +306,7 @@
       const overlapRows = overlaps.filter((row) => row.leftIndex === index || row.rightIndex === index);
       const evidenceMissing = !placement?.experience || placement.status === "missing";
       const jdAnchorMissing = !placement?.jdRequirement;
+      const companyMentions = otherCompanies.filter((company) => draft.toLowerCase().includes(company.toLowerCase()));
       const warnings = [];
       if (!draft) warnings.push("초안 미작성");
       if (evidenceMissing) warnings.push("경험 근거 부족");
@@ -311,12 +315,14 @@
       if (conflicts.length) warnings.push("다른 문항과 수치 표현 불일치");
       if (overlapRows.length) warnings.push("다른 문항과 표현 반복");
       if (overLimit) warnings.push(`글자 수 ${draft.length - characterLimit}자 초과`);
+      if (companyMentions.length) warnings.push(`다른 저장 작업 회사명 확인: ${companyMentions.join(" · ")}`);
       return {
         index,
         drafted: Boolean(draft),
         characterCount: draft.length,
         characterLimit,
         overLimit,
+        companyMentions,
         evidenceMissing,
         jdAnchorMissing,
         unsupportedNumbers,
@@ -329,8 +335,9 @@
     const evidenceMissingCount = questions.filter((row) => row.evidenceMissing).length;
     const jdAnchorMissingCount = questions.filter((row) => row.jdAnchorMissing).length;
     const overLimitCount = questions.filter((row) => row.overLimit).length;
+    const companyMentionCount = questions.reduce((sum, row) => sum + row.companyMentions.length, 0);
     const issueCount = evidenceMissingCount + jdAnchorMissingCount + packageReview.unsupportedNumbers.length
-      + packageReview.numericConflicts.length + overlaps.length + overLimitCount;
+      + packageReview.numericConflicts.length + overlaps.length + overLimitCount + companyMentionCount;
     const status = completedCount < placements.length
       ? "writing"
       : issueCount > 0 ? "review" : "basic_pass";
@@ -344,6 +351,7 @@
       numericConflictCount: packageReview.numericConflicts.length,
       overlapCount: overlaps.length,
       overLimitCount,
+      companyMentionCount,
       questions,
       packageReview,
       overlaps,
@@ -357,11 +365,11 @@
   }
 
   function buildSubmissionText({
-    company = "", role = "", placements = [], drafts = {}, profileEntries = [],
+    company = "", role = "", placements = [], drafts = {}, profileEntries = [], knownCompanies = [],
     format = "sectioned", includeReview = false,
   } = {}) {
     const title = [company, role].filter(Boolean).join(" · ") || "지원서";
-    const checklist = buildSubmissionChecklist({ placements, drafts, profileEntries });
+    const checklist = buildSubmissionChecklist({ placements, drafts, profileEntries, currentCompany: company, knownCompanies });
     const lines = [title];
     if (includeReview) {
       const statusLabels = { writing: "작성 중", review: "검토 필요", basic_pass: "기본 점검 통과" };
@@ -372,7 +380,8 @@
       lines.push(`- 경험 원문 미확인 수치: ${checklist.unsupportedNumberCount}`);
       lines.push(`- 수치 표현 불일치: ${checklist.numericConflictCount}`);
       lines.push(`- 문항 간 반복 표현: ${checklist.overlapCount}`);
-      lines.push(`- 글자 수 초과: ${checklist.overLimitCount}`, "");
+      lines.push(`- 글자 수 초과: ${checklist.overLimitCount}`);
+      lines.push(`- 다른 저장 작업 회사명 확인: ${checklist.companyMentionCount}`, "");
     } else {
       lines.push("");
     }
