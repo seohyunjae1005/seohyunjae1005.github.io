@@ -3,8 +3,24 @@
 
   const STATUS_LABELS = { strong: "우선", usable: "보조", missing: "근거 부족" };
 
-  function draftId(placement) {
+  function legacyDraftId(placement) {
     return `${placement?.question?.text || ""}::${placement?.experience?.id || "none"}`;
+  }
+
+  function draftId(placement) {
+    const base = legacyDraftId(placement);
+    const scope = String(placement?.workspaceScope || "").trim();
+    return scope ? `${scope}::${base}` : base;
+  }
+
+  function workspaceScope({ company = "", role = "", jdText = "" } = {}) {
+    const source = [company, role, jdText].map((value) => String(value || "").replace(/\s+/g, " ").trim().toLowerCase()).join("|");
+    let hash = 2166136261;
+    for (let index = 0; index < source.length; index += 1) {
+      hash ^= source.charCodeAt(index);
+      hash = Math.imul(hash, 16777619);
+    }
+    return `ws-${(hash >>> 0).toString(36)}`;
   }
 
   function summarize(placements = []) {
@@ -62,7 +78,7 @@
   }
 
   function readDraft(drafts, placement) {
-    const stored = drafts?.[draftId(placement)];
+    const stored = drafts?.[draftId(placement)] ?? drafts?.[legacyDraftId(placement)];
     if (typeof stored === "string") return stored;
     return typeof stored?.current === "string" ? stored.current : "";
   }
@@ -307,7 +323,7 @@
   }
 
   const api = {
-    STATUS_LABELS, draftId, summarize, readDraft, addHistory, historyFor, draftTokens,
+    STATUS_LABELS, draftId, workspaceScope, summarize, readDraft, addHistory, historyFor, draftTokens,
     findDraftOverlaps, numericClaims, reviewPackage, inferCharacterLimit, buildSubmissionChecklist,
     buildSubmissionText, buildText,
   };

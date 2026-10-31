@@ -24,6 +24,12 @@ assert.equal(summary.noJdAnchorCount, 1);
 assert.match(summary.warnings[0].message, /Q1·Q2/);
 
 const key = workspace.draftId(placements[0]);
+const firstScope = workspace.workspaceScope({ company: "A사", role: "품질", jdText: "불량 원인 분석" });
+const secondScope = workspace.workspaceScope({ company: "B사", role: "품질", jdText: "불량 원인 분석" });
+assert.notEqual(firstScope, secondScope);
+const scopedPlacement = { ...placements[0], workspaceScope: firstScope };
+assert.notEqual(workspace.draftId(scopedPlacement), key);
+assert.equal(workspace.readDraft({ [key]: "기존 초안" }, scopedPlacement), "기존 초안");
 const text = workspace.buildText({
   company: "테스트기업", role: "품질", placements,
   drafts: { [key]: "조건별 데이터를 비교했다." }, includeDrafts: true,

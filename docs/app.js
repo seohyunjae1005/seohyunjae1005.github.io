@@ -565,6 +565,19 @@ function clearApplicationWorkspace() {
   }
 }
 
+function applyQuestionMapScope(result) {
+  if (!result?.placements) return result;
+  const scope = window.ApplicationWorkspace.workspaceScope({
+    company: document.querySelector("#jd-company").value,
+    role: document.querySelector("#jd-role").value,
+    jdText: document.querySelector("#jd-cleaned-text").value || document.querySelector("#jd-text").value,
+  });
+  return {
+    ...result,
+    placements: result.placements.map((placement) => ({ ...placement, workspaceScope: placement.workspaceScope || scope })),
+  };
+}
+
 function restoreApplicationWorkspace() {
   try {
     const snapshot = JSON.parse(window.localStorage.getItem(APPLICATION_WORKSPACE_KEY) || "null");
@@ -581,9 +594,9 @@ function restoreApplicationWorkspace() {
     document.querySelector("#jd-analyze-button").hidden = false;
     renderJdAnalysisV4(snapshot.jdAnalysis);
     if (snapshot.questionMap?.placements?.length) {
-      state.questionMap = snapshot.questionMap;
+      state.questionMap = applyQuestionMapScope(snapshot.questionMap);
       state.questionProfileEntries = Array.isArray(snapshot.questionProfileEntries) ? snapshot.questionProfileEntries : [];
-      renderQuestionPlacements(snapshot.questionMap);
+      renderQuestionPlacements(state.questionMap);
     }
     return true;
   } catch (_error) {
@@ -1352,10 +1365,11 @@ function bindJdAnalyzer() {
       const requirements = jdProfileRequirements(state.jdAnalysis);
       button.disabled = true;
       button.textContent = "문항과 경험 근거를 비교 중…";
-      const result = await window.JDAiClient.mapQuestions({
+      const rawResult = await window.JDAiClient.mapQuestions({
         jdText: document.querySelector("#jd-cleaned-text").value,
         questions, requirements, profileEntries,
       }, { endpoint });
+      const result = applyQuestionMapScope(rawResult);
       state.questionMap = result;
       state.questionProfileEntries = profileEntries;
       renderQuestionPlacements(result);
