@@ -638,7 +638,7 @@ function renderQuestionPlacements(result) {
     <section class="application-submission-checklist">
       <div class="application-submission-head"><div><strong>최종 제출 점검</strong><span data-submission-status>작성 중</span></div><small>실제 채용 페이지의 문항·글자 수는 마지막에 직접 확인하세요.</small></div>
       <div class="application-submission-stats">
-        <span><b data-submission-completed>0/${workspace.questionCount}</b>초안</span><span><b data-submission-evidence>0</b>근거 부족</span><span><b data-submission-anchor>0</b>JD 미연결</span><span><b data-submission-facts>0</b>수치 확인</span><span><b data-submission-overlaps>0</b>표현 반복</span>
+        <span><b data-submission-completed>0/${workspace.questionCount}</b>초안</span><span><b data-submission-evidence>0</b>근거 부족</span><span><b data-submission-anchor>0</b>JD 미연결</span><span><b data-submission-facts>0</b>수치 확인</span><span><b data-submission-overlaps>0</b>표현 반복</span><span><b data-submission-limit>0</b>글자 초과</span>
       </div>
       <p data-submission-note>문항별 초안을 작성하면 제출 전 점검 결과가 표시됩니다.</p>
       <div class="application-submission-actions"><label><span>내보내기 형식</span><select data-submission-format><option value="sectioned">문항·답변형</option><option value="numbered">번호형</option><option value="answers">답변만</option></select></label><button type="button" data-copy-submission>제출본 복사</button><button type="button" data-download-submission-review>검토본 받기</button></div>
@@ -690,6 +690,7 @@ function updateApplicationProgress() {
     document.querySelector("[data-submission-anchor]").textContent = submissionReview.jdAnchorMissingCount;
     document.querySelector("[data-submission-facts]").textContent = submissionReview.unsupportedNumberCount + submissionReview.numericConflictCount;
     document.querySelector("[data-submission-overlaps]").textContent = submissionReview.overlapCount;
+    document.querySelector("[data-submission-limit]").textContent = submissionReview.overLimitCount;
     const note = document.querySelector("[data-submission-note]");
     if (submissionReview.status === "basic_pass") note.textContent = "저장된 JD·경험 원문 기준의 자동 점검을 통과했습니다. 제출 화면의 제한 조건만 마지막으로 대조하세요.";
     else if (submissionReview.status === "review") note.textContent = "초안은 모두 작성됐지만 근거·수치·반복 표현 중 다시 확인할 항목이 있습니다.";
@@ -774,7 +775,10 @@ function renderQuestionOutline(result, placement) {
   const questions = result.missingQuestions.length
     ? `<div class="jd-outline-missing"><strong>더 확인할 내용</strong><ul>${result.missingQuestions.map((row) => `<li>${escapeHtml(row.question)}</li>`).join("")}</ul></div>` : "";
   const savedDraft = loadApplicationDraft(placement);
-  return `<div class="jd-outline-head"><span>근거 기반 작성 개요</span><button type="button" data-copy-outline>개요 복사</button></div><h5>${escapeHtml(result.headline.value || "핵심 메시지 근거 부족")}</h5><div class="jd-outline-grid">${rows}</div>${questions}<div class="jd-draft-review-input"><strong>작성한 답변 검토</strong><textarea rows="5" data-application-draft placeholder="위 개요를 참고해 직접 쓴 답변을 붙여넣으세요.">${escapeHtml(savedDraft)}</textarea><div class="jd-draft-meta"><small data-draft-save-status>${savedDraft ? "이 기기에 임시 저장됨" : "입력하면 이 기기에 자동 저장됩니다."}</small><span data-draft-count>${savedDraft.length}자</span></div><div class="jd-draft-history"><button type="button" data-save-draft-version>현재 버전 보관</button><select data-draft-history aria-label="보관한 자기소개서 버전">${applicationDraftHistoryOptions(placement)}</select><button type="button" data-restore-draft>선택 버전 복원</button></div><small>검토 버튼을 누르면 답변과 배치된 경험 원문이 AI 분석 서버로 전송됩니다.</small><button type="button" data-review-draft>근거·구조 검토</button></div><div class="jd-draft-review-result" data-draft-review-result hidden></div>`;
+  const characterLimit = window.ApplicationWorkspace.inferCharacterLimit(placement?.question?.text);
+  const countLabel = characterLimit ? `${savedDraft.length}/${characterLimit}자` : `${savedDraft.length}자`;
+  const countClass = characterLimit && savedDraft.length > characterLimit ? " over-limit" : "";
+  return `<div class="jd-outline-head"><span>근거 기반 작성 개요</span><button type="button" data-copy-outline>개요 복사</button></div><h5>${escapeHtml(result.headline.value || "핵심 메시지 근거 부족")}</h5><div class="jd-outline-grid">${rows}</div>${questions}<div class="jd-draft-review-input"><strong>작성한 답변 검토</strong><textarea rows="5" data-application-draft placeholder="위 개요를 참고해 직접 쓴 답변을 붙여넣으세요.">${escapeHtml(savedDraft)}</textarea><div class="jd-draft-meta"><small data-draft-save-status>${savedDraft ? "이 기기에 임시 저장됨" : "입력하면 이 기기에 자동 저장됩니다."}</small><span class="${countClass.trim()}" data-draft-count data-character-limit="${characterLimit || ""}">${countLabel}</span></div><div class="jd-draft-history"><button type="button" data-save-draft-version>현재 버전 보관</button><select data-draft-history aria-label="보관한 자기소개서 버전">${applicationDraftHistoryOptions(placement)}</select><button type="button" data-restore-draft>선택 버전 복원</button></div><small>검토 버튼을 누르면 답변과 배치된 경험 원문이 AI 분석 서버로 전송됩니다.</small><button type="button" data-review-draft>근거·구조 검토</button></div><div class="jd-draft-review-result" data-draft-review-result hidden></div>`;
 }
 
 function renderDraftReview(result) {
@@ -1427,7 +1431,10 @@ function bindJdAnalyzer() {
       textarea.value = selected.value;
       saveApplicationDraft(placement, selected.value);
       refreshDraftHistoryControls(output, placement);
-      output.querySelector("[data-draft-count]").textContent = `${selected.value.length}자`;
+      const countOutput = output.querySelector("[data-draft-count]");
+      const characterLimit = Number(countOutput.dataset.characterLimit || 0);
+      countOutput.textContent = characterLimit ? `${selected.value.length}/${characterLimit}자` : `${selected.value.length}자`;
+      countOutput.classList.toggle("over-limit", Boolean(characterLimit && selected.value.length > characterLimit));
       output.querySelector("[data-draft-save-status]").textContent = "선택한 버전을 복원했습니다.";
       const reviewOutput = output.querySelector("[data-draft-review-result]");
       reviewOutput.hidden = true;
@@ -1500,7 +1507,10 @@ function bindJdAnalyzer() {
     const placement = state.questionMap?.placements[Number(card?.dataset.placementIndex)];
     const output = textarea.closest("[data-outline-result]");
     const saved = saveApplicationDraft(placement, textarea.value);
-    output.querySelector("[data-draft-count]").textContent = `${textarea.value.length}자`;
+    const countOutput = output.querySelector("[data-draft-count]");
+    const characterLimit = Number(countOutput.dataset.characterLimit || 0);
+    countOutput.textContent = characterLimit ? `${textarea.value.length}/${characterLimit}자` : `${textarea.value.length}자`;
+    countOutput.classList.toggle("over-limit", Boolean(characterLimit && textarea.value.length > characterLimit));
     output.querySelector("[data-draft-save-status]").textContent = saved ? "이 기기에 임시 저장됨" : "임시 저장 실패";
     updateApplicationProgress();
   });

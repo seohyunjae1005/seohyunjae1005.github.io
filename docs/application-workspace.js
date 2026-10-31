@@ -178,11 +178,19 @@
     return { unsupportedNumbers, numericConflicts };
   }
 
+  function inferCharacterLimit(questionText) {
+    const matches = String(questionText || "").match(/(?:최대\s*)?(\d{2,5})\s*자(?:\s*(?:이내|이하|내외))?/g) || [];
+    const limits = matches.map((value) => Number(value.match(/\d{2,5}/)?.[0] || 0)).filter((value) => value >= 20);
+    return limits.length ? Math.min(...limits) : null;
+  }
+
   function buildSubmissionChecklist({ placements = [], drafts = {}, profileEntries = [] } = {}) {
     const packageReview = reviewPackage(placements, drafts, profileEntries);
     const overlaps = findDraftOverlaps(placements, drafts);
     const questions = placements.map((placement, index) => {
       const draft = readDraft(drafts, placement).trim();
+      const characterLimit = inferCharacterLimit(placement?.question?.text);
+      const overLimit = Boolean(characterLimit && draft.length > characterLimit);
       const unsupportedNumbers = packageReview.unsupportedNumbers.filter((row) => row.questionIndex === index);
       const conflicts = packageReview.numericConflicts.filter((row) => row.leftIndex === index || row.rightIndex === index);
       const overlapRows = overlaps.filter((row) => row.leftIndex === index || row.rightIndex === index);
@@ -195,10 +203,13 @@
       if (unsupportedNumbers.length) warnings.push("경험 원문에서 확인되지 않은 수치");
       if (conflicts.length) warnings.push("다른 문항과 수치 표현 불일치");
       if (overlapRows.length) warnings.push("다른 문항과 표현 반복");
+      if (overLimit) warnings.push(`글자 수 ${draft.length - characterLimit}자 초과`);
       return {
         index,
         drafted: Boolean(draft),
         characterCount: draft.length,
+        characterLimit,
+        overLimit,
         evidenceMissing,
         jdAnchorMissing,
         unsupportedNumbers,
@@ -210,8 +221,9 @@
     const completedCount = questions.filter((row) => row.drafted).length;
     const evidenceMissingCount = questions.filter((row) => row.evidenceMissing).length;
     const jdAnchorMissingCount = questions.filter((row) => row.jdAnchorMissing).length;
+    const overLimitCount = questions.filter((row) => row.overLimit).length;
     const issueCount = evidenceMissingCount + jdAnchorMissingCount + packageReview.unsupportedNumbers.length
-      + packageReview.numericConflicts.length + overlaps.length;
+      + packageReview.numericConflicts.length + overlaps.length + overLimitCount;
     const status = completedCount < placements.length
       ? "writing"
       : issueCount > 0 ? "review" : "basic_pass";
@@ -224,6 +236,7 @@
       unsupportedNumberCount: packageReview.unsupportedNumbers.length,
       numericConflictCount: packageReview.numericConflicts.length,
       overlapCount: overlaps.length,
+      overLimitCount,
       questions,
       packageReview,
       overlaps,
@@ -251,7 +264,8 @@
       lines.push(`- JD 직접 연결 없음: ${checklist.jdAnchorMissingCount}`);
       lines.push(`- 경험 원문 미확인 수치: ${checklist.unsupportedNumberCount}`);
       lines.push(`- 수치 표현 불일치: ${checklist.numericConflictCount}`);
-      lines.push(`- 문항 간 반복 표현: ${checklist.overlapCount}`, "");
+      lines.push(`- 문항 간 반복 표현: ${checklist.overlapCount}`);
+      lines.push(`- 글자 수 초과: ${checklist.overLimitCount}`, "");
     } else {
       lines.push("");
     }
@@ -260,7 +274,7 @@
       lines.push(submissionAnswerBlock(format, index, placement?.question?.text || "문항 없음", answer));
       if (includeReview) {
         const questionReview = checklist.questions[index];
-        lines.push(`- 글자 수: ${questionReview.characterCount}자`);
+        lines.push(`- 글자 수: ${questionReview.characterCount}${questionReview.characterLimit ? `/${questionReview.characterLimit}` : ""}자`);
         lines.push(`- 점검: ${questionReview.warnings.length ? questionReview.warnings.join(" / ") : "자동 점검 항목 없음"}`);
       }
       lines.push("");
@@ -294,7 +308,7 @@
 
   const api = {
     STATUS_LABELS, draftId, summarize, readDraft, addHistory, historyFor, draftTokens,
-    findDraftOverlaps, numericClaims, reviewPackage, buildSubmissionChecklist,
+    findDraftOverlaps, numericClaims, reviewPackage, inferCharacterLimit, buildSubmissionChecklist,
     buildSubmissionText, buildText,
   };
   root.ApplicationWorkspace = api;

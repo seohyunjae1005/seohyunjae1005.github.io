@@ -104,4 +104,22 @@ assert.match(reviewSubmission, /경험 원문 미확인 수치: 1/);
 assert.match(reviewSubmission, /1\. 직무 관련 경험/);
 assert.match(reviewSubmission, /글자 수:/);
 
+assert.equal(workspace.inferCharacterLimit("지원 동기를 작성해 주세요. (700자 이내)"), 700);
+assert.equal(workspace.inferCharacterLimit("최대 1000자"), 1000);
+assert.equal(workspace.inferCharacterLimit("글자 제한 없음"), null);
+const limitedPlacement = {
+  ...placements[0],
+  question: { text: "직무 관련 경험 (20자 이내)" },
+};
+const limitedDrafts = { [workspace.draftId(limitedPlacement)]: "가".repeat(21) };
+const limitChecklist = workspace.buildSubmissionChecklist({
+  placements: [limitedPlacement],
+  drafts: limitedDrafts,
+  profileEntries: [{ text: "가".repeat(21) }],
+});
+assert.equal(limitChecklist.status, "review");
+assert.equal(limitChecklist.overLimitCount, 1);
+assert.equal(limitChecklist.questions[0].characterLimit, 20);
+assert.match(limitChecklist.questions[0].warnings.join(" "), /1자 초과/);
+
 console.log("application workspace tests passed");

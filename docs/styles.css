@@ -535,7 +535,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 0.9rem 1.25rem 3rem; }
 .application-submission-head span[data-status="review"] { background: #fff3e5; color: #8a4b08; }
 .application-submission-head span[data-status="basic_pass"] { background: #eaf6ee; color: #156b3a; }
 .application-submission-head small { max-width: 24rem; color: var(--muted); font-size: 0.58rem; line-height: 1.45; text-align: right; }
-.application-submission-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--line); }
+.application-submission-stats { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border: 1px solid var(--line); }
 .application-submission-stats span { display: grid; gap: 0.12rem; padding: 0.48rem; border-left: 1px solid var(--line); color: var(--muted); font-size: 0.58rem; }
 .application-submission-stats span:first-child { border-left: 0; }
 .application-submission-stats b { color: var(--text); font-size: 0.76rem; }
@@ -602,6 +602,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 0.9rem 1.25rem 3rem; }
 .jd-draft-review-input small { color: var(--muted); font-size: 0.58rem; }
 .jd-draft-meta { display: flex; justify-content: space-between; gap: 0.6rem; }
 .jd-draft-meta span { color: var(--muted); font-size: 0.6rem; font-variant-numeric: tabular-nums; }
+.jd-draft-meta span.over-limit { color: #b42318; font-weight: 750; }
 .jd-draft-history { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.35rem; }
 .jd-draft-history button, .jd-draft-history select { min-width: 0; border: 1px solid var(--line); background: #fff; color: var(--text); padding: 0.4rem 0.5rem; font: inherit; font-size: 0.62rem; }
 .jd-draft-history button { cursor: pointer; font-weight: 720; }
