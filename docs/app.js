@@ -25,6 +25,7 @@ const resultLine = document.querySelector("#result-line");
 const APPLICATION_DRAFT_KEY = "aiproject.applicationDrafts.v1";
 const APPLICATION_DRAFT_HISTORY_KEY = "aiproject.applicationDraftHistory.v1";
 const APPLICATION_WORKSPACE_KEY = "aiproject.applicationWorkspace.v1";
+const APPLICATION_WORKSPACE_LIBRARY_KEY = "aiproject.applicationWorkspaceLibrary.v1";
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -550,16 +551,49 @@ function saveApplicationWorkspace() {
       questionMap: state.questionMap,
       questionProfileEntries: state.questionProfileEntries,
     };
+    const id = window.ApplicationWorkspace.workspaceScope({ company: snapshot.company, role: snapshot.role, jdText: snapshot.cleanedText || snapshot.jdText });
+    snapshot.id = id;
+    const library = window.ApplicationWorkspace.upsertWorkspace(loadApplicationWorkspaceLibrary(), snapshot, 8);
+    window.localStorage.setItem(APPLICATION_WORKSPACE_LIBRARY_KEY, JSON.stringify(library));
     window.localStorage.setItem(APPLICATION_WORKSPACE_KEY, JSON.stringify(snapshot));
+    refreshApplicationWorkspaceOptions(id);
     return true;
   } catch (_error) {
     return false;
   }
 }
 
-function clearApplicationWorkspace() {
+function loadApplicationWorkspaceLibrary() {
   try {
+    const stored = JSON.parse(window.localStorage.getItem(APPLICATION_WORKSPACE_LIBRARY_KEY) || "null");
+    if (stored) return window.ApplicationWorkspace.normalizeWorkspaceLibrary(stored);
+  } catch (_error) {
+    // 손상된 목록은 빈 목록으로 다시 시작한다.
+  }
+  return window.ApplicationWorkspace.normalizeWorkspaceLibrary();
+}
+
+function refreshApplicationWorkspaceOptions(selectedId = "") {
+  const select = document.querySelector("#jd-workspace-select");
+  if (!select) return;
+  const library = loadApplicationWorkspaceLibrary();
+  const rows = Object.values(library.items).sort((left, right) => String(right.savedAt).localeCompare(String(left.savedAt)));
+  select.innerHTML = rows.length ? rows.map((row) => {
+    const savedAt = new Date(row.savedAt);
+    const date = Number.isNaN(savedAt.getTime()) ? "저장됨" : savedAt.toLocaleDateString("ko-KR", { month: "numeric", day: "numeric" });
+    return `<option value="${escapeHtml(row.id)}">${escapeHtml(`${row.company || "회사 미입력"} · ${row.role || "직무 미입력"} · ${date}`)}</option>`;
+  }).join("") : '<option value="">저장한 작업 없음</option>';
+  const target = selectedId || library.activeId;
+  if (target && library.items[target]) select.value = target;
+}
+
+function clearApplicationWorkspace(id = "") {
+  try {
+    const current = loadApplicationWorkspaceLibrary();
+    const library = window.ApplicationWorkspace.removeWorkspace(current, id || current.activeId);
+    window.localStorage.setItem(APPLICATION_WORKSPACE_LIBRARY_KEY, JSON.stringify(library));
     window.localStorage.removeItem(APPLICATION_WORKSPACE_KEY);
+    refreshApplicationWorkspaceOptions(library.activeId);
   } catch (_error) {
     // 저장소를 사용할 수 없는 환경에서도 입력 초기화는 계속한다.
   }
@@ -578,10 +612,17 @@ function applyQuestionMapScope(result) {
   };
 }
 
-function restoreApplicationWorkspace() {
+function restoreApplicationWorkspace(id = "") {
   try {
-    const snapshot = JSON.parse(window.localStorage.getItem(APPLICATION_WORKSPACE_KEY) || "null");
+    const library = loadApplicationWorkspaceLibrary();
+    let snapshot = library.items[id || library.activeId] || null;
+    if (!snapshot) snapshot = JSON.parse(window.localStorage.getItem(APPLICATION_WORKSPACE_KEY) || "null");
     if (!snapshot || snapshot.version !== 1 || !snapshot.jdAnalysis) return false;
+    const snapshotId = snapshot.id || window.ApplicationWorkspace.workspaceScope({ company: snapshot.company, role: snapshot.role, jdText: snapshot.cleanedText || snapshot.jdText });
+    snapshot.id = snapshotId;
+    library.activeId = snapshotId;
+    library.items[snapshotId] = snapshot;
+    window.localStorage.setItem(APPLICATION_WORKSPACE_LIBRARY_KEY, JSON.stringify(library));
     document.querySelector("#jd-company").value = snapshot.company || "";
     document.querySelector("#jd-role").value = snapshot.role || "";
     document.querySelector("#jd-source-type").value = snapshot.sourceType || "official";
@@ -598,6 +639,7 @@ function restoreApplicationWorkspace() {
       state.questionProfileEntries = Array.isArray(snapshot.questionProfileEntries) ? snapshot.questionProfileEntries : [];
       renderQuestionPlacements(state.questionMap);
     }
+    refreshApplicationWorkspaceOptions(snapshotId);
     return true;
   } catch (_error) {
     clearApplicationWorkspace();
@@ -1252,6 +1294,19 @@ function bindJdAnalyzer() {
     connectionState.textContent = endpoint ? "이 기기에 연결됨" : "연결 전";
   };
   refreshConnectionState();
+  refreshApplicationWorkspaceOptions();
+  document.querySelector("#jd-workspace-load").addEventListener("click", () => {
+    const id = document.querySelector("#jd-workspace-select").value;
+    if (!id || !restoreApplicationWorkspace(id)) window.alert("불러올 지원 작업이 없습니다.");
+  });
+  document.querySelector("#jd-workspace-delete").addEventListener("click", () => {
+    const select = document.querySelector("#jd-workspace-select");
+    const id = select.value;
+    if (!id) return;
+    if (!window.confirm(`“${select.selectedOptions[0]?.textContent || "선택한 작업"}”을 이 기기에서 삭제할까요? 초안 백업 파일은 삭제되지 않습니다.`)) return;
+    clearApplicationWorkspace(id);
+    document.querySelector("#jd-reset").click();
+  });
   document.querySelector("#jd-ai-save").addEventListener("click", () => {
     try {
       window.JDAiClient.saveEndpoint(endpointInput.value, window.localStorage);
@@ -1309,7 +1364,6 @@ function bindJdAnalyzer() {
     state.jdAnalysis = null;
     state.questionMap = null;
     state.questionProfileEntries = [];
-    clearApplicationWorkspace();
   });
   document.querySelector("#jd-reset").addEventListener("click", () => {
     document.querySelector("#jd-form").reset();
@@ -1324,7 +1378,7 @@ function bindJdAnalyzer() {
     state.jdAnalysis = null;
     state.questionMap = null;
     state.questionProfileEntries = [];
-    clearApplicationWorkspace();
+    refreshApplicationWorkspaceOptions();
   });
   document.querySelector("#jd-match-profile-button").addEventListener("click", async () => {
     const button = document.querySelector("#jd-match-profile-button");

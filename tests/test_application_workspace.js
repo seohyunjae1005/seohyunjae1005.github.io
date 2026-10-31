@@ -30,6 +30,14 @@ assert.notEqual(firstScope, secondScope);
 const scopedPlacement = { ...placements[0], workspaceScope: firstScope };
 assert.notEqual(workspace.draftId(scopedPlacement), key);
 assert.equal(workspace.readDraft({ [key]: "기존 초안" }, scopedPlacement), "기존 초안");
+let library = workspace.normalizeWorkspaceLibrary();
+library = workspace.upsertWorkspace(library, { id: firstScope, savedAt: "2026-10-30T10:00:00Z", company: "A사" });
+library = workspace.upsertWorkspace(library, { id: secondScope, savedAt: "2026-10-31T10:00:00Z", company: "B사" });
+assert.equal(Object.keys(library.items).length, 2);
+assert.equal(library.activeId, secondScope);
+library = workspace.removeWorkspace(library, secondScope);
+assert.equal(Object.keys(library.items).length, 1);
+assert.equal(library.activeId, firstScope);
 const text = workspace.buildText({
   company: "테스트기업", role: "품질", placements,
   drafts: { [key]: "조건별 데이터를 비교했다." }, includeDrafts: true,

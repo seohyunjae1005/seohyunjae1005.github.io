@@ -23,6 +23,33 @@
     return `ws-${(hash >>> 0).toString(36)}`;
   }
 
+  function normalizeWorkspaceLibrary(value = {}) {
+    const items = value?.items && typeof value.items === "object"
+      ? Object.fromEntries(Object.entries(value.items).filter(([id, row]) => id && row && typeof row === "object"))
+      : {};
+    return { activeId: items[value?.activeId] ? value.activeId : "", items };
+  }
+
+  function upsertWorkspace(library = {}, snapshot = {}, limit = 8) {
+    const next = normalizeWorkspaceLibrary(library);
+    if (!snapshot?.id) return next;
+    next.items = { ...next.items, [snapshot.id]: snapshot };
+    const ordered = Object.values(next.items)
+      .sort((left, right) => String(right.savedAt || "").localeCompare(String(left.savedAt || "")))
+      .slice(0, Math.max(1, limit));
+    next.items = Object.fromEntries(ordered.map((row) => [row.id, row]));
+    next.activeId = next.items[snapshot.id] ? snapshot.id : ordered[0]?.id || "";
+    return next;
+  }
+
+  function removeWorkspace(library = {}, id = "") {
+    const next = normalizeWorkspaceLibrary(library);
+    delete next.items[id];
+    const newest = Object.values(next.items).sort((left, right) => String(right.savedAt || "").localeCompare(String(left.savedAt || "")))[0];
+    next.activeId = newest?.id || "";
+    return next;
+  }
+
   function summarize(placements = []) {
     const usage = new Map();
     let assignedCount = 0;
@@ -323,7 +350,8 @@
   }
 
   const api = {
-    STATUS_LABELS, draftId, workspaceScope, summarize, readDraft, addHistory, historyFor, draftTokens,
+    STATUS_LABELS, draftId, workspaceScope, normalizeWorkspaceLibrary, upsertWorkspace, removeWorkspace,
+    summarize, readDraft, addHistory, historyFor, draftTokens,
     findDraftOverlaps, numericClaims, reviewPackage, inferCharacterLimit, buildSubmissionChecklist,
     buildSubmissionText, buildText,
   };
