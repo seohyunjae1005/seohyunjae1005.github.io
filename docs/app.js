@@ -573,7 +573,7 @@ function renderQuestionPlacements(result) {
   const dashboard = `<section class="application-workspace">
     <div class="application-workspace-head"><div><strong>지원서 전체 배치표</strong><span data-application-progress>초안 0/${workspace.questionCount}</span></div><div><button type="button" data-copy-application-plan>배치표 복사</button><button type="button" data-download-application-drafts>초안 백업</button></div></div>
     <div class="application-workspace-stats"><span><b>${workspace.questionCount}</b>문항</span><span><b>${workspace.uniqueExperienceCount}</b>개 경험</span><span><b>${workspace.repeatedExperienceCount}</b>개 반복</span><span><b>${workspace.missingCount}</b>개 근거 부족</span></div>
-    ${usageWarnings}<div class="application-draft-overlaps" data-draft-overlaps></div><div class="application-workspace-matrix">${matrix}</div>
+    ${usageWarnings}<div class="application-package-checks" data-package-checks></div><div class="application-draft-overlaps" data-draft-overlaps></div><div class="application-workspace-matrix">${matrix}</div>
   </section>`;
   const cards = result.placements.map((row, index) => {
     const evidence = row.status === "missing" ? "" : `<blockquote>${escapeHtml(row.profileEvidenceQuote)}</blockquote>`;
@@ -603,6 +603,19 @@ function updateApplicationProgress() {
   const drafts = loadApplicationDrafts();
   const completed = state.questionMap.placements.filter((row) => window.ApplicationWorkspace.readDraft(drafts, row).trim()).length;
   progress.textContent = `초안 ${completed}/${state.questionMap.placements.length}`;
+  const packageOutput = document.querySelector("[data-package-checks]");
+  const packageReview = window.ApplicationWorkspace.reviewPackage(state.questionMap.placements, drafts, state.questionProfileEntries);
+  if (packageOutput) {
+    const unsupported = packageReview.unsupportedNumbers.map((row) => `<li><b>Q${row.questionIndex + 1}</b><span>“${escapeHtml(row.value)}”은 배치된 경험 원문에서 확인되지 않습니다.</span><small>${escapeHtml(row.context)}</small></li>`).join("");
+    const conflicts = packageReview.numericConflicts.map((row) => `<li><b>Q${row.leftIndex + 1}·Q${row.rightIndex + 1}</b><span>같은 경험에 ${escapeHtml(row.leftValue)}와 ${escapeHtml(row.rightValue)}가 사용되었습니다.</span><small>서로 다른 지표라면 설명하고, 같은 지표라면 원문 기록을 확인하세요.</small></li>`).join("");
+    if (unsupported || conflicts) {
+      packageOutput.innerHTML = `<strong>제출 전 사실 확인</strong><ul>${unsupported}${conflicts}</ul><p>수치가 틀렸다는 확정 판정이 아니라, 현재 저장한 경험 원문에서 자동으로 확인하지 못했다는 뜻입니다.</p>`;
+      packageOutput.classList.add("has-warning");
+    } else {
+      packageOutput.innerHTML = `<span>${completed ? "현재 초안의 수치 표현이 저장한 경험 원문과 충돌하지 않습니다." : "초안을 작성하면 수치·성과의 경험 원문 일치 여부를 확인합니다."}</span>`;
+      packageOutput.classList.remove("has-warning");
+    }
+  }
   const overlapOutput = document.querySelector("[data-draft-overlaps]");
   if (!overlapOutput) return;
   const overlaps = window.ApplicationWorkspace.findDraftOverlaps(state.questionMap.placements, drafts);

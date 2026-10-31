@@ -52,4 +52,15 @@ assert.equal(overlaps[0].leftIndex, 0);
 assert.equal(overlaps[0].rightIndex, 1);
 assert.ok(overlaps[0].sharedTerms.includes("조건별"));
 
+const numericDrafts = {
+  [workspace.draftId(placements[0])]: "측정 결과 원인 후보를 2개로 좁혔습니다.",
+  [workspace.draftId(placements[1])]: "추가 분석을 통해 원인 후보를 3개로 좁혔습니다.",
+};
+const packageReview = workspace.reviewPackage(placements, numericDrafts, [{ text: "조건별 측정으로 원인 후보를 2개로 좁혔다." }]);
+assert.equal(packageReview.unsupportedNumbers.length, 1);
+assert.equal(packageReview.unsupportedNumbers[0].value, "3개");
+assert.equal(packageReview.numericConflicts.length, 1);
+assert.equal(packageReview.numericConflicts[0].leftValue, "2개");
+assert.equal(packageReview.numericConflicts[0].rightValue, "3개");
+
 console.log("application workspace tests passed");

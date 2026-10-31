@@ -513,6 +513,14 @@ main { max-width: var(--max); margin: 0 auto; padding: 0.9rem 1.25rem 3rem; }
 .application-workspace-warnings .missing { border-left: 3px solid #b42318; }
 .application-workspace-warnings .anchor { border-left: 3px solid #666; }
 .application-workspace-clear { border-left: 3px solid #156b3a; }
+.application-package-checks { padding: 0.55rem 0.65rem; border-left: 3px solid #156b3a; background: #f5f5f7; color: var(--muted); font-size: 0.64rem; line-height: 1.5; }
+.application-package-checks.has-warning { border-left-color: #b42318; background: #fff; }
+.application-package-checks > strong { display: block; color: var(--text); }
+.application-package-checks ul { margin: 0.35rem 0 0; padding: 0; list-style: none; }
+.application-package-checks li { display: grid; grid-template-columns: 4rem 1fr; gap: 0.2rem 0.55rem; padding: 0.45rem 0; border-top: 1px solid var(--line); }
+.application-package-checks li b { color: var(--text); }
+.application-package-checks li small { grid-column: 2; }
+.application-package-checks p { margin: 0.4rem 0 0; }
 .application-draft-overlaps { padding: 0.55rem 0.65rem; background: #f5f5f7; color: var(--muted); font-size: 0.64rem; line-height: 1.5; }
 .application-draft-overlaps.has-warning { border-left: 3px solid #b42318; background: #fff; }
 .application-draft-overlaps > strong { display: block; margin-bottom: 0.35rem; color: var(--text); }

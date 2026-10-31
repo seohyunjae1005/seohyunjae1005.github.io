@@ -121,6 +121,63 @@
     return overlaps;
   }
 
+  function numericClaims(value) {
+    const source = String(value || "");
+    const pattern = /(\d+(?:[.,]\d+)?)\s*(%|퍼센트|명|개|건|회|시간|개월|년|점|위|배)/g;
+    return Array.from(source.matchAll(pattern)).map((match) => ({
+      value: `${match[1]}${match[2]}`,
+      number: match[1].replace(",", "."),
+      unit: match[2],
+      context: source.slice(Math.max(0, match.index - 24), Math.min(source.length, match.index + match[0].length + 24)).replace(/\s+/g, " ").trim(),
+    }));
+  }
+
+  function reviewPackage(placements = [], drafts = {}, profileEntries = []) {
+    const evidenceMap = Object.fromEntries(profileEntries.map((row, index) => [`E${index + 1}`, String(row?.text || "")]));
+    const unsupportedNumbers = [];
+    const byExperience = new Map();
+
+    placements.forEach((placement, index) => {
+      const draft = readDraft(drafts, placement).trim();
+      if (!draft || !placement?.experience?.id) return;
+      const claims = numericClaims(draft);
+      const evidence = evidenceMap[placement.experience.id] || "";
+      const normalizedEvidence = evidence.replace(/\s+/g, "").toLowerCase();
+      claims.forEach((claim) => {
+        if (!normalizedEvidence.includes(claim.value.replace(/\s+/g, "").toLowerCase())) {
+          unsupportedNumbers.push({ questionIndex: index, experienceId: placement.experience.id, ...claim });
+        }
+      });
+      const rows = byExperience.get(placement.experience.id) || [];
+      rows.push({ questionIndex: index, claims });
+      byExperience.set(placement.experience.id, rows);
+    });
+
+    const numericConflicts = [];
+    byExperience.forEach((rows, experienceId) => {
+      for (let left = 0; left < rows.length; left += 1) {
+        for (let right = left + 1; right < rows.length; right += 1) {
+          const leftByUnit = new Map(rows[left].claims.map((claim) => [claim.unit, claim]));
+          rows[right].claims.forEach((rightClaim) => {
+            const leftClaim = leftByUnit.get(rightClaim.unit);
+            if (leftClaim && leftClaim.number !== rightClaim.number) {
+              numericConflicts.push({
+                experienceId,
+                leftIndex: rows[left].questionIndex,
+                rightIndex: rows[right].questionIndex,
+                leftValue: leftClaim.value,
+                rightValue: rightClaim.value,
+                unit: rightClaim.unit,
+              });
+            }
+          });
+        }
+      }
+    });
+
+    return { unsupportedNumbers, numericConflicts };
+  }
+
   function buildText({ company = "", role = "", placements = [], drafts = {}, includeDrafts = false }) {
     const title = [company, role].filter(Boolean).join(" · ") || "지원서 경험 배치";
     const lines = [title, "=".repeat(title.length), ""];
@@ -142,7 +199,7 @@
     return lines.join("\n").trim();
   }
 
-  const api = { STATUS_LABELS, draftId, summarize, readDraft, addHistory, historyFor, draftTokens, findDraftOverlaps, buildText };
+  const api = { STATUS_LABELS, draftId, summarize, readDraft, addHistory, historyFor, draftTokens, findDraftOverlaps, numericClaims, reviewPackage, buildText };
   root.ApplicationWorkspace = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : globalThis);
