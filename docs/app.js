@@ -839,6 +839,24 @@ function downloadSubmissionReview() {
   window.setTimeout(() => URL.revokeObjectURL(link.href), 0);
 }
 
+function downloadJdAnalysisReport() {
+  const company = document.querySelector("#jd-company").value.trim() || "지원회사";
+  const role = document.querySelector("#jd-role").value.trim() || "지원직무";
+  const content = window.ApplicationWorkspace.buildJdReportText({
+    company,
+    role,
+    sourceUrl: document.querySelector("#jd-source-url").value.trim(),
+    collectedAt: document.querySelector("#jd-collected-at").value,
+    analysis: state.jdAnalysis,
+  });
+  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${company}_${role}_JD분석.txt`.replace(/[\\/:*?"<>|]/g, "_");
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(link.href), 0);
+}
+
 function downloadApplicationWorkspaceBackup() {
   const backup = window.ApplicationWorkspace.buildWorkspaceBackup({
     library: loadApplicationWorkspaceLibrary(),
@@ -1651,6 +1669,14 @@ function bindJdAnalyzer() {
     updateApplicationProgress();
   });
   document.querySelector("#jd-results").addEventListener("click", (event) => {
+    if (event.target.closest("[data-download-jd-report]")) {
+      try {
+        downloadJdAnalysisReport();
+      } catch (error) {
+        window.alert(error.message || "JD 분석 요약을 만들지 못했습니다.");
+      }
+      return;
+    }
     const button = event.target.closest("[data-evidence-id]");
     if (!button) return;
     const details = document.querySelector(".jd-evidence-details");

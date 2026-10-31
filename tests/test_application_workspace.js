@@ -63,6 +63,26 @@ assert.equal(comparison.comparedCount, 2);
 assert.equal(comparison.common.length, 2);
 assert.equal(comparison.common.find((row) => row.label === "Productivity Improvement").count, 2);
 assert.equal(comparison.common.find((row) => row.label === "Python").kind, "JD 직접 요구 Tool");
+const jdReport = workspace.buildJdReportText({
+  company: "A사", role: "품질", collectedAt: "2026-10-31",
+  analysis: {
+    facts: {
+      jobTitle: { value: "품질" }, duties: [{ value: "불량 원인 분석" }], competencies: [], required: [], preferred: [],
+      knowledge: [], tools: [{ value: "Python" }], collaborators: [], metrics: [{ value: "품질 개선" }],
+      keywords: [{ original: "품질 개선", standardized: "Quality Improvement" }],
+    },
+    careerAnalysis: {
+      definition: { value: "불량 원인을 분석해 품질을 개선하는 직무" },
+      workAxes: [{ title: "원인 분석", actualWork: ["불량 데이터 확인"], purpose: "재발 방지" }],
+      preparation: { study: [{ title: "품질 데이터", detail: "원인 분류 기준 학습" }] },
+    },
+    units: [{ id: "JD-01", section: "주요 업무", text: "불량 원인을 분석합니다." }],
+  },
+});
+assert.match(jdReport, /\[JD FACT\]/);
+assert.match(jdReport, /주요 업무: 불량 원인 분석/);
+assert.match(jdReport, /\[자동 해석\]/);
+assert.match(jdReport, /JD-01 · 주요 업무/);
 const text = workspace.buildText({
   company: "테스트기업", role: "품질", placements,
   drafts: { [key]: "조건별 데이터를 비교했다." }, includeDrafts: true,

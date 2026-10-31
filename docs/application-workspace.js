@@ -114,6 +114,49 @@
     return { comparedCount: rows.length, common };
   }
 
+  function buildJdReportText({ company = "", role = "", sourceUrl = "", collectedAt = "", analysis = null } = {}) {
+    if (!analysis?.facts || !analysis?.careerAnalysis) throw new Error("내보낼 JD 분석 결과가 없습니다.");
+    const facts = analysis.facts;
+    const career = analysis.careerAnalysis;
+    const lines = [
+      [company, role].filter(Boolean).join(" · ") || "JD 분석 보고서",
+      "=".repeat(28),
+      `원문 확인일: ${collectedAt || "미입력"}`,
+      `공고 주소: ${sourceUrl || "미입력"}`,
+      "",
+      "[JD FACT]",
+    ];
+    const pushFact = (label, rows) => {
+      const values = (rows || []).map((row) => row?.value || row?.original).filter(Boolean);
+      lines.push(`${label}: ${values.length ? values.join(" / ") : "원문에 없음"}`);
+    };
+    lines.push(`직무명: ${facts.jobTitle?.value || "원문에 없음"}`);
+    pushFact("주요 업무", facts.duties);
+    pushFact("요구 역량", facts.competencies);
+    pushFact("필수 조건", facts.required);
+    pushFact("우대 조건", facts.preferred);
+    pushFact("전공·기술지식", facts.knowledge);
+    pushFact("Tool·Software·언어", facts.tools);
+    pushFact("협업 대상", facts.collaborators);
+    pushFact("성과 목표·지표", facts.metrics);
+    pushFact("원문 키워드", facts.keywords);
+    lines.push("", "[자동 해석]");
+    lines.push(`직무 한 줄 해석: ${career.definition?.value || "해석 근거 부족"}`);
+    (career.workAxes || []).forEach((axis, index) => {
+      lines.push(`${index + 1}. ${axis.title}`);
+      (axis.actualWork || []).forEach((work) => lines.push(`   - ${work}`));
+      if (axis.purpose) lines.push(`   목적: ${axis.purpose}`);
+    });
+    if (career.preparation?.study?.length) {
+      lines.push("", "공부 후보 (자동 제안)");
+      career.preparation.study.forEach((row) => lines.push(`- ${row.title}: ${row.detail}`));
+    }
+    lines.push("", "[원문 근거]");
+    (analysis.units || []).forEach((unit) => lines.push(`${unit.id} · ${unit.section}: ${unit.text}`));
+    lines.push("", "※ Fact는 입력한 JD 원문 범위의 추출 결과이며, 자동 해석은 지원 판단을 대신하지 않습니다.");
+    return lines.join("\n").trim();
+  }
+
   function summarize(placements = []) {
     const usage = new Map();
     let assignedCount = 0;
@@ -440,6 +483,7 @@
     STATUS_LABELS, draftId, workspaceScope, normalizeWorkspaceLibrary, upsertWorkspace, removeWorkspace,
     mergeWorkspaceLibraries, buildWorkspaceBackup, normalizeWorkspaceBackup,
     compareWorkspaceFacts,
+    buildJdReportText,
     summarize, readDraft, addHistory, historyFor, draftTokens,
     findDraftOverlaps, numericClaims, reviewPackage, inferCharacterLimit, placeholderMarkers, buildSubmissionChecklist,
     buildSubmissionText, buildText,
