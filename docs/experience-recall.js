@@ -16,20 +16,24 @@
   }
   function template(row) {
     const draft = parse(row.recallDraft);
-    return `<details class="recall-helper"><summary>경험 구체화 <small>기억 꺼내기 · 지원 방향별 메모</small></summary><div class="recall-body"><p>경험 원본은 하나로 두고, 지원 방향마다 강조할 내용을 따로 정리합니다.</p>
+    return `<details class="recall-helper"><summary>경험 구체화 <small>질문에 답하며 기억 꺼내기</small></summary><div class="recall-body">
       <input type="hidden" data-field="recallDraft" value="${escape(row.recallDraft)}" />
       <label>지원 방향<select data-recall-track>${Object.entries(tracks).map(([k, t]) => `<option value="${k}">${t.name}</option>`).join("")}</select></label>
       ${Object.entries(tracks).map(([key, t], index) => `<section data-recall-panel="${key}"${index ? " hidden" : ""}>
-        <p class="recall-cue">${t.cue}</p><p class="recall-scene">현업 연결 예시 · ${t.scene}. 실제 JD와 대조해 활용하세요.</p>
-        <details><summary>기억을 돕는 질문 3개</summary><p class="recall-caption">활동 회고용 질문입니다. 해당하는 경험만 답하세요.</p>
-        ${t.questions.map((q, i) => { const id = `${key}${i}`, a = draft[id] || {}; return `<div class="recall-question" data-recall-id="${id}"><p>${q}</p><label>경험 여부<select data-recall-status><option value="">선택</option>${[["yes", "있음"], ["no", "없음"], ["unsure", "기억 안 남"]].map(([v, text]) => `<option value="${v}"${a.status === v ? " selected" : ""}>${text}</option>`).join("")}</select></label><label data-recall-detail-wrap${a.status === "yes" ? "" : " hidden"}>실제 사례<textarea data-recall-detail rows="3" placeholder="당시 상황 / 직접 한 행동 / 확인된 결과">${escape(a.detail)}</textarea></label></div>`; }).join("")}
-        <button type="button" class="jd-secondary" data-recall-apply>답변 확인 후 경험에 반영</button><p data-recall-status-message role="status"></p></details>
-        <label class="recall-angle">${t.name} 활용 메모 <small>작성 방향 · 경험 사실에는 포함되지 않음</small><textarea data-field="angle${key}" rows="3" placeholder="회사·직무명 / 연결할 내 행동 / 강조할 판단 과정">${escape(row[`angle${key}`])}</textarea></label>
+        <p class="recall-cue">${t.cue}</p>
+        ${t.questions.map((q, i) => { const id = `${key}${i}`, a = draft[id] || {}; const [title, ...hint] = q.split("?"); return `<details class="recall-question" data-recall-id="${id}"${i === 0 ? " open" : ""}><summary><span class="recall-number">${i + 1}</span><span>${title}?</span></summary><div class="recall-answer"><p class="recall-caption">${hint.join("?").trim()}</p><label>경험 여부<select data-recall-status><option value="">선택</option>${[["yes", "있음"], ["no", "없음"], ["unsure", "기억 안 남"]].map(([v, text]) => `<option value="${v}"${a.status === v ? " selected" : ""}>${text}</option>`).join("")}</select></label><label data-recall-detail-wrap${a.status === "yes" ? "" : " hidden"}>기억나는 사례<textarea data-recall-detail rows="3" placeholder="상황 → 내가 한 행동 → 결과">${escape(a.detail)}</textarea></label></div></details>`; }).join("")}
+        <div class="recall-actions"><button type="button" class="jd-secondary" data-recall-apply>확인한 답변 반영</button><p data-recall-status-message role="status"></p></div>
+        <details class="recall-angle"><summary>${t.name} 지원 메모 <small>선택</small></summary><p class="recall-scene">연결 관점 · ${t.scene}</p><label>강조할 내용<textarea data-field="angle${key}" rows="3" placeholder="지원 회사·직무와 강조하고 싶은 내 행동">${escape(row[`angle${key}`])}</textarea></label><p class="recall-caption">작성 방향 메모이며 경험 사실에는 포함되지 않습니다.</p></details>
       </section>`).join("")}
-      <details class="recall-confirmed"><summary>확인한 추가 경험</summary><label>본인이 확인한 내용<textarea data-field="confirmedRecall" rows="5">${escape(row.confirmedRecall)}</textarea></label></details>
-      <p class="recall-caption">답변·활용 메모는 프로필의 ‘이 기기에 저장’으로 보관합니다.</p></div></details>`;
+      <details class="recall-confirmed"><summary>반영된 경험 보기</summary><label>확인한 내용<textarea data-field="confirmedRecall" rows="5">${escape(row.confirmedRecall)}</textarea></label></details>
+      <p class="recall-caption recall-save-hint">마지막에 프로필의 ‘이 기기에 저장’을 눌러 주세요.</p></div></details>`;
   }
   if (root.document) {
+    root.document.addEventListener("toggle", (event) => {
+      const question = event.target;
+      if (!question.matches?.(".recall-question") || !question.open) return;
+      question.parentElement.querySelectorAll(".recall-question").forEach((other) => { if (other !== question) other.open = false; });
+    }, true);
     root.document.addEventListener("change", (event) => {
       const helper = event.target.closest(".recall-helper");
       if (!helper) return;
