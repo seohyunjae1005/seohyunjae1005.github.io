@@ -8,7 +8,7 @@
       content="주요 반도체 기업의 공식 뉴스룸에서 기술 동향과 기업 맥락을 추적합니다."
     />
     <title>반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261031-11" />
+    <link rel="stylesheet" href="styles.css?v=20261101-3" />
     <script src="pdf-import.js?v=20261001-2" defer></script>
     <script src="jd-analyzer-v4.js?v=20261007-7" defer></script>
     <script src="jd-ai-client.js?v=20261030-2" defer></script>
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="experience-recall.css?v=20261101-2" />
     <script src="role-normalizer.js?v=20261001-1" defer></script>
     <script src="application-workspace.js?v=20261031-11" defer></script>
-    <script src="app.js?v=20261101-1" defer></script>
+    <script src="app.js?v=20261101-3" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -29,7 +29,6 @@
       </div>
       <div class="topbar-actions">
         <div class="updated" id="updated">데이터 확인 중</div>
-        <a class="header-subscribe" href="assessment.html">인성·적성검사</a>
         <a class="header-subscribe" href="https://docs.google.com/forms/d/e/1FAIpQLSe3Vm-nkOof2qsQfEIIH5pPNs6JE2stnCWOv_4Y_DsQi8YpUQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">구독 신청</a>
       </div>
     </header>
@@ -41,6 +40,7 @@
           <button id="news-tab" type="button" role="tab" aria-selected="false" data-chapter="news">최신 뉴스</button>
           <button id="profile-tab" type="button" role="tab" aria-selected="false" data-chapter="profile">내 프로필</button>
           <button id="jd-tab" type="button" role="tab" aria-selected="false" data-chapter="jd">JD 분석</button>
+          <button id="assessment-tab" type="button" role="tab" aria-selected="false" aria-controls="assessment-chapter" data-chapter="assessment">인적성 검사 및 회사별 설명</button>
         </div>
         <div class="metrics" aria-label="수집 현황">
           <div class="metric"><strong id="total-count">-</strong><span>기사</span></div>
@@ -424,6 +424,10 @@
 
           <p class="jd-disclaimer">이 단계는 JD 원문만 분석하며 사용자 경험, 적합도, 합격 가능성을 판단하지 않습니다. 자동 해석은 연결된 근거 문장을 확인한 뒤 참고용으로만 사용하세요.</p>
         </section>
+      </section>
+      <section class="chapter-panel assessment-chapter" id="assessment-chapter" role="tabpanel" aria-labelledby="assessment-tab" hidden>
+        <div class="assessment-toolbar"><a href="assessment.html" target="_blank" rel="noopener">전체 화면으로 열기 ↗</a></div>
+        <iframe id="assessment-frame" data-src="assessment.html" title="인적성 검사 및 회사별 설명"></iframe>
       </section>
     </main>
 

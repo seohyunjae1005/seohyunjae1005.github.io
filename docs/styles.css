@@ -72,7 +72,10 @@ h1, h2, h3, h4, strong { letter-spacing: -0.025em; }
 
 main { max-width: var(--max); margin: 0 auto; padding: 0.9rem 1.25rem 3rem; }
 .chapter-bar { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
-.chapter-tabs { display: flex; gap: 1.1rem; padding: 0; border: 0; border-radius: 0; background: transparent; }
+.chapter-tabs { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; padding: 0; border: 0; border-radius: 0; background: transparent; }
+.assessment-toolbar { display: flex; justify-content: flex-end; padding: 0.4rem 0 0.7rem; }
+.assessment-toolbar a { color: var(--muted); font-size: 0.8rem; text-decoration: none; }
+#assessment-frame { display: block; width: 100%; height: 82vh; min-height: 600px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
 .chapter-tabs button { position: relative; padding: 0.45rem 0 0.55rem; border: 0; border-radius: 0; background: transparent; color: var(--muted); font-size: 0.82rem; font-weight: 650; cursor: pointer; }
 .chapter-tabs button:hover, .chapter-tabs button:focus-visible { color: var(--text); }
 .chapter-tabs button.active { background: transparent; color: var(--accent-strong); }

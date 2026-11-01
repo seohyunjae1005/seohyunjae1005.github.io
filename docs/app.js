@@ -242,6 +242,11 @@ function showChapter(chapter) {
   document.querySelector("#news-chapter").hidden = chapter !== "news";
   document.querySelector("#profile-chapter").hidden = chapter !== "profile";
   document.querySelector("#jd-chapter").hidden = chapter !== "jd";
+  document.querySelector("#assessment-chapter").hidden = chapter !== "assessment";
+  if (chapter === "assessment") {
+    const frame = document.querySelector("#assessment-frame");
+    if (!frame.hasAttribute("src")) frame.src = frame.dataset.src;
+  }
   document.querySelectorAll("button[data-chapter]").forEach((button) => {
     const active = button.dataset.chapter === chapter;
     button.classList.toggle("active", active);
