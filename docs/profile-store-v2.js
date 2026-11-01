@@ -10,7 +10,7 @@
     updatedAt: "",
   });
   const EDUCATION_FIELDS = ["id", "level", "school", "status", "startDate", "endDate", "major", "secondaryMajor", "transfer", "region", "gpa", "gpaScale", "credits", "coursework", "advisor", "lab", "research", "theses", "conferences"];
-  const EXPERIENCE_FIELDS = ["id", "type", "title", "organization", "startDate", "endDate", "rawNotes", "role", "situation", "action", "result", "tools"];
+  const EXPERIENCE_FIELDS = ["id", "type", "title", "organization", "startDate", "endDate", "rawNotes", "role", "situation", "action", "result", "tools", "recallDraft", "confirmedRecall", "angleChip", "angleEquipment", "angleQuality", "angleProduction"];
   const AI_FIELDS = ["title", "context", "period", "role", "aiUse", "verification", "result"];
 
   function clean(value) {
@@ -129,6 +129,7 @@
       row.action ? `행동 ${row.action}` : "",
       row.result ? `결과 ${row.result}` : "",
       row.tools ? `기술·도구 ${row.tools}` : "",
+      row.confirmedRecall ? `본인 확인 추가 경험 ${row.confirmedRecall}` : "",
     ]);
   }
 

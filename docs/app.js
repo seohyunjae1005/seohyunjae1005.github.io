@@ -1067,6 +1067,7 @@ function experienceEntryTemplate(row = {}, index = 0) {
           <div class="experience-helper-result" data-experience-result hidden></div>
         </div>
       </details>
+      ${window.ExperienceRecall.template(row)}
       <label><span>내 역할</span><textarea data-field="role" rows="2" placeholder="팀 전체가 아니라 내가 맡은 역할을 적으세요.">${escapeHtml(row.role || "")}</textarea></label>
       <label><span>문제·목표</span><textarea data-field="situation" rows="2" placeholder="어떤 문제나 목표가 있었는지 적으세요.">${escapeHtml(row.situation || "")}</textarea></label>
       <label><span>내가 한 행동</span><textarea data-field="action" rows="3" placeholder="분석, 실험, 조정, 의사결정 등 구체적인 행동을 적으세요.">${escapeHtml(row.action || "")}</textarea></label>
@@ -1079,11 +1080,13 @@ function experienceEntryTemplate(row = {}, index = 0) {
 function experienceCardSource(card) {
   const field = (name) => card.querySelector(`[data-field="${name}"]`)?.value.trim() || "";
   const raw = field("rawNotes");
-  if (raw) return raw;
+  const recalled = field("confirmedRecall");
+  if (raw) return [raw, recalled ? `[본인 확인 추가 경험]\n${recalled}` : ""].filter(Boolean).join("\n");
   return [
     ["경험명", field("title")], ["기관·팀", field("organization")], ["내 역할", field("role")],
     ["문제·목표", field("situation")], ["내가 한 행동", field("action")],
     ["결과·배운 점", field("result")], ["사용 기술·장비·도구", field("tools")],
+    ["본인 확인 추가 경험", recalled],
   ].filter(([, value]) => value).map(([label, value]) => `[${label}]\n${value}`).join("\n");
 }
 
