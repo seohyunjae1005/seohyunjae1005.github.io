@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-10-31T01:07:45.515512+00:00",
+  "updated_at": "2026-11-03T03:06:36.028925+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1695,6 +1695,12 @@
       "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
       "source_fingerprint": "65d70e1560ee03894a7b5e3c2cecbeef8a0c9a1585baa02a0f896f98963ed6c1",
       "translated_at": "2026-10-31T01:07:45.515484+00:00"
+    },
+    "https://www.tel.com/news/event/2026/20261102_001.html": {
+      "title_ko": "SEMICON Europa 2026",
+      "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
+      "source_fingerprint": "1f97669c62043af5716bb9bf8fc0ed5671b10099a9699a52d86eed7c3e399e7e",
+      "translated_at": "2026-11-03T03:06:36.028899+00:00"
     }
   }
 }
