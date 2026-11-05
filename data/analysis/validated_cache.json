@@ -1,6 +1,6 @@
 {
   "schema_version": "validated_analysis_cache_v1",
-  "updated_at": "2026-11-04T01:44:31.575266+00:00",
+  "updated_at": "2026-11-05T01:52:01.344264+00:00",
   "review_notice": "Machine-validated draft cache. Human approval is required before publication.",
   "company_count": 11,
   "companies": {
@@ -759,73 +759,61 @@
     },
     "TSMC": {
       "company": "TSMC",
-      "title": "Sony Semiconductor Solutions and TSMC Agreed to Establish Joint Venture for Next-Generation Image Sensors",
-      "url": "https://pr.tsmc.com/english/news/3333",
+      "title": "TSMC Debuts A13 Technology at 2026 North America Technology Symposium",
+      "url": "https://pr.tsmc.com/english/news/3302",
       "model": "gemini-3.5-flash-lite",
-      "generated_at": "2026-11-04T01:44:26.571705+00:00",
+      "generated_at": "2026-11-05T01:51:56.874550+00:00",
       "analysis_version": "semiconductor_job_analysis_v1",
-      "extraction_method": "filtered_html_blocks",
-      "source_scope": "official_article_body",
+      "extraction_method": "official_index_metadata",
+      "source_scope": "official_index_metadata",
       "validation_status": "PASS",
       "review_status": "machine_validated",
       "publish_ready": false,
-      "normalization_notes": [],
+      "normalization_notes": [
+        "공식 목록의 제목·분류만 사용하여 전체 신뢰도를 low로 제한",
+        "제목 기반 사실 근거를 공식 기사 제목 원문 1개로 고정"
+      ],
       "analysis": {
         "analysis_version": "semiconductor_job_analysis_v1",
-        "summary_ko": "소니와 TSMC가 일본 구마모토현 코시시에 차세대 이미지 센서 양산을 위한 합작법인 'Advanced Vision Semiconductor Manufacturing Corporation'을 설립하는 최종 계약을 체결했습니다. 해당 합작법인은 2029년 양산 개시를 목표로 하며, 소니가 과반 지분을 소유하고 TSMC가 첨단 공정 기술과 제조 전문성을 지원합니다.",
+        "summary_ko": "TSMC가 2026 북미 기술 심포지엄에서 A13 기술을 공개하였습니다. 공식 제목 외의 구체적인 공정 조건이나 수율은 본문에서 확인할 수 없습니다.",
         "facts": [
           {
-            "statement_ko": "소니와 TSMC는 일본 구마모토현 코시시에 Advanced Vision Semiconductor Manufacturing Corporation이라는 합작법인을 설립하기 위한 구속력 있는 최종 계약을 체결했습니다.",
-            "evidence_en": "establishment of Advanced Vision Semiconductor Manufacturing Corporation as a joint venture (“JV”) in Koshi City, Kumamoto Prefecture, Japan"
-          },
-          {
-            "statement_ko": "합작법인은 첨단 제조 공정 기술을 활용하는 스마트폰용 이미지 센서의 양산을 위한 개발 및 제조 활동의 핵심 허브 역할을 할 예정입니다.",
-            "evidence_en": "core hub for the development and manufacturing activities required for the volume production of image sensors for smartphones utilizing advanced manufacturing process technology"
-          },
-          {
-            "statement_ko": "합작법인은 2029년에 양산을 시작할 것으로 예상됩니다.",
-            "evidence_en": "The JV is expected to commence volume production in 2029."
+            "statement_ko": "TSMC 공식 기사 제목에서 ‘TSMC Debuts A13 Technology at 2026 North America Technology Symposium’ 관련 발표임을 확인할 수 있습니다.",
+            "evidence_en": "TSMC Debuts A13 Technology at 2026 North America Technology Symposium"
           }
         ],
         "technology_signals": [
-          "Advanced manufacturing process technology for image sensors",
-          "Volume production scaling for next-generation image sensors"
+          "A13 Technology"
         ],
-        "company_implications": [
-          {
-            "target_company": "Samsung Electronics",
-            "inference_ko": "소니와 TSMC의 강력한 파트너십에 대응하여 모바일 이미지 센서 시장에서의 경쟁 심화가 예상되며, 자체 파운드리 및 이미지 센서 공정 경쟁력 강화 압박이 커질 수 있습니다.",
-            "basis_ko": "소니가 TSMC의 첨단 공정 제조 전문성을 결합하여 대규모 양산 체제를 구축함에 따라 모바일 센서 공급망 장악력이 높아지기 때문입니다.",
-            "confidence": "high"
-          }
-        ],
+        "company_implications": [],
         "role_insights": [
           {
             "role": "공정기술·양산기술",
-            "why_relevant_ko": "새로운 이미지 센서 전용 합작법인 Fab에서 2029년 양산을 목표로 공정 최적화와 수율 확보를 수행해야 하기 때문입니다.",
+            "why_relevant_ko": "신규 A13 기술 도입에 따른 양산 공정 준비 및 수율 최적화 검토가 필요할 수 있습니다.",
             "considerations_ko": [
-              "첨단 공정을 활용한 이미지 센서 양산 램프업(Ramp-up) 전략 이해"
+              "제목에 언급된 A13 기술의 양산 적용 가능성 검토"
             ],
             "study_points_ko": [
-              "이미지 센서(CIS) 제조 공정의 특성과 양산 기술 동향"
+              "선단 로직 공정의 기본 양산 흐름 파악"
             ]
           },
           {
             "role": "R&D공정·공정설계",
-            "why_relevant_ko": "소니의 핵심 센서 기술과 TSMC의 첨단 공정 기술을 연계하여 제품 설계를 공정에 맞추는 R&D 협업이 필요하기 때문입니다.",
+            "why_relevant_ko": "차세대 A13 노드에 대응하는 공정 설계 및 R&D 방향성 설정이 요구됩니다.",
             "considerations_ko": [
-              "파운드리 공정과 센서 소자의 통합 설계 방식"
+              "신규 기술 디테일에 대한 정보 부족 한계 인지"
             ],
             "study_points_ko": [
-              "CIS 소자 구조 및 파운드리 공정 연계 기술"
+              "첨단 반도체 파운드리 공정 설계 트렌드"
             ]
           }
         ],
         "uncertainties_ko": [
-          "합작법인에서 구체적으로 도입할 첨단 공정 노드의 세부 사양",
-          "규제 승인 완료 및 일본 정부 지원의 구체적인 규모와 시기"
+          "입력 범위 규칙에 따라 제목 외의 상세 공정 조건, 수율, 세부 스펙은 확인할 수 없습니다.",
+          "A13 기술의 양산 일정 및 구체적인 성능 지표는 본문에 제시되지 않았습니다.",
+          "공식 기사 본문을 확보하지 못해 제목과 공식 목록 정보만 분석했습니다."
         ],
-        "overall_confidence": "high"
+        "overall_confidence": "low"
       }
     },
     "Intel": {
