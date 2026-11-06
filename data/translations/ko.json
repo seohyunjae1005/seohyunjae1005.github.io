@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-11-03T03:06:36.028925+00:00",
+  "updated_at": "2026-11-06T01:50:54.704866+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1701,6 +1701,18 @@
       "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
       "source_fingerprint": "1f97669c62043af5716bb9bf8fc0ed5671b10099a9699a52d86eed7c3e399e7e",
       "translated_at": "2026-11-03T03:06:36.028899+00:00"
+    },
+    "https://newsroom.lamresearch.com/2026-11-05-Lam-Research-Corporation-Announces-25-Billion-Share-Repurchase-Authorization-and-Declares-Quarterly-Dividend": {
+      "title_ko": "램 리서치 코퍼레이션, 250억 달러 규모의 자사주 매입 승인 발표 및 분기 배당금 지급 결정",
+      "summary_ko": "램 리서치 코퍼레이션(나스닥: LRCX)은 오늘 이사회가 250억 달러 규모의 자사주 매입 승인과 보통주 1주당 0.33달러의 분기 배당금을 승인했다고 발표했습니다...",
+      "source_fingerprint": "e7d574f5ce6607c358bab365b0ec444634d0b2eacf6e89493063f8ffc9bbc9d6",
+      "translated_at": "2026-11-06T01:50:54.704840+00:00"
+    },
+    "https://news.skhynix.com/en/2026-partners-day-japan-3/": {
+      "title_ko": "SK하이닉스, 일본에서 첫 ‘파트너스 데이’ 개최… 주요 현지 파트너사와 사업 방향 공유",
+      "summary_ko": "▲ SK하이닉스의 이병기 최고생산책임자(CPO)는 한국과 일본의 반도체 생태계 전반에 걸친 협력 확대를 강조하고 있다.",
+      "source_fingerprint": "f1bd235639d49b5eeaa9131927ce3daa442b7f5e8f74bdd47bee76143469b76d",
+      "translated_at": "2026-11-06T01:50:54.704840+00:00"
     }
   }
 }
