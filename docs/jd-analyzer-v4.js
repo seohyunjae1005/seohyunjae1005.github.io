@@ -2,15 +2,15 @@
   "use strict";
 
   const SECTION_RULES = [
-    ["duty", "주요 업무", /^(담당\s*업무|주요\s*업무|수행\s*업무|직무\s*(?:내용|상세)|업무\s*내용|이런\s*일을\s*합니다|responsibilities|what\s*you(?:'|’)?ll\s*(?:do|experience)|경험할\s*수\s*있습니다)$/i],
-    ["required", "필수 조건", /^(전공|필수|필수\s*사항|필수\s*조건|필수\s*요건|자격\s*요건|지원\s*자격|지원자격|이런\s*분을\s*찾고\s*있어요|minimum\s*qualifications?|basic\s*qualifications?|requirements?|qualifications?|who\s+we(?:'|’)?re\s+looking\s+for)$/i],
+    ["duty", "주요 업무", /^(담당\s*업무|주요\s*업무|수행\s*업무|직무\s*(?:내용|상세)|업무\s*내용|이런\s*일을\s*합니다|함께하면\s*이런\s*업무를\s*경험할\s*수\s*있습니다|responsibilities|what\s*you(?:'|’)?ll\s*(?:do|experience)|경험할\s*수\s*있습니다)$/i],
+    ["required", "필수 조건", /^(전공|필수|필수\s*사항|필수\s*조건|필수\s*요건|자격\s*요건|지원\s*자격|지원자격|우리는\s*이런\s*사람을\s*찾고\s*있습니다|이런\s*분을\s*찾고\s*있어요|minimum\s*qualifications?|basic\s*qualifications?|requirements?|qualifications?|who\s+we(?:'|’)?re\s+looking\s+for)$/i],
     ["preferred", "우대 조건", /^(우대|우대\s*사항|우대\s*조건|이런\s*분이면\s*더\s*좋아요|preferred(?:\s*qualifications?)?|nice\s*to\s*have|이런\s*역량이나\s*경\S{0,2}이\s*있다면\s*더\s*좋습니다)$/i],
     ["knowledge", "관련 지식·교과목", /^(관련\s*교과목|관련\s*지식|전공지식)$/i],
-    ["tools", "주요 활용 Tool", /^(주요\s*활용\s*(?:tool|도구)|활용\s*(?:tool|도구)|tools?)$/i],
+    ["tools", "주요 활용 도구", /^(주요\s*활용\s*(?:tool|도구)|활용\s*(?:tool|도구)|tools?)$/i],
     ["context", "조직·직무 소개", /^(상세\s*내용|우리\s*조직을\s*소개합니다|조직\s*소개|관련\s*제품군|제품군|담당\s*제품|관련\s*제품|사업\s*영역)$/i],
     ["career", "성장 경로", /^(이렇게\s*성장할\s*수\s*있어요|성장\s*경로|career\s*path)$/i],
     ["preparation", "회사 제안 준비", /^(이렇게\s*준비하면\s*좋아요|지원\s*준비|how\s*to\s*prepare)$/i],
-    ["ignore", "기타", /^(인원|근무지|복리\s*후생|전형\s*(절차|단계)|기타|지원\s*방법|근무\s*(조건|지역|장소)|회사\s*소개|중복\s*지원\s*제한|기타\s*유의사항|지원자\s*참고사항|benefits?|about\s*us)$/i],
+    ["ignore", "기타", /^(인원|근무지|복리\s*후생|전형\s*(절차|단계)|기타|지원\s*방법|근무\s*(조건|지역|장소)|회사\s*소개|우리는\s*이런\s*가치를\s*만듭니다|중복\s*지원\s*제한|기타\s*유의사항|지원자\s*참고사항|benefits?|about\s*us)$/i],
   ].map(([level, label, regex]) => ({ level, label, regex }));
 
   const KEYWORD_RULES = [
@@ -91,14 +91,21 @@
     // 복사 과정에서 소제목이 사라졌더라도, 자격요건 앞의 번호 업무 블록은
     // 버리지 않는다. 단, 일반 소개 문장을 업무로 단정하지 않도록 번호 표지가
     // 있거나 명확한 수행 동사가 있는 의미 단위만 제한적으로 복원한다.
+    // 29회차: "직무명: 전력전자 회로설계" 같은 머리말 줄이 DUTY_HINT
+    // 동사("설계"·"개발"·"운영"·"관리")를 포함하면 가짜 업무(duty_inferred)가
+    // 된다. 직무명 자체가 동사를 포함한 직종(회로설계·시스템개발·생산운영)이
+    // 흔하다. "직무명:"·"근무지:" 등으로 시작하는 줄은 업무가 아니라
+    // 머리말이라 복원에서 제외한다.
+    const METADATA_HEAD = /^(직무명|모집\s*직무|포지션|position|회사명|근무지|근무\s*조건|고용\s*형태|근무\s*형태|채용\s*인원|연봉|급여)\s*[:：]/i;
     units.forEach((unit) => {
       if (unit.section !== "unspecified") return;
+      if (METADATA_HEAD.test(unit.text)) return;
       if ((/^N\d+$/.test(unit.group) || DUTY_HINT.test(unit.text)) && DUTY_HINT.test(unit.text)) unit.section = "duty_inferred";
     });
     return units;
   }
   function previewSource(sourceText) {
-    const units = segment(sourceText); if (!units.length) throw new Error("분석할 JD 원문을 입력해 주세요.");
+    const units = segment(sourceText); if (!units.length) throw new Error("분석할 채용공고 원문을 입력해 주세요.");
     const headingCount = units.reduce((count, unit, index) => unit.section !== "unspecified" && unit.section !== units[index - 1]?.section ? count + 1 : count, 0);
     const subroles = detectSubroles(units);
     return { cleanedText: String(sourceText || "").trim(), units, subroles, semanticUnitCount: units.length, headingCount, warnings: units.every((u) => u.verified) ? [] : ["일부 의미 단위를 원문에서 정확히 다시 찾지 못했습니다. 원문을 확인해 주세요."] };
@@ -109,10 +116,65 @@
       const label = unit.group.slice(2).trim();
       if (label) counts.set(unit.group, { id: unit.group, label, dutyCount: (counts.get(unit.group)?.dutyCount || 0) + 1 });
     });
-    return [...counts.values()];
+    const headerRows = [...counts.values()];
+    if (headerRows.length >= 2) return headerRows;
+    // 38회차: 소제목이 없으면 업무 내용으로 세부 분야를 나눈다. 단일
+    // 분야 공고는 2개 미만이라 빈 배열이 돼 기존 동작이 안 바뀐다.
+    return detectContentSubroles(units);
+  }
+  // 38회차: 머리말 없는 복수 세부 분야 공고용 내용 기반 세부 직무 감지.
+  // 실전 현대차 공고(2026-09 생산기술)처럼 5개 세부 분야가 소제목 없이
+  // 한 목록으로 합쳐진 경우, 소제목 기반 감지는 빈 배열이라 선택기가
+  // 뜨지 않는다. 업무 문장의 분야별 특징 어휘로만 나눈다. 보수적으로,
+  // 딱 한 분야에만 걸리는 업무만 그 분야로 보고, 0개·2개 이상 분야에
+  // 걸리면 공통 업무로 둬서 어떤 선택에서도 빠지지 않게 한다.
+  // (D) 휴리스틱처럼 숫자만으로 나누지 않는다 — 분야는 사용자가 고른다.
+  // "제어" 같은 일반어는 쓰지 않는다 (SK AMHS "설계/구축/운영/제어"가
+  // 설비제어로 오탐된다). "layout" 영문도 쓰지 않는다 (SK AMHS Layout이
+  // 완성차로 오탐된다). PT는 단어 경계로만 잡는다 ("P&T" 오탐 방지).
+  const SUBROLE_FIELDS = [
+    { key: "complete", label: "완성차", keywords: ["완성차", "신차", "프레스", "차체", "도장", "의장", "공장 건설", "레이아웃"] },
+    { key: "controls", label: "자동화 설비제어", keywords: ["PLC", "AGV", "ACS", "스마트팩토리", /smart\s*factory/i, "E-FOREST", "비전", "예방 진단", "제어 기술", "제어 설계", "제어시스템", "PC 프로그램"] },
+    { key: "mechanical", label: "자동화 설비기계", keywords: ["구조해석", "위상 최적화", "설비검증"] },
+    { key: "mold", label: "금형", keywords: ["금형", "성형", "판넬"] },
+    { key: "pt", label: "PT", keywords: ["파워트레인", "엔진", "변속기", "PT"] },
+  ];
+  const SUBROLE_ACRONYMS = new Set(["PLC", "AGV", "ACS", "PT"]);
+  function subroleKeywordHit(text, keyword) {
+    if (keyword instanceof RegExp) { keyword.lastIndex = 0; return keyword.test(text); }
+    if (SUBROLE_ACRONYMS.has(keyword)) return new RegExp(keyword + "(?![가-힣a-zA-Z])").test(text);
+    return String(text || "").includes(keyword);
+  }
+  // 업무가 속한 세부 분야 키. 딱 한 분야에만 걸리면 그 키, 0개·2개
+  // 이상이면 ""(공통 업무)이다.
+  function classifyDutyToSubrole(text) {
+    const value = String(text || "");
+    const hits = SUBROLE_FIELDS.filter((field) => field.keywords.some((kw) => subroleKeywordHit(value, kw)));
+    return hits.length === 1 ? hits[0].key : "";
+  }
+  function detectContentSubroles(units) {
+    const counts = new Map();
+    (units || []).filter((unit) => unit.section === "duty").forEach((unit) => {
+      const key = classifyDutyToSubrole(unit.text);
+      if (!key) return;
+      const field = SUBROLE_FIELDS.find((f) => f.key === key);
+      counts.set(key, { id: `K:${key}`, label: field.label, dutyCount: (counts.get(key)?.dutyCount || 0) + 1 });
+    });
+    const rows = [...counts.values()];
+    return rows.length >= 2 ? rows : [];
   }
   function scopeUnitsForSubrole(units, selectedSubrole) {
     if (!selectedSubrole) return units;
+    // 38회차: 내용 기반 선택(K:키)은 그 분야 업무 + 공통 업무만 남긴다.
+    // 소제목 기반 선택(S:…)은 기존 동작 그대로 둔다.
+    if (String(selectedSubrole).startsWith("K:")) {
+      const key = String(selectedSubrole).slice(2);
+      return (units || []).filter((unit) => {
+        if (unit.section !== "duty") return true;
+        const field = classifyDutyToSubrole(unit.text);
+        return !field || field === key;
+      });
+    }
     return units.filter((unit) => unit.section !== "duty" || unit.group === selectedSubrole);
   }
   function unique(values) { return [...new Set(values.filter(Boolean))]; }
@@ -139,7 +201,14 @@
   }
   function keywordFacts(units) {
     const rows = [];
-    units.filter((unit) => unit.section !== "ignore").forEach((unit) => KEYWORD_RULES.forEach(([regex, standard]) => { [...unit.text.matchAll(regex)].forEach((match) => rows.push({ original: match[0].trim(), standardized: standard, evidenceIds: [unit.id] })); }));
+    // 29회차: "레이아웃"만으로 Production Line Design 키워드를 붙이면
+    // 회로 기판 레이아웃(PCB 설계)이 생산라인 설계로 잘못 보인다.
+    // 생산·공장·라인·설비·운영 맥락이 있을 때만 인정한다 ("라인 설계" 자체는 맥락이 된다).
+    const PRODUCTION_CONTEXT = /생산|공장|라인|설비|운영/;
+    units.filter((unit) => unit.section !== "ignore").forEach((unit) => KEYWORD_RULES.forEach(([regex, standard]) => { [...unit.text.matchAll(regex)].forEach((match) => {
+      if (standard === "Production Line Design" && /레이아웃|layout/i.test(match[0]) && !PRODUCTION_CONTEXT.test(unit.text)) return;
+      rows.push({ original: match[0].trim(), standardized: standard, evidenceIds: [unit.id] });
+    }); }));
     const seen = new Set(); return rows.filter((row) => { const key = `${row.original}|${row.standardized}`; if (seen.has(key)) return false; seen.add(key); return true; }).slice(0, 20);
   }
   function extractFacts(source, units, roleName) {
@@ -162,7 +231,7 @@
   function interpretation(label, value, evidenceIds) { return { label, value, evidenceIds: unique(evidenceIds), status: evidenceIds.length ? "supported" : "insufficient" }; }
   function buildInterpretations(facts) {
     const rows = []; const dutyRefs = unique(facts.duties.slice(0, 4).flatMap((row) => row.evidenceIds)); const metricRefs = unique(facts.metrics.slice(0, 4).flatMap((row) => row.evidenceIds));
-    if (facts.duties.length && facts.metrics.length) rows.push(interpretation("직무 Mission", `JD에 명시된 주요 업무를 수행해 ${unique(facts.metrics.map((r) => r.value)).slice(0, 3).join("·")} 목표에 기여하는 역할로 해석됩니다.`, [...dutyRefs, ...metricRefs]));
+    if (facts.duties.length && facts.metrics.length) rows.push(interpretation("직무 Mission", `채용공고에 명시된 주요 업무를 수행해 ${unique(facts.metrics.map((r) => r.value)).slice(0, 3).join("·")} 목표에 기여하는 역할로 해석됩니다.`, [...dutyRefs, ...metricRefs]));
     else rows.push(interpretation("직무 Mission", "해석 근거 부족", []));
     if (facts.duties.length >= 2) rows.push(interpretation("예상 업무 흐름", facts.duties.slice(0, 4).map((row, i) => `${i + 1}. ${row.value}`).join(" → "), dutyRefs));
     else rows.push(interpretation("예상 업무 흐름", "해석 근거 부족", []));
@@ -180,7 +249,7 @@
         "Yield": "수율",
         "Yield Improvement": "수율",
       }[row.standardized])));
-      rows.push(interpretation("대표 문제 상황", `JD가 언급한 ${labels.join("·")} 문제의 원인을 확인하고 개선안을 검증하는 상황이 발생할 가능성이 있습니다.`, problemKeywords.flatMap((r) => r.evidenceIds)));
+      rows.push(interpretation("대표 문제 상황", `채용공고가 언급한 ${labels.join("·")} 문제의 원인을 확인하고 개선안을 검증하는 상황이 발생할 가능성이 있습니다.`, problemKeywords.flatMap((r) => r.evidenceIds)));
     }
     else rows.push(interpretation("대표 문제 상황", "해석 근거 부족", []));
     if (facts.competencies.length || facts.keywords.length) rows.push(interpretation("중요해 보이는 역량", unique([...facts.competencies.slice(0, 3).map((r) => r.value), ...facts.keywords.slice(0, 4).map((r) => r.original)]).join(" / "), unique([...facts.competencies.flatMap((r) => r.evidenceIds), ...facts.keywords.flatMap((r) => r.evidenceIds)])));
@@ -207,7 +276,7 @@
     { id: "technology_transfer", regex: /현지\s*기술이전|수출국.*(?:기술\s*교육|자료작성|공장)|현지\s*생산\s*기술지원/i },
     { id: "layout_investment", regex: /(?:layout|lay-out).*(?:투자계획|공간\s*효율|공장)|(?:투자계획|공간\s*효율|공장).*(?:layout|lay-out)/i },
     { id: "launch", regex: /신차|신제품|신규\s*제품|양산\s*(준비|전환)|제품\s*도입|개발\s*단계/ },
-    { id: "line", regex: /생산\s*라인|라인\s*설계|레이아웃|layout|표준\s*인원|공장\s*건설|공정\s*설계|운영관리\s*프로세스/ },
+    { id: "line", regex: /생산\s*라인|라인\s*설계|(?:생산|공장|라인|설비|운영).*레이아웃|레이아웃.*(?:생산|공장|라인|설비|운영)|(?:생산|공장|라인|설비|운영).*layout|layout.*(?:생산|공장|라인|설비|운영)|표준\s*인원|공장\s*건설|공정\s*설계|운영관리\s*프로세스/ },
     { id: "economics", regex: /공법|투자비|원가|수익성|경제성/ },
     { id: "automation", regex: /자동화|스마트\s*팩토리|빅데이터|\bAI\b|인공지능|비전|E-FOREST|시스템\s*(구축|확대|고도화)|디지털/ },
     { id: "operations_improvement", regex: /생산성|가동률|저해\s*요인|처리량|납기/ },
@@ -225,18 +294,26 @@
     if (code >= 0xac00 && code <= 0xd7a3) return (code - 0xac00) % 28 === 0 ? "는" : "은";
     return "는";
   }
+  // 30회차: 목적격 조사(을/를)도 받침으로 가른다. "원가을"·"납기을"이
+  // 나온 적이 있다 ("원가"는 받침이 없어 "원가를", "공법"은 받침이 있어
+  // "공법을"). topicParticle과 같은 방식 — 마지막 한글의 종성을 본다.
+  function objectParticle(word) {
+    const hangul = String(word || "").match(/[가-힣](?!.*[가-힣])/); const last = hangul ? hangul[0] : String(word || "").slice(-1); const code = last.charCodeAt(0);
+    if (code >= 0xac00 && code <= 0xd7a3) return (code - 0xac00) % 28 === 0 ? "를" : "을";
+    return "를";
+  }
   function shortDuty(text) {
     const value = clean(text).replace(/^(?:담당\s*업무\s*)/i, "");
     const colon = value.split(/[:：]/);
     if (colon.length > 1 && colon[0].length >= 3 && colon[0].length <= 32) return `${colon[0].trim()}: ${colon.slice(1).join(":").trim()}`;
     return value.length > 170 ? `${value.slice(0, 167).trim()}…` : value;
   }
-  function axisPresentation(axisId, source) {
+  function axisPresentation(axisId, source, isElectrodeRole) {
     const has = (regex) => hasAny(source, regex);
     const map = {
       launch: { title: has(/신차/) ? "신차 양산 준비" : "제품 양산 준비", purpose: has(/신차/) ? "신차가 생산 현장에 안정적으로 도입되도록 준비" : "제품이 생산·운영 환경에 안정적으로 도입되도록 준비" },
-      defect_root_cause: { title: "전극 불량 원인·메커니즘 분석", purpose: "공정 불량의 근본 원인과 발생 메커니즘을 분석해 개선 과제를 도출" },
-      technology_development: { title: "전극 공정 신기술 개발·검증", purpose: "생산성과 제품 경쟁력을 높이는 신기술을 개발하고 검증" },
+      defect_root_cause: { title: isElectrodeRole ? "전극 불량 원인·메커니즘 분석" : "불량 원인·메커니즘 분석", purpose: "공정 불량의 근본 원인과 발생 메커니즘을 분석해 개선 과제를 도출" },
+      technology_development: { title: isElectrodeRole ? "전극 공정 신기술 개발·검증" : "신기술 개발·검증", purpose: "생산성과 제품 경쟁력을 높이는 신기술을 개발하고 검증" },
       global_transfer: { title: "검증 기술의 글로벌 법인 전개", purpose: "검증된 공정기술을 해외 생산법인에 전개하고 현장 적용을 지원" },
       line_stabilization: { title: "신규 생산라인 조기 안정화", purpose: "글로벌 신규 생산라인이 빠르게 안정화되도록 기술을 지원" },
       manufacturing_system: { title: "제조공정·생산체계 구축", purpose: "제품의 개발·양산·수출에 필요한 제조공정과 생산체계를 설계하고 구축" },
@@ -245,16 +322,16 @@
       technology_transfer: { title: "수출사업 현지 기술이전", purpose: "수출국의 생산 운영을 위해 기술교육·자료·설비 검토와 현지 문제 해결을 지원" },
       layout_investment: { title: "사업장 Layout·투자계획", purpose: "조립·시험 공간의 배치와 투자계획을 검토해 공간과 설비 운영 효율을 높임" },
       line: { title: has(/생산\s*라인|라인\s*설계/) ? "생산라인·공장 설계" : "공정·운영 체계 설계", purpose: "레이아웃·인원·운영 프로세스를 포함한 생산 체계를 설계" },
-      economics: { title: has(/투자비/) ? "공법·투자비·경제성 검토" : "원가·경제성 검토", purpose: "JD에 제시된 비용·투자·수익 관점에서 생산 계획을 검토" },
-      automation: { title: has(/스마트\s*팩토리/) ? "자동화·스마트팩토리 고도화" : "자동화·시스템 고도화", purpose: has(/빅데이터|\bAI\b|인공지능|비전/) ? "JD에 명시된 데이터·AI·비전 기술을 현장에 적용해 자동화 수준을 높임" : "자동화 기술과 시스템의 운영 수준을 높임" },
-      operations_improvement: { title: "생산 운영 개선", purpose: "저해 요인을 분석해 JD에 제시된 생산 운영 성과를 개선" },
-      quality: { title: has(/신차/) ? "신차 품질 확보" : has(/수율/) ? "품질·수율 개선" : "품질 확보·개선", purpose: "제품·공정의 품질 상태를 확인하고 JD에 제시된 품질 목표를 확보" },
+      economics: { title: has(/투자비/) ? "공법·투자비·경제성 검토" : "원가·경제성 검토", purpose: "채용공고에 제시된 비용·투자·수익 관점에서 생산 계획을 검토" },
+      automation: { title: has(/스마트\s*팩토리/) ? "자동화·스마트팩토리 고도화" : "자동화·시스템 고도화", purpose: has(/빅데이터|\bAI\b|인공지능|비전/) ? "채용공고에 명시된 데이터·AI·비전 기술을 현장에 적용해 자동화 수준을 높임" : "자동화 기술과 시스템의 운영 수준을 높임" },
+      operations_improvement: { title: "생산 운영 개선", purpose: "저해 요인을 분석해 채용공고에 제시된 생산 운영 성과를 개선" },
+      quality: { title: has(/신차/) ? "신차 품질 확보" : has(/수율/) ? "품질·수율 개선" : "품질 확보·개선", purpose: "제품·공정의 품질 상태를 확인하고 채용공고에 제시된 품질 목표를 확보" },
       process_operations: { title: "공정·설비 운영 최적화", purpose: "공정과 설비를 안정적으로 운영하고 조건을 최적화" },
       data: { title: "데이터 분석·활용", purpose: "데이터를 수집·분석해 판단과 개선에 활용" },
-      software: { title: "소프트웨어·프로그램 개발", purpose: "JD에 명시된 소프트웨어·프로그램 업무를 개발·운영" },
+      software: { title: "소프트웨어·프로그램 개발", purpose: "채용공고에 명시된 소프트웨어·프로그램 업무를 개발·운영" },
       research: { title: "연구·평가·검증", purpose: "가설이나 기술의 성능을 평가하고 검증" },
       business: { title: "고객·사업 실행", purpose: "고객과 시장 요구를 사업 업무에 연결" },
-      other: { title: "기타 핵심 업무", purpose: "사전에 맞지 않더라도 JD가 직접 제시한 업무로 보존" },
+      other: { title: "기타 핵심 업무", purpose: "사전에 맞지 않더라도 채용공고가 직접 제시한 업무로 보존" },
     };
     return map[axisId] || map.other;
   }
@@ -308,7 +385,7 @@
     const axisOrder = new Map(WORK_AXIS_RULES.map((axis, index) => [axis.id, index]));
     const axes = [...buckets.values()].map((axis) => ({
       id: axis.id,
-      ...axisPresentation(axis.id, axis.duties.map((row) => row.value).join(" ")),
+      ...axisPresentation(axis.id, axis.duties.map((row) => row.value).join(" "), isElectrodeRole),
       actualWork: [axisWorkSummary(axis.id, axis.duties.map((row) => row.value).join(" "))],
       evidenceIds: evidenceOf(axis.duties),
     })).sort((a, b) => (axisOrder.get(a.id) ?? 999) - (axisOrder.get(b.id) ?? 999));
@@ -324,14 +401,23 @@
     const source = facts.duties.map((row) => row.value).join(" "); const candidates = [];
     const directTerms = (terms) => terms.filter(([regex]) => hasAny(source, regex)).map(([, label]) => label);
     const operating = directTerms([[/생산성/, "생산성"], [/가동률/, "가동률"], [/처리량/, "처리량"], [/납기/, "납기"]]);
-    if (operating.length) candidates.push({ regex: /생산성|가동률|저해\s*요인|처리량|납기/, problem: `${operating.join("·")}을 개선하거나 확보해야 함`, target: hasAny(source, /저해\s*요인/) ? "JD가 언급한 운영 저해 요인" : "JD에 제시된 생산 운영 상태", direction: hasAny(source, /분석/) ? "운영 상태와 저해 요인을 분석하고 개선" : "운영 상태를 확인하고 개선 활동을 수행", result: `${operating.join("·")} 개선` });
+    if (operating.length) candidates.push({ regex: /생산성|가동률|저해\s*요인|처리량|납기/, problem: `${operating.join("·")}${objectParticle(operating.join("·"))} 개선하거나 확보해야 함`, target: hasAny(source, /저해\s*요인/) ? "채용공고가 언급한 운영 저해 요인" : "채용공고에 제시된 생산 운영 상태", direction: hasAny(source, /분석/) ? "운영 상태와 저해 요인을 분석하고 개선" : "운영 상태를 확인하고 개선 활동을 수행", result: `${operating.join("·")} 개선` });
     const quality = directTerms([[/품질/, "품질"], [/수율/, "수율"], [/불량/, "불량" ]]);
-    if (quality.length) candidates.push({ regex: /품질|수율|불량|근본\s*원인|발생\s*메커니즘/, problem: hasAny(source, /불량.*(?:근본\s*원인|발생\s*메커니즘)/) ? "전극 공정 불량의 근본 원인과 발생 메커니즘을 밝혀야 함" : `${quality.join("·")} 목표를 확보하거나 개선해야 함`, target: hasAny(source, /전극/) ? "전극 공정에서 발생하는 불량과 공정 상태" : hasAny(source, /부품\s*품질/) ? "JD에 언급된 부품 품질" : "JD에 언급된 제품·공정 품질", direction: hasAny(source, /근본\s*원인|발생\s*메커니즘/) ? "원인과 발생 메커니즘을 분석해 개선점을 도출하고 과제로 수행" : "상태와 원인을 확인하고 확보·개선 활동을 수행", result: hasAny(source, /불량.*(?:근본\s*원인|발생\s*메커니즘)/) ? "불량 원인 규명·개선" : `${quality.join("·")} 확보·개선` });
-    if (hasAny(source, /Global\s*(?:법인|Site)|글로벌\s*(?:법인|사이트)|해외\s*법인/i)) candidates.push({ regex: /Global\s*(?:법인|Site)|글로벌\s*(?:법인|사이트)|해외\s*법인|기술.*(?:전개|이관)/i, problem: "검증된 공정기술을 글로벌 생산 현장에 동일한 수준으로 적용해야 함", target: "JD에 언급된 글로벌 법인과 검증 기술", direction: "검증 기술을 현장에 전개하고 신규 라인의 안정화를 기술 지원", result: "글로벌 생산라인 조기 안정화" });
+    // 29회차: 불량만 있는 경우 "불량 목표를 확보하거나 개선해야 함"·
+    // "불량 확보·개선"은 말이 안 된다 (불량은 확보하는 게 아니라 줄이는 것).
+    // 품질·수율이 함께 있으면 기존 문구를 쓰고, 불량만 있으면 불량 전용 문구를 쓴다.
+    // 30회차: 품질·수율 + 불량 혼합도 마찬가지다. 식품 픽스처에서
+    // "품질·불량 목표를 확보하거나 개선해야 함"·"품질·불량 확보·개선"이 나왔다.
+    // 좋은 쪽(품질·수율)과 불량을 나눠서 쓴다.
+    const qualityOnlyDefect = quality.length === 1 && quality[0] === "불량";
+    const qualityGood = quality.filter((t) => t !== "불량");
+    const qualityMixed = qualityGood.length > 0 && quality.includes("불량");
+    if (quality.length) candidates.push({ regex: /품질|수율|불량|근본\s*원인|발생\s*메커니즘/, problem: hasAny(source, /전극/) && hasAny(source, /불량.*(?:근본\s*원인|발생\s*메커니즘)/) ? "전극 공정 불량의 근본 원인과 발생 메커니즘을 밝혀야 함" : qualityOnlyDefect ? "불량을 줄이고 재발을 막아야 함" : qualityMixed ? `${qualityGood.join("·")} 목표를 확보하거나 개선하고, 불량을 줄여야 함` : `${quality.join("·")} 목표를 확보하거나 개선해야 함`, target: hasAny(source, /전극/) ? "전극 공정에서 발생하는 불량과 공정 상태" : hasAny(source, /부품\s*품질/) ? "채용공고에 언급된 부품 품질" : "채용공고에 언급된 제품·공정 품질", direction: hasAny(source, /근본\s*원인|발생\s*메커니즘/) ? "원인과 발생 메커니즘을 분석해 개선점을 도출하고 과제로 수행" : qualityOnlyDefect ? "불량 원인을 확인하고 재발 방지 대책을 수립" : qualityMixed ? "품질 상태를 확인하고 불량 원인을 확인해 재발 방지 대책을 수립" : "상태와 원인을 확인하고 확보·개선 활동을 수행", result: hasAny(source, /불량.*(?:근본\s*원인|발생\s*메커니즘)/) ? "불량 원인 규명·개선" : qualityOnlyDefect ? "불량 감소·재발 방지" : qualityMixed ? `${qualityGood.join("·")} 확보·개선, 불량 감소` : `${quality.join("·")} 확보·개선` });
+    if (hasAny(source, /Global\s*(?:법인|Site)|글로벌\s*(?:법인|사이트)|해외\s*법인/i)) candidates.push({ regex: /Global\s*(?:법인|Site)|글로벌\s*(?:법인|사이트)|해외\s*법인|기술.*(?:전개|이관)/i, problem: "검증된 공정기술을 글로벌 생산 현장에 동일한 수준으로 적용해야 함", target: "채용공고에 언급된 글로벌 법인과 검증 기술", direction: "검증 기술을 현장에 전개하고 신규 라인의 안정화를 기술 지원", result: "글로벌 생산라인 조기 안정화" });
     const economy = directTerms([[/공법/, "공법"], [/투자비/, "투자비"], [/원가/, "원가"], [/수익성/, "수익성"]]);
-    if (economy.length) candidates.push({ regex: /공법|투자비|원가|수익성/, problem: `${economy.join("·")}을 함께 검토해야 함`, target: `${economy.join("·")} 관련 계획과 산출 내용`, direction: "JD에 제시된 비용·투자·수익 관점에서 대안을 검토", result: `${economy.join("·")} 검토 결과 확보` });
-    if (hasAny(source, /신차|신제품|양산\s*(준비|전환)|개발\s*단계/)) candidates.push({ regex: /신차|신제품|양산\s*(준비|전환)|개발\s*단계/, problem: hasAny(source, /신차/) ? "신차를 생산 현장에 안정적으로 도입해야 함" : "제품을 생산 현장에 안정적으로 도입해야 함", target: hasAny(source, /구조|설계/) ? "JD에 언급된 제품 구조·설계와 생산 조건" : "JD에 언급된 제품과 생산 조건", direction: "사전 검토와 생산 준비 활동을 수행", result: hasAny(source, /신차/) ? "신차 양산 준비" : "제품 양산 준비" });
-    if (hasAny(source, /자동화|스마트\s*팩토리|빅데이터|\bAI\b|비전/)) candidates.push({ regex: /자동화|스마트\s*팩토리|빅데이터|\bAI\b|비전/, problem: "자동화 설비와 기술 적용 수준을 높여야 함", target: "JD에 언급된 자동화 설비와 적용 기술", direction: "원문에 명시된 기술을 개발·적용", result: hasAny(source, /스마트\s*팩토리/) ? "자동화·스마트팩토리 고도화" : "자동화 수준 고도화" });
+    if (economy.length) candidates.push({ regex: /공법|투자비|원가|수익성/, problem: `${economy.join("·")}${objectParticle(economy.join("·"))} 함께 검토해야 함`, target: `${economy.join("·")} 관련 계획과 산출 내용`, direction: "채용공고에 제시된 비용·투자·수익 관점에서 대안을 검토", result: `${economy.join("·")} 검토 결과 확보` });
+    if (hasAny(source, /신차|신제품|양산\s*(준비|전환)|개발\s*단계/)) candidates.push({ regex: /신차|신제품|양산\s*(준비|전환)|개발\s*단계/, problem: hasAny(source, /신차/) ? "신차를 생산 현장에 안정적으로 도입해야 함" : "제품을 생산 현장에 안정적으로 도입해야 함", target: hasAny(source, /구조|설계/) ? "채용공고에 언급된 제품 구조·설계와 생산 조건" : "채용공고에 언급된 제품과 생산 조건", direction: "사전 검토와 생산 준비 활동을 수행", result: hasAny(source, /신차/) ? "신차 양산 준비" : "제품 양산 준비" });
+    if (hasAny(source, /자동화|스마트\s*팩토리|빅데이터|\bAI\b|비전/)) candidates.push({ regex: /자동화|스마트\s*팩토리|빅데이터|\bAI\b|비전/, problem: "자동화 설비와 기술 적용 수준을 높여야 함", target: "채용공고에 언급된 자동화 설비와 적용 기술", direction: "원문에 명시된 기술을 개발·적용", result: hasAny(source, /스마트\s*팩토리/) ? "자동화·스마트팩토리 고도화" : "자동화 수준 고도화" });
     if (hasAny(source, /시험\s*공정|시험장비|시험설비|시험장\s*검증/)) candidates.push({ regex: /시험\s*공정|시험절차서|성적서|기술검토서|시험장비|시험설비|시험장\s*검증|성능\s*개선/, problem: "시험공정과 시험설비가 요구 성능을 충족하도록 구축·검증해야 함", target: "시험절차·기술자료와 시험장비·설비", direction: "시험공정을 설계하고 장비·설비를 구축한 뒤 성능과 공간 효율을 검증·개선", result: "재현 가능한 시험체계와 설비 성능 확보" });
     if (hasAny(source, /현지\s*기술이전|수출국|현지\s*생산\s*기술지원/)) candidates.push({ regex: /현지\s*기술이전|수출국|기술\s*교육|현지\s*생산\s*기술지원/, problem: "수출국 현지에서 생산체계를 운영할 수 있도록 기술을 이전해야 함", target: "현지 엔지니어·테크니션, 공장 Layout과 시험설비", direction: "교육·자료작성·설비 검토와 현지 Trouble shooting을 수행", result: "현지 생산체계 구축과 운영 안정화 지원" });
     if (hasAny(source, /품질문제.*(?:trouble\s*shooting|트러블\s*슈팅)/i)) candidates.push({ regex: /품질문제|trouble\s*shooting|트러블\s*슈팅|가공|치구|용접|조립|표면처리/i, problem: "제조공정에서 발생하는 품질문제를 해결해야 함", target: "가공·치구·용접·조립·표면처리 공정", direction: "문제 발생 공정과 설비 조건을 확인하고 Trouble shooting을 수행", result: "생산 품질문제 해결" });
@@ -375,7 +461,7 @@
         if (!items.some((item) => normalize(item).includes(normalize(value)) || normalize(value).includes(normalize(item)))) items.push(value);
       });
       const relatedAxes = axes.filter((axis) => axisIds.includes(axis.id)).map((axis) => axis.title);
-      return { category, items, connection: relatedAxes.length ? `${unique(relatedAxes).join("·")} 업무의 결과를 확인하는 기준입니다.` : "JD가 직접 언급한 업무 결과 기준입니다.", evidenceIds: evidenceOf(matched) };
+      return { category, items, connection: relatedAxes.length ? `${unique(relatedAxes).join("·")} 업무의 결과를 확인하는 기준입니다.` : "채용공고가 직접 언급한 업무 결과 기준입니다.", evidenceIds: evidenceOf(matched) };
     }).filter(Boolean);
   }
   function buildDeliveryGoals(facts, axes) {
@@ -384,7 +470,7 @@
     return groups.map(([category, regex, axisIds]) => {
       const matched = rows.filter((row) => hasAny(row.value, regex)); if (!matched.length) return null;
       const relatedAxes = axes.filter((axis) => axisIds.includes(axis.id)).map((axis) => axis.title);
-      return { category, description: relatedAxes.length ? `${unique(relatedAxes).join("·")}에서 만들어야 할 구축·설계 결과입니다.` : "JD가 직접 제시한 구축·설계 결과입니다.", evidenceIds: evidenceOf(matched) };
+      return { category, description: relatedAxes.length ? `${unique(relatedAxes).join("·")}에서 만들어야 할 구축·설계 결과입니다.` : "채용공고가 직접 제시한 구축·설계 결과입니다.", evidenceIds: evidenceOf(matched) };
     }).filter(Boolean);
   }
   function directConceptLabel(source, terms) { return terms.filter(([regex]) => hasAny(source, regex)).map(([, label]) => label).join("·"); }
@@ -415,13 +501,26 @@
     }).slice(0, 6);
   }
   function buildPreparation(facts, axes, suggestions) {
-    const must = facts.required.slice(0, 5).map((row) => ({ title: row.value, detail: "지원 전 충족 여부를 원문 기준으로 먼저 확인해야 합니다.", evidenceIds: row.evidenceIds }));
-    const strengths = [...facts.preferred, ...facts.competencies].slice(0, 5).map((row) => {
+    // 같은 JD 문장이 우대사항과 역량에 함께 분류되면 strengths에 두 번
+    // 나온다 (2026-11-04 6회차 발견: SK hynix 데모에서 "반도체 공정 전반의
+    // 흐름과 원리"·"TEST 분석 프로그램"이 강조 준비에 중복 표시). 제목 기준
+    // 으로 중복을 제거한다. 같은 제목은 한 번만 보여주는 것이 맞다.
+    const dedupeByTitle = (rows) => {
+      const seen = new Set();
+      return rows.filter((row) => {
+        const key = String(row.value || row.title || row.name || "").trim();
+        if (!key || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    };
+    const must = dedupeByTitle(facts.required.slice(0, 5)).map((row) => ({ title: row.value, detail: "지원 전 충족 여부를 원문 기준으로 먼저 확인해야 합니다.", evidenceIds: row.evidenceIds }));
+    const strengths = dedupeByTitle([...facts.preferred, ...facts.competencies]).slice(0, 5).map((row) => {
       const axis = findAxisForRequirement(row.value, axes);
-      return { title: row.value, detail: axis ? `${axis.title} 업무와 연결되는 경험을 구체적인 행동·결과로 설명할 준비가 필요합니다.` : "특정 업무축에 억지로 연결하지 않고 JD 명시 우대·역량 사항으로 준비합니다.", evidenceIds: unique([...(row.evidenceIds || []), ...(axis?.evidenceIds || [])]) };
+      return { title: row.value, detail: axis ? `${axis.title} 업무와 연결되는 경험을 구체적인 행동·결과로 설명할 준비가 필요합니다.` : "특정 업무축에 억지로 연결하지 않고 채용공고 명시 우대·역량 사항으로 준비합니다.", evidenceIds: unique([...(row.evidenceIds || []), ...(axis?.evidenceIds || [])]) };
     });
     if (!strengths.length) axes.slice(0, 3).forEach((axis) => strengths.push({ title: axis.title, detail: "이 업무와 관련해 본인이 수행한 행동·판단·산출물을 설명할 수 있도록 정리합니다.", evidenceIds: axis.evidenceIds }));
-    const study = suggestions.map((row) => ({ title: row.name, detail: row.reason, evidenceIds: row.evidenceIds }));
+    const study = dedupeByTitle(suggestions).map((row) => ({ title: row.name, detail: row.reason, evidenceIds: row.evidenceIds }));
     return { must, strengths, study };
   }
   function buildCareerAnalysis(facts, suggestions, units) {
@@ -432,7 +531,7 @@
     const role = facts.jobTitle.value === "원문에 없음" ? "이 직무" : facts.jobTitle.value;
     const contextLead = facts.productContext.length ? `${facts.productContext.map((row) => row.value).join(" · ")}를 다루는 ${role}` : role;
     const definition = definitionRefs.length && axisNames.length
-      ? interpretation("직무 한 줄 정의", `${contextLead}${topicParticle(role)} ${axisNames.join(", ")}${workAxes.length > 4 ? " 등" : ""}의 업무를 통해 ${metricNames.length ? `${metricNames.join("·")} 같은 성과` : "JD에 제시된 업무 목표"}를 확보·개선하는 역할로 해석됩니다.`, definitionRefs)
+      ? interpretation("직무 한 줄 정의", `${contextLead}${topicParticle(role)} ${axisNames.join(", ")}${workAxes.length > 4 ? " 등" : ""}의 업무를 통해 ${metricNames.length ? `${metricNames.join("·")} 같은 성과` : "채용공고에 제시된 업무 목표"}를 확보·개선하는 역할로 해석됩니다.`, definitionRefs)
       : interpretation("직무 한 줄 정의", "해석 근거 부족", []);
     return {
       definition,
@@ -454,22 +553,26 @@
     return { status: unsupportedTerms.length ? "fail" : "pass", unsupportedTerms, checkedTerms: protectedTerms };
   }
   function analyze(input) {
-    const source = String(input?.jdText || "").trim(); if (!source) throw new Error("분석할 JD 원문을 입력해 주세요.");
+    const source = String(input?.jdText || "").trim(); if (!source) throw new Error("분석할 채용공고 원문을 입력해 주세요.");
     const allUnits = segment(source); const subroles = detectSubroles(allUnits);
     const requestedSubrole = String(input?.selectedSubrole || "").trim();
     const selected = subroles.find((row) => row.id === requestedSubrole) || null;
     const units = scopeUnitsForSubrole(allUnits, selected?.id);
     const facts = extractFacts(source, units, selected?.label || input?.roleName); const interpretations = buildInterpretations(facts); const suggestions = studySuggestions(facts); const warnings = [];
     if (subroles.length > 1 && !selected) warnings.push(`세부 직무 ${subroles.length}개가 확인되었습니다. 전체를 함께 분석하면 서로 다른 업무가 섞일 수 있으므로 세부 직무를 선택해 주세요.`);
-    if (selected) warnings.push(`세부 직무 ‘${selected.label}’의 업무만 분석하고, 공통 지원자격·우대사항은 함께 반영했습니다.`);
+    // 38회차: 내용 기반 선택(K:키)은 공통 업무도 함께 분석한다. 소제목
+    // 기반 선택은 기존 문구 그대로 둔다.
+    if (selected) warnings.push(String(selected.id || "").startsWith("K:")
+      ? `세부 직무 ‘${selected.label}’의 업무와 여러 분야에 공통된 업무를 분석하고, 공통 지원자격·우대사항은 함께 반영했습니다.`
+      : `세부 직무 ‘${selected.label}’의 업무만 분석하고, 공통 지원자격·우대사항은 함께 반영했습니다.`);
     if (units.some((u) => !u.verified)) warnings.push("일부 근거 문장을 원문에서 다시 찾지 못해 해당 결과를 최종 사실로 확정하지 않았습니다.");
     if (!units.some((u) => u.section === "duty") && units.some((u) => u.section === "duty_inferred")) warnings.push("주요 업무 소제목이 없어 번호·수행 동사를 기준으로 업무 의미 단위를 복원했습니다. 원문과 대조해 주세요.");
-    if (!units.some((u) => u.section === "duty" || u.section === "duty_inferred")) warnings.push("주요 업무 소제목 또는 명확한 업무 문장을 찾지 못했습니다. 업무 Fact를 ‘원문에 없음’으로 표시합니다.");
+    if (!units.some((u) => u.section === "duty" || u.section === "duty_inferred")) warnings.push("주요 업무 소제목 또는 명확한 업무 문장을 찾지 못했습니다. 업무 내용을 ‘원문에 없음’으로 표시합니다.");
     const careerAnalysis = buildCareerAnalysis(facts, suggestions, units); const validation = validateCareerAnalysis(source, careerAnalysis);
     if (validation.status === "fail") warnings.push(`최종 용어 검증에서 원문에 없는 표현(${validation.unsupportedTerms.join("·")})을 발견했습니다. 해당 해석은 게시 전 확인이 필요합니다.`);
     return { units, facts, interpretations, studySuggestions: suggestions, careerAnalysis, validation, scope: { subroles, selectedSubrole: selected?.id || "", selectedLabel: selected?.label || "" }, warnings, analyzedAt: new Date().toISOString() };
   }
 
-  root.JDAnalyzer = { SECTION_RULES, KEYWORD_RULES, TOOL_RULES, normalize, clean, segment, detectSubroles, scopeUnitsForSubrole, previewSource, extractFacts, buildInterpretations, studySuggestions, buildCareerAnalysis, validateCareerAnalysis, analyze };
+  root.JDAnalyzer = { SECTION_RULES, KEYWORD_RULES, TOOL_RULES, SUBROLE_FIELDS, normalize, clean, segment, detectSubroles, detectContentSubroles, classifyDutyToSubrole, scopeUnitsForSubrole, previewSource, extractFacts, buildInterpretations, studySuggestions, buildCareerAnalysis, validateCareerAnalysis, analyze };
   if (typeof module !== "undefined" && module.exports) module.exports = root.JDAnalyzer;
 })(typeof window !== "undefined" ? window : globalThis);

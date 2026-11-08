@@ -8,23 +8,25 @@
       content="주요 반도체 기업의 공식 뉴스룸에서 기술 동향과 기업 맥락을 추적합니다."
     />
     <title>반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261101-3" />
+    <link rel="stylesheet" href="styles.css?v=20261105-2" />
     <script src="pdf-import.js?v=20261001-2" defer></script>
     <script src="jd-analyzer-v4.js?v=20261007-7" defer></script>
+    <script src="jd-recall-questions.js?v=20261104-3" defer></script>
+    <script src="jd-local-fallback.js?v=20261104-1" defer></script>
     <script src="jd-ai-client.js?v=20261030-2" defer></script>
-    <script src="profile-store-v2.js?v=20261101-1" defer></script>
-    <script src="experience-recall.js?v=20261101-2" defer></script>
-    <link rel="stylesheet" href="experience-recall.css?v=20261101-2" />
+    <script src="profile-store-v2.js?v=20261104-1" defer></script>
+    <script src="experience-recall.js?v=20261104-2" defer></script>
+    <link rel="stylesheet" href="experience-recall.css?v=20261104-2" />
     <script src="role-normalizer.js?v=20261001-1" defer></script>
-    <script src="application-workspace.js?v=20261031-11" defer></script>
-    <script src="app.js?v=20261101-3" defer></script>
+    <script src="application-workspace.js?v=20261105-1" defer></script>
+    <script src="assessment-result-bridge.js?v=20261104-2" defer></script>
+    <script src="app.js?v=20261105-3" defer></script>
   </head>
   <body>
     <header class="topbar">
       <div class="brand">
         <div>
           <h1>반도체 산업 동향</h1>
-          <p>공식 뉴스 · JD · 경험 정리</p>
         </div>
       </div>
       <div class="topbar-actions">
@@ -39,8 +41,8 @@
           <button class="active" id="trend-tab" type="button" role="tab" aria-selected="true" data-chapter="trend">산업 동향</button>
           <button id="news-tab" type="button" role="tab" aria-selected="false" data-chapter="news">최신 뉴스</button>
           <button id="profile-tab" type="button" role="tab" aria-selected="false" data-chapter="profile">내 프로필</button>
-          <button id="jd-tab" type="button" role="tab" aria-selected="false" data-chapter="jd">JD 분석</button>
-          <button id="assessment-tab" type="button" role="tab" aria-selected="false" aria-controls="assessment-chapter" data-chapter="assessment">인적성 검사 및 회사별 설명</button>
+          <button id="jd-tab" type="button" role="tab" aria-selected="false" data-chapter="jd">채용공고 분석</button>
+          <button id="assessment-tab" type="button" role="tab" aria-selected="false" aria-controls="assessment-chapter" data-chapter="assessment">인성·적성검사</button>
         </div>
         <div class="metrics" aria-label="수집 현황">
           <div class="metric"><strong id="total-count">-</strong><span>기사</span></div>
@@ -53,9 +55,7 @@
       <section class="trend-board" id="trend-board" aria-labelledby="trend-title" hidden>
         <div class="trend-heading">
           <div>
-            <p class="eyebrow">TREND</p>
             <h2 id="trend-title">산업 동향 요약</h2>
-            <p class="trend-copy">공식 기사 기준 기술·직무 집계</p>
           </div>
           <div class="trend-period-tabs" id="trend-period-tabs" aria-label="동향 집계 기간">
             <button type="button" data-trend-days="7">7일</button>
@@ -66,7 +66,7 @@
 
         <details class="monthly-ai-report" id="monthly-ai-report" hidden>
           <summary class="monthly-report-heading">
-            <span><small class="momentum-kicker">MONTHLY BRIEF</small><strong id="monthly-report-title"></strong></span>
+            <span><strong id="monthly-report-title"></strong></span>
             <time id="monthly-report-date"></time>
           </summary>
           <p class="monthly-report-summary" id="monthly-report-summary"></p>
@@ -108,7 +108,6 @@
 
         <section class="momentum-panel" id="momentum-panel">
           <div>
-            <p class="momentum-kicker">30-DAY MOMENTUM</p>
             <h3>30일 상승 신호</h3>
           </div>
           <div class="momentum-groups">
@@ -119,7 +118,6 @@
 
         <details class="company-trend-panel">
           <summary>
-            <p class="momentum-kicker">COMPANY</p>
             <h3 id="company-trend-title">기업별 기술·직무</h3>
           </summary>
           <div class="company-profile-list" id="company-profile-list"></div>
@@ -130,8 +128,7 @@
 
       <section class="chapter-panel news-chapter" id="news-chapter" role="tabpanel" aria-labelledby="news-tab" hidden>
       <div class="chapter-heading">
-        <div><span>NEWS</span><h2>최신 뉴스</h2></div>
-        <p>회사·직무·기술별 검색</p>
+        <div><h2>최신 뉴스</h2></div>
       </div>
       <section class="controls" aria-label="기사 필터">
         <div class="company-filters" id="company-filters">
@@ -186,7 +183,10 @@
         </div>
       </section>
 
-      <div class="result-line" id="result-line" aria-live="polite">기사를 불러오는 중입니다.</div>
+      <div class="result-line-row">
+        <div class="result-line" id="result-line" aria-live="polite">기사를 불러오는 중입니다.</div>
+        <button class="jd-primary" id="news-to-jd-button" type="button" hidden>이 회사 채용공고 분석하기</button>
+      </div>
       <section class="article-grid" id="article-grid" aria-label="선별 기사 목록"></section>
 
       <section class="empty" id="empty" hidden>
@@ -197,8 +197,7 @@
 
       <section class="chapter-panel profile-chapter" id="profile-chapter" role="tabpanel" aria-labelledby="profile-tab" hidden>
         <div class="chapter-heading">
-          <div><span>PROFILE</span><h2>내 프로필</h2></div>
-          <p>지원서에 재사용할 학력·경험 정리</p>
+          <div><h2>내 프로필</h2></div>
         </div>
 
         <div class="jd-privacy-notice">
@@ -206,48 +205,57 @@
           <span>이름·연락처·주소·주민번호는 입력하지 마세요.</span>
         </div>
 
+        <button class="jd-secondary" id="profile-reanalyze-button" type="button" hidden>채용공고 다시 분석하기</button>
+
+        <nav class="profile-section-nav" aria-label="프로필 섹션 이동">
+          <button type="button" data-profile-section="profile-experience-section">경험</button>
+          <button type="button" data-profile-section="profile-target-section">관심 직무</button>
+          <button type="button" data-profile-section="profile-education-section">학력</button>
+          <button type="button" data-profile-section="profile-skills-section">기술·자격·어학</button>
+          <button type="button" data-profile-section="profile-ai-section">AI 문제해결 경험</button>
+          <button type="button" data-profile-section="profile-assessment-section">인적성 결과</button>
+          <button type="button" data-profile-section="profile-plan-section">계획 중인 프로젝트</button>
+          <button type="button" data-profile-section="profile-resume-section">이력서 초안</button>
+        </nav>
+
         <form class="profile-form" id="profile-form">
-          <section class="profile-form-section">
+          <section class="profile-form-section" id="profile-target-section">
             <div class="profile-section-heading">
-              <div><strong>1. 관심 직무</strong><span>회사별 실제 직무명 사용</span></div>
+              <div><strong>1. 관심 직무</strong></div>
             </div>
-            <label><span>관심 직무 <small>한 줄에 하나</small></span><textarea id="profile-target-roles" rows="3" placeholder="SK하이닉스 양산기술&#10;삼성전자 공정기술"></textarea></label>
+            <label><span>관심 직무</span><textarea id="profile-target-roles" rows="3" placeholder="SK하이닉스 양산기술&#10;삼성전자 공정기술"></textarea></label>
           </section>
 
-          <section class="profile-form-section">
+          <section class="profile-form-section" id="profile-education-section">
             <div class="profile-section-heading">
-              <div><strong>2. 학력</strong><span>학교별 입력</span></div>
+              <div><strong>2. 학력</strong></div>
               <button class="profile-add" id="profile-add-education" type="button">학력 추가</button>
             </div>
             <div class="profile-entry-list" id="profile-education-list"></div>
-            <div class="profile-guide-note">
-              <b>가이드 기준</b>
-              <span>대학은 전체 평점·기준 평점·총 이수학점과 전공 과목을 기록하고, 교양·Pass 과목은 전공 목록에서 제외합니다. 대학원은 세부전공·지도교수·연구분야·논문·학회도 기록합니다.</span>
-            </div>
           </section>
 
-          <section class="profile-form-section">
+          <section class="profile-form-section" id="profile-skills-section">
             <div class="profile-section-heading">
-              <div><strong>3. 기술·자격·어학</strong><span>확인 가능한 내용만 입력</span></div>
+              <div><strong>3. 기술·자격·어학</strong></div>
             </div>
             <div class="profile-field-grid">
-              <label><span>기술·교육·실습 <small>한 줄에 하나</small></span><textarea id="profile-skills" rows="5" placeholder="Python으로 공정 데이터 전처리 및 시각화&#10;반도체 8대 공정 교육 40시간 이수"></textarea></label>
-              <label><span>자격증 <small>한 줄에 하나</small></span><textarea id="profile-certificates" rows="5" placeholder="산업안전기사&#10;6시그마 GB"></textarea></label>
+              <label><span>기술·교육·실습</span><textarea id="profile-skills" rows="5" placeholder="Python으로 공정 데이터 전처리 및 시각화&#10;반도체 8대 공정 교육 40시간 이수"></textarea></label>
+              <label><span>자격증</span><textarea id="profile-certificates" rows="5" placeholder="산업안전기사&#10;6시그마 GB"></textarea></label>
             </div>
-            <label><span>어학 <small>시험·등급·취득일을 함께 기록</small></span><textarea id="profile-languages" rows="3" placeholder="OPIc IM2 · 2026-03"></textarea></label>
+            <label><span>어학</span><textarea id="profile-languages" rows="3" placeholder="OPIc IM2 · 2026-03"></textarea></label>
           </section>
 
           <section class="profile-form-section" id="profile-experience-section">
             <div class="profile-section-heading">
-              <div><strong>4. 경험</strong><span>메모를 역할·행동·결과로 정리</span></div>
+              <div><strong>4. 경험</strong></div>
               <button class="profile-add" id="profile-add-experience" type="button">경험 추가</button>
             </div>
             <div class="profile-entry-list" id="profile-experience-list"></div>
           </section>
 
-          <section class="profile-form-section">
+          <section class="profile-form-section" id="profile-ai-section">
             <div class="profile-section-heading">
-              <div><strong>5. AI 문제해결 경험</strong><span>문제·활용·검증·결과 기록</span></div>
+              <div><strong>5. AI 문제해결 경험</strong></div>
             </div>
             <div class="profile-field-grid profile-ai-grid">
               <label><span>경험명</span><input id="profile-ai-title" type="text" placeholder="예: 반도체 뉴스 자동 분류 프로젝트" /></label>
@@ -260,45 +268,80 @@
             </div>
           </section>
 
-          <p class="profile-save-status" id="profile-save-status" aria-live="polite"></p>
+          <section class="profile-form-section" id="profile-assessment-section">
+            <div class="profile-section-heading">
+              <div><strong>6. 인적성 결과</strong><span>참고용 · 면접 근거가 아닙니다</span></div>
+            </div>
+            <div id="profile-assessment-result" aria-live="polite"></div>
+          </section>
+
+          <section class="profile-form-section" id="profile-plan-section">
+            <div class="profile-section-heading">
+              <div><strong>7. 계획 중인 프로젝트</strong><span>아직 실적이 아닙니다 · 다음 행동 후보로만 씁니다</span></div>
+              <button class="profile-add" id="profile-add-plan" type="button">계획 추가</button>
+            </div>
+            <div class="profile-entry-list" id="profile-plan-list"></div>
+          </section>
+
           <div class="profile-actions">
-            <button class="jd-primary" type="submit">이 기기에 저장</button>
+            <button class="jd-primary profile-save-primary" type="submit">이 기기에 저장</button>
+          </div>
+        </form>
+
+        <p class="profile-save-status" id="profile-save-status" aria-live="polite"></p>
+
+        <section class="profile-resume-card" id="profile-resume-section">
+          <h3>이력서 초안</h3>
+          <div class="profile-resume-actions">
+            <button class="jd-secondary" id="profile-resume-download" type="button">이력서 초안 받기</button>
+            <button class="jd-secondary" id="profile-resume-copy" type="button">이력서 초안 복사</button>
+          </div>
+        </section>
+
+        <details class="profile-backup-details">
+          <summary>백업·삭제</summary>
+          <div class="profile-backup-actions">
             <button class="jd-secondary" id="profile-export" type="button">백업 파일 받기</button>
             <label class="jd-secondary profile-import-button" for="profile-import">백업 불러오기</label>
             <input id="profile-import" type="file" accept="application/json,.json" />
             <button class="profile-delete" id="profile-delete" type="button">저장 내용 삭제</button>
           </div>
-        </form>
+        </details>
       </section>
 
       <section class="chapter-panel jd-chapter" id="jd-chapter" role="tabpanel" aria-labelledby="jd-tab" hidden>
         <div class="chapter-heading">
-          <div><span>JD REVIEW</span><h2>JD 분석</h2></div>
-          <p>원문 Fact와 해석을 분리</p>
+          <div><h2>채용공고 분석</h2></div>
         </div>
 
-        <div class="jd-privacy-notice">
-          <strong>먼저 JD만 분석</strong>
-          <span>프로필 연결은 분석 후 선택합니다.</span>
-        </div>
+        <nav class="jd-steps" id="jd-steps" aria-label="진행 단계">
+          <button type="button" class="jd-step-nav" data-jd-step-nav="1"><span class="jd-step-num">1</span><span class="jd-step-nav-title">채용공고 붙여넣기</span><span class="jd-step-state" data-jd-step-state="1">입력 전</span></button>
+          <button type="button" class="jd-step-nav" data-jd-step-nav="2" disabled><span class="jd-step-num">2</span><span class="jd-step-nav-title">분석 결과 보기</span><span class="jd-step-state" data-jd-step-state="2">분석 전</span></button>
+          <button type="button" class="jd-step-nav" data-jd-step-nav="3" disabled><span class="jd-step-num">3</span><span class="jd-step-nav-title">내 경험과 연결하기</span><span class="jd-step-state" data-jd-step-state="3">연결 전</span></button>
+          <button type="button" class="jd-step-nav" data-jd-step-nav="4" disabled><span class="jd-step-num">4</span><span class="jd-step-nav-title">자기소개서 문항에 경험 연결하기</span><span class="jd-step-state" data-jd-step-state="4">연결 전</span></button>
+        </nav>
 
-        <div class="jd-workspace-switcher" aria-label="저장한 지원 작업">
-          <label><span>지원 작업</span><select id="jd-workspace-select"><option value="">저장한 작업 없음</option></select></label>
-          <button class="jd-secondary" id="jd-workspace-load" type="button">불러오기</button>
-          <button class="jd-secondary" id="jd-workspace-delete" type="button">선택 삭제</button>
-          <div class="jd-workspace-backup-actions"><button type="button" id="jd-workspace-export">전체 백업</button><label for="jd-workspace-import">백업 불러오기</label><input id="jd-workspace-import" type="file" accept="application/json,.json" /></div>
-          <small>분석·문항 배치를 이 기기에 최대 8건 저장합니다. 백업 파일에는 JD와 자기소개서 초안 등 개인 작성 내용이 포함됩니다.</small>
-        </div>
+        <div class="jd-step" data-jd-step="1" data-open="true">
+          <button type="button" class="jd-step-head" data-jd-step-toggle="1" aria-expanded="true">
+            <span class="jd-step-num">1</span><span class="jd-step-title">채용공고 붙여넣기</span><span class="jd-step-state" data-jd-step-state="1">입력 전</span>
+          </button>
+          <div class="jd-step-body" data-jd-step-body="1">
+            <details class="jd-workspace-switcher-details">
+              <summary><span id="jd-workspace-count">저장한 지원 작업</span></summary>
+              <div class="jd-workspace-switcher" aria-label="저장한 지원 작업">
+                <div id="jd-workspace-list"></div>
+                <div class="jd-workspace-backup-actions"><button type="button" id="jd-workspace-export">전체 백업</button><label for="jd-workspace-import">백업 불러오기</label><input id="jd-workspace-import" type="file" accept="application/json,.json" /></div>
+              </div>
+            </details>
         <details class="jd-common-facts" id="jd-common-facts" hidden>
-          <summary>저장 JD 공통 준비 항목 <span id="jd-common-facts-count"></span></summary>
-          <p>서로 다른 저장 공고의 원문 기반 표준 키워드와 직접 요구 Tool만 집계합니다. 등장 횟수는 중요도나 합격 조건이 아닙니다.</p>
+          <summary>저장한 채용공고 공통 준비 항목 <span id="jd-common-facts-count"></span></summary>
           <div id="jd-common-facts-list"></div>
         </details>
 
         <form class="jd-form" id="jd-form">
           <div class="jd-field-grid">
-            <label><span>회사명 <small>사용자 입력·선택</small></span><input id="jd-company" type="text" placeholder="예: 현대자동차" /></label>
-            <label><span>직무명 <small>사용자 입력·선택</small></span><input id="jd-role" type="text" placeholder="예: 생산기술" /></label>
+            <label><span>회사명</span><input id="jd-company" type="text" placeholder="예: 현대자동차" /></label>
+            <label><span>직무명</span><input id="jd-role" type="text" placeholder="예: 생산기술" /></label>
             <label>
               <span>원문 출처</span>
               <select id="jd-source-type">
@@ -310,7 +353,7 @@
             <label><span>확인일</span><input id="jd-collected-at" type="date" /></label>
           </div>
           <label class="jd-wide-field">
-            <span>공고 주소 <small>선택</small></span>
+            <span>공고 주소</span>
             <input id="jd-source-url" type="url" placeholder="https://..." />
           </label>
           <label class="jd-wide-field">
@@ -319,8 +362,7 @@
           </label>
           <details class="jd-ai-settings">
             <summary>AI 분석 연결 설정 <small id="jd-ai-connection-state">연결 전</small></summary>
-            <p>Gemini 키가 저장된 Google Apps Script 웹 앱 주소를 이 기기에만 저장합니다. API 키 자체는 여기에 입력하지 않습니다.</p>
-            <label class="jd-wide-field"><span>Apps Script 웹 앱 주소</span><input id="jd-ai-endpoint" type="url" placeholder="https://script.google.com/macros/s/.../exec" /></label>
+            <label class="jd-wide-field"><span>AI 분석 연결 주소</span><input id="jd-ai-endpoint" type="url" placeholder="https://script.google.com/macros/s/.../exec" /></label>
             <div class="jd-form-actions"><button class="jd-secondary" id="jd-ai-save" type="button">연결 주소 저장</button></div>
           </details>
           <section class="jd-clean-preview" id="jd-clean-preview" hidden>
@@ -328,12 +370,10 @@
               <div><strong>분석 전 원문 정리 미리보기</strong><span id="jd-preview-count"></span></div>
               <span class="jd-fact-label">자동 정리</span>
             </div>
-            <p>소제목·번호·불릿을 기준으로 의미 단위를 확인했습니다. 원문이 잘렸다면 아래에서 직접 고친 뒤 분석하세요.</p>
             <div class="jd-ocr-warnings" id="jd-ocr-warnings"></div>
             <label class="jd-subrole-picker" id="jd-subrole-picker" hidden>
-              <span>분석할 세부 직무 <b>필수 선택</b></span>
+              <span>분석할 세부 직무</span>
               <select id="jd-subrole-select"></select>
-              <small>한 공고에 여러 세부 직무가 있어 선택한 직무의 업무만 분석합니다. 공통 지원자격과 우대사항은 그대로 반영합니다.</small>
             </label>
             <label class="jd-wide-field">
               <span>분석에 사용할 정리본 <b>사용자 수정 가능</b></span>
@@ -342,20 +382,26 @@
           </section>
           <div class="jd-form-actions">
              <button class="jd-primary" id="jd-preview-button" type="button">1. 원문 구조 확인</button>
-             <button class="jd-primary" id="jd-analyze-button" type="submit" hidden>2. JD 단독 분석</button>
+             <button class="jd-primary" id="jd-analyze-button" type="submit" hidden>2. 채용공고만 분석</button>
             <button class="jd-secondary" id="jd-reset" type="button">입력 지우기</button>
           </div>
         </form>
+          </div>
+        </div>
 
         <section class="jd-results" id="jd-results" aria-live="polite" hidden>
           <div class="jd-result-heading">
-            <div><span>RESULT</span><h2 id="jd-result-title">분석 결과</h2></div>
+            <div><h2 id="jd-result-title">분석 결과</h2></div>
             <div class="jd-result-actions"><span class="jd-source-grade" id="jd-source-grade"></span><button type="button" data-download-jd-report>분석 요약 받기</button></div>
           </div>
           <p class="jd-source-meta" id="jd-source-meta"></p>
           <div class="jd-limitations" id="jd-limitations"></div>
-
-          <section class="jd-result-section jd-mission-section">
+          <div class="jd-step" data-jd-step="2" data-open="false">
+            <button type="button" class="jd-step-head" data-jd-step-toggle="2" aria-expanded="false">
+              <span class="jd-step-num">2</span><span class="jd-step-title">분석 결과 보기</span><span class="jd-step-state" data-jd-step-state="2">분석 전</span>
+            </button>
+            <div class="jd-step-body" data-jd-step-body="2">
+<section class="jd-result-section jd-mission-section">
             <div class="jd-section-title"><span>1</span><div><h3>한 줄 요약</h3><p><span class="jd-interpretation-label">자동 해석</span></p></div></div>
             <div class="jd-mission-card" id="jd-career-definition"></div>
           </section>
@@ -393,41 +439,61 @@
             <div class="jd-preparation-grid"><div><h4>먼저 확인</h4><div id="jd-prep-must"></div></div><div><h4>강조 준비</h4><div id="jd-prep-strengths"></div></div><div><h4><span class="jd-interpretation-label">공부 후보</span></h4><div id="jd-prep-study"></div></div></div>
           </section>
 
-          <section class="jd-result-section jd-profile-connect-section">
+          <details class="jd-evidence-details">
+            <summary>원문 근거와 상세 분석 보기</summary>
+            <div class="jd-detail-block"><h4>채용공고 내용 분석</h4><div class="jd-table-wrap"><table class="jd-analysis-table"><thead><tr><th>항목</th><th>추출 내용</th><th>근거가 되는 채용공고 문장</th></tr></thead><tbody id="jd-fact-table"></tbody></table></div></div>
+            <div class="jd-detail-block"><h4>원문 키워드와 표준화 키워드</h4><div class="jd-table-wrap"><table class="jd-analysis-table"><thead><tr><th>원문 키워드</th><th>자동 표준화</th><th>근거가 되는 채용공고 문장</th></tr></thead><tbody id="jd-keyword-table"></tbody></table></div></div>
+            <div class="jd-detail-block"><h4>직접 요구된 도구와 공부 후보</h4><div class="jd-tool-columns"><div><h4><span class="jd-fact-label">채용공고에서 직접 요구</span></h4><div id="jd-direct-tools"></div></div><div><h4><span class="jd-interpretation-label">자동 제안 · 공부 후보</span></h4><div id="jd-study-tools"></div></div></div></div>
+            <div class="jd-detail-block"><h4>원문 의미 단위</h4><div class="jd-requirement-list" id="jd-evidence-list"></div></div>
+          </details>
+
+          <p class="jd-disclaimer">채용공고 원문만 분석합니다. 합격 가능성을 판단하지 않습니다.</p>
+              <button type="button" class="jd-primary jd-step-next" data-jd-step-goto="3">내 경험과 연결하기로</button>
+            </div>
+          </div>
+          <div class="jd-step" data-jd-step="3" data-open="false">
+            <button type="button" class="jd-step-head" data-jd-step-toggle="3" aria-expanded="false">
+              <span class="jd-step-num">3</span><span class="jd-step-title">내 경험과 연결하기</span><span class="jd-step-state" data-jd-step-state="3">연결 전</span>
+            </button>
+            <div class="jd-step-body" data-jd-step-body="3">
+<section class="jd-result-section jd-profile-connect-section">
             <div class="jd-section-title"><span>8</span><div><h3>내 경험 연결</h3></div></div>
             <div class="jd-profile-link" id="jd-profile-link">
-              <div><strong>저장된 내 프로필 확인 중</strong><span>프로필은 버튼을 누르기 전까지 AI 분석 서버로 전송되지 않습니다.</span></div>
+              <div><strong>저장된 내 프로필 확인 중</strong><span id="jd-profile-link-note">프로필은 버튼을 누르기 전까지 AI 분석 서버로 전송되지 않습니다.</span></div>
               <button type="button" data-open-profile>내 프로필 작성</button>
             </div>
-            <p class="jd-profile-consent">아래 버튼을 누르면 현재 JD와 저장된 프로필 내용이 연결된 AI 분석 서버로 전송됩니다. 입력하지 않은 경험이나 성과는 만들지 않습니다.</p>
-            <button class="jd-primary" id="jd-match-profile-button" type="button">JD와 내 경험 연결 분석</button>
+            <p class="jd-profile-consent" id="jd-profile-consent">버튼을 누르면 저장된 프로필이 AI 분석 서버로 전송됩니다. 없는 경험은 만들지 않습니다.</p>
+            <button class="jd-primary" id="jd-match-profile-button" type="button">내 경험과 연결하기</button>
             <div class="jd-match-summary" id="jd-match-summary" hidden></div>
             <div class="jd-profile-connections" id="jd-profile-connections" hidden></div>
           </section>
 
-          <section class="jd-result-section jd-question-map-section">
-            <div class="jd-section-title"><span>9</span><div><h3>문항별 경험 배치</h3></div></div>
-            <p class="jd-profile-consent">실제 문항을 빈 줄 또는 1·2·3 번호로 구분하세요. 저장한 경험 근거만 사용합니다.</p>
+          <section class="jd-result-section jd-recall-section" id="jd-recall-section">
+            <div class="jd-section-title"><span>10</span><div><h3>내 경험으로 답하는 질문</h3><p><span class="jd-interpretation-label">채용공고에서 나온 질문</span></p></div></div>
+            <p class="jd-profile-consent">채용공고에서 뽑은 연습 질문입니다. 실제 기업 문항이 아닙니다. 없는 경험이나 수치는 만들지 않습니다.</p>
+            <div class="jd-recall-list" id="jd-recall-questions"></div>
+          </section>
+              <button type="button" class="jd-primary jd-step-next" data-jd-step-goto="4">자기소개서 문항에 경험 연결하기로</button>
+            </div>
+          </div>
+          <div class="jd-step" data-jd-step="4" data-open="false">
+            <button type="button" class="jd-step-head" data-jd-step-toggle="4" aria-expanded="false">
+              <span class="jd-step-num">4</span><span class="jd-step-title">자기소개서 문항에 경험 연결하기</span><span class="jd-step-state" data-jd-step-state="4">연결 전</span>
+            </button>
+            <div class="jd-step-body" data-jd-step-body="4">
+<section class="jd-result-section jd-question-map-section">
+            <div class="jd-section-title"><span>9</span><div><h3>자기소개서 문항에 경험 연결하기</h3></div></div>
             <label class="jd-question-input"><span>자기소개서 문항</span><textarea id="jd-application-questions" rows="5" placeholder="지원 직무와 관련된 경험을 작성해 주세요.&#10;&#10;어려운 목표에 도전한 경험을 작성해 주세요."></textarea></label>
-            <button class="jd-primary" id="jd-map-questions-button" type="button">경험 배치 추천</button>
+            <button class="jd-primary" id="jd-map-questions-button" type="button">경험 연결하기</button>
             <div class="jd-question-map-results" id="jd-question-map-results" hidden></div>
           </section>
-
-          <details class="jd-evidence-details">
-            <summary>원문 근거와 상세 분석 보기</summary>
-            <p>평소에는 결론만 읽고, 판단 근거를 확인할 때만 펼쳐보세요.</p>
-            <div class="jd-detail-block"><h4>JD Fact 분석</h4><div class="jd-table-wrap"><table class="jd-analysis-table"><thead><tr><th>항목</th><th>추출 내용</th><th>근거 JD 문장</th></tr></thead><tbody id="jd-fact-table"></tbody></table></div></div>
-            <div class="jd-detail-block"><h4>원문 키워드와 표준화 키워드</h4><div class="jd-table-wrap"><table class="jd-analysis-table"><thead><tr><th>원문 키워드</th><th>자동 표준화</th><th>근거 JD 문장</th></tr></thead><tbody id="jd-keyword-table"></tbody></table></div></div>
-            <div class="jd-detail-block"><h4>직접 요구된 Tool과 공부 후보</h4><div class="jd-tool-columns"><div><h4><span class="jd-fact-label">JD 직접 요구</span></h4><div id="jd-direct-tools"></div></div><div><h4><span class="jd-interpretation-label">자동 제안 · 공부 후보</span></h4><div id="jd-study-tools"></div></div></div></div>
-            <div class="jd-detail-block"><h4>원문 의미 단위</h4><div class="jd-requirement-list" id="jd-evidence-list"></div></div>
-          </details>
-
-          <p class="jd-disclaimer">이 단계는 JD 원문만 분석하며 사용자 경험, 적합도, 합격 가능성을 판단하지 않습니다. 자동 해석은 연결된 근거 문장을 확인한 뒤 참고용으로만 사용하세요.</p>
+            </div>
+          </div>
         </section>
       </section>
       <section class="chapter-panel assessment-chapter" id="assessment-chapter" role="tabpanel" aria-labelledby="assessment-tab" hidden>
-        <div class="assessment-toolbar"><a href="assessment.html" target="_blank" rel="noopener">전체 화면으로 열기 ↗</a></div>
-        <iframe id="assessment-frame" data-src="assessment.html" title="인적성 검사 및 회사별 설명"></iframe>
+        <div class="assessment-toolbar"><a href="assessment.html" target="_blank" rel="noopener">전체 화면으로 열기 ↗</a><p id="assessment-result-status" hidden></p></div>
+        <iframe id="assessment-frame" data-src="assessment.html" title="인성·적성검사"></iframe>
       </section>
     </main>
 

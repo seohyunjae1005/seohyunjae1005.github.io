@@ -61,10 +61,10 @@
     let mode = "embedded_text";
     if (fullText.replace(/\s/g, "").length < 80) {
       if (pageCount > OCR_MAX_PAGES) {
-        throw new Error(`이미지형 PDF는 OCR 처리 시간이 길어 ${OCR_MAX_PAGES}쪽 이하만 지원합니다. 지원할 직무 페이지만 분리해 다시 넣어 주세요.`);
+        throw new Error(`이미지형 PDF는 글자 인식 처리 시간이 길어 ${OCR_MAX_PAGES}쪽 이하만 지원합니다. 지원할 직무 페이지만 분리해 다시 넣어 주세요.`);
       }
       mode = "browser_ocr";
-      onProgress?.("선택 가능한 글자가 없어 이미지 OCR을 준비하고 있습니다. 처음에는 언어 파일을 내려받아 시간이 걸릴 수 있습니다.");
+      onProgress?.("선택 가능한 글자가 없어 이미지 글자 인식을 준비하고 있습니다. 처음에는 언어 파일을 내려받아 시간이 걸릴 수 있습니다.");
       const { createWorker } = await import(TESSERACT_URL);
       const worker = await createWorker(["kor", "eng"], 1, {
         logger: (message) => {
@@ -76,7 +76,7 @@
       const ocrPages = [];
       try {
         for (let pageNumber = 1; pageNumber <= pageCount; pageNumber += 1) {
-          onProgress?.(`${pageCount}쪽 중 ${pageNumber}쪽을 이미지 OCR로 읽고 있습니다.`);
+          onProgress?.(`${pageCount}쪽 중 ${pageNumber}쪽을 이미지에서 글자를 읽고 있습니다.`);
           const page = await pdf.getPage(pageNumber);
           const viewport = page.getViewport({ scale: 1.8 });
           const canvas = document.createElement("canvas");
@@ -86,7 +86,7 @@
           await page.render({ canvasContext: context, viewport }).promise;
           const recognized = await worker.recognize(canvas);
           const text = String(recognized?.data?.text || "").trim();
-          if (text) ocrPages.push(`[${pageNumber}쪽 OCR]\n${text}`);
+          if (text) ocrPages.push(`[${pageNumber}쪽 글자 인식]\n${text}`);
           page.cleanup();
           canvas.width = 1;
           canvas.height = 1;
@@ -96,7 +96,7 @@
       }
       fullText = ocrPages.join("\n\n").trim();
       if (fullText.replace(/\s/g, "").length < 80) {
-        throw new Error("이미지 OCR을 시도했지만 글자를 충분히 읽지 못했습니다. 더 선명한 PDF나 지원할 직무 부분의 이미지를 사용해 주세요.");
+        throw new Error("이미지에서 글자를 읽어봤지만 충분히 읽지 못했습니다. 더 선명한 PDF나 지원할 직무 부분의 이미지를 사용해 주세요.");
       }
     }
     await pdf.destroy();

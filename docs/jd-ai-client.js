@@ -8,7 +8,7 @@
     if (!endpoint) return "";
     const url = new URL(endpoint);
     if (url.protocol !== "https:") throw new Error("AI 분석 연결 주소는 https 주소여야 합니다.");
-    if (!/script\.google\.com$/.test(url.hostname)) throw new Error("현재는 Google Apps Script 웹 앱 주소만 지원합니다.");
+    if (!/script\.google\.com$/.test(url.hostname)) throw new Error("현재는 AI 분석 연결 주소만 지원합니다.");
     return url.toString();
   }
 
@@ -126,9 +126,9 @@
   }
 
   function assertQuestionMapResult(result) {
-    if (!result || !Array.isArray(result.placements) || !result.counts) throw new Error("문항별 경험 배치 결과 형식이 올바르지 않습니다.");
+    if (!result || !Array.isArray(result.placements) || !result.counts) throw new Error("문항별 경험 연결 결과 형식이 올바르지 않습니다.");
     result.placements.forEach((row) => {
-      if (!row.question || !["strong", "usable", "missing"].includes(row.status)) throw new Error("문항별 경험 배치 상태가 올바르지 않습니다.");
+      if (!row.question || !["strong", "usable", "missing"].includes(row.status)) throw new Error("문항별 경험 연결 상태가 올바르지 않습니다.");
       if (row.status !== "missing" && (!row.experience || !row.profileEvidenceQuote)) throw new Error("문항별 경험 근거가 누락되었습니다.");
     });
     return result;
@@ -144,7 +144,7 @@
     });
     if (!response.ok) throw new Error(`AI 분석 서버 연결 실패 (${response.status})`);
     const payload = await response.json();
-    if (!payload.ok) throw new Error(payload.error || "AI가 문항별 경험 배치 결과를 만들지 못했습니다.");
+    if (!payload.ok) throw new Error(payload.error || "AI가 문항별 경험 연결 결과를 만들지 못했습니다.");
     return assertQuestionMapResult(payload.result);
   }
 

@@ -5,12 +5,17 @@
   const LEGACY_STORAGE_KEY = "semiconductor-career-profile-v1";
   const EMPTY_PROFILE = Object.freeze({
     targetRoles: "", skills: "", certificates: "", languages: "",
-    educations: [], experiences: [],
+    educations: [], experiences: [], plans: [],
     aiExperience: { title: "", context: "", period: "", role: "", aiUse: "", verification: "", result: "" },
     updatedAt: "",
   });
   const EDUCATION_FIELDS = ["id", "level", "school", "status", "startDate", "endDate", "major", "secondaryMajor", "transfer", "region", "gpa", "gpaScale", "credits", "coursework", "advisor", "lab", "research", "theses", "conferences"];
-  const EXPERIENCE_FIELDS = ["id", "type", "title", "organization", "startDate", "endDate", "rawNotes", "role", "situation", "action", "result", "tools", "recallDraft", "confirmedRecall", "angleChip", "angleEquipment", "angleQuality", "angleProduction"];
+  const EXPERIENCE_FIELDS = ["id", "type", "title", "organization", "startDate", "endDate", "rawNotes", "role", "situation", "action", "result", "tools", "recallDraft", "confirmedRecall", "verifiedNumbers", "angleChip", "angleEquipment", "angleQuality", "angleProduction"];
+  // 계획 중인 프로젝트: 아직 실적이 아닌, 앞으로 채울 활동이다.
+  // JDQ gap 문항의 다음 행동 후보로만 쓰이고, 수행한 경험으로는
+  // 절대 연결하지 않는다 (toEvidenceEntries에 들어가지 않는다).
+  // 어떤 사용자의 계획이든 여기에 적으면 그 계획 기준으로 동작한다.
+  const PLAN_FIELDS = ["id", "title", "covers", "period", "note"];
   const AI_FIELDS = ["title", "context", "period", "role", "aiUse", "verification", "result"];
 
   function clean(value) {
@@ -37,6 +42,7 @@
       languages: clean(profile?.languages),
       educations: Array.isArray(profile?.educations) ? profile.educations.map((row) => cleanRecord(row, EDUCATION_FIELDS)).filter((row) => hasRecordValue(row)) : [],
       experiences: Array.isArray(profile?.experiences) ? profile.experiences.map((row) => cleanRecord(row, EXPERIENCE_FIELDS)).filter((row) => hasRecordValue(row)) : [],
+      plans: Array.isArray(profile?.plans) ? profile.plans.map((row) => cleanRecord(row, PLAN_FIELDS)).filter((row) => hasRecordValue(row)) : [],
       aiExperience: cleanRecord(profile?.aiExperience, AI_FIELDS),
       updatedAt: clean(profile?.updatedAt),
     };
@@ -130,6 +136,12 @@
       row.result ? `결과 ${row.result}` : "",
       row.tools ? `기술·도구 ${row.tools}` : "",
       row.confirmedRecall ? `본인 확인 추가 경험 ${row.confirmedRecall}` : "",
+      // 36회차: 확인한 수치 — 값만 그대로 둔다. "확인한 수치" 같은 라벨을
+      // 붙이면 "확인" 어간이 매칭에 들어가서, 품질 요구사항("품질 상태를
+      // 확인하고…")에 품질만 겹치는 경험이 직접으로 부풀려진다. 값
+      // ("23nm 패턴", "두께 20.1nm")은 측정 내용 자체라 겹침이 정직하다.
+      // 이 값이 있으면 초안 뼈대·검토·이력서에서 수치 근거로 쓴다.
+      row.verifiedNumbers ? row.verifiedNumbers : "",
     ]);
   }
 
@@ -155,12 +167,33 @@
     ].filter(Boolean).join("\n");
   }
 
+  function toPlanEntries(profile) {
+    // 계획 중인 프로젝트 목록. 수행한 경험이 아니므로 JDQ 연결·이력서에는
+    // 들어가지 않고, gap 문항의 다음 행동 후보로만 쓴다.
+    const normalized = normalize(profile);
+    return normalized.plans.map((row, index) => {
+      const covers = clean(row.covers);
+      const period = clean(row.period);
+      return {
+        id: row.id || `plan-${index + 1}`,
+        label: clean(row.title) || `계획 중인 프로젝트 ${index + 1}`,
+        covers,
+        text: compact([
+          `계획 중 프로젝트: ${clean(row.title) || ""}`,
+          covers ? `채울 역량·활동: ${covers}` : "",
+          period ? `시기: ${period}` : "",
+          clean(row.note) || "",
+        ]),
+      };
+    }).filter((row) => row.label || row.covers);
+  }
+
   function toEvidenceEntries(profile) {
     const normalized = normalize(profile);
     const rows = [];
     normalized.experiences.forEach((row, index) => {
       const text = experienceText(row);
-      if (text) rows.push({ id: row.id || `experience-${index + 1}`, kind: "경험", label: row.title || row.type || `경험 ${index + 1}`, text });
+      if (text) rows.push({ id: row.id || `experience-${index + 1}`, kind: "경험", label: row.title || row.type || `경험 ${index + 1}`, text, verifiedNumbers: clean(row.verifiedNumbers) });
     });
     const aiText = aiExperienceText(normalized.aiExperience);
     if (aiText) rows.push({ id: "ai-experience", kind: "AI 활용 경험", label: normalized.aiExperience.title || "AI 문제해결 경험", text: aiText });
@@ -182,6 +215,6 @@
     return { filled, educationCount: normalized.educations.length, experienceCount, ready: experienceCount > 0 };
   }
 
-  root.CareerProfile = { STORAGE_KEY, LEGACY_STORAGE_KEY, EMPTY_PROFILE, normalize, migrateLegacy, load, save, clear, lines, toExperienceText, toEvidenceEntries, summary };
+  root.CareerProfile = { STORAGE_KEY, LEGACY_STORAGE_KEY, EMPTY_PROFILE, normalize, migrateLegacy, load, save, clear, lines, toExperienceText, toEvidenceEntries, toPlanEntries, summary };
   if (typeof module !== "undefined" && module.exports) module.exports = root.CareerProfile;
 })(typeof window !== "undefined" ? window : globalThis);

@@ -68,7 +68,93 @@
     helper.querySelectorAll("[data-recall-id]").forEach((q) => { draft[q.dataset.recallId] = { status: q.querySelector("[data-recall-status]").value, detail: q.querySelector("[data-recall-detail]").value }; });
     helper.querySelector('[data-field="recallDraft"]').value = JSON.stringify(draft);
   }
-  const api = { template, confirmedAnswers, tracks };
+  // JD 기반 경험 구체화 질문(JDQ) 표시용 템플릿.
+  // 입력은 JdRecallQuestions.buildRecallQuestions() 결과 그대로 받는다.
+  // 원문 사실(JD 인용·근거 번호)과 해석·제안(질문·작성 방향)을 라벨로 구분해 표시하고,
+  // 연결된 경험이 없으면 [보완 필요]로 남긴다. 없는 경험을 만들어내지 않는다.
+  function jdqTemplate(recall, savedAnswers = {}) {
+    const questions = Array.isArray(recall?.questions) ? recall.questions : [];
+    const answers = savedAnswers && typeof savedAnswers === "object" ? savedAnswers : {};
+    const warnings = Array.isArray(recall?.warnings) ? recall.warnings : [];
+    if (!questions.length) {
+      return `<p class="jd-empty-result">채용공고에서 나온 질문을 만들지 못했습니다. 채용공고 원문과 분석 결과를 확인해 주세요.</p>${warnings.map((w) => `<p class="jd-recall-warning">${escape(w)}</p>`).join("")}`;
+    }
+    const summary = recall.summary || {
+      total: questions.length,
+      direct: questions.filter((q) => q.status === "linked").length,
+      indirect: questions.filter((q) => q.status === "indirect").length,
+      gap: questions.filter((q) => q.status === "gap").length,
+      answerable: questions.filter((q) => q.status === "linked").length,
+      background: questions.filter((q) => q.status === "indirect").length,
+    };
+    // 4회차 정정: "답할 수 있는 문항"에는 직접만 센다. 간접은 배경으로 따로 표시한다.
+    const summaryLine = `<p class="jd-recall-summary">직접 답할 수 있는 문항 ${summary.direct}/${summary.total} · 간접 배경 ${summary.indirect} · 보완 필요 ${summary.gap} — 간접은 부분 배경이지 완성된 답이 아닙니다.</p>`;
+    return summaryLine + questions.map((q, index) => {
+      const linked = q.linkedExperience;
+      // 카드 배지는 세부 표시와 같은 낙관도로 단다 (4회차 정정).
+      // 세부(subParts)가 있으면 그중 간접인 부분만 세어 "일부만 (n/m)"으로 표시하고,
+      // 세부 없이 간접이면 "부분 유사", 직접이면 "연결됨"이다.
+      const cardBadge = () => {
+        if (q.status === "linked" && linked) return `<span class="jd-recall-status linked">연결됨 · ${escape(linked.kind || "경험")}</span>`;
+        if (q.status === "indirect" && linked) {
+          if (Array.isArray(q.subParts) && q.subParts.length) {
+            const covered = q.subParts.filter((p) => p.status === "indirect").length;
+            return `<span class="jd-recall-status indirect">간접 연결 · 일부만 (${covered}/${q.subParts.length})</span>`;
+          }
+          return `<span class="jd-recall-status indirect">간접 연결 · 부분 유사</span>`;
+        }
+        return `<span class="jd-recall-status gap">[보완 필요]</span>`;
+      };
+      const status = cardBadge();
+      const profileLink = `<a class="jd-recall-profile-link" href="#profile-form">프로필에서 보기</a>`;
+      const boundaryBlock = q.boundary
+        ? `<p class="jd-recall-boundary">${escape(q.boundary)}</p>` : "";
+      const subPartsBlock = Array.isArray(q.subParts) && q.subParts.length
+        ? `<ul class="jd-recall-subparts">${q.subParts.map((part) => `<li><strong>${escape(part.label)}</strong> <span class="jd-recall-status ${part.status === "indirect" ? "indirect" : "gap"}">${part.status === "indirect" ? "간접 연결" : "[보완 필요]"}</span> <span>${escape(part.note || "")}</span></li>`).join("")}</ul>`
+        : "";
+      const experienceBlock = q.status === "linked" && linked
+        ? `<div class="jd-recall-experience"><small>연결된 경험 · 원문 발췌</small><strong>${escape(linked.label)}</strong><blockquote>${escape(linked.excerpt)}</blockquote>${linked.verifiedNumbers ? `<p class="jd-recall-verified-numbers">확인한 수치: ${escape(linked.verifiedNumbers)}</p>` : ""}${boundaryBlock}${profileLink}</div>`
+        : q.status === "indirect" && linked
+          ? `<div class="jd-recall-experience jd-recall-indirect"><small>간접 연결 · 부분 유사 — 직접 경험이 아닙니다</small><strong>${escape(linked.label)}</strong><blockquote>${escape(linked.excerpt)}</blockquote>${linked.verifiedNumbers ? `<p class="jd-recall-verified-numbers">확인한 수치: ${escape(linked.verifiedNumbers)}</p>` : ""}<p>${escape(q.indirectNote || "")}</p>${profileLink}</div>`
+          : `<div class="jd-recall-experience jd-recall-gap"><small>연결된 경험 없음</small><p>저장한 프로필 원문에서 이 질문과 연결할 근거를 찾지 못했습니다. 경험이 없다는 판정이 아니라, 근거가 없다는 뜻입니다. 실제 수행한 활동을 추가하거나, 관련 프로젝트를 진행한 뒤 다시 확인하세요.</p>${q.nextAction ? `<p class="jd-recall-next">${escape(q.nextAction)}</p>` : ""}</div>`;
+      // 38회차: 카드에 "같은 역량의 다른 경험"과 "관련 계획"을 보여준다.
+      // 관련 계획은 직접 근거가 아니라는 표시를 분명히 한다.
+      const relatedExperiencesBlock = Array.isArray(q.relatedExperiences) && q.relatedExperiences.length
+        ? `<div class="jd-recall-related"><small>같은 역량의 다른 경험</small><ul>${q.relatedExperiences.map((r) => `<li><strong>${escape(r.label)}</strong><span>${escape(r.excerpt)}</span>${r.verifiedNumbers ? `<span>확인한 수치: ${escape(r.verifiedNumbers)}</span>` : ""}</li>`).join("")}</ul></div>`
+        : "";
+      const relatedPlansBlock = Array.isArray(q.relatedPlans) && q.relatedPlans.length
+        ? `<div class="jd-recall-related"><small>관련 계획 · 계획 중 — 아직 실적이 아닙니다</small><ul>${q.relatedPlans.map((p) => `<li><strong>${escape(p.label)}</strong><span>${escape(p.covers || "")}</span></li>`).join("")}</ul></div>`
+        : "";
+      // 역량 문구가 JD 인용문과 같은 문장이면 축 라인에 두 번 적지 않는다.
+      // JD 문장은 아래 사실 blockquote에 한 번만 나온다.
+      const competencyLine = q.competency && q.competency !== q.jdQuote
+        ? ` · <span>${escape(q.competency)}</span>` : "";
+      const answerBlock = `<div class="jd-recall-answer">
+        <label>내 답변 <small>상황 → 내가 한 행동 → 결과 순서로 쓰세요. 지원서 초안의 재료가 됩니다.</small></label>
+        <textarea data-jdq-answer rows="4" placeholder="상황: ${escape(q.focus?.situation || "")} / 내가 한 행동: ${escape(q.focus?.action || "")} / 결과: ${escape(q.focus?.result || "")}">${escape(answers[q.id] || "")}</textarea>
+        <div class="jd-recall-answer-actions"><button type="button" data-send-to-workspace>지원서 초안에 보내기</button><small data-jdq-save-status>${answers[q.id] ? "이 기기에 임시 저장됨" : "입력하면 이 기기에 자동 저장됩니다."}</small></div>
+        <p class="jd-recall-send-status" data-jdq-send-status role="status"></p>
+      </div>`;
+      return `<article class="jd-recall-card ${q.status === "linked" ? "" : q.status}" data-question-id="${escape(q.id)}" data-jdq-key="${escape(q.key || q.id)}" data-evidence="${escape((q.jdEvidenceIds || []).join(","))}">
+        <div class="jd-recall-head"><strong>${index + 1}.</strong><span class="jd-interpretation-label">${escape(q.label || "채용공고에서 나온 질문")}</span>${status}</div>
+        <h4>${escape(q.question)}</h4>
+        <p class="jd-recall-axis"><span>${escape(q.axisTitle || "채용공고 업무")}</span>${competencyLine}</p>
+        <div class="jd-recall-fact"><span class="jd-fact-label">사실</span><blockquote>${escape(q.jdQuote)}</blockquote></div>
+        <dl class="jd-recall-focus">
+          <div><dt>상황</dt><dd>${escape(q.focus?.situation || "")}</dd></div>
+          <div><dt>내가 한 행동</dt><dd>${escape(q.focus?.action || "")}</dd></div>
+          <div><dt>결과</dt><dd>${escape(q.focus?.result || "")}</dd></div>
+        </dl>
+        ${subPartsBlock}
+        <p class="jd-recall-direction"><span class="jd-interpretation-label">제안</span> 지원서 작성 방향 · ${escape(q.direction)}</p>
+        ${experienceBlock}
+        ${relatedExperiencesBlock}
+        ${relatedPlansBlock}
+        ${answerBlock}
+      </article>`;
+    }).join("") + (warnings.length ? warnings.map((w) => `<p class="jd-recall-warning">${escape(w)}</p>`).join("") : "");
+  }
+  const api = { template, confirmedAnswers, tracks, jdqTemplate };
   root.ExperienceRecall = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : globalThis);
