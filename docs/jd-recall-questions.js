@@ -601,13 +601,14 @@
     const kind = classify(candidateText);
     const entries = Array.isArray(profileEntries) ? profileEntries : [];
     const technical = /반도체|CMOS|MOSFET|웨이퍼|소자|리소|노광|식각|증착|산화|CMP|공정\s*(조건|흐름|원리)|photolithography|diffusion|thin film/i;
-    const academic = /공학|물리|화학|재료|반도체|전자|전기|전공|관련 과목|이수학점/;
+    const academic = /공학|물리|화학|재료|전공|관련 과목|이수학점|수업|교과목/;
     return entries.filter((entry) => {
       const text = String(entry.text || "");
       if (kind === "related_field") return academic.test(text);
       if (kind === "process_knowledge" && /반도체|공정/.test(candidateText)) return technical.test(text);
       if (kind === "project_learning" && /반도체/.test(candidateText)) return technical.test(text);
       if (kind === "derived_product") return /파생|요소기술|웨이퍼|소자|소재|시제품|부품|재료|회로|제품.*(제작|개발|설계)/.test(text);
+      if (kind === "programming_data") return /프로그래밍|프로그램|python|labview|javascript|SQL|코딩|소스\s*코드|코드.*(작성|실행|구현)|데이터.*분석|분석.*데이터/i.test(text);
       return true;
     });
   }
