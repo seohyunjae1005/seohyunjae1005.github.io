@@ -88,14 +88,14 @@
       background: questions.filter((q) => q.status === "indirect").length,
     };
     // 4회차 정정: "답할 수 있는 문항"에는 직접만 센다. 간접은 배경으로 따로 표시한다.
-    const summaryLine = `<p class="jd-recall-summary">직접 답할 수 있는 문항 ${summary.direct}/${summary.total} · 간접 배경 ${summary.indirect} · 보완 필요 ${summary.gap} — 간접은 부분 배경이지 완성된 답이 아닙니다.</p>`;
+    const summaryLine = `<p class="jd-recall-summary">경험을 떠올릴 질문 ${summary.total}개 · 아래 후보를 확인하고 한 가지 사례부터 적어보세요.</p>`;
     return summaryLine + questions.map((q, index) => {
       const linked = q.linkedExperience;
       // 카드 배지는 세부 표시와 같은 낙관도로 단다 (4회차 정정).
       // 세부(subParts)가 있으면 그중 간접인 부분만 세어 "일부만 (n/m)"으로 표시하고,
       // 세부 없이 간접이면 "부분 유사", 직접이면 "연결됨"이다.
       const cardBadge = () => {
-        if (q.status === "linked" && linked) return `<span class="jd-recall-status linked">연결됨 · ${escape(linked.kind || "경험")}</span>`;
+        if (q.status === "linked" && linked) return `<span class="jd-recall-status linked">경험 후보</span>`;
         if (q.status === "indirect" && linked) {
           if (Array.isArray(q.subParts) && q.subParts.length) {
             const covered = q.subParts.filter((p) => p.status === "indirect").length;
@@ -138,6 +138,9 @@
       return `<article class="jd-recall-card ${q.status === "linked" ? "" : q.status}" data-question-id="${escape(q.id)}" data-jdq-key="${escape(q.key || q.id)}" data-evidence="${escape((q.jdEvidenceIds || []).join(","))}">
         <div class="jd-recall-head"><strong>${index + 1}.</strong><span class="jd-interpretation-label">${escape(q.label || "채용공고에서 나온 질문")}</span>${status}</div>
         <h4>${escape(q.question)}</h4>
+        ${linked ? `<p class="jd-recall-candidate">떠올려 볼 경험 · ${escape(linked.label)}</p>` : '<p class="jd-recall-candidate">떠오르는 경험이 있다면 아래에 적어주세요.</p>'}
+        ${answerBlock}
+        <details class="jd-recall-help"><summary>질문 근거·작성 도움말</summary>
         <p class="jd-recall-axis"><span>${escape(q.axisTitle || "채용공고 업무")}</span>${competencyLine}</p>
         <div class="jd-recall-fact"><span class="jd-fact-label">사실</span><blockquote>${escape(q.jdQuote)}</blockquote></div>
         <dl class="jd-recall-focus">
@@ -150,7 +153,7 @@
         ${experienceBlock}
         ${relatedExperiencesBlock}
         ${relatedPlansBlock}
-        ${answerBlock}
+        </details>
       </article>`;
     }).join("") + (warnings.length ? warnings.map((w) => `<p class="jd-recall-warning">${escape(w)}</p>`).join("") : "");
   }

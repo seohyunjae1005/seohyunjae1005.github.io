@@ -597,7 +597,23 @@
     return { id: best.entry.id, kind: best.entry.kind, label: best.entry.label, text: String(best.entry.text || ""), excerpt, score: 6, matchedTokens: [], verifiedNumbers: String(best.entry.verifiedNumbers || "") };
   }
 
+  function relevantEntries(candidateText, profileEntries) {
+    const kind = classify(candidateText);
+    const entries = Array.isArray(profileEntries) ? profileEntries : [];
+    const technical = /반도체|CMOS|MOSFET|웨이퍼|소자|리소|노광|식각|증착|산화|CMP|공정\s*(조건|흐름|원리)|photolithography|diffusion|thin film/i;
+    const academic = /공학|물리|화학|재료|반도체|전자|전기|전공|관련 과목|이수학점/;
+    return entries.filter((entry) => {
+      const text = String(entry.text || "");
+      if (kind === "related_field") return academic.test(text);
+      if (kind === "process_knowledge" && /반도체|공정/.test(candidateText)) return technical.test(text);
+      if (kind === "project_learning" && /반도체/.test(candidateText)) return technical.test(text);
+      if (kind === "derived_product") return /파생|요소기술|웨이퍼|소자|소재|시제품|부품|재료|회로|제품.*(제작|개발|설계)/.test(text);
+      return true;
+    });
+  }
+
   function findLinkedExperience(candidateText, profileEntries) {
+    profileEntries = relevantEntries(candidateText, profileEntries);
     const candTokens = new Set(stemmedTokens(candidateText));
     if (!candTokens.size || !Array.isArray(profileEntries)) return null;
     // 38회차: 실험·프로젝트 문항은 "실험이나 프로젝트를 통해 배운 것"을
@@ -995,6 +1011,7 @@
       if (!evidenceIds.length) continue;
       const jdQuote = unitMap.get(evidenceIds[0]).text;
       const kind = classify(cand.competency + " " + jdQuote);
+      const candidateEntries = relevantEntries(cand.competency + " " + jdQuote, profileEntries);
       const tpl = TEMPLATES[kind] || TEMPLATES.generic;
       // 43회차: programming_data인데 원문에 프로그래밍·데이터 신호가
       // 없으면 표시 문구만 중립 문구로 바꾼다 (종류는 유지 — 순위·링크·
@@ -1005,7 +1022,7 @@
       // 다리 어간이 겹치는 경우에만, 단서付き로 표시한다.
       // Apps Script 패리티: 직접 후보라도 주요 업무(duty)가 요구하는
       // 구체 행동이 프로필 원문에 없으면 간접으로 강등한다.
-      let linked = findLinkedExperience(cand.competency + " " + jdQuote, profileEntries);
+      let linked = findLinkedExperience(cand.competency + " " + jdQuote, candidateEntries);
       let indirect = null;
       // 35회차: process_yield 문항은 조건 변경 + 측정·비교가 질문의
       // 핵심이다. 직접 연결된 경험 원문에 그 근거가 없으면 간접으로
@@ -1031,7 +1048,7 @@
       // 사라지는 경우가 있다(바이오·EE·제약·확인한 수치 테스트 확인).
       // 8번(요구사항 연결)은 "이해" 요구사항이라 학습 전용 직접을 유지한다.
       if (linked && kind === "process_knowledge" && !hasPerformActionEvidence(linked.text, linked)) {
-        const applied = findProcessApplicationExperience(cand.competency + " " + jdQuote, profileEntries, linked.id);
+        const applied = findProcessApplicationExperience(cand.competency + " " + jdQuote, candidateEntries, linked.id);
         if (applied) {
           indirect = linked;
           linked = applied;
@@ -1049,12 +1066,12 @@
         const kindBridges = BRIDGES[kind] || [];
         const demotedBridge = stemmedTokens(indirect.text || "").filter((t) => kindBridges.some((b) => tokenMatches(b, t)));
         if (!demotedBridge.length) {
-          const bridged = findIndirectExperience(cand.competency + " " + jdQuote, kind, profileEntries, null);
+          const bridged = findIndirectExperience(cand.competency + " " + jdQuote, kind, candidateEntries, null);
           if (bridged) indirect = bridged;
         }
       }
       if (!linked && !indirect) {
-        indirect = findIndirectExperience(cand.competency + " " + jdQuote, kind, profileEntries, null);
+        indirect = findIndirectExperience(cand.competency + " " + jdQuote, kind, candidateEntries, null);
       }
       const status = linked ? "linked" : indirect ? "indirect" : "gap";
       const connected = linked || indirect;
@@ -1105,7 +1122,7 @@
         // 38회차: JDQ 카드에 "같은 역량의 다른 경험"과 "관련 계획"을 함께
         // 보여준다. 관련 계획은 gap이 아닌 문항에만 붙인다 (gap은
         // nextAction이 이미 최상의 계획을 보여준다).
-        relatedExperiences: findRelatedExperiences(cand.competency + " " + jdQuote, kind, profileEntries, connected?.id),
+        relatedExperiences: findRelatedExperiences(cand.competency + " " + jdQuote, kind, candidateEntries, connected?.id),
         relatedPlans: status === "gap" ? [] : findRelatedPlans(kind, options?.plans),
         // S3: 직접 연결된 공정 지식 문항에만 경계 문구를 붙인다.
         // 연결된 경험이 교육·실습 성격이면 그 경험 라벨로 경계를 만든다.
