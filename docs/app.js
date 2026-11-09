@@ -306,7 +306,9 @@ function showChapter(chapter) {
   document.querySelector("#trend-chapter").hidden = chapter !== "trend";
   document.querySelector("#news-chapter").hidden = chapter !== "news";
   document.querySelector("#profile-chapter").hidden = chapter !== "profile";
-  document.querySelector("#jd-chapter").hidden = chapter !== "jd";
+  document.querySelector("#jd-chapter").hidden = true;
+  document.querySelector("#library-chapter").hidden = chapter !== "jd";
+  if (chapter === "jd") window.CoverLetterLibrary.open();
   document.querySelector("#assessment-chapter").hidden = chapter !== "assessment";
   if (chapter === "assessment") {
     const frame = document.querySelector("#assessment-frame");

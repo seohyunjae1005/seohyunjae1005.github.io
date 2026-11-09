@@ -20,7 +20,9 @@
     <script src="role-normalizer.js?v=20261001-1" defer></script>
     <script src="application-workspace.js?v=20261105-1" defer></script>
     <script src="assessment-result-bridge.js?v=20261104-2" defer></script>
-    <script src="app.js?v=20261105-3" defer></script>
+    <script src="cover-letter-library.js?v=20261109-1" defer></script>
+    <link rel="stylesheet" href="cover-letter-library.css?v=20261109-1" />
+    <script src="app.js?v=20261109-1" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -41,7 +43,7 @@
           <button class="active" id="trend-tab" type="button" role="tab" aria-selected="true" data-chapter="trend">산업 동향</button>
           <button id="news-tab" type="button" role="tab" aria-selected="false" data-chapter="news">최신 뉴스</button>
           <button id="profile-tab" type="button" role="tab" aria-selected="false" data-chapter="profile">내 프로필</button>
-          <button id="jd-tab" type="button" role="tab" aria-selected="false" data-chapter="jd">채용공고 분석</button>
+          <button id="jd-tab" type="button" role="tab" aria-selected="false" aria-controls="library-chapter" data-chapter="jd">합격 자소서</button>
           <button id="assessment-tab" type="button" role="tab" aria-selected="false" aria-controls="assessment-chapter" data-chapter="assessment">인성·적성검사</button>
         </div>
         <div class="metrics" aria-label="수집 현황">
@@ -495,6 +497,7 @@
         <div class="assessment-toolbar"><a href="assessment.html" target="_blank" rel="noopener">전체 화면으로 열기 ↗</a><p id="assessment-result-status" hidden></p></div>
         <iframe id="assessment-frame" data-src="assessment.html" title="인성·적성검사"></iframe>
       </section>
+      <section class="chapter-panel" id="library-chapter" role="tabpanel" aria-labelledby="jd-tab" hidden><p>자료 불러오는 중…</p></section>
     </main>
 
     <footer>
