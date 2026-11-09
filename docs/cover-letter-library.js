@@ -50,7 +50,10 @@
     const text = [...selected.values()].map(item => `SK하이닉스 / ${item.group.role} / ${item.group.year} ${item.group.season}\n채용 구분 ${item.group.employment}\n출처의 합격 단계 ${item.essay.stage}\n문항 ${item.question.number} (${item.question.limit})\n${item.question.text}\n\n${item.answer.text}\n\n출처 ${item.essay.url}\n게시물 ID ${item.essay.postId} / 수집일 ${item.essay.collectedAt}`).join('\n\n────────────\n\n');
     const status = panel().querySelector('#library-copy-status');
     try {
-      await navigator.clipboard.writeText(text);
+      await Promise.race([
+        navigator.clipboard.writeText(text),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Clipboard permission timeout')), 1500)),
+      ]);
       status.textContent = `${selected.size}개 답변을 복사했습니다.`;
     } catch (_) {
       const fallback = panel().querySelector('#library-copy-fallback');
