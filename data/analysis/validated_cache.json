@@ -1,6 +1,6 @@
 {
   "schema_version": "validated_analysis_cache_v1",
-  "updated_at": "2026-11-08T00:56:53.208608+00:00",
+  "updated_at": "2026-11-10T03:51:10.401086+00:00",
   "review_notice": "Machine-validated draft cache. Human approval is required before publication.",
   "company_count": 11,
   "companies": {
@@ -759,73 +759,71 @@
     },
     "TSMC": {
       "company": "TSMC",
-      "title": "Sony Semiconductor Solutions and TSMC Enter Preliminary Agreement for Next-Generation Image Sensor Strategic Partnership",
-      "url": "https://pr.tsmc.com/english/news/3308",
+      "title": "TSMC Debuts A13 Technology at 2026 North America Technology Symposium",
+      "url": "https://pr.tsmc.com/english/news/3302",
       "model": "gemini-3.5-flash-lite",
-      "generated_at": "2026-11-08T00:56:44.390516+00:00",
+      "generated_at": "2026-11-10T03:51:05.809316+00:00",
       "analysis_version": "semiconductor_job_analysis_v1",
-      "extraction_method": "filtered_html_blocks",
-      "source_scope": "official_article_body",
+      "extraction_method": "official_index_metadata",
+      "source_scope": "official_index_metadata",
       "validation_status": "PASS",
       "review_status": "machine_validated",
       "publish_ready": false,
       "normalization_notes": [
-        "사실 1: 근거 구절이 25단어를 넘어 제외",
-        "사실 2: 근거 구절이 25단어를 넘어 제외"
+        "공식 목록의 제목·분류만 사용하여 전체 신뢰도를 low로 제한",
+        "제목 기반 사실 근거를 공식 기사 제목 원문 1개로 고정"
       ],
       "analysis": {
         "analysis_version": "semiconductor_job_analysis_v1",
-        "summary_ko": "소니와 TSMC가 차세대 이미지 센서의 개발 및 양산을 위한 전략적 파트너십 양해각서(MOU)를 체결했다. 양사는 구마모토현 코시시에 조인트 벤처(JV)를 설립하여 개발 및 생산 라인을 구축하고, 물리적 AI 응용 분야를 위한 협력을 모색할 예정이다.",
+        "summary_ko": "TSMC가 2026 북미 기술 심포지엄에서 A13 공정 기술을 새롭게 공개하였습니다. 이는 차세대 로직 파운드리 공정 개발과 관련된 내용으로, 관련 공정 및 소자 기술 분야의 직무에 영향을 미칠 수 있습니다.",
         "facts": [
           {
-            "statement_ko": "이번 파트너십은 자동차 및 로보틱스와 같은 물리적 AI 애플리케이션의 새로운 기회를 모색하고 해결하고자 한다.",
-            "evidence_en": "This partnership also seeks to explore and address emerging opportunities in physical AI applications, such as automotive and robotics"
+            "statement_ko": "TSMC 공식 기사 제목에서 ‘TSMC Debuts A13 Technology at 2026 North America Technology Symposium’ 관련 발표임을 확인할 수 있습니다.",
+            "evidence_en": "TSMC Debuts A13 Technology at 2026 North America Technology Symposium"
           }
         ],
         "technology_signals": [
-          "Next-generation image sensors",
-          "Physical AI applications (automotive and robotics)",
-          "CMOS image sensor business"
+          "A13 Technology"
         ],
         "company_implications": [
           {
             "target_company": "Samsung Electronics",
-            "inference_ko": "소니와 TSMC의 전략적 연합 강화로 인해 모바일 및 오토모티브 이미지 센서 시장에서의 경쟁 압력이 더욱 높아질 수 있다.",
-            "basis_ko": "소니의 센서 설계 역량과 TSMC의 파운드리 제조 강점이 결합된 조인트 벤처가 출범함에 따라 선단 이미지 센서 공급망 장악력이 커질 수 있기 때문이다.",
-            "confidence": "high"
+            "inference_ko": "삼성전자의 차세대 파운드리 미세공정 경쟁 심화 및 수주 전략에 영향 가설",
+            "basis_ko": "TSMC의 A13 기술 공개에 대응하여 첨단 로직 공정 로드맵 및 경쟁력 확보 필요성이 제기될 수 있기 때문입니다.",
+            "confidence": "low"
           }
         ],
         "role_insights": [
           {
             "role": "공정기술·양산기술",
-            "why_relevant_ko": "신규 팹 내에서 차세대 이미지 센서 양산 라인을 구축하고 수율을 확보하는 과정이 필요하기 때문이다.",
+            "why_relevant_ko": "새로운 A13 공정 도입에 따른 양산성 확보와 공정 안정화 검토가 필요하기 때문입니다.",
             "considerations_ko": [
-              "이미지 센서 전용 공정의 수율 안정화 방안",
-              "신규 생산 라인 셋업 시 발생하는 변수 대응"
+              "신규 미세공정 도입 시 발생할 수 있는 양산 수율 이슈 관리",
+              "공정 마진 및 단위 공정 최적화 방안"
             ],
             "study_points_ko": [
-              "CMOS Image Sensor(CIS) 제조 공정의 기본 이해",
-              "양산 라인 셋업 및 수율 관리 방법론"
+              "선단 로직 공정의 수율 관리 및 결함 제어 기법",
+              "차세대 패터닝 및 식각 공정 특성"
             ]
           },
           {
             "role": "R&D공정·공정설계",
-            "why_relevant_ko": "차세대 이미지 센서 성능 향상을 위한 공정 기술 개발과 소니와의 기술 협업이 수반되기 때문이다.",
+            "why_relevant_ko": "A13과 같은 차세대 노드에 대응하는 공정 설계 및 소자 구조 연구가 수반되기 때문입니다.",
             "considerations_ko": [
-              "파운드리 공정과 센서 설계 간의 인터페이스 최적화",
-              "신규 소자 특성 확보를 위한 공정 조건 설정"
+              "미세화에 따른 기생 용량 및 저항 개선",
+              "신규 공정 설계 규칙(DR) 적용성 검토"
             ],
             "study_points_ko": [
-              "고성능 CIS 소자 구조 및 미세 공정 트렌드",
-              "파운드리 설계 지원 및 공정 Integration 과정"
+              "GAA 등 차세대 소자 구조 및 공정 integration",
+              "PDK 기반의 회로 설계 및 공정 연계 이해"
             ]
           }
         ],
         "uncertainties_ko": [
-          "조인트 벤처 설립을 위한 최종 구속력 있는 계약의 구체적인 체결 시점",
-          "일본 정부의 구체적인 지원 규모 및 투자 단계별 일정"
+          "공식 제목 외에 A13 공정의 구체적인 수율, 세부 스펙, 양산 일정, 사용 장비 정보는 본문에서 확인할 수 없습니다.",
+          "공식 기사 본문을 확보하지 못해 제목과 공식 목록 정보만 분석했습니다."
         ],
-        "overall_confidence": "high"
+        "overall_confidence": "low"
       }
     },
     "Intel": {
