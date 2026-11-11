@@ -5,13 +5,25 @@ const sources = {
   skhynix: { company: 'SK하이닉스', file: 'skhynix-yangsan.json', start: 2018, end: 2026, totals: [39, 40, 147] },
   samsung: { company: '삼성전자', file: 'samsung-process.json', start: 2015, end: 2026, totals: [84, 113, 310] },
   asml: { company: 'ASML', file: 'asml-service.json', start: 2017, end: 2025, totals: [32, 33, 80] },
+  kla: { company: 'KLA', file: 'kla-service.json', start: 2020, end: 2024, totals: [7, 7, 25] },
+  amat: { company: 'Applied Materials', file: 'amat-service.json', years: [2018, 2020, 2021, 2022, 2023, 2024, 2025, 2026], totals: [18, 21, 85] },
+  tel: { company: '도쿄일렉트론(TEL)', file: 'tel-service.json', years: [2017, 2018, 2020, 2021, 2024, 2026], totals: [9, 13, 52] },
+  lam: { company: 'Lam Research', file: 'lam-service.json', years: [2017, 2020, 2024, 2025, 2026], totals: [5, 6, 27] },
+};
+const questionNotes = {
+  amat: { '36144': { 4: '수집 자료에서 3번과 4번의 문항·답변이 동일하게 표시됩니다.' } },
+  tel: { '196285': {
+    2: '수집 자료의 추정 문항입니다.',
+    3: '수집 자료의 추정 문항입니다.',
+    4: '수집 자료의 추정 문항입니다.',
+  } },
 };
 if (!input || !Object.hasOwn(sources, companyId)) {
   throw new Error(`사용법: node scripts/import_cover_letters.cjs <연도별 Markdown 폴더> [${Object.keys(sources).join('|')}]`);
 }
-const { company, file, start, end, totals } = sources[companyId];
+const { company, file, start, end, years = Array.from({ length: end - start + 1 }, (_, index) => start + index), totals } = sources[companyId];
 const groups = [];
-for (let year = start; year <= end; year += 1) {
+for (const year of years) {
   const source = fs.readFileSync(path.join(input, `${year}.md`), 'utf8').replace(/\r\n/g, '\n');
   const groupPattern = /^## \[([^\]]+)\] (.+?) — (\d{4}) (상반기|하반기) \(([^\n]+)\)\n([\s\S]*?)(?=^## \[|$(?![\s\S]))/gm;
   const yearlyGroups = [];
@@ -35,7 +47,8 @@ for (let year = start; year <= end; year += 1) {
         (/\/passassay\/views?(\/\d+)?$/i.test(url.pathname) &&
           (url.searchParams.get('Job_Epil_No') === postId || url.pathname.endsWith(`/${postId}`))) ||
         (url.pathname === '/SelfIntroduction/PassAssayView' && url.searchParams.get('PflNo') === postId));
-      const weport = url.host === 'community.weport.co.kr' && url.pathname === `/best/${postId}`;
+      const weport = url.host === 'community.weport.co.kr' &&
+        [`/best/${postId}`, `/board_DwNG04/${postId}`].includes(url.pathname);
       if (url.protocol !== 'https:' || url.username || url.password || !/^\d+$/.test(postId) || (!linkareer && !jobkorea && !weport)) {
         throw new Error(`출처 주소와 게시물 ID가 일치하지 않습니다. ${id}/${pieces[0]}`);
       }
@@ -43,7 +56,11 @@ for (let year = start; year <= end; year += 1) {
       if (!answers.length || new Set(answers.map(answer => answer.number)).size !== answers.length || answers.some(answer => !answer.text || !questionNumbers.has(answer.number))) {
         throw new Error(`문항·답변 대응 오류 ${id}/${pieces[0]}`);
       }
-      essays.push({ id: pieces[0], postId, source: field('출처'), stage: field('합격 단계'), publishedAt: field('게시일'), collectedAt: field('수집일'), url: essay[2], answers });
+      const notes = questionNotes[companyId]?.[postId];
+      if (notes && Object.keys(notes).some(number => !answers.some(answer => answer.number === Number(number)))) {
+        throw new Error(`메모에 해당하는 답변을 찾지 못했습니다. ${id}/${postId}`);
+      }
+      essays.push({ id: pieces[0], postId, source: field('출처'), stage: field('합격 단계'), publishedAt: field('게시일'), collectedAt: field('수집일'), url: essay[2], answers, questionNotes: notes });
     }
     if (!questions.length || !essays.length) throw new Error(`빈 묶음 ${id}`);
     yearlyGroups.push({ id, company, role, year, season, employment, questions, essays });

@@ -5,6 +5,10 @@
     skhynix: { name: 'SK하이닉스', path: 'skhynix-yangsan.json', allRoles: '양산기술 계열 전체' },
     samsung: { name: '삼성전자', path: 'samsung-process.json', allRoles: '공정 계열 전체' },
     asml: { name: 'ASML', path: 'asml-service.json', allRoles: '서비스 직무 전체' },
+    kla: { name: 'KLA', path: 'kla-service.json', allRoles: '전체 직무' },
+    amat: { name: 'Applied Materials', path: 'amat-service.json', allRoles: 'CE 계열 전체' },
+    tel: { name: '도쿄일렉트론(TEL)', path: 'tel-service.json', allRoles: '전체 직무' },
+    lam: { name: 'Lam Research', path: 'lam-service.json', allRoles: '서비스 직무 전체' },
   };
   const datasets = new Map();
   const selected = new Map();
@@ -30,7 +34,9 @@
       periodCounts.set(period, number);
       const answers = new Map(essay.answers.map(answer => [answer.number, answer.text]));
       const questions = group.questions.filter(question => answers.has(question.number))
-        .map(question => ({ ...question, answer: answers.get(question.number) }));
+        .map(question => ({
+          ...question, answer: answers.get(question.number), note: essay.questionNotes?.[question.number],
+        }));
       const search = questions.map(question => `${question.text}\n${question.answer}`).join('\n').toLocaleLowerCase();
       const publishedYear = Number(/^\d{4}(?=-)/.exec(essay.publishedAt)?.[0]);
       return {
@@ -109,6 +115,7 @@
         ${questions.map(question => `<section class="library-question">
           <h4><span>문항 ${question.number}</span> ${escape(question.text)}</h4>
           ${question.limit && question.limit !== '미확인' ? `<p class="library-note">${escape(question.limit)}</p>` : ''}
+          ${question.note ? `<p class="library-note">${escape(question.note)}</p>` : ''}
           <p class="library-answer-text">${escape(question.answer)}</p>
         </section>`).join('')}
       </div>
@@ -138,7 +145,8 @@
     const { company, role, period, number, employment, essay, questions, dateConflict } = record;
     const content = questions.map(question => {
       const limit = question.limit && question.limit !== '미확인' ? ` (${question.limit})` : '';
-      return `문항 ${question.number}${limit}\n${question.text}\n\n${question.answer}`;
+      return [`문항 ${question.number}${limit}`, question.note, question.text, '', question.answer]
+        .filter(line => line !== undefined).join('\n');
     });
     return [
       `${company} / ${role === '미확인' ? '직무 미확인' : role} / ${period} / 지원자 ${number}`,
