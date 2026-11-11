@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-11-06T01:50:54.704866+00:00",
+  "updated_at": "2026-11-11T01:30:24.899551+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1713,6 +1713,12 @@
       "summary_ko": "▲ SK하이닉스의 이병기 최고생산책임자(CPO)는 한국과 일본의 반도체 생태계 전반에 걸친 협력 확대를 강조하고 있다.",
       "source_fingerprint": "f1bd235639d49b5eeaa9131927ce3daa442b7f5e8f74bdd47bee76143469b76d",
       "translated_at": "2026-11-06T01:50:54.704840+00:00"
+    },
+    "https://news.skhynix.com/en/iec-61508-certification-2026/": {
+      "title_ko": "‘시스템 장애 및 사이버 위협으로부터의 보호’: SK하이닉스, 물리적 AI 메모리에 대한 신뢰 구축",
+      "summary_ko": "태그: AI 반도체, AI 시스템, IEC 61508, ISO/SAE 21434, LPDDR5X, 모빌리티, 물리적 AI",
+      "source_fingerprint": "f35344ef7fabb620215a2a442d2b62016f08f546b46e8e60c75aa83163c9d251",
+      "translated_at": "2026-11-11T01:30:24.899527+00:00"
     }
   }
 }
