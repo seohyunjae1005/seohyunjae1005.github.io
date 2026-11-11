@@ -2,15 +2,16 @@ const fs = require('node:fs');
 const path = require('node:path');
 const [input, companyId = 'skhynix'] = process.argv.slice(2);
 const sources = {
-  skhynix: { company: 'SK하이닉스', file: 'skhynix-yangsan.json', start: 2018, totals: [39, 40, 147] },
-  samsung: { company: '삼성전자', file: 'samsung-process.json', start: 2015, totals: [84, 113, 310] },
+  skhynix: { company: 'SK하이닉스', file: 'skhynix-yangsan.json', start: 2018, end: 2026, totals: [39, 40, 147] },
+  samsung: { company: '삼성전자', file: 'samsung-process.json', start: 2015, end: 2026, totals: [84, 113, 310] },
+  asml: { company: 'ASML', file: 'asml-service.json', start: 2017, end: 2025, totals: [32, 33, 80] },
 };
 if (!input || !Object.hasOwn(sources, companyId)) {
-  throw new Error('사용법: node scripts/import_cover_letters.cjs <연도별 Markdown 폴더> [skhynix|samsung]');
+  throw new Error(`사용법: node scripts/import_cover_letters.cjs <연도별 Markdown 폴더> [${Object.keys(sources).join('|')}]`);
 }
-const { company, file, start, totals } = sources[companyId];
+const { company, file, start, end, totals } = sources[companyId];
 const groups = [];
-for (let year = start; year <= 2026; year += 1) {
+for (let year = start; year <= end; year += 1) {
   const source = fs.readFileSync(path.join(input, `${year}.md`), 'utf8').replace(/\r\n/g, '\n');
   const groupPattern = /^## \[([^\]]+)\] (.+?) — (\d{4}) (상반기|하반기) \(([^\n]+)\)\n([\s\S]*?)(?=^## \[|$(?![\s\S]))/gm;
   const yearlyGroups = [];
@@ -30,10 +31,12 @@ for (let year = start; year <= 2026; year += 1) {
       const url = new URL(essay[2]);
       const postId = field('게시물 ID');
       const linkareer = ['linkareer.com', 'www.linkareer.com'].includes(url.host) && url.pathname === `/cover-letter/${postId}`;
-      const jobkorea = ['www.jobkorea.co.kr', 'm.jobkorea.co.kr'].includes(url.host) &&
-        /\/passassay\/views?(\/\d+)?$/i.test(url.pathname) &&
-        (url.searchParams.get('Job_Epil_No') === postId || url.pathname.endsWith(`/${postId}`));
-      if (url.protocol !== 'https:' || url.username || url.password || !/^\d+$/.test(postId) || (!linkareer && !jobkorea)) {
+      const jobkorea = ['www.jobkorea.co.kr', 'm.jobkorea.co.kr'].includes(url.host) && (
+        (/\/passassay\/views?(\/\d+)?$/i.test(url.pathname) &&
+          (url.searchParams.get('Job_Epil_No') === postId || url.pathname.endsWith(`/${postId}`))) ||
+        (url.pathname === '/SelfIntroduction/PassAssayView' && url.searchParams.get('PflNo') === postId));
+      const weport = url.host === 'community.weport.co.kr' && url.pathname === `/best/${postId}`;
+      if (url.protocol !== 'https:' || url.username || url.password || !/^\d+$/.test(postId) || (!linkareer && !jobkorea && !weport)) {
         throw new Error(`출처 주소와 게시물 ID가 일치하지 않습니다. ${id}/${pieces[0]}`);
       }
       const answers = [...essay[3].matchAll(/^#### 답변 (\d+)\n([\s\S]*?)(?=^#### 답변 |$(?![\s\S]))/gm)].map(row => ({ number: Number(row[1]), text: row[2].trim() }));

@@ -4,6 +4,7 @@
   const companies = {
     skhynix: { name: 'SK하이닉스', path: 'skhynix-yangsan.json', allRoles: '양산기술 계열 전체' },
     samsung: { name: '삼성전자', path: 'samsung-process.json', allRoles: '공정 계열 전체' },
+    asml: { name: 'ASML', path: 'asml-service.json', allRoles: '서비스 직무 전체' },
   };
   const datasets = new Map();
   const selected = new Map();
