@@ -42,9 +42,9 @@
         <div class="chapter-tabs" role="tablist">
           <button class="active" id="trend-tab" type="button" role="tab" aria-selected="true" data-chapter="trend">산업 동향</button>
           <button id="news-tab" type="button" role="tab" aria-selected="false" data-chapter="news">최신 뉴스</button>
-          <button id="profile-tab" type="button" role="tab" aria-selected="false" data-chapter="profile">내 프로필</button>
+          <button id="profile-tab" type="button" role="tab" aria-selected="false" aria-controls="profile-chapter" data-chapter="profile">이력서</button>
           <button id="jd-tab" type="button" role="tab" aria-selected="false" aria-controls="library-chapter" data-chapter="jd">합격 자소서</button>
-          <button id="assessment-tab" type="button" role="tab" aria-selected="false" aria-controls="assessment-chapter" data-chapter="assessment">인성·적성검사</button>
+          <button id="assessment-tab" type="button" role="tab" aria-selected="false" aria-controls="assessment-chapter" data-chapter="assessment">인적성 및 업무 흐름</button>
         </div>
         <div class="metrics" aria-label="수집 현황">
           <div class="metric"><strong id="total-count">-</strong><span>기사</span></div>
@@ -199,7 +199,7 @@
 
       <section class="chapter-panel profile-chapter" id="profile-chapter" role="tabpanel" aria-labelledby="profile-tab" hidden>
         <div class="master-resume-heading">
-          <div><h2>마스터 이력서</h2><p>이 브라우저에 저장됩니다.</p></div>
+          <div><h2>이력서</h2><p>이 브라우저에 저장됩니다.</p></div>
           <div class="profile-resume-actions">
             <button class="jd-secondary" id="profile-resume-preview" type="button" aria-expanded="false" aria-controls="profile-resume-section">미리보기·복사</button>
             <button class="jd-primary" type="submit" form="profile-form">저장</button>
@@ -482,8 +482,8 @@
         </section>
       </section>
       <section class="chapter-panel assessment-chapter" id="assessment-chapter" role="tabpanel" aria-labelledby="assessment-tab" hidden>
-        <div class="assessment-toolbar"><a href="assessment.html" target="_blank" rel="noopener">전체 화면으로 열기 ↗</a><p id="assessment-result-status" hidden></p></div>
-        <iframe id="assessment-frame" data-src="assessment.html" title="인성·적성검사"></iframe>
+        <div class="assessment-toolbar"><a href="assessment.html?v=20261111-3" target="_blank" rel="noopener">전체 화면으로 열기 ↗</a><p id="assessment-result-status" hidden></p></div>
+        <iframe id="assessment-frame" data-src="assessment.html?v=20261111-3" title="인적성 및 업무 흐름"></iframe>
       </section>
       <section class="chapter-panel" id="library-chapter" role="tabpanel" aria-labelledby="jd-tab" hidden><p>자료 불러오는 중…</p></section>
     </main>
