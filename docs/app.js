@@ -1243,24 +1243,29 @@ function educationEntryTemplate(row = {}, index = 0) {
   const statuses = ["", "재학", "휴학", "졸업예정", "졸업", "수료", "중퇴"];
   const transfers = ["", "비해당", "편입 전", "편입 후"];
   return `
-    <details class="profile-entry-card profile-education-entry" data-entry-id="${escapeHtml(id)}"${index === 0 ? " open" : ""}>
-      <summary class="profile-entry-heading"><span><strong>학력 ${index + 1}</strong><small>${escapeHtml(row.school || row.level || "내용 입력")}</small></span><button type="button" data-remove-entry>삭제</button></summary>
+    <details class="profile-entry-card profile-education-entry" data-entry-id="${escapeHtml(id)}"${!row.id && index === 0 ? " open" : ""}>
+      <summary class="profile-entry-heading"><span><strong>학력 ${index + 1}</strong><small>${escapeHtml(row.school || row.level || "내용 입력")}</small></span></summary>
       <div class="profile-entry-body">
       <div class="profile-field-grid profile-entry-fields">
         <label><span>학력 구분</span><select data-field="level">${profileOptions(levels, row.level || "")}</select></label>
         <label><span>학교명</span><input data-field="school" type="text" value="${escapeHtml(row.school || "")}" placeholder="학교명을 입력하세요" /></label>
         <label><span>재학 상태</span><select data-field="status">${profileOptions(statuses, row.status || "")}</select></label>
         <label><span>전공</span><input data-field="major" type="text" value="${escapeHtml(row.major || "")}" placeholder="학과·전공명" /></label>
-        <label><span>시작</span><input data-field="startDate" type="month" value="${escapeHtml(row.startDate || "")}" /></label>
-        <label><span>종료·예정</span><input data-field="endDate" type="month" value="${escapeHtml(row.endDate || "")}" /></label>
-        <label><span>복수·부·세부전공</span><input data-field="secondaryMajor" type="text" value="${escapeHtml(row.secondaryMajor || "")}" /></label>
-        <label><span>편입 여부</span><select data-field="transfer">${profileOptions(transfers, row.transfer || "")}</select></label>
-        <label><span>학교 소재지</span><input data-field="region" type="text" value="${escapeHtml(row.region || "")}" placeholder="예: 경기도" /></label>
-        <label><span>평점 / 기준 평점</span><span class="profile-inline-fields"><input data-field="gpa" type="number" min="0" step="0.01" value="${escapeHtml(row.gpa || "")}" placeholder="4.16" /><input data-field="gpaScale" type="number" min="0" step="0.1" value="${escapeHtml(row.gpaScale || "")}" placeholder="4.5" /></span></label>
-        <label><span>총 이수학점</span><input data-field="credits" type="number" min="0" step="0.5" value="${escapeHtml(row.credits || "")}" placeholder="예: 130" /></label>
+        <label><span>입학</span><input data-field="startDate" value="${escapeHtml(row.startDate || "")}" placeholder="YYYY.MM" /></label>
+        <label><span>졸업·예정</span><input data-field="endDate" value="${escapeHtml(row.endDate || "")}" placeholder="YYYY.MM" /></label>
+        <div class="profile-inline-fields">
+          <label><span>평균 학점</span><input data-field="gpa" inputmode="decimal" value="${escapeHtml(row.gpa || "")}" placeholder="4.16" /></label>
+          <label><span>기준 평점</span><input data-field="gpaScale" inputmode="decimal" value="${escapeHtml(row.gpaScale || "")}" placeholder="4.5" /></label>
+        </div>
+        <label><span>총 이수학점</span><input data-field="credits" inputmode="decimal" value="${escapeHtml(row.credits || "")}" /></label>
       </div>
       <details class="profile-entry-details">
-        <summary>과목·연구 세부정보</summary>
+        <summary>세부정보</summary>
+        <div class="profile-field-grid">
+          <label><span>복수·부·세부전공</span><input data-field="secondaryMajor" value="${escapeHtml(row.secondaryMajor || "")}" /></label>
+          <label><span>편입 여부</span><select data-field="transfer">${profileOptions(transfers, row.transfer || "")}</select></label>
+          <label><span>학교 소재지</span><input data-field="region" value="${escapeHtml(row.region || "")}" /></label>
+        </div>
         <label><span>전공 과목·성적</span><textarea data-field="coursework" rows="5" placeholder="반도체공정 · 3학점 · A+\n재료분석 · 3학점 · A0">${escapeHtml(row.coursework || "")}</textarea></label>
         <div class="profile-field-grid profile-graduate-fields">
           <label><span>지도교수 <small>대학원</small></span><input data-field="advisor" type="text" value="${escapeHtml(row.advisor || "")}" /></label>
@@ -1270,39 +1275,43 @@ function educationEntryTemplate(row = {}, index = 0) {
         <label class="profile-graduate-fields"><span>논문 실적</span><textarea data-field="theses" rows="3" placeholder="논문명 · 저널 · SCIE 여부 · 저자 · 출판일 · IF">${escapeHtml(row.theses || "")}</textarea></label>
         <label class="profile-graduate-fields"><span>학회 경험</span><textarea data-field="conferences" rows="3" placeholder="학회명 · 발표 주제 · 발표 내용 · 발표일 · Oral 여부">${escapeHtml(row.conferences || "")}</textarea></label>
       </details>
+      <button class="profile-entry-remove" type="button" data-remove-entry>학력 삭제</button>
       </div>
     </details>`;
 }
 
 function experienceEntryTemplate(row = {}, index = 0) {
   const id = row.id || profileEntryId("experience");
-  const types = ["", "프로젝트", "공정·분석 실습", "인턴", "연구", "공모전", "학회", "동아리", "봉사", "아르바이트", "기타"];
+  const types = ["", "경력", "인턴", "프로젝트", "공정·분석 실습", "연구", "교육", "공모전", "학회", "교내 활동", "동아리", "봉사", "아르바이트", "기타"];
+  const notes = [
+    ["rawNotes", "경험 메모"], ["recallDraft", "정리 중인 메모"], ["confirmedRecall", "추가로 확인한 경험"],
+    ["angleChip", "칩메이커"], ["angleEquipment", "장비사"], ["angleQuality", "품질"], ["angleProduction", "생산기술"],
+  ];
   return `
-    <details class="profile-entry-card profile-experience-entry" data-entry-id="${escapeHtml(id)}"${index === 0 ? " open" : ""}>
-      <summary class="profile-entry-heading"><span><strong>경험 ${index + 1}</strong><small>${escapeHtml(row.title || row.type || "내용 입력")}</small></span><button type="button" data-remove-entry>삭제</button></summary>
+    <details class="profile-entry-card profile-experience-entry" data-entry-id="${escapeHtml(id)}"${!row.id && index === 0 ? " open" : ""}>
+      <summary class="profile-entry-heading"><span><strong>경험 ${index + 1}</strong><small>${escapeHtml(row.title || row.type || "내용 입력")}</small></span></summary>
       <div class="profile-entry-body">
-      <div class="profile-field-grid profile-entry-fields">
-        <label><span>경험 유형</span><select data-field="type">${profileOptions(types, row.type || "")}</select></label>
-        <label><span>경험명</span><input data-field="title" type="text" value="${escapeHtml(row.title || "")}" placeholder="예: 반도체 소자 제작 실습" /></label>
-        <label><span>기관·팀</span><input data-field="organization" type="text" value="${escapeHtml(row.organization || "")}" /></label>
-        <label><span>기간</span><span class="profile-inline-fields"><input data-field="startDate" type="month" value="${escapeHtml(row.startDate || "")}" /><input data-field="endDate" type="month" value="${escapeHtml(row.endDate || "")}" /></span></label>
-      </div>
-      <details class="experience-helper"${index === 0 ? " open" : ""}>
-        <summary>경험 정리 도우미 <small>자유롭게 적은 메모를 이력서 항목별로 나눕니다.</small></summary>
-        <div class="experience-helper-body">
-          <label><span>경험 메모 <small>순서 없이 편하게 작성</small></span><textarea data-field="rawNotes" rows="6" placeholder="무슨 활동이었는지, 내가 맡은 일, 발생한 문제, 실제로 한 행동, 결과를 기억나는 대로 적으세요. 없는 수치나 성과는 만들지 마세요.">${escapeHtml(row.rawNotes || "")}</textarea></label>
-          <p class="experience-helper-notice">정리 버튼을 누를 때 이 경험의 입력 내용만 AI 분석 서버로 전송됩니다. 결과는 미리보기이며, 확인 전에는 아래 입력란을 바꾸지 않습니다.</p>
-          <button class="jd-secondary experience-organize-button" type="button" data-organize-experience>입력 내용 정리하기</button>
-          <div class="experience-helper-result" data-experience-result hidden></div>
+        <div class="profile-field-grid profile-entry-fields">
+          <label><span>구분</span><select data-field="type">${profileOptions(types, row.type || "")}</select></label>
+          <label><span>활동명</span><input data-field="title" value="${escapeHtml(row.title || "")}" /></label>
+          <label><span>회사·기관</span><input data-field="organization" value="${escapeHtml(row.organization || "")}" /></label>
+          <label><span>역할</span><textarea data-field="role" rows="1">${escapeHtml(row.role || "")}</textarea></label>
+          <label><span>시작</span><input data-field="startDate" value="${escapeHtml(row.startDate || "")}" placeholder="YYYY.MM" /></label>
+          <label><span>종료</span><input data-field="endDate" value="${escapeHtml(row.endDate || "")}" placeholder="YYYY.MM 또는 진행 중" /></label>
         </div>
-      </details>
-      ${window.ExperienceRecall.template(row)}
-      <label><span>내 역할</span><textarea data-field="role" rows="2" placeholder="팀 전체가 아니라 내가 맡은 역할을 적으세요.">${escapeHtml(row.role || "")}</textarea></label>
-      <label><span>문제·목표</span><textarea data-field="situation" rows="2" placeholder="어떤 문제나 목표가 있었는지 적으세요.">${escapeHtml(row.situation || "")}</textarea></label>
-      <label><span>내가 한 행동</span><textarea data-field="action" rows="3" placeholder="분석, 실험, 조정, 의사결정 등 구체적인 행동을 적으세요.">${escapeHtml(row.action || "")}</textarea></label>
-      <label><span>결과·배운 점</span><textarea data-field="result" rows="3" placeholder="수치, 산출물, 개선 효과와 배운 점을 적으세요.">${escapeHtml(row.result || "")}</textarea></label>
-      <label><span>확인한 수치 <small>선택</small></span><input data-field="verifiedNumbers" type="text" value="${escapeHtml(row.verifiedNumbers || "")}" placeholder="예: 23nm 패턴, 두께 20.1nm — 측정·기록한 수치만 적으세요. 없는 수치는 만들지 마세요." /></label>
-      <label><span>사용 기술·장비·도구</span><input data-field="tools" type="text" value="${escapeHtml(row.tools || "")}" placeholder="예: SEM, Excel, Python" /></label>
+        <label><span>활동 내용</span><textarea data-field="action" rows="3" placeholder="실제로 맡아서 한 일">${escapeHtml(row.action || "")}</textarea></label>
+        <label><span>결과</span><textarea data-field="result" rows="2" placeholder="산출물 또는 확인한 결과">${escapeHtml(row.result || "")}</textarea></label>
+        <details class="profile-entry-details">
+          <summary>세부정보</summary>
+          <label><span>활동 배경·목표</span><textarea data-field="situation" rows="2">${escapeHtml(row.situation || "")}</textarea></label>
+          <label><span>사용 기술·장비</span><input data-field="tools" value="${escapeHtml(row.tools || "")}" /></label>
+          <label><span>확인한 수치</span><input data-field="verifiedNumbers" value="${escapeHtml(row.verifiedNumbers || "")}" /></label>
+        </details>
+        ${notes.some(([key]) => row[key]) ? `<details class="profile-entry-details">
+          <summary>기존 경험 메모</summary>
+          ${notes.filter(([key]) => row[key]).map(([key, label]) => `<label><span>${label}</span><textarea data-field="${key}" rows="2">${escapeHtml(row[key])}</textarea></label>`).join("")}
+        </details>` : ""}
+        <button class="profile-entry-remove" type="button" data-remove-entry>경험 삭제</button>
       </div>
     </details>`;
 }
@@ -1323,57 +1332,6 @@ function planEntryTemplate(row = {}, index = 0) {
       <label><span>메모 <small>선택</small></span><textarea data-field="note" rows="2" placeholder="예: 실습 과목과 함께 진행">${escapeHtml(row.note || "")}</textarea></label>
       </div>
     </details>`;
-}
-
-function experienceCardSource(card) {
-  const field = (name) => card.querySelector(`[data-field="${name}"]`)?.value.trim() || "";
-  const raw = field("rawNotes");
-  const recalled = field("confirmedRecall");
-  if (raw) return [raw, recalled ? `[본인 확인 추가 경험]\n${recalled}` : ""].filter(Boolean).join("\n");
-  return [
-    ["경험명", field("title")], ["기관·팀", field("organization")], ["내 역할", field("role")],
-    ["문제·목표", field("situation")], ["내가 한 행동", field("action")],
-    ["결과·배운 점", field("result")], ["확인한 수치", field("verifiedNumbers")], ["사용 기술·장비·도구", field("tools")],
-    ["본인 확인 추가 경험", recalled],
-  ].filter(([, value]) => value).map(([label, value]) => `[${label}]\n${value}`).join("\n");
-}
-
-function renderExperienceHelperResult(card, result) {
-  const labels = { role: "내 역할", situation: "문제·목표", action: "내가 한 행동", result: "결과·배운 점", tools: "사용 기술·장비·도구" };
-  const activityLabels = {
-    observed: ["참관·관찰", "직접 수행으로 보지 않음"],
-    performed: ["직접 수행", "완료한 행동"],
-    assigned: ["담당·배정", "맡은 책임"],
-    ongoing: ["현재 진행", "진행 중인 행동"],
-    planned: ["향후 예정", "아직 성과로 사용하지 않음"],
-  };
-  const activityRows = Object.entries(activityLabels).map(([key, [label, note]]) => {
-    const items = result.activities[key] || [];
-    if (!items.length) return "";
-    return `<div class="experience-level-row experience-level-${key}"><strong>${label}</strong><span>${note}</span><ul>${items.map((item) => `<li>${escapeHtml(item.quote)}</li>`).join("")}</ul></div>`;
-  }).join("");
-  const rows = Object.entries(labels).map(([key, label]) => {
-    const item = result.fields[key];
-    return `<div class="experience-preview-row"><strong>${label}</strong><p>${item.value ? escapeHtml(item.value) : '<span class="experience-missing">확인된 내용 없음</span>'}</p>${item.evidenceQuotes.length ? `<small>내 메모 근거 · “${escapeHtml(item.evidenceQuotes.join(" / "))}”</small>` : ""}</div>`;
-  }).join("");
-  const questions = result.questions.length
-    ? `<section class="experience-questions"><strong>더 적으면 좋은 내용</strong><ul>${result.questions.map((row) => `<li>${escapeHtml(row.question)}</li>`).join("")}</ul></section>`
-    : '<p class="experience-complete">역할·문제·행동·결과·도구가 모두 확인되었습니다.</p>';
-  const container = card.querySelector("[data-experience-result]");
-  container.innerHTML = `${activityRows ? `<section class="experience-levels"><div class="experience-result-heading"><strong>먼저 사실 수준 확인</strong><span>참관과 예정 활동은 직접 수행 실적으로 합치지 않습니다.</span></div>${activityRows}</section>` : ""}${result.summary ? `<div class="experience-summary"><span>AI 정리 초안 · 아래 원문 근거 범위에서만 작성</span><p>${escapeHtml(result.summary)}</p></div>` : '<div class="experience-summary"><span>AI 정리 초안</span><p class="experience-missing">완성 문장을 만들 근거가 부족합니다. 아래 질문에 답한 뒤 다시 정리해 주세요.</p></div>'}<section class="experience-structured-preview"><div class="experience-result-heading"><strong>입력란에 적용할 내용</strong><span>확인된 내용만 채우며, 빈 항목은 기존 내용을 덮어쓰지 않습니다.</span></div>${rows}</section>${questions}<button class="jd-primary" type="button" data-apply-experience>검토한 초안을 입력란에 적용</button>`;
-  container.hidden = false;
-  card._experienceDraft = result;
-}
-
-function applyExperienceDraft(card) {
-  const draft = card._experienceDraft;
-  if (!draft) return;
-  ["role", "situation", "action", "result", "tools"].forEach((key) => {
-    const value = draft.fields[key]?.value || "";
-    if (value) card.querySelector(`[data-field="${key}"]`).value = value;
-  });
-  const container = card.querySelector("[data-experience-result]");
-  container.insertAdjacentHTML("afterbegin", '<p class="experience-applied">입력란에 적용했습니다. 내용을 직접 수정한 뒤 프로필을 저장하세요.</p>');
 }
 
 function readProfileEntries(selector) {
@@ -1439,24 +1397,6 @@ function refreshProfileJdHints() {
   refreshProfileEntryHints("#profile-experience-section", "#profile-experience-list .profile-experience-entry", "경험", links);
   refreshProfileEntryHints("#profile-education-section", "#profile-education-list .profile-education-entry", "학력", links);
   refreshProfileAiHint(links);
-  refreshProfileReanalyzeButton();
-}
-
-// 20회차: 프로필을 고친 뒤 힌트가 낡았으면 "채용공고 다시 분석하기"를 보여준다.
-// 분석 당시의 근거 항목(state.jdRecallProfileEntries)과 지금 폼의 근거 항목을
-// 비교해 다르면 보여주고, 같으면 숨긴다. 분석이 없으면 숨긴다.
-// (프로필을 고쳐도 다시 분석하기 전에는 힌트가 마지막 분석 기준이라는
-// 19회차의 정직성 규칙과 같은 기준이다.)
-function refreshProfileReanalyzeButton() {
-  const button = document.querySelector("#profile-reanalyze-button");
-  if (!button) return;
-  button.hidden = !profileEntriesChangedSinceAnalysis();
-}
-
-function profileEntriesChangedSinceAnalysis() {
-  if (!state.jdRecallQuestions || !state.jdRecallProfileEntries) return false;
-  const current = window.CareerProfile.toEvidenceEntries(window.CareerProfile.normalize(profileFromForm()));
-  return JSON.stringify(current) !== JSON.stringify(state.jdRecallProfileEntries);
 }
 
 // 카드 목록(경험·학력) 힌트: 연결된 카드에 질문 번호를 달고, 섹션 위에
@@ -1529,10 +1469,14 @@ function refreshProfileAiHint(links) {
 
 function profileFromForm() {
   return {
+    name: document.querySelector("#profile-name").value,
+    email: document.querySelector("#profile-email").value,
+    phone: document.querySelector("#profile-phone").value,
     targetRoles: document.querySelector("#profile-target-roles").value,
     skills: document.querySelector("#profile-skills").value,
     certificates: document.querySelector("#profile-certificates").value,
     languages: document.querySelector("#profile-languages").value,
+    awards: document.querySelector("#profile-awards").value,
     educations: readProfileEntries("#profile-education-list"),
     experiences: readProfileEntries("#profile-experience-list"),
     plans: readProfileEntries("#profile-plan-list"),
@@ -1549,12 +1493,15 @@ function profileFromForm() {
 }
 
 function fillProfileForm(profile) {
+  ["name", "email", "phone", "awards"].forEach((key) => {
+    document.querySelector(`#profile-${key}`).value = profile[key] || "";
+  });
   document.querySelector("#profile-target-roles").value = profile.targetRoles || "";
   document.querySelector("#profile-skills").value = profile.skills || "";
   document.querySelector("#profile-certificates").value = profile.certificates || "";
   document.querySelector("#profile-languages").value = profile.languages || "";
-  const educations = profile.educations?.length ? profile.educations : [{}];
-  const experiences = profile.experiences?.length ? profile.experiences : [{}];
+  const educations = profile.educations || [];
+  const experiences = profile.experiences || [];
   const plans = profile.plans?.length ? profile.plans : [{}];
   document.querySelector("#profile-education-list").innerHTML = educations.map(educationEntryTemplate).join("");
   document.querySelector("#profile-experience-list").innerHTML = experiences.map(experienceEntryTemplate).join("");
@@ -1622,49 +1569,16 @@ function jdStepProfileEntries() {
 // 화면 위에 단 섹션 목록으로 푼다. 누르면 해당 섹션으로 스크롤만 한다.
 // 단계 내비게이션처럼 무겁게 만들지 않는다: 완료 기준·상태 표시 없음.
 // 버튼 순서는 화면에 보이는 순서(경험이 맨 위)대로다.
-function bindProfileSectionNav() {
-  document.querySelector(".profile-section-nav").addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-profile-section]");
-    if (!button) return;
-    document.getElementById(button.dataset.profileSection)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-}
-
 function bindProfileForm() {
   const form = document.querySelector("#profile-form");
   const status = document.querySelector("#profile-save-status");
   fillProfileForm(window.CareerProfile.load(window.localStorage));
   refreshJdProfileLink();
-  bindProfileSectionNav();
-
-  // 20회차: 프로필을 고치면 힌트가 낡았는지 바로 다시 본다 (저장·탭 열기 때뿐 아니라
-  // 입력 중에도 버튼이 뜬다). 입력마다 폼 전체를 읽어 비교하지만, 프로필이 작아 부담이 없다.
-  form.addEventListener("input", () => refreshProfileReanalyzeButton());
-
-  // 20회차: "채용공고 다시 분석하기" — 프로필을 고친 뒤 한 번의 클릭으로
-  // 저장하고 채용공고 분석을 다시 돌린다. 분석은 저장된 프로필을 읽기
-  // 때문에, 저장하지 않고 다시 분석하면 고친 내용이 반영이 안 돼 버튼이
-  // 그대로 남는다. 그래서 프로필 폼을 먼저 제출(저장)한 뒤 채용공고
-  // 폼을 제출한다. 저장은 상태 문구("저장됨 · 학력 N개 · 경험 N개")로
-  // 보인다. 채용공고 원문이 그대로 있고 미리보기가 떠 있으면 제출하면
-  // 바로 분석이 돈다 (로컬 분석은 동기라 결과가 바로 반영된다).
-  // 원문이 비었거나 미리보기가 안 떠 있으면 1단계로 보내 사용자가
-  // 원문을 확인하고 분석 버튼을 누르게 한다.
-  document.querySelector("#profile-reanalyze-button").addEventListener("click", () => {
-    if (!document.querySelector("#jd-text").value.trim() || document.querySelector("#jd-clean-preview").hidden) {
-      showChapter("jd");
-      openJdStep(1);
-      return;
-    }
-    document.querySelector("#profile-form").requestSubmit();
-    document.querySelector("#jd-form").requestSubmit();
-    showChapter("jd");
-    openJdStep(2);
-  });
 
   document.querySelector("#profile-add-education").addEventListener("click", () => {
     const list = document.querySelector("#profile-education-list");
     list.insertAdjacentHTML("beforeend", educationEntryTemplate({}, list.children.length));
+    list.lastElementChild.open = true;
     list.lastElementChild.scrollIntoView({ behavior: "smooth", block: "center" });
     refreshProfileJdHints(); // 20회차: "전체 N개" 요약이 늘어난 카드 수를 반영한다.
   });
@@ -1672,6 +1586,7 @@ function bindProfileForm() {
   document.querySelector("#profile-add-experience").addEventListener("click", () => {
     const list = document.querySelector("#profile-experience-list");
     list.insertAdjacentHTML("beforeend", experienceEntryTemplate({}, list.children.length));
+    list.lastElementChild.open = true;
     list.lastElementChild.scrollIntoView({ behavior: "smooth", block: "center" });
     refreshProfileJdHints();
   });
@@ -1680,32 +1595,6 @@ function bindProfileForm() {
     const list = document.querySelector("#profile-plan-list");
     list.insertAdjacentHTML("beforeend", planEntryTemplate({}, list.children.length));
     list.lastElementChild.scrollIntoView({ behavior: "smooth", block: "center" });
-  });
-
-  document.querySelector("#profile-experience-list").addEventListener("click", async (event) => {
-    const organizeButton = event.target.closest("[data-organize-experience]");
-    const applyButton = event.target.closest("[data-apply-experience]");
-    if (applyButton) {
-      applyExperienceDraft(applyButton.closest(".profile-experience-entry"));
-      return;
-    }
-    if (!organizeButton) return;
-    const card = organizeButton.closest(".profile-experience-entry");
-    try {
-      const experienceText = experienceCardSource(card);
-      if (experienceText.length < 20) throw new Error("경험 메모나 기존 입력 내용을 조금 더 적어 주세요.");
-      const endpoint = window.JDAiClient.loadEndpoint(window.localStorage);
-      if (!endpoint) throw new Error("채용공고 분석 화면에서 AI 분석 연결 주소를 먼저 저장해 주세요.");
-      organizeButton.disabled = true;
-      organizeButton.textContent = "내 메모 근거를 확인하며 정리 중…";
-      const result = await window.JDAiClient.organizeExperience({ experienceText }, { endpoint });
-      renderExperienceHelperResult(card, result);
-    } catch (error) {
-      window.alert(error.message || "경험을 정리하지 못했습니다.");
-    } finally {
-      organizeButton.disabled = false;
-      organizeButton.textContent = "입력 내용 정리하기";
-    }
   });
 
   [
@@ -1722,6 +1611,7 @@ function bindProfileForm() {
       button.closest("[data-entry-id]").remove();
       renumberProfileEntries(selector, label);
       refreshProfileJdHints();
+      form.dispatchEvent(new Event("input"));
     });
     container.addEventListener("input", (event) => {
       const card = event.target.closest("[data-entry-id]");
@@ -1735,47 +1625,19 @@ function bindProfileForm() {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    const profile = window.CareerProfile.save(profileFromForm(), window.localStorage);
-    const summary = window.CareerProfile.summary(profile);
-    status.className = "profile-save-status success";
-    status.textContent = `저장됨 · 학력 ${summary.educationCount}개 · 경험 ${summary.experienceCount}개`;
-    refreshJdProfileLink();
-    refreshProfileJdHints();
-  });
-
-  // 13회차: 이력서 초안 받기/복사. 프로필에 저장된 내용만으로 만든다.
-  // 서버가 필요 없다. 계획 중인 프로젝트는 수행한 경험이 아니라서 들어가지 않는다.
-  document.querySelector("#profile-resume-download").addEventListener("click", () => {
     try {
-      const profile = window.CareerProfile.normalize(profileFromForm());
-      const text = window.ApplicationWorkspace.buildResumeText(profile);
-      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `resume-draft-${new Date().toISOString().slice(0, 10)}.txt`;
-      link.click();
-      URL.revokeObjectURL(url);
+      window.CareerProfile.save(profileFromForm(), window.localStorage);
       status.className = "profile-save-status success";
-      status.textContent = "프로필 내용으로 이력서 초안을 만들었습니다. 계획 중인 프로젝트는 들어가지 않습니다.";
-    } catch (error) {
+      status.textContent = "이 브라우저에 저장했습니다.";
+      refreshJdProfileLink();
+      refreshProfileJdHints();
+    } catch (_error) {
       status.className = "profile-save-status error";
-      status.textContent = error.message || "이력서 초안을 만들지 못했습니다.";
+      status.textContent = "브라우저에 저장하지 못했습니다. 내용을 복사해 보관해 주세요.";
     }
   });
 
-  document.querySelector("#profile-resume-copy").addEventListener("click", async () => {
-    try {
-      const profile = window.CareerProfile.normalize(profileFromForm());
-      const text = window.ApplicationWorkspace.buildResumeText(profile);
-      await navigator.clipboard.writeText(text);
-      status.className = "profile-save-status success";
-      status.textContent = "이력서 초안을 복사했습니다.";
-    } catch (error) {
-      status.className = "profile-save-status error";
-      status.textContent = error.message || "이력서 초안을 복사하지 못했습니다.";
-    }
-  });
+  bindMasterResumePreview(form);
 
   document.querySelector("#profile-export").addEventListener("click", () => {
     const profile = window.CareerProfile.normalize(profileFromForm());
@@ -1798,6 +1660,7 @@ function bindProfileForm() {
       const profile = window.CareerProfile.save(parsed.profile || parsed, window.localStorage);
       fillProfileForm(profile);
       refreshJdProfileLink();
+      form.dispatchEvent(new Event("input"));
       status.className = "profile-save-status success";
       status.textContent = "백업 파일을 불러와 이 기기에 저장했습니다.";
     } catch (_error) {
@@ -1812,6 +1675,7 @@ function bindProfileForm() {
     const profile = window.CareerProfile.clear(window.localStorage);
     fillProfileForm(profile);
     refreshJdProfileLink();
+    form.dispatchEvent(new Event("input"));
     status.className = "profile-save-status";
     status.textContent = "이 기기에 저장한 프로필을 삭제했습니다.";
   });
@@ -1821,6 +1685,80 @@ function bindProfileForm() {
       showChapter("profile");
       document.querySelector("#profile-chapter").scrollIntoView({ behavior: "smooth", block: "start" });
     });
+  });
+}
+
+function bindMasterResumePreview(form) {
+  const preview = document.querySelector("#profile-resume-section");
+  const toggle = document.querySelector("#profile-resume-preview");
+  const content = document.querySelector("#profile-resume-content");
+  const copyAll = document.querySelector("#profile-resume-copy");
+  const status = document.querySelector("#profile-resume-status");
+  const fallback = document.querySelector("#profile-resume-copy-text");
+  let sections = [];
+  let copyVersion = 0;
+  const current = () => window.CareerProfile.normalize(profileFromForm());
+
+  function resetCopy() {
+    copyVersion += 1;
+    fallback.hidden = true;
+    fallback.value = "";
+    status.textContent = "";
+  }
+
+  function render() {
+    if (preview.hidden) return;
+    resetCopy();
+    sections = window.ApplicationWorkspace.buildResumeSections(current());
+    copyAll.disabled = !sections.length;
+    content.innerHTML = sections.map(({ title, entries }, index) => `
+      <section class="master-resume-copy-section">
+        <header><h3>${escapeHtml(title)}</h3><button class="jd-secondary" type="button" data-copy-resume-section="${index}">항목 복사</button></header>
+        ${entries.map((entry, entryIndex) => `
+          <div class="master-resume-copy-entry">
+            <p>${escapeHtml(entry)}</p>
+            ${entries.length > 1 ? `<button class="jd-secondary" type="button" data-copy-resume-section="${index}" data-copy-resume-entry="${entryIndex}">이 내용 복사</button>` : ""}
+          </div>`).join("")}
+      </section>`).join("") || '<p class="master-resume-empty">입력한 내용이 여기에 표시됩니다.</p>';
+  }
+
+  async function copy(text) {
+    resetCopy();
+    const version = copyVersion;
+    let timer;
+    try {
+      await Promise.race([
+        navigator.clipboard.writeText(text),
+        new Promise((_, reject) => { timer = setTimeout(reject, 1500); }),
+      ]);
+      if (version === copyVersion) status.textContent = "복사했습니다.";
+    } catch (_error) {
+      if (version !== copyVersion) return;
+      fallback.value = text;
+      fallback.hidden = false;
+      fallback.focus();
+      fallback.select();
+      status.textContent = "선택된 내용을 직접 복사해 주세요.";
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  toggle.addEventListener("click", () => {
+    preview.hidden = !preview.hidden;
+    toggle.setAttribute("aria-expanded", String(!preview.hidden));
+    toggle.textContent = preview.hidden ? "미리보기·복사" : "미리보기 닫기";
+    if (preview.hidden) resetCopy();
+    else render();
+  });
+  form.addEventListener("input", render);
+  copyAll.addEventListener("click", () => copy(window.ApplicationWorkspace.buildResumeText(current())));
+  content.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-copy-resume-section]");
+    if (!button) return;
+    const entries = sections[Number(button.dataset.copyResumeSection)].entries;
+    const index = button.dataset.copyResumeEntry;
+    copy(index === undefined ? entries.join("\n\n") : entries[Number(index)]);
   });
 }
 

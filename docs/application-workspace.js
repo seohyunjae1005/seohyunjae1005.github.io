@@ -648,74 +648,42 @@
     return counts;
   }
 
-  // 13회차: 프로필 → 이력서 형태 초안 (서버 없이 동작하는 지원서 산출물).
-  // JD 분석 8·9번 섹션은 Apps Script 엔드포인트가 있어야 돌아가서,
-  // 서버가 없으면 기업분석→지원서 흐름이 JDQ 문항에만 의존했다.
-  // 이 초안은 프로필에 저장된 내용만으로 이력서 뼈대를 만든다.
-  // 없는 내용을 지어내지 않는다. 계획 중인 프로젝트(plans)는 수행한
-  // 경험이 아니라서 이력서에 들어가지 않는다. 빈 프로필이면 던진다.
+  function buildResumeSections(profile = {}) {
+    const clean = (value) => String(value ?? "").trim();
+    const join = (values, separator) => values.map(clean).filter(Boolean).join(separator);
+    const line = (label, value) => clean(value) ? `${label}: ${clean(value)}` : "";
+    const rows = (values) => join(values, "\n");
+    const period = (row) => join([row.startDate, row.endDate], " ~ ");
+    const education = (profile.educations || []).map((row) => rows([
+      join([row.school, row.level, row.status], " · "),
+      line("전공", row.major), line("복수·부·세부전공", row.secondaryMajor),
+      line("기간", period(row)), line("평균 학점", row.gpa ? join([row.gpa, row.gpaScale], " / ") : ""),
+      line("총 이수학점", row.credits), line("학교 소재지", row.region), line("편입", row.transfer),
+      line("이수 과목", row.coursework), line("지도교수", row.advisor), line("연구실", row.lab),
+      line("연구 분야", row.research), line("논문", row.theses), line("학회", row.conferences),
+    ]));
+    const experience = (profile.experiences || []).map((row) => rows([
+      join([row.title, row.type, row.organization], " · "),
+      line("기간", period(row)), line("역할", row.role), line("배경·목표", row.situation),
+      line("활동 내용", row.action), line("결과", row.result),
+      line("기술·장비", row.tools), line("확인한 수치", row.verifiedNumbers),
+    ]));
+    return [
+      { title: "기본정보", entries: [rows([line("이름", profile.name), line("이메일", profile.email), line("연락처", profile.phone)])] },
+      { title: "학력", entries: education },
+      { title: "경력·프로젝트·활동", entries: experience },
+      { title: "교육·기술", entries: [clean(profile.skills)] },
+      { title: "자격증", entries: [clean(profile.certificates)] },
+      { title: "어학", entries: [clean(profile.languages)] },
+      { title: "수상", entries: [clean(profile.awards)] },
+    ].map((section) => ({ ...section, entries: section.entries.filter(Boolean) }))
+      .filter((section) => section.entries.length);
+  }
+
   function buildResumeText(profile = {}) {
-    const lines = [];
-    const clean = (value) => String(value || "").trim();
-    const push = (value) => { const v = clean(value); if (v) lines.push(v); };
-    const educations = Array.isArray(profile.educations) ? profile.educations : [];
-    const experiences = Array.isArray(profile.experiences) ? profile.experiences : [];
-    const ai = profile.aiExperience || {};
-    const hasAi = ["title", "context", "period", "role", "aiUse", "verification", "result"].some((key) => clean(ai[key]));
-    const hasOther = ["skills", "certificates", "languages"].some((key) => clean(profile[key]));
-    if (!clean(profile.targetRoles) && !educations.length && !experiences.length && !hasAi && !hasOther) {
-      throw new Error("이력서로 내보낼 내용이 없습니다. 내 프로필에 학력·경험 중 하나 이상을 저장해 주세요.");
-    }
-    lines.push("이력서 초안");
-    lines.push("(프로필에 저장된 내용만으로 만든 초안입니다. 빈칸은 프로필에서 채워 주세요.)");
-    lines.push("");
-    if (clean(profile.targetRoles)) {
-      lines.push("■ 관심 직무");
-      push(profile.targetRoles);
-      lines.push("");
-    }
-    if (educations.length) {
-      lines.push("■ 학력");
-      educations.forEach((row) => {
-        const parts = [clean(row.level), clean(row.school), clean(row.major), clean(row.status), clean(row.startDate) && clean(row.endDate) ? `${clean(row.startDate)} ~ ${clean(row.endDate)}` : clean(row.startDate) || clean(row.endDate), clean(row.gpa) ? `평점 ${clean(row.gpa)}${clean(row.gpaScale) ? `/${clean(row.gpaScale)}` : ""}` : ""].filter(Boolean);
-        if (parts.length) lines.push(`- ${parts.join(" · ")}`);
-        if (clean(row.coursework)) lines.push(`  주요 과목: ${clean(row.coursework)}`);
-      });
-      lines.push("");
-    }
-    if (experiences.length) {
-      lines.push("■ 경험");
-      experiences.forEach((row, index) => {
-        const head = [clean(row.type), clean(row.organization)].filter(Boolean).join(" · ");
-        lines.push(`${index + 1}. ${clean(row.title) || "경험" + (index + 1)}${head ? ` (${head})` : ""}`);
-        if (clean(row.startDate) || clean(row.endDate)) lines.push(`   기간: ${[clean(row.startDate), clean(row.endDate)].filter(Boolean).join(" ~ ")}`);
-        if (clean(row.role)) lines.push(`   역할: ${clean(row.role)}`);
-        if (clean(row.situation)) lines.push(`   상황: ${clean(row.situation)}`);
-        if (clean(row.action)) lines.push(`   행동: ${clean(row.action)}`);
-        if (clean(row.result)) lines.push(`   결과: ${clean(row.result)}`);
-        if (clean(row.verifiedNumbers)) lines.push(`   확인한 수치: ${clean(row.verifiedNumbers)}`);
-        if (clean(row.tools)) lines.push(`   도구: ${clean(row.tools)}`);
-      });
-      lines.push("");
-    }
-    if (hasAi) {
-      lines.push("■ AI 활용 경험");
-      if (clean(ai.title)) lines.push(`- ${clean(ai.title)}${clean(ai.period) ? ` (${clean(ai.period)})` : ""}`);
-      if (clean(ai.context)) lines.push(`  배경: ${clean(ai.context)}`);
-      if (clean(ai.role)) lines.push(`  역할: ${clean(ai.role)}`);
-      if (clean(ai.aiUse)) lines.push(`  AI 활용: ${clean(ai.aiUse)}`);
-      if (clean(ai.verification)) lines.push(`  검증: ${clean(ai.verification)}`);
-      if (clean(ai.result)) lines.push(`  결과: ${clean(ai.result)}`);
-      lines.push("");
-    }
-    if (hasOther) {
-      lines.push("■ 기술·자격·어학");
-      if (clean(profile.skills)) lines.push(`- 기술: ${clean(profile.skills)}`);
-      if (clean(profile.certificates)) lines.push(`- 자격: ${clean(profile.certificates)}`);
-      if (clean(profile.languages)) lines.push(`- 어학: ${clean(profile.languages)}`);
-      lines.push("");
-    }
-    return lines.join("\n").replace(/\n{3,}/g, "\n\n").trim() + "\n";
+    const sections = buildResumeSections(profile);
+    if (!sections.length) throw new Error("복사할 이력서 내용이 없습니다.");
+    return sections.map(({ title, entries }) => `[${title}]\n${entries.join("\n\n")}`).join("\n\n");
   }
 
   // 24회차: 저장한 지원 작업 한눈에 보기. 초안은 작업 범위(scope) 접두사가
@@ -763,7 +731,7 @@
     buildJdReportText, buildJdqPlacement, mergeJdqPlacements, countPlacementStatuses, submissionPlacements,
     summarize, readDraft, addHistory, historyFor, draftTokens,
     findDraftOverlaps, numericClaims, reviewPackage, inferCharacterLimit, placeholderMarkers, buildSubmissionChecklist,
-    buildSubmissionText, buildText, buildResumeText,
+    buildSubmissionText, buildText, buildResumeSections, buildResumeText,
   };
   root.ApplicationWorkspace = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;

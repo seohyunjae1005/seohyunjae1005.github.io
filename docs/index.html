@@ -8,21 +8,21 @@
       content="주요 반도체 기업의 공식 뉴스룸에서 기술 동향과 기업 맥락을 추적합니다."
     />
     <title>반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261105-2" />
+    <link rel="stylesheet" href="styles.css?v=20261111-2" />
     <script src="pdf-import.js?v=20261001-2" defer></script>
     <script src="jd-analyzer-v4.js?v=20261007-7" defer></script>
     <script src="jd-recall-questions.js?v=20261108-3" defer></script>
     <script src="jd-local-fallback.js?v=20261104-1" defer></script>
     <script src="jd-ai-client.js?v=20261030-2" defer></script>
-    <script src="profile-store-v2.js?v=20261104-1" defer></script>
+    <script src="profile-store-v2.js?v=20261111-2" defer></script>
     <script src="experience-recall.js?v=20261108-1" defer></script>
     <link rel="stylesheet" href="experience-recall.css?v=20261104-2" />
     <script src="role-normalizer.js?v=20261001-1" defer></script>
-    <script src="application-workspace.js?v=20261105-1" defer></script>
+    <script src="application-workspace.js?v=20261111-2" defer></script>
     <script src="assessment-result-bridge.js?v=20261104-2" defer></script>
     <script src="cover-letter-library.js?v=20261111-1" defer></script>
     <link rel="stylesheet" href="cover-letter-library.css?v=20261111-1" />
-    <script src="app.js?v=20261109-1" defer></script>
+    <script src="app.js?v=20261111-2" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -198,66 +198,66 @@
       </section>
 
       <section class="chapter-panel profile-chapter" id="profile-chapter" role="tabpanel" aria-labelledby="profile-tab" hidden>
-        <div class="chapter-heading">
-          <div><h2>내 프로필</h2></div>
+        <div class="master-resume-heading">
+          <div><h2>마스터 이력서</h2><p>이 브라우저에 저장됩니다.</p></div>
+          <div class="profile-resume-actions">
+            <button class="jd-secondary" id="profile-resume-preview" type="button" aria-expanded="false" aria-controls="profile-resume-section">미리보기·복사</button>
+            <button class="jd-primary" type="submit" form="profile-form">저장</button>
+          </div>
         </div>
-
-        <div class="jd-privacy-notice">
-          <strong>이 브라우저에만 저장</strong>
-          <span>이름·연락처·주소·주민번호는 입력하지 마세요.</span>
-        </div>
-
-        <button class="jd-secondary" id="profile-reanalyze-button" type="button" hidden>채용공고 다시 분석하기</button>
-
-        <nav class="profile-section-nav" aria-label="프로필 섹션 이동">
-          <button type="button" data-profile-section="profile-experience-section">경험</button>
-          <button type="button" data-profile-section="profile-target-section">관심 직무</button>
-          <button type="button" data-profile-section="profile-education-section">학력</button>
-          <button type="button" data-profile-section="profile-skills-section">기술·자격·어학</button>
-          <button type="button" data-profile-section="profile-ai-section">AI 문제해결 경험</button>
-          <button type="button" data-profile-section="profile-assessment-section">인적성 결과</button>
-          <button type="button" data-profile-section="profile-plan-section">계획 중인 프로젝트</button>
-          <button type="button" data-profile-section="profile-resume-section">이력서 초안</button>
-        </nav>
-
+        <p class="profile-save-status" id="profile-save-status" role="status"></p>
+        <section class="profile-resume-card" id="profile-resume-section" hidden>
+          <div class="profile-resume-actions">
+            <button class="jd-secondary" id="profile-resume-copy" type="button">전체 복사</button>
+          </div>
+          <p id="profile-resume-status" role="status"></p>
+          <textarea id="profile-resume-copy-text" rows="5" aria-label="복사할 이력서 내용" readonly hidden></textarea>
+          <div id="profile-resume-content"></div>
+        </section>
         <form class="profile-form" id="profile-form">
-          <section class="profile-form-section" id="profile-target-section">
-            <div class="profile-section-heading">
-              <div><strong>1. 관심 직무</strong></div>
+          <section class="profile-form-section">
+            <div class="profile-section-heading"><h3>기본정보</h3></div>
+            <div class="profile-field-grid master-resume-contact">
+              <label><span>이름</span><input id="profile-name" type="text" autocomplete="name" /></label>
+              <label><span>이메일</span><input id="profile-email" type="email" autocomplete="email" /></label>
+              <label><span>연락처</span><input id="profile-phone" type="tel" autocomplete="tel" /></label>
             </div>
-            <label><span>관심 직무</span><textarea id="profile-target-roles" rows="3" placeholder="SK하이닉스 양산기술&#10;삼성전자 공정기술"></textarea></label>
           </section>
 
           <section class="profile-form-section" id="profile-education-section">
             <div class="profile-section-heading">
-              <div><strong>2. 학력</strong></div>
+              <h3>학력</h3>
               <button class="profile-add" id="profile-add-education" type="button">학력 추가</button>
             </div>
             <div class="profile-entry-list" id="profile-education-list"></div>
           </section>
 
-          <section class="profile-form-section" id="profile-skills-section">
-            <div class="profile-section-heading">
-              <div><strong>3. 기술·자격·어학</strong></div>
-            </div>
-            <div class="profile-field-grid">
-              <label><span>기술·교육·실습</span><textarea id="profile-skills" rows="5" placeholder="Python으로 공정 데이터 전처리 및 시각화&#10;반도체 8대 공정 교육 40시간 이수"></textarea></label>
-              <label><span>자격증</span><textarea id="profile-certificates" rows="5" placeholder="산업안전기사&#10;6시그마 GB"></textarea></label>
-            </div>
-            <label><span>어학</span><textarea id="profile-languages" rows="3" placeholder="OPIc IM2 · 2026-03"></textarea></label>
-          </section>
-
           <section class="profile-form-section" id="profile-experience-section">
             <div class="profile-section-heading">
-              <div><strong>4. 경험</strong></div>
+              <h3>경력·프로젝트·활동</h3>
               <button class="profile-add" id="profile-add-experience" type="button">경험 추가</button>
             </div>
             <div class="profile-entry-list" id="profile-experience-list"></div>
           </section>
 
+          <section class="profile-form-section" id="profile-skills-section">
+            <div class="profile-section-heading"><h3>교육·기술·자격·어학·수상</h3></div>
+            <div class="profile-field-grid">
+              <label><span>교육·기술</span><textarea id="profile-skills" rows="3" placeholder="교육명 · 기관 · 기간 / 사용 기술"></textarea></label>
+              <label><span>자격증</span><textarea id="profile-certificates" rows="3" placeholder="자격명 · 발급 기관 · 취득일"></textarea></label>
+              <label><span>어학</span><textarea id="profile-languages" rows="3" placeholder="시험명 · 점수 또는 등급 · 응시일"></textarea></label>
+              <label><span>수상</span><textarea id="profile-awards" rows="3" placeholder="수상명 · 주최 기관 · 수상일"></textarea></label>
+            </div>
+          </section>
+
+          <details class="profile-backup-details master-resume-notes">
+          <summary>이전 프로필 메모</summary>
+          <section class="profile-form-section">
+            <label><span>관심 직무</span><textarea id="profile-target-roles" rows="2"></textarea></label>
+          </section>
           <section class="profile-form-section" id="profile-ai-section">
             <div class="profile-section-heading">
-              <div><strong>5. AI 문제해결 경험</strong></div>
+              <h3>기존 AI 프로젝트</h3>
             </div>
             <div class="profile-field-grid profile-ai-grid">
               <label><span>경험명</span><input id="profile-ai-title" type="text" placeholder="예: 반도체 뉴스 자동 분류 프로젝트" /></label>
@@ -272,33 +272,21 @@
 
           <section class="profile-form-section" id="profile-assessment-section">
             <div class="profile-section-heading">
-              <div><strong>6. 인적성 결과</strong><span>참고용 · 면접 근거가 아닙니다</span></div>
+              <h3>인적성 결과</h3>
             </div>
             <div id="profile-assessment-result" aria-live="polite"></div>
           </section>
 
           <section class="profile-form-section" id="profile-plan-section">
             <div class="profile-section-heading">
-              <div><strong>7. 계획 중인 프로젝트</strong><span>아직 실적이 아닙니다 · 다음 행동 후보로만 씁니다</span></div>
+              <h3>계획 중인 프로젝트</h3>
               <button class="profile-add" id="profile-add-plan" type="button">계획 추가</button>
             </div>
             <div class="profile-entry-list" id="profile-plan-list"></div>
           </section>
 
-          <div class="profile-actions">
-            <button class="jd-primary profile-save-primary" type="submit">이 기기에 저장</button>
-          </div>
+          </details>
         </form>
-
-        <p class="profile-save-status" id="profile-save-status" aria-live="polite"></p>
-
-        <section class="profile-resume-card" id="profile-resume-section">
-          <h3>이력서 초안</h3>
-          <div class="profile-resume-actions">
-            <button class="jd-secondary" id="profile-resume-download" type="button">이력서 초안 받기</button>
-            <button class="jd-secondary" id="profile-resume-copy" type="button">이력서 초안 복사</button>
-          </div>
-        </section>
 
         <details class="profile-backup-details">
           <summary>백업·삭제</summary>

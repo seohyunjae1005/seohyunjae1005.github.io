@@ -4,7 +4,7 @@
   const STORAGE_KEY = "career-profile-v2";
   const LEGACY_STORAGE_KEY = "semiconductor-career-profile-v1";
   const EMPTY_PROFILE = Object.freeze({
-    targetRoles: "", skills: "", certificates: "", languages: "",
+    name: "", email: "", phone: "", targetRoles: "", skills: "", certificates: "", languages: "", awards: "",
     educations: [], experiences: [], plans: [],
     aiExperience: { title: "", context: "", period: "", role: "", aiUse: "", verification: "", result: "" },
     updatedAt: "",
@@ -36,10 +36,14 @@
 
   function normalize(profile) {
     return {
+      name: clean(profile?.name),
+      email: clean(profile?.email),
+      phone: clean(profile?.phone),
       targetRoles: clean(profile?.targetRoles),
       skills: clean(profile?.skills),
       certificates: clean(profile?.certificates),
       languages: clean(profile?.languages),
+      awards: clean(profile?.awards),
       educations: Array.isArray(profile?.educations) ? profile.educations.map((row) => cleanRecord(row, EDUCATION_FIELDS)).filter((row) => hasRecordValue(row)) : [],
       experiences: Array.isArray(profile?.experiences) ? profile.experiences.map((row) => cleanRecord(row, EXPERIENCE_FIELDS)).filter((row) => hasRecordValue(row)) : [],
       plans: Array.isArray(profile?.plans) ? profile.plans.map((row) => cleanRecord(row, PLAN_FIELDS)).filter((row) => hasRecordValue(row)) : [],

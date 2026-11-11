@@ -740,7 +740,6 @@ main { max-width: var(--max); margin: 0 auto; padding: 0.9rem 1.25rem 3rem; }
 .profile-section-nav { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0 0; padding: 0.5rem 0; background: var(--bg); }
 .profile-section-nav button { padding: 0.55rem 0.85rem; border: 1px solid var(--line-strong); border-radius: 999px; background: var(--surface); color: var(--text); font: inherit; font-size: 0.95rem; font-weight: 650; cursor: pointer; }
 .profile-section-nav button:active { background: var(--bg); }
-#profile-experience-section { order: -1; }
 .profile-form-section { scroll-margin-top: 0.75rem; }
 .profile-resume-card { scroll-margin-top: 0.75rem; }
 .profile-form-section { display: grid; gap: 1rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: 0.6rem; background: var(--surface); }
@@ -830,6 +829,31 @@ main { max-width: var(--max); margin: 0 auto; padding: 0.9rem 1.25rem 3rem; }
 .profile-import-button { display: inline-flex !important; align-items: center; cursor: pointer; }
 #profile-import { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); }
 .profile-delete { margin-left: auto; padding: 0.7rem 1rem; border: 1px solid #86868b; border-radius: 0.3rem; background: var(--surface); color: #424245; font-weight: 700; cursor: pointer; }
+.master-resume-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.65rem 1rem; padding: 0.4rem 0; }
+.master-resume-heading h2 { margin: 0; font-size: 1.65rem; font-weight: 600; }
+.master-resume-heading p { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.8rem; }
+.profile-chapter .profile-save-status:empty, #profile-resume-status:empty { display: none; }
+.profile-chapter .profile-section-heading { flex-direction: row; align-items: center; }
+.profile-chapter .profile-section-heading h3 { margin: 0; font-size: 1rem; font-weight: 600; }
+.profile-chapter .profile-add { width: auto; font-weight: 600; }
+.profile-chapter .profile-entry-card { border-radius: 0.55rem; background: #f5f5f7; }
+.profile-chapter .profile-entry-heading > span::before { content: "›"; color: var(--muted); }
+.profile-chapter .profile-entry-card[open] > .profile-entry-heading > span::before { transform: rotate(90deg); }
+.profile-chapter .profile-entry-body { padding-top: 0.75rem; }
+.profile-entry-remove { justify-self: end; padding: 0.3rem; border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 0.75rem; cursor: pointer; }
+.master-resume-notes > .profile-form-section { margin: 0 0.75rem 0.75rem; }
+.master-resume-copy-section { padding: 0.8rem 0; border-top: 1px solid var(--line); }
+.master-resume-copy-section:first-child { margin-top: 0.8rem; }
+.master-resume-copy-section > header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.master-resume-copy-section > header > h3 { margin: 0; }
+.master-resume-copy-entry { display: grid; gap: 0.35rem; margin-top: 0.5rem; }
+.master-resume-copy-entry > p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.65; }
+.master-resume-copy-entry > button { justify-self: start; }
+.master-resume-empty, #profile-resume-status { margin: 0.75rem 0 0; color: var(--muted); font-size: 0.85rem; }
+#profile-resume-copy-text { box-sizing: border-box; width: 100%; margin-top: 0.5rem; }
+@media (min-width: 760px) {
+  .profile-chapter .master-resume-contact { grid-template-columns: 1fr 1.35fr 1fr; }
+}
 
 .controls { display: flex; justify-content: space-between; gap: 1rem; margin-top: 0; padding: 1rem 0; border-bottom: 1px solid var(--line); }
 .company-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
