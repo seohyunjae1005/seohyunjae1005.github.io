@@ -9,6 +9,7 @@
     amat: { name: 'Applied Materials', path: 'amat-service.json', allRoles: 'CE 계열 전체' },
     tel: { name: '도쿄일렉트론(TEL)', path: 'tel-service.json', allRoles: '전체 직무' },
     lam: { name: 'Lam Research', path: 'lam-service.json', allRoles: '서비스 직무 전체' },
+    hyundai: { name: '현대자동차', paths: ['hyundai-quality.json', 'hyundai-production.json'], allRoles: '전체 직무' },
   };
   const datasets = new Map();
   const selected = new Map();
@@ -37,11 +38,13 @@
         .map(question => ({
           ...question, answer: answers.get(question.number), note: essay.questionNotes?.[question.number],
         }));
-      const search = questions.map(question => `${question.text}\n${question.answer}`).join('\n').toLocaleLowerCase();
+      const role = essay.details?.originalRole || group.role;
+      const search = [group.category, role, ...essayMetadata(essay),
+        ...questions.map(question => `${question.text}\n${question.answer}`)].join('\n').toLocaleLowerCase();
       const publishedYear = Number(/^\d{4}(?=-)/.exec(essay.publishedAt)?.[0]);
       return {
-        id: `${companyId}:${essay.id}`, company: dataset.company, role: group.role,
-        roleFilter: roleFilter(companyId, group.role), period, number, employment: group.employment,
+        id: `${companyId}:${group.category || ''}:${essay.id}`, company: dataset.company, role,
+        roleFilter: group.category || roleFilter(companyId, group.role), period, number, employment: group.employment,
         dateConflict: publishedYear < group.year, essay, questions, search,
       };
     }));
@@ -49,12 +52,14 @@
 
   function loadRecords(companyId) {
     if (!datasets.has(companyId)) {
-      const promise = fetch(`library/${companies[companyId].path}?v=20261111-1`)
-        .then(response => {
-          if (!response.ok) throw new Error('자료를 불러오지 못했습니다.');
-          return response.json();
-        })
-        .then(dataset => buildRecords(companyId, dataset))
+      const company = companies[companyId];
+      const paths = company.paths || [company.path];
+      const promise = Promise.all(paths.map(async path => {
+        const response = await fetch(`library/${path}?v=20261111-1`);
+        if (!response.ok) throw new Error('자료를 불러오지 못했습니다.');
+        return response.json();
+      }))
+        .then(data => buildRecords(companyId, { company: company.name, groups: data.flatMap(dataset => dataset.groups) }))
         .catch(error => {
           datasets.delete(companyId);
           throw error;
@@ -82,10 +87,8 @@
       records = loaded;
       const roles = [...new Set(records.map(record => record.roleFilter))]
         .sort((a, b) => (a === '직무 미확인') - (b === '직무 미확인') || a.localeCompare(b, 'ko'));
-      const periods = [...new Set(records.map(record => record.period))];
       field('role').innerHTML = `<option value="">${companies[companyId].allRoles}</option>${options(roles)}`;
-      field('period').innerHTML = `<option value="">전체 시즌</option>${options(periods)}`;
-      field('period').value = periods.includes(previousPeriod) ? previousPeriod : periods[0] || '';
+      showPeriods(records, previousPeriod, false);
       for (const key of ['role', 'period', 'search']) field(key).disabled = false;
       renderList();
     } catch (_) {
@@ -94,10 +97,26 @@
     }
   }
 
+  function showPeriods(entries, preferred, keepAll) {
+    const periods = [...new Set(entries.map(record => record.period))];
+    field('period').innerHTML = `<option value="">전체 시즌</option>${options(periods)}`;
+    field('period').value = (keepAll && preferred === '') || periods.includes(preferred) ? preferred : periods[0] || '';
+  }
+
+  function essayMetadata(essay) {
+    if (!essay.details) return [];
+    const { duties, organization, site } = essay.details;
+    return [['세부 업무', duties], ['사업부·조직', organization], ['사업장', site]]
+      .filter(([, value]) => value && value !== '미확인')
+      .map(([label, value]) => `${label}: ${value}`);
+  }
+
   function renderEssay(record, isOpen) {
     const { id, role, period, number, employment, essay, questions, dateConflict } = record;
-    const meta = [essay.stage, employment, `문항 ${questions.length}개`].filter(value => value && value !== '미확인');
+    const coverage = essay.details?.status === '부분 수집' ? essay.details.status : '';
+    const meta = [essay.stage, employment, coverage, `문항 ${questions.length}개`].filter(value => value && value !== '미확인');
     const details = [
+      ...essayMetadata(essay),
       essay.publishedAt && !['None', '미확인'].includes(essay.publishedAt) ? `게시일 ${essay.publishedAt.slice(0, 10)}` : '',
       dateConflict ? '게시일이 수집 자료의 채용 연도보다 앞섭니다. 시즌은 원문에서 확인해 주세요.' : '',
     ].filter(Boolean).join(' · ');
@@ -151,6 +170,8 @@
     return [
       `${company} / ${role === '미확인' ? '직무 미확인' : role} / ${period} / 지원자 ${number}`,
       `채용 구분 ${employment} · 출처의 합격 단계 ${essay.stage}`,
+      essayMetadata(essay).join(' · '),
+      essay.details?.status === '부분 수집' ? '부분 수집' : '',
       dateConflict ? `시즌 확인 필요: 게시일 ${essay.publishedAt.slice(0, 10)}` : '',
       ...content,
       `출처 ${essay.source}: ${essay.url}`,
@@ -205,7 +226,13 @@
       <textarea id="library-copy-fallback" aria-label="직접 복사할 내용" rows="8" readonly hidden></textarea>
       <section id="library-essays" aria-label="지원자별 자소서"></section>`;
     field('company').addEventListener('change', showCompany);
-    field('role').addEventListener('change', renderList);
+    field('role').addEventListener('change', () => {
+      if (field('company').value === 'hyundai') {
+        const role = field('role').value;
+        showPeriods(records.filter(record => !role || role === record.roleFilter), field('period').value, true);
+      }
+      renderList();
+    });
     field('period').addEventListener('change', renderList);
     field('search').addEventListener('input', renderList);
     field('copy').addEventListener('click', () => copyEssays([...selected.values()]));

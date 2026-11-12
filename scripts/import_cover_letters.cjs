@@ -9,6 +9,8 @@ const sources = {
   amat: { company: 'Applied Materials', file: 'amat-service.json', years: [2018, 2020, 2021, 2022, 2023, 2024, 2025, 2026], totals: [18, 21, 85] },
   tel: { company: '도쿄일렉트론(TEL)', file: 'tel-service.json', years: [2017, 2018, 2020, 2021, 2024, 2026], totals: [9, 13, 52] },
   lam: { company: 'Lam Research', file: 'lam-service.json', years: [2017, 2020, 2024, 2025, 2026], totals: [5, 6, 27] },
+  'hyundai-quality': { company: '현대자동차', category: '품질', file: 'hyundai-quality.json', years: [2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026], totals: [21, 21, 55] },
+  'hyundai-production': { company: '현대자동차', category: '생산기술', file: 'hyundai-production.json', years: [2015, 2016, 2019, 2020, 2022, 2023, 2024, 2025, 2026], totals: [14, 16, 38] },
 };
 const questionNotes = {
   amat: { '36144': { 4: '수집 자료에서 3번과 4번의 문항·답변이 동일하게 표시됩니다.' } },
@@ -17,11 +19,16 @@ const questionNotes = {
     3: '수집 자료의 추정 문항입니다.',
     4: '수집 자료의 추정 문항입니다.',
   } },
+  'hyundai-quality': { '241725': {
+    2: '수집 자료의 추정 문항입니다.',
+    3: '수집 자료의 추정 문항입니다.',
+    4: '수집 자료의 추정 문항입니다.',
+  } },
 };
 if (!input || !Object.hasOwn(sources, companyId)) {
   throw new Error(`사용법: node scripts/import_cover_letters.cjs <연도별 Markdown 폴더> [${Object.keys(sources).join('|')}]`);
 }
-const { company, file, start, end, years = Array.from({ length: end - start + 1 }, (_, index) => start + index), totals } = sources[companyId];
+const { company, category, file, start, end, years = Array.from({ length: end - start + 1 }, (_, index) => start + index), totals } = sources[companyId];
 const groups = [];
 for (const year of years) {
   const source = fs.readFileSync(path.join(input, `${year}.md`), 'utf8').replace(/\r\n/g, '\n');
@@ -60,10 +67,18 @@ for (const year of years) {
       if (notes && Object.keys(notes).some(number => !answers.some(answer => answer.number === Number(number)))) {
         throw new Error(`메모에 해당하는 답변을 찾지 못했습니다. ${id}/${postId}`);
       }
-      essays.push({ id: pieces[0], postId, source: field('출처'), stage: field('합격 단계'), publishedAt: field('게시일'), collectedAt: field('수집일'), url: essay[2], answers, questionNotes: notes });
+      let details;
+      if (category) {
+        const row = /^원문 직무명: (.+) \| 세부 업무: (.+) \| 사업부·조직: (.+) \| 사업장: (.+)$/m.exec(essay[3]);
+        const status = pieces.find(value => value.startsWith('수집 상태: '))?.slice('수집 상태: '.length);
+        if (!row || !status) throw new Error(`직무 정보 또는 수집 상태 누락 ${id}/${postId}`);
+        const [, originalRole, duties, organization, site] = row;
+        details = { originalRole, duties, organization, site, status };
+      }
+      essays.push({ id: pieces[0], postId, source: field('출처'), stage: field('합격 단계'), publishedAt: field('게시일'), collectedAt: field('수집일'), url: essay[2], answers, questionNotes: notes, details });
     }
     if (!questions.length || !essays.length) throw new Error(`빈 묶음 ${id}`);
-    yearlyGroups.push({ id, company, role, year, season, employment, questions, essays });
+    yearlyGroups.push({ id, company, category, role, year, season, employment, questions, essays });
   }
   const original = [/^## \[/gm, /^--- 자소서 /gm, /^#### 답변 /gm].map(pattern => [...source.matchAll(pattern)].length);
   const essays = yearlyGroups.flatMap(group => group.essays);
