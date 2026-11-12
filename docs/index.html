@@ -8,7 +8,7 @@
       content="주요 반도체 기업의 공식 뉴스룸에서 기술 동향과 기업 맥락을 추적합니다."
     />
     <title>반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261112-3" />
+    <link rel="stylesheet" href="styles.css?v=20261113-1" />
     <script src="pdf-import.js?v=20261001-2" defer></script>
     <script src="jd-analyzer-v4.js?v=20261007-7" defer></script>
     <script src="jd-recall-questions.js?v=20261108-3" defer></script>
@@ -22,7 +22,7 @@
     <script src="assessment-result-bridge.js?v=20261104-2" defer></script>
     <script src="cover-letter-library.js?v=20261112-3" defer></script>
     <link rel="stylesheet" href="cover-letter-library.css?v=20261112-3" />
-    <script src="app.js?v=20261112-3" defer></script>
+    <script src="app.js?v=20261113-1" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -60,7 +60,22 @@
             <button type="button" data-trend-days="90">90일</button>
           </div>
         </div>
-        <p class="trend-current" id="trend-current"></p>
+        <details class="monthly-ai-report" id="monthly-ai-report" hidden>
+          <summary class="monthly-report-heading"><strong>최근 30일 AI 리포트</strong><time id="monthly-report-date"></time></summary>
+          <h3 id="monthly-report-title"></h3>
+          <p class="monthly-report-summary" id="monthly-report-summary"></p>
+          <button class="process-focus-button" id="process-focus-button" type="button">공정·양산 기사 보기</button>
+          <div class="monthly-report-grid">
+            <section><h4>동향</h4><div id="monthly-findings"></div></section>
+            <section><h4>직무 준비</h4><div id="monthly-role-actions"></div></section>
+            <section><h4>기업</h4><div id="monthly-company-insights"></div></section>
+          </div>
+          <details class="monthly-evidence">
+            <summary>분석 근거 보기</summary>
+            <div id="monthly-evidence-list"></div>
+            <ul id="monthly-limitations"></ul>
+          </details>
+        </details>
 
         <div class="trend-metrics" aria-label="선택 기간 동향 현황">
           <div><strong id="trend-article-count">-</strong><span>전체 기사</span></div>
@@ -97,26 +112,6 @@
             <h3 id="company-trend-title">기업별 기술·직무</h3>
           </summary>
           <div class="company-profile-list" id="company-profile-list"></div>
-        </details>
-        <details class="trend-explanation">
-          <summary>집계 기준</summary>
-          <p id="trend-methodology"></p>
-        </details>
-        <details class="monthly-ai-report" id="monthly-ai-report" hidden>
-          <summary class="monthly-report-heading"><strong>이전 AI 리포트</strong><time id="monthly-report-date"></time></summary>
-          <h3 id="monthly-report-title"></h3>
-          <p class="monthly-report-summary" id="monthly-report-summary"></p>
-          <button class="process-focus-button" id="process-focus-button" type="button">공정·양산 기사 보기</button>
-          <div class="monthly-report-grid">
-            <section><h4>동향</h4><div id="monthly-findings"></div></section>
-            <section><h4>직무 준비</h4><div id="monthly-role-actions"></div></section>
-            <section><h4>기업</h4><div id="monthly-company-insights"></div></section>
-          </div>
-          <details class="monthly-evidence">
-            <summary>분석 근거 보기</summary>
-            <div id="monthly-evidence-list"></div>
-            <ul id="monthly-limitations"></ul>
-          </details>
         </details>
       </section>
       </section>

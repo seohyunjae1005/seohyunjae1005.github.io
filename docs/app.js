@@ -273,15 +273,7 @@ function renderTrendSummary() {
   document.querySelector("#momentum-tech-list").innerHTML = momentumList(summary.momentum_30d?.tech_domains);
   document.querySelector("#momentum-job-list").innerHTML = momentumList(summary.momentum_30d?.job_roles);
   renderCompanyProfiles(summary.company_profiles_30d);
-  const top = windowData.top_tech_domains?.[0];
-  const leaders = (windowData.top_tech_domains || []).filter(row => row.count === top?.count);
-  const labels = leaders.map(row => row.name).join(', ');
-  document.querySelector("#trend-current").textContent = top
-    ? `최근 ${state.trendDays}일에는 ${labels} 분야의 기사가 가장 많았습니다(${leaders.length > 1 ? "각 " : ""}${top.count}건).`
-    : windowData.article_count ? `최근 ${state.trendDays}일에 수집된 기사에는 집계할 기술 분야가 없습니다.`
-      : `최근 ${state.trendDays}일에 수집된 기사가 없습니다.`;
   document.querySelector("#momentum-panel").hidden = state.trendDays !== "30";
-  document.querySelector("#trend-methodology").textContent = summary.methodology || "";
 }
 
 function bindTrendPeriodTabs() {

@@ -76,8 +76,6 @@ def main() -> None:
         "report": report,
         "evidence": pack,
     }
-    CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     REPORT_PATH.write_text(
         "\n".join(
@@ -96,6 +94,8 @@ def main() -> None:
     )
     if issues:
         raise SystemExit("월간 리포트 검증 실패: " + " / ".join(issues))
+    CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
     attach_to_web_data(payload, cache)
     print("월간 AI 동향 리포트 생성 및 근거 ID 검증: PASS")
     print("Gemini API 호출: 1회")
