@@ -10,6 +10,8 @@
     tel: { name: '도쿄일렉트론(TEL)', path: 'tel-service.json', allRoles: '전체 직무' },
     lam: { name: 'Lam Research', path: 'lam-service.json', allRoles: '서비스 직무 전체' },
     hyundai: { name: '현대자동차', paths: ['hyundai-quality.json', 'hyundai-production.json'], allRoles: '전체 직무' },
+    hanwha: { name: '한화에어로스페이스', paths: ['hanwha-quality.json', 'hanwha-production.json'], allRoles: '전체 직무' },
+    lig: { name: 'LIG넥스원', paths: ['lig-production.json'], allRoles: '전체 직무' },
   };
   const datasets = new Map();
   const selected = new Map();
@@ -30,7 +32,7 @@
     const groups = [...dataset.groups].sort((a, b) => b.year - a.year || Number(b.season === '하반기') - Number(a.season === '하반기'));
     const periodCounts = new Map();
     return groups.flatMap(group => group.essays.map(essay => {
-      const period = `${group.year} ${group.season}`;
+      const period = group.year ? `${group.year} ${group.season}` : '시즌 미확인';
       const number = (periodCounts.get(period) || 0) + 1;
       periodCounts.set(period, number);
       const answers = new Map(essay.answers.map(answer => [answer.number, answer.text]));
@@ -105,16 +107,17 @@
 
   function essayMetadata(essay) {
     if (!essay.details) return [];
-    const { duties, organization, site } = essay.details;
-    return [['세부 업무', duties], ['사업부·조직', organization], ['사업장', site]]
+    const { originalCompany, duties, organization, site } = essay.details;
+    return [['원문 회사명', originalCompany], ['세부 업무', duties], ['사업부·조직', organization], ['사업장', site]]
       .filter(([, value]) => value && value !== '미확인')
       .map(([label, value]) => `${label}: ${value}`);
   }
 
   function renderEssay(record, isOpen) {
     const { id, role, period, number, employment, essay, questions, dateConflict } = record;
-    const coverage = essay.details?.status === '부분 수집' ? essay.details.status : '';
-    const meta = [essay.stage, employment, coverage, `문항 ${questions.length}개`].filter(value => value && value !== '미확인');
+    const coverage = essay.details?.status === '전문 수집' ? '' : essay.details?.status;
+    const stage = essay.details && essay.stage === '미확인' ? '합격 단계 미확인' : essay.stage;
+    const meta = [stage, employment, coverage, `문항 ${questions.length}개`].filter(value => value && value !== '미확인');
     const details = [
       ...essayMetadata(essay),
       essay.publishedAt && !['None', '미확인'].includes(essay.publishedAt) ? `게시일 ${essay.publishedAt.slice(0, 10)}` : '',
@@ -171,7 +174,7 @@
       `${company} / ${role === '미확인' ? '직무 미확인' : role} / ${period} / 지원자 ${number}`,
       `채용 구분 ${employment} · 출처의 합격 단계 ${essay.stage}`,
       essayMetadata(essay).join(' · '),
-      essay.details?.status === '부분 수집' ? '부분 수집' : '',
+      essay.details?.status && essay.details.status !== '전문 수집' ? `수집 상태: ${essay.details.status}` : '',
       dateConflict ? `시즌 확인 필요: 게시일 ${essay.publishedAt.slice(0, 10)}` : '',
       ...content,
       `출처 ${essay.source}: ${essay.url}`,
@@ -227,7 +230,7 @@
       <section id="library-essays" aria-label="지원자별 자소서"></section>`;
     field('company').addEventListener('change', showCompany);
     field('role').addEventListener('change', () => {
-      if (field('company').value === 'hyundai') {
+      if (companies[field('company').value].paths) {
         const role = field('role').value;
         showPeriods(records.filter(record => !role || role === record.roleFilter), field('period').value, true);
       }
