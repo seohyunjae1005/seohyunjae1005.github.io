@@ -1,6 +1,6 @@
 .library-heading { margin: 0 0 16px; }
 .library-heading h2 { margin: 0; font-size: 26px; font-weight: 600; }
-.library-note, .library-essay-meta, #library-summary { color: #6e6e73; font-size: 13px; line-height: 1.6; }
+.library-note, .library-essay-meta, #library-summary { color: #55555a; font-size: 14px; line-height: 1.6; }
 .library-filters {
   display: grid;
   grid-template-columns: 1fr 1.2fr 1.1fr 1.6fr;
@@ -9,7 +9,7 @@
   border-radius: 16px;
   background: #f5f5f7;
 }
-.library-filters label { display: grid; gap: 6px; min-width: 0; font-size: 13px; }
+.library-filters label { display: grid; gap: 6px; min-width: 0; font-size: 15px; }
 .library-filters select, .library-filters input, #library-copy-fallback {
   box-sizing: border-box;
   width: 100%;
@@ -44,6 +44,7 @@
 #library-chapter :focus-visible { outline: 2px solid #0071e3; outline-offset: 3px; }
 #library-copy-status, .library-copy-feedback { margin: 8px 0; color: #1d1d1f; font-size: 13px; }
 #library-copy-status:empty, .library-copy-feedback:empty { margin: 0; }
+#library-copy-status:not(:empty) { position: fixed; right: 16px; bottom: 16px; z-index: 12; padding: 10px 16px; border-radius: 8px; background: #1d1d1f; color: #fff; font-size: 14px; }
 #library-copy-fallback { margin: 4px 0 8px; }
 #library-essays { display: grid; gap: 8px; margin-top: 16px; }
 .library-essay { border: 1px solid #d2d2d7; border-radius: 12px; }
@@ -71,6 +72,7 @@
 .library-essay[open] summary::before { transform: rotate(45deg); }
 .library-essay-heading { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; }
 .library-essay-heading strong { font-weight: 600; }
+.library-essay-check { align-self: center; width: 18px; height: 18px; margin: 0; accent-color: #1d1d1f; cursor: pointer; }
 .library-essay-heading > span { font-size: 14px; }
 .library-essay-meta { margin-inline-start: auto; }
 .library-season-note {
@@ -84,12 +86,12 @@
 .library-essay-actions { margin-bottom: 10px; font-size: 13px; }
 .library-essay-actions label { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
 .library-essay-actions a { margin-inline-start: auto; color: #0071e3; }
-.library-question { padding: 16px 0; border-top: 1px solid #d2d2d7; }
+.library-question { max-width: 52rem; padding: 22px 0; border-top: 1px solid #d2d2d7; }
 .library-question:first-of-type { margin-top: 12px; }
 .library-question:last-child { padding-bottom: 0; }
 .library-question h4 { margin: 0 0 6px; font-size: 15px; font-weight: 600; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
-.library-question h4 span { display: block; color: #6e6e73; font-size: 12px; margin-bottom: 3px; }
-.library-answer-text { margin: 10px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 15px; line-height: 1.8; }
+.library-question h4 span { display: block; color: #55555a; font-size: 14px; margin-bottom: 3px; }
+.library-answer-text { margin: 10px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 16px; line-height: 1.8; }
 .library-empty { margin: 6px 0; color: #6e6e73; font-size: 14px; }
 @media (max-width: 800px) {
   .library-filters { grid-template-columns: 1fr 1fr; }

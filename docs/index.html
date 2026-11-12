@@ -8,7 +8,7 @@
       content="주요 반도체 기업의 공식 뉴스룸에서 기술 동향과 기업 맥락을 추적합니다."
     />
     <title>반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261111-2" />
+    <link rel="stylesheet" href="styles.css?v=20261112-3" />
     <script src="pdf-import.js?v=20261001-2" defer></script>
     <script src="jd-analyzer-v4.js?v=20261007-7" defer></script>
     <script src="jd-recall-questions.js?v=20261108-3" defer></script>
@@ -20,9 +20,9 @@
     <script src="role-normalizer.js?v=20261001-1" defer></script>
     <script src="application-workspace.js?v=20261111-2" defer></script>
     <script src="assessment-result-bridge.js?v=20261104-2" defer></script>
-    <script src="cover-letter-library.js?v=20261112-2" defer></script>
-    <link rel="stylesheet" href="cover-letter-library.css?v=20261111-1" />
-    <script src="app.js?v=20261111-2" defer></script>
+    <script src="cover-letter-library.js?v=20261112-3" defer></script>
+    <link rel="stylesheet" href="cover-letter-library.css?v=20261112-3" />
+    <script src="app.js?v=20261112-3" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -46,11 +46,6 @@
           <button id="jd-tab" type="button" role="tab" aria-selected="false" aria-controls="library-chapter" data-chapter="jd">합격 자소서</button>
           <button id="assessment-tab" type="button" role="tab" aria-selected="false" aria-controls="assessment-chapter" data-chapter="assessment">인적성 및 업무 흐름</button>
         </div>
-        <div class="metrics" aria-label="수집 현황">
-          <div class="metric"><strong id="total-count">-</strong><span>기사</span></div>
-          <div class="metric"><strong id="company-count">-</strong><span>기업</span></div>
-          <div class="metric"><strong id="analysis-count">-</strong><span>AI 분석</span></div>
-        </div>
       </section>
 
       <section class="chapter-panel" id="trend-chapter" role="tabpanel" aria-labelledby="trend-tab">
@@ -65,41 +60,20 @@
             <button type="button" data-trend-days="90">90일</button>
           </div>
         </div>
-
-        <details class="monthly-ai-report" id="monthly-ai-report" hidden>
-          <summary class="monthly-report-heading">
-            <span><strong id="monthly-report-title"></strong></span>
-            <time id="monthly-report-date"></time>
-          </summary>
-          <p class="monthly-report-summary" id="monthly-report-summary"></p>
-          <button class="process-focus-button" id="process-focus-button" type="button">
-            공정·양산 기사 보기
-          </button>
-          <div class="monthly-report-grid">
-            <section><h4>변화</h4><div id="monthly-findings"></div></section>
-            <section><h4>준비</h4><div id="monthly-role-actions"></div></section>
-            <section><h4>기업</h4><div id="monthly-company-insights"></div></section>
-          </div>
-          <details class="monthly-evidence">
-            <summary>통계·기사 근거와 분석 한계 보기</summary>
-            <div id="monthly-evidence-list"></div>
-            <ul id="monthly-limitations"></ul>
-          </details>
-        </details>
+        <p class="trend-current" id="trend-current"></p>
 
         <div class="trend-metrics" aria-label="선택 기간 동향 현황">
-          <div><strong id="trend-article-count">-</strong><span>전체</span></div>
-          <div><strong id="trend-high-count">-</strong><span>핵심</span></div>
-          <div><strong id="trend-company-count">-</strong><span>기업</span></div>
+          <div><strong id="trend-article-count">-</strong><span>전체 기사</span></div>
+          <div><strong id="trend-company-count">-</strong><span>기사 게시 기업</span></div>
         </div>
 
         <div class="trend-columns">
           <section class="trend-panel">
-            <h3>기술</h3>
+            <h3>기술 분야</h3>
             <ol id="trend-tech-list"></ol>
           </section>
           <section class="trend-panel">
-            <h3>직무</h3>
+            <h3>관련 직무</h3>
             <ol id="trend-job-list"></ol>
           </section>
           <section class="trend-panel">
@@ -110,7 +84,7 @@
 
         <section class="momentum-panel" id="momentum-panel">
           <div>
-            <h3>30일 상승 신호</h3>
+            <h3>이전 30일보다 기사 수가 늘어난 분야</h3>
           </div>
           <div class="momentum-groups">
             <div><strong>기술</strong><ul id="momentum-tech-list"></ul></div>
@@ -124,7 +98,26 @@
           </summary>
           <div class="company-profile-list" id="company-profile-list"></div>
         </details>
-        <p class="trend-methodology" id="trend-methodology"></p>
+        <details class="trend-explanation">
+          <summary>집계 기준</summary>
+          <p id="trend-methodology"></p>
+        </details>
+        <details class="monthly-ai-report" id="monthly-ai-report" hidden>
+          <summary class="monthly-report-heading"><strong>이전 AI 리포트</strong><time id="monthly-report-date"></time></summary>
+          <h3 id="monthly-report-title"></h3>
+          <p class="monthly-report-summary" id="monthly-report-summary"></p>
+          <button class="process-focus-button" id="process-focus-button" type="button">공정·양산 기사 보기</button>
+          <div class="monthly-report-grid">
+            <section><h4>동향</h4><div id="monthly-findings"></div></section>
+            <section><h4>직무 준비</h4><div id="monthly-role-actions"></div></section>
+            <section><h4>기업</h4><div id="monthly-company-insights"></div></section>
+          </div>
+          <details class="monthly-evidence">
+            <summary>분석 근거 보기</summary>
+            <div id="monthly-evidence-list"></div>
+            <ul id="monthly-limitations"></ul>
+          </details>
+        </details>
       </section>
       </section>
 
@@ -132,28 +125,20 @@
       <div class="chapter-heading">
         <div><h2>최신 뉴스</h2></div>
       </div>
-      <section class="controls" aria-label="기사 필터">
-        <div class="company-filters" id="company-filters">
-          <button class="filter active" type="button" data-company="all">전체</button>
-        </div>
+      <section class="controls news-controls" aria-label="기사 검색과 회사 선택">
         <label class="search">
           <span class="sr-only">기사 검색</span>
-          <input id="search" type="search" placeholder="HBM, 공정, 패키징 등 검색" />
+          <input id="search" type="search" placeholder="기사 검색" />
         </label>
+        <label><span class="sr-only">회사</span><select id="news-company"><option value="all">전체 회사</option></select></label>
         <button class="language-toggle" id="language-toggle" type="button">
           한국어 번역 보기
         </button>
       </section>
 
-      <section class="filter-panel" aria-label="직무와 기술 상세 필터">
-        <div class="filter-group importance-group">
-          <span class="filter-label">중요도</span>
-          <div class="importance-filters" id="importance-filters">
-            <button class="filter active" type="button" data-relevance="all">전체</button>
-            <button class="filter" type="button" data-relevance="high">핵심 기술</button>
-            <button class="filter" type="button" data-relevance="context">참고 동향</button>
-          </div>
-        </div>
+      <details class="news-filter-details">
+        <summary>상세 필터<span id="news-active-filters"></span></summary>
+        <div class="filter-panel">
         <div class="select-grid">
           <label>
             <span>관련 직무</span>
@@ -162,10 +147,6 @@
           <label>
             <span>기술 분야</span>
             <select id="domain-filter"><option value="all">모든 기술</option></select>
-          </label>
-          <label>
-            <span>발표 유형</span>
-            <select id="signal-filter"><option value="all">모든 발표</option></select>
           </label>
           <label>
             <span>게시 기간</span>
@@ -183,11 +164,11 @@
           </button>
           <button class="reset-button" id="reset-filters" type="button">필터 초기화</button>
         </div>
-      </section>
+        </div>
+      </details>
 
       <div class="result-line-row">
         <div class="result-line" id="result-line" aria-live="polite">기사를 불러오는 중입니다.</div>
-        <button class="jd-primary" id="news-to-jd-button" type="button" hidden>이 회사 채용공고 분석하기</button>
       </div>
       <section class="article-grid" id="article-grid" aria-label="선별 기사 목록"></section>
 
@@ -482,16 +463,11 @@
         </section>
       </section>
       <section class="chapter-panel assessment-chapter" id="assessment-chapter" role="tabpanel" aria-labelledby="assessment-tab" hidden>
-        <div class="assessment-toolbar"><a href="assessment.html?v=20261111-4" target="_blank" rel="noopener">전체 화면으로 열기 ↗</a><p id="assessment-result-status" hidden></p></div>
-        <iframe id="assessment-frame" data-src="assessment.html?v=20261111-4" title="인적성 및 업무 흐름"></iframe>
+        <div class="assessment-toolbar"><a href="assessment.html?v=20261112-3" target="_blank" rel="noopener">전체 화면으로 열기 ↗</a><p id="assessment-result-status" hidden></p></div>
+        <iframe id="assessment-frame" data-src="assessment.html?v=20261112-3" title="인적성 및 업무 흐름"></iframe>
       </section>
       <section class="chapter-panel" id="library-chapter" role="tabpanel" aria-labelledby="jd-tab" hidden><p>자료 불러오는 중…</p></section>
     </main>
 
-    <footer>
-      <p>기사 저작권은 각 회사에 있으며, 제목과 링크는 공식 원문으로 연결됩니다.</p>
-      <p>AI 직무 분석은 공식 원문 기반의 참고용 초안이며, 최종 판단 전 원문 확인이 필요합니다.</p>
-      <p><a class="footer-link" href="tester.html">3분 사용성 테스트 참여하기</a></p>
-    </footer>
   </body>
 </html>

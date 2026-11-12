@@ -90,7 +90,7 @@
       const roles = [...new Set(records.map(record => record.roleFilter))]
         .sort((a, b) => (a === '직무 미확인') - (b === '직무 미확인') || a.localeCompare(b, 'ko'));
       field('role').innerHTML = `<option value="">${companies[companyId].allRoles}</option>${options(roles)}`;
-      showPeriods(records, previousPeriod, false);
+      showPeriods(records, previousPeriod, true);
       for (const key of ['role', 'period', 'search']) field(key).disabled = false;
       renderList();
     } catch (_) {
@@ -124,12 +124,11 @@
       dateConflict ? '게시일이 수집 자료의 채용 연도보다 앞섭니다. 시즌은 원문에서 확인해 주세요.' : '',
     ].filter(Boolean).join(' · ');
     return `<details class="library-essay" data-library-essay="${escape(id)}"${isOpen ? ' open' : ''}>
-      <summary><span class="library-essay-heading"><strong>지원자 ${number}</strong> <span>${escape(role === '미확인' ? '직무 미확인' : role)}</span></span>
+      <summary><span class="library-essay-heading"><input type="checkbox" class="library-essay-check" data-library-select aria-label="${escape(period)} 지원자 ${number} 복사 선택"${selected.has(id) ? ' checked' : ''}> <strong>지원자 ${number}</strong> <span>${escape(role === '미확인' ? '직무 미확인' : role)}</span></span>
         <span class="library-essay-meta">${escape([period, ...meta].join(' · '))}${dateConflict ? ' <span class="library-season-note">시즌 확인 필요</span>' : ''}</span></summary>
       <div class="library-essay-body">
         <div class="library-essay-actions">
           <button type="button" data-library-copy-essay>전체 복사</button>
-          <label><input type="checkbox" data-library-select${selected.has(id) ? ' checked' : ''}> 함께 복사할 글로 선택</label>
           <a href="${escape(essay.url)}" target="_blank" rel="noopener noreferrer">${escape(essay.source)} 원문 ↗</a>
         </div>
         <p class="library-copy-feedback" role="status"></p>
@@ -160,6 +159,7 @@
   function updateSelection() {
     field('copy').textContent = `선택한 자소서 복사 (${selected.size})`;
     field('copy').disabled = selected.size === 0;
+    field('copy').hidden = selected.size === 0;
     field('clear').hidden = selected.size === 0;
   }
 
@@ -196,7 +196,12 @@
         navigator.clipboard.writeText(text),
         new Promise((_, reject) => { timer = setTimeout(reject, 1500); }),
       ]);
-      if (request === copyRequest) status.textContent = `자소서 ${items.length}편을 복사했습니다.`;
+      if (request === copyRequest) {
+        status.textContent = `자소서 ${items.length}편 복사 완료`;
+        if (status === field('copy-status')) {
+          setTimeout(() => { if (request === copyRequest) status.textContent = ''; }, 2400);
+        }
+      }
     } catch (_) {
       if (request !== copyRequest) return;
       fallback.value = text;
@@ -221,10 +226,9 @@
       </div>
       <div class="library-toolbar">
         <p id="library-summary" aria-live="polite"></p>
-        <div class="library-toolbar-actions"><button type="button" id="library-copy" disabled>선택한 자소서 복사 (0)</button>
+        <div class="library-toolbar-actions"><button type="button" id="library-copy" disabled hidden>선택한 자소서 복사 (0)</button>
         <button type="button" id="library-clear" hidden>선택 해제</button></div>
       </div>
-      <p class="library-note">문항과 직무명은 수집 자료의 표기를 따릅니다. 일부 글은 공개된 문항만 수록되어 있습니다.</p>
       <p id="library-copy-status" role="status"></p>
       <textarea id="library-copy-fallback" aria-label="직접 복사할 내용" rows="8" readonly hidden></textarea>
       <section id="library-essays" aria-label="지원자별 자소서"></section>`;
@@ -253,9 +257,17 @@
       if (event.target.checked) selected.set(id, records.find(record => record.id === id));
       else selected.delete(id);
       updateSelection();
+      if (selected.size) copyEssays([...selected.values()]);
+      else {
+        copyRequest += 1;
+        field('copy-status').textContent = '';
+        field('copy-fallback').hidden = true;
+      }
     });
     field('essays').addEventListener('click', event => {
-      if (event.target.closest('[data-library-retry]')) {
+      if (event.target.matches('[data-library-select]')) {
+        event.stopPropagation();
+      } else if (event.target.closest('[data-library-retry]')) {
         showCompany();
       } else if (event.target.closest('[data-library-copy-essay]')) {
         const essay = event.target.closest('[data-library-essay]');

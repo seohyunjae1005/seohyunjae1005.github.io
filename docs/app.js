@@ -1,13 +1,11 @@
 const state = {
   articles: [],
   company: "all",
-  relevance: "all",
   job: "all",
   domain: "all",
-  signal: "all",
   days: "all",
   query: "",
-  language: "original",
+  language: "ko",
   translatedCount: 0,
   trendDays: "30",
   trendSummary: null,
@@ -135,10 +133,8 @@ function visibleArticles() {
     ].join(" ").toLocaleLowerCase("ko");
 
     return (state.company === "all" || article.company === state.company)
-      && (state.relevance === "all" || article.relevance === state.relevance)
       && includesValue(article.job_roles, state.job)
       && includesValue(article.tech_domains, state.domain)
-      && includesValue(article.signal_types, state.signal)
       && (!state.processFocus || ["direct", "indirect"].includes(article.process_fit))
       && withinDays(article.published_at, state.days)
       && (!query || searchable.includes(query));
@@ -161,23 +157,17 @@ function confidenceLabel(value) {
   return { high: "높음", medium: "보통", low: "낮음" }[value] || "미표시";
 }
 
-function rankingList(rows, { jdButton = false } = {}) {
+function rankingList(rows) {
   if (!Array.isArray(rows) || rows.length === 0) {
-    return '<li class="trend-empty">집계할 신호가 아직 없습니다.</li>';
+    return '<li class="trend-empty">집계된 기사가 없습니다.</li>';
   }
   const maximum = Math.max(...rows.map((row) => Number(row.count || 0)), 1);
   return rows.map((row) => {
     const count = Number(row.count || 0);
     const width = Math.max(8, Math.round((count / maximum) * 100));
-    // 20회차: 기업 순위 행에만 "채용공고 분석" 버튼을 단다. 기술·직무
-    // 순위에는 달지 않는다. 버튼은 회사명을 채용공고 분석 1단계에 채워
-    // 바로 간다 (뉴스 경유 없이).
-    const action = jdButton
-      ? `<button type="button" class="rank-jd-button" data-company="${escapeHtml(row.name)}">채용공고 분석</button>`
-      : "";
     return `
       <li>
-        <div class="rank-label"><span>${escapeHtml(row.name)}</span><strong>${count}건</strong>${action}</div>
+        <div class="rank-label"><span>${escapeHtml(row.name)}</span><strong>${count}건</strong></div>
         <span class="rank-bar" aria-hidden="true"><i style="width:${width}%"></i></span>
       </li>
     `;
@@ -186,7 +176,7 @@ function rankingList(rows, { jdButton = false } = {}) {
 
 function momentumList(rows) {
   if (!Array.isArray(rows) || rows.length === 0) {
-    return '<li class="trend-empty">뚜렷하게 증가한 신호가 없습니다.</li>';
+    return '<li class="trend-empty">기사 수가 늘어난 항목이 없습니다.</li>';
   }
   return rows.map((row) => `
     <li><span>${escapeHtml(row.name)}</span><strong>+${Number(row.delta || 0)}건</strong></li>
@@ -235,7 +225,6 @@ function renderMonthlyReport() {
     <article>
       <strong>${escapeHtml(row.title_ko)}</strong>
       <p>${escapeHtml(row.interpretation_ko)}</p>
-      <div class="evidence-chips">${(row.evidence_metric_ids || []).map((id) => `<span title="${escapeHtml(metrics.get(id) || "")}">${escapeHtml(id)}</span>`).join("")}</div>
     </article>
   `).join("");
   const processActions = (report.role_actions || []).filter((row) => row.role === "공정기술·양산기술");
@@ -252,7 +241,6 @@ function renderMonthlyReport() {
     <article>
       <strong>${escapeHtml(row.company)}</strong>
       <p>${escapeHtml(row.observation_ko)}</p>
-      <div class="evidence-chips">${(row.evidence_article_ids || []).map((id) => `<span>${escapeHtml(id)}</span>`).join("")}</div>
     </article>
   `).join("");
   const citedMetricIds = new Set((report.key_findings || []).flatMap((row) => row.evidence_metric_ids || []));
@@ -278,14 +266,21 @@ function renderTrendSummary() {
 
   board.hidden = false;
   document.querySelector("#trend-article-count").textContent = windowData.article_count ?? 0;
-  document.querySelector("#trend-high-count").textContent = windowData.high_relevance_count ?? 0;
   document.querySelector("#trend-company-count").textContent = windowData.company_count ?? 0;
   document.querySelector("#trend-tech-list").innerHTML = rankingList(windowData.top_tech_domains);
   document.querySelector("#trend-job-list").innerHTML = rankingList(windowData.top_job_roles);
-  document.querySelector("#trend-company-list").innerHTML = rankingList(windowData.top_companies, { jdButton: true });
+  document.querySelector("#trend-company-list").innerHTML = rankingList(windowData.top_companies);
   document.querySelector("#momentum-tech-list").innerHTML = momentumList(summary.momentum_30d?.tech_domains);
   document.querySelector("#momentum-job-list").innerHTML = momentumList(summary.momentum_30d?.job_roles);
   renderCompanyProfiles(summary.company_profiles_30d);
+  const top = windowData.top_tech_domains?.[0];
+  const leaders = (windowData.top_tech_domains || []).filter(row => row.count === top?.count);
+  const labels = leaders.map(row => row.name).join(', ');
+  document.querySelector("#trend-current").textContent = top
+    ? `최근 ${state.trendDays}일에는 ${labels} 분야의 기사가 가장 많았습니다(${leaders.length > 1 ? "각 " : ""}${top.count}건).`
+    : windowData.article_count ? `최근 ${state.trendDays}일에 수집된 기사에는 집계할 기술 분야가 없습니다.`
+      : `최근 ${state.trendDays}일에 수집된 기사가 없습니다.`;
+  document.querySelector("#momentum-panel").hidden = state.trendDays !== "30";
   document.querySelector("#trend-methodology").textContent = summary.methodology || "";
 }
 
@@ -1295,7 +1290,7 @@ function experienceEntryTemplate(row = {}, index = 0) {
           <label><span>구분</span><select data-field="type">${profileOptions(types, row.type || "")}</select></label>
           <label><span>활동명</span><input data-field="title" value="${escapeHtml(row.title || "")}" /></label>
           <label><span>회사·기관</span><input data-field="organization" value="${escapeHtml(row.organization || "")}" /></label>
-          <label><span>역할</span><textarea data-field="role" rows="1">${escapeHtml(row.role || "")}</textarea></label>
+          <label><span>역할·직책</span><textarea data-field="role" rows="1">${escapeHtml(row.role || "")}</textarea></label>
           <label><span>시작</span><input data-field="startDate" value="${escapeHtml(row.startDate || "")}" placeholder="YYYY.MM" /></label>
           <label><span>종료</span><input data-field="endDate" value="${escapeHtml(row.endDate || "")}" placeholder="YYYY.MM 또는 진행 중" /></label>
         </div>
@@ -1749,7 +1744,10 @@ function bindMasterResumePreview(form) {
     toggle.setAttribute("aria-expanded", String(!preview.hidden));
     toggle.textContent = preview.hidden ? "미리보기·복사" : "미리보기 닫기";
     if (preview.hidden) resetCopy();
-    else render();
+    else {
+      render();
+      preview.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   });
   form.addEventListener("input", render);
   copyAll.addEventListener("click", () => copy(window.ApplicationWorkspace.buildResumeText(current())));
@@ -2370,9 +2368,7 @@ function bindCompanyProfiles() {
     if (!button) return;
     state.company = button.dataset.profileCompany;
     state.days = "30";
-    document.querySelectorAll("#company-filters button").forEach((item) => {
-      item.classList.toggle("active", item.dataset.company === state.company);
-    });
+    document.querySelector("#news-company").value = state.company;
     document.querySelector("#days-filter").value = "30";
     showChapter("news");
     render();
@@ -2380,48 +2376,15 @@ function bindCompanyProfiles() {
   });
 }
 
-// 19회차: 뉴스 결과줄 버튼, 20회차: 동향 기업 순위 행 버튼이 함께 쓴다.
-// 회사명을 채용공고 분석 1단계에 채우고 바로 연다. 폼 텍스트는 지우지
-// 않는다(회사명만 바꾼다).
-function openJdAnalysisForCompany(company) {
-  if (!company || company === "all") return;
-  document.querySelector("#jd-company").value = company;
-  showChapter("jd");
-  openJdStep(1);
-}
-
-function bindNewsToJd() {
-  document.querySelector("#news-to-jd-button").addEventListener("click", () => {
-    openJdAnalysisForCompany(state.company);
-  });
-}
-
-// 20회차: 동향 기업 순위 행의 "채용공고 분석" 버튼. 뉴스 경유 없이 바로 간다.
-function bindTrendCompanyToJd() {
-  document.querySelector("#trend-company-list").addEventListener("click", (event) => {
-    const button = event.target.closest(".rank-jd-button");
-    if (!button) return;
-    openJdAnalysisForCompany(button.dataset.company);
-  });
-}
-
 function bindProcessFocusButton() {
   document.querySelector("#process-focus-button").addEventListener("click", () => {
     state.company = "all";
-    state.relevance = "high";
     state.job = "공정기술·양산기술";
+    state.domain = "all";
     state.days = "30";
     state.query = "";
     state.processFocus = true;
-    document.querySelector("#search").value = "";
-    document.querySelector("#job-filter").value = state.job;
-    document.querySelector("#days-filter").value = state.days;
-    document.querySelectorAll("#company-filters button").forEach((button) => {
-      button.classList.toggle("active", button.dataset.company === "all");
-    });
-    document.querySelectorAll("#importance-filters button").forEach((button) => {
-      button.classList.toggle("active", button.dataset.relevance === "high");
-    });
+    syncNewsFilters();
     updateProcessFocusButton();
     showChapter("news");
     render();
@@ -2442,28 +2405,6 @@ function bindProcessOnlyToggle() {
     updateProcessFocusButton();
     render();
   });
-}
-
-function processFitLabel(value) {
-  return {
-    direct: "공정 직접 관련",
-    indirect: "공정 간접 관련",
-    background: "산업 배경 동향",
-  }[value] || "산업 배경 동향";
-}
-
-function renderProcessFit(article) {
-  const fit = article.process_fit || "background";
-  const evidence = article.process_evidence || [];
-  const description = evidence.length
-    ? `판단 근거: ${evidence.slice(0, 4).join(" · ")}`
-    : "공정·양산 직접 근거 없음. 산업 흐름을 이해하는 참고 자료입니다.";
-  return `
-    <div class="process-fit-panel ${escapeHtml(fit)}">
-      <span class="badge process-fit ${escapeHtml(fit)}">${processFitLabel(fit)}</span>
-      <span class="process-fit-copy">${escapeHtml(description)}</span>
-    </div>
-  `;
 }
 
 function renderAiAnalysis(item) {
@@ -2526,17 +2467,18 @@ function renderAiAnalysis(item) {
 function render() {
   const rows = visibleArticles();
   resultLine.textContent = state.processFocus
-    ? `공정·양산 관련 기술 신호 ${rows.length}개를 직접 관련 순으로 표시합니다.`
-    : `${rows.length}개의 기술 신호를 표시합니다.`;
-  const newsToJdButton = document.querySelector("#news-to-jd-button");
-  const newsCompany = state.company !== "all" ? state.company : "";
-  newsToJdButton.hidden = !newsCompany;
-  if (newsCompany) newsToJdButton.textContent = `${newsCompany} 채용공고 분석하기`;
+    ? `공정·양산 관련 기사 ${rows.length}건`
+    : `기사 ${rows.length}건`;
+  const activeFilters = [state.job, state.domain, state.days].filter(value => value !== "all").length + Number(state.processFocus);
+  document.querySelector("#news-active-filters").textContent = activeFilters ? `${activeFilters}개 적용` : "";
   empty.hidden = rows.length !== 0;
   grid.innerHTML = rows.map((article) => {
     const showKorean = state.language === "ko" && article.title_ko;
     const displayTitle = showKorean ? article.title_ko : article.title;
-    const translatedSummary = showKorean ? article.summary_ko : "";
+    const summary = showKorean ? (article.summary_ko || "").trim() : "";
+    const translatedSummary = /^(?:태그\s*:|.+ 공식 뉴스룸 기사[.!]?$)/.test(summary) ? "" : summary;
+    const tags = badgeList((article.job_roles || []).filter(value => value !== "산업·사업 공통"), "job", 1)
+      + badgeList((article.tech_domains || []).filter(value => value !== "기업·산업 일반"), "domain", 1);
     return `
     <article class="article-card">
       <div class="card-meta">
@@ -2544,23 +2486,8 @@ function render() {
         <time datetime="${escapeHtml(article.published_at)}">${formatDate(article.published_at)}</time>
       </div>
       <h2>${escapeHtml(displayTitle)}</h2>
-      ${showKorean ? `<p class="original-title">원문: ${escapeHtml(article.title)}</p>` : ""}
       ${translatedSummary ? `<p class="translated-summary">${escapeHtml(translatedSummary)}</p>` : ""}
-      <div class="classification" aria-label="직무와 기술 분류">
-        <span class="badge relevance ${article.relevance === "high" ? "high" : "context"}">
-          ${article.relevance === "high" ? "핵심 기술" : "참고 동향"}
-        </span>
-        ${badgeList(article.job_roles, "job")}
-        ${badgeList(article.tech_domains, "domain")}
-        ${badgeList(article.signal_types, "signal", 2)}
-      </div>
-      ${renderProcessFit(article)}
-      <div class="keywords" aria-label="분류 근거">
-        ${((article.matched_keywords || []).length
-          ? article.matched_keywords
-          : [article.source_category || "공식 발표"]
-        ).slice(0, 6).map((word) => `<span class="keyword">${escapeHtml(word)}</span>`).join("")}
-      </div>
+      ${tags ? `<div class="classification" aria-label="직무와 기술 분야">${tags}</div>` : ""}
       ${renderAiAnalysis(article.ai_analysis)}
       <a class="source-link" href="${escapeHtml(article.url)}" target="_blank" rel="noopener noreferrer">공식 원문 보기</a>
     </article>
@@ -2572,31 +2499,17 @@ function updateLanguageButton() {
   const button = document.querySelector("#language-toggle");
   button.disabled = state.translatedCount === 0;
   if (state.translatedCount === 0) {
-    button.textContent = "한국어 번역 준비 중";
+    button.textContent = "한국어 번역 없음";
   } else if (state.language === "ko") {
-    button.textContent = "영문 원문 보기";
+    button.textContent = "원문 제목 보기";
   } else {
-    button.textContent = `한국어 번역 보기 (${state.translatedCount})`;
+    button.textContent = "한국어 보기";
   }
 }
 
 function createCompanyFilters(companies) {
-  const container = document.querySelector("#company-filters");
-  companies.forEach((company) => {
-    const button = document.createElement("button");
-    button.className = "filter";
-    button.type = "button";
-    button.dataset.company = company;
-    button.textContent = company;
-    container.append(button);
-  });
-  container.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-company]");
-    if (!button) return;
-    container.querySelectorAll("button").forEach((item) => item.classList.toggle("active", item === button));
-    state.company = button.dataset.company;
-    render();
-  });
+  const select = document.querySelector("#news-company");
+  companies.forEach((company) => select.add(new Option(company, company)));
 }
 
 function fillSelect(selector, values, field) {
@@ -2615,49 +2528,32 @@ function fillSelect(selector, values, field) {
   });
 }
 
-function bindFilters() {
-  document.querySelector("#importance-filters").addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-relevance]");
-    if (!button) return;
-    document.querySelectorAll("#importance-filters button").forEach((item) => {
-      item.classList.toggle("active", item === button);
-    });
-    state.relevance = button.dataset.relevance;
-    render();
-  });
+const newsFilterFields = {
+  "#news-company": "company",
+  "#job-filter": "job",
+  "#domain-filter": "domain",
+  "#days-filter": "days",
+};
 
-  const selectBindings = {
-    "#job-filter": "job",
-    "#domain-filter": "domain",
-    "#signal-filter": "signal",
-    "#days-filter": "days",
-  };
-  Object.entries(selectBindings).forEach(([selector, key]) => {
+function syncNewsFilters() {
+  Object.entries(newsFilterFields).forEach(([selector, key]) => {
+    document.querySelector(selector).value = state[key];
+  });
+  document.querySelector("#search").value = state.query;
+}
+
+function bindFilters() {
+  Object.entries(newsFilterFields).forEach(([selector, key]) => {
     document.querySelector(selector).addEventListener("change", (event) => {
       state[key] = event.target.value;
       render();
     });
   });
-
   document.querySelector("#reset-filters").addEventListener("click", () => {
-    state.company = "all";
-    state.relevance = "all";
-    state.job = "all";
-    state.domain = "all";
-    state.signal = "all";
-    state.days = "all";
+    Object.values(newsFilterFields).forEach((key) => { state[key] = "all"; });
     state.query = "";
     state.processFocus = false;
-    document.querySelector("#search").value = "";
-    document.querySelectorAll("#company-filters button").forEach((button) => {
-      button.classList.toggle("active", button.dataset.company === "all");
-    });
-    document.querySelectorAll("#importance-filters button").forEach((button) => {
-      button.classList.toggle("active", button.dataset.relevance === "all");
-    });
-    ["#job-filter", "#domain-filter", "#signal-filter", "#days-filter"].forEach((selector) => {
-      document.querySelector(selector).value = "all";
-    });
+    syncNewsFilters();
     updateProcessFocusButton();
     render();
   });
@@ -2674,14 +2570,10 @@ async function loadData() {
     state.trendSummary = data.trend_summary || null;
     state.monthlyTrendReport = data.monthly_trend_report || null;
     state.translatedCount = Number(data.translation?.translated_count || 0);
-    document.querySelector("#total-count").textContent = data.article_count ?? state.articles.length;
-    document.querySelector("#company-count").textContent = companies.length;
-    document.querySelector("#analysis-count").textContent = Number(data.ai_analysis?.analyzed_count || 0);
     document.querySelector("#updated").textContent = `최근 갱신 ${formatDate(data.generated_at)}`;
     createCompanyFilters(companies);
     fillSelect("#job-filter", options.job_roles || [], "job_roles");
     fillSelect("#domain-filter", options.tech_domains || [], "tech_domains");
-    fillSelect("#signal-filter", options.signal_types || [], "signal_types");
     updateLanguageButton();
     renderTrendSummary();
     renderMonthlyReport();
@@ -2709,8 +2601,6 @@ bindFilters();
 bindChapterTabs();
 bindTrendPeriodTabs();
 bindCompanyProfiles();
-bindNewsToJd();
-bindTrendCompanyToJd();
 bindProcessFocusButton();
 bindProcessOnlyToggle();
 bindProfileForm();
