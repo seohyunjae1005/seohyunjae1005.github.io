@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-11-11T01:30:24.899551+00:00",
+  "updated_at": "2026-11-13T02:11:02.797044+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1719,6 +1719,18 @@
       "summary_ko": "태그: AI 반도체, AI 시스템, IEC 61508, ISO/SAE 21434, LPDDR5X, 모빌리티, 물리적 AI",
       "source_fingerprint": "f35344ef7fabb620215a2a442d2b62016f08f546b46e8e60c75aa83163c9d251",
       "translated_at": "2026-11-11T01:30:24.899527+00:00"
+    },
+    "https://newsroom.lamresearch.com/2026-11-12-Lam-Research,-LEGO-R-Education-Partner-to-Expand-Access-to-STEM-Learning-for-Kids-Lam-Named-Founding-Sponsor-of-LEGO-R-League": {
+      "title_ko": "램 리서치(Lam Research)와 레고® 에듀케이션(LEGO® Education), 어린이들의 STEM 학습 기회 확대를 위해 협력; 램 리서치, 레고® 리그(LEGO® League) 창립 후원사로 선정",
+      "summary_ko": "램 재단, 전 세계 더 많은 청소년에게 레고 에듀케이션의 컴퓨터 과학 및 AI 체험 기회를 제공하기 위해 1,500만 달러 지원 뉴스 요약 업계 선두 기업 램 리서치(Lam Research)가 …와 다년간의 협약을 체결했다...",
+      "source_fingerprint": "a4c34fe7aef03297b07cb1df168c59d7decea90c855465a2059ac782d9a93294",
+      "translated_at": "2026-11-13T02:11:02.797021+00:00"
+    },
+    "https://www.tel.com/news/ir/2026/d5pist00000000h8-att/20261112_001_e.pdf": {
+      "title_ko": "조직 개편 및 인사 변경에 관한 공지",
+      "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
+      "source_fingerprint": "864f4b6a4a371f6b47a5fd46076cdc208b38e6a20c7a5f4f0c25b9c1f25480e0",
+      "translated_at": "2026-11-13T02:11:02.797021+00:00"
     }
   }
 }
