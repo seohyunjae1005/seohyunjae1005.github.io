@@ -1,20 +1,20 @@
 {
   "report_version": "monthly_semiconductor_trend_v1",
-  "source_fingerprint": "b3b1fb8833cb789b48a5e0a50b3984f10f70951edc32ed979b91b7c2195a018f",
-  "generated_at": "2026-11-13T02:11:13.414258+00:00",
+  "source_fingerprint": "249b1537b75d6205fbb3c5012bbcf2a4a70aad6007da2300c7de74bccb34249c",
+  "generated_at": "2026-11-14T01:52:57.776969+00:00",
   "model": "gemini-3.5-flash-lite",
   "validation_status": "PASS",
   "validation_issues": [],
   "report": {
     "report_version": "monthly_semiconductor_trend_v1",
-    "headline_ko": "AI·데이터와 DRAM·HBM 중심의 반도체 공식 뉴스룸 동향 및 공정기술·양산기술 연계 분석",
-    "summary_ko": "최근 30일 동안 AI·데이터와 DRAM·HBM 분야를 중심으로 한 기술 및 인프라 관련 소식이 다수 보도되었습니다. 특히 공정기술·양산기술과 계측·검사·수율 관련 언급이 증가하며 제조 공정 안정화와 고도화에 대한 관심이 반영되었습니다. 본 리포트는 공식 기사 제목과 통계를 바탕으로 현직자와 지원자가 참고할 수 있는 동향을 제공합니다.",
+    "headline_ko": "AI와 메모리를 중심으로 한 인프라 및 계측·검사 분야의 공식 뉴스 발표 증가",
+    "summary_ko": "최근 30일 동안 AI·데이터 및 DRAM·HBM 관련 기술 뉴스가 꾸준히 발표되었으며, 특히 공정기술·양산기술과 계측·검사·수율 관련 언급이 증가했습니다. SK하이닉스와 KLA 등의 공식 자료를 통해 메모리 중심의 시스템과 학습 속도 가속화 트렌드가 확인됩니다.",
     "key_findings": [
       {
-        "title_ko": "공정기술·양산기술 관련 보도 증가",
-        "interpretation_ko": "직전 기간 대비 공정기술·양산기술 관련 핵심 기사가 증가하여 양산 단계에서의 공정 조건 관리 및 안정성 확보의 중요성이 커지고 있음을 시사합니다.",
+        "title_ko": "공정기술·양산기술 및 계측·검사·수율 관련 뉴스 증가",
+        "interpretation_ko": "직전 30일에 비해 공정기술·양산기술 및 계측·검사·수율 관련 공식 기사 언급이 늘어나며 관련 동향에 대한 관심이 반영되었습니다.",
         "evidence_metric_ids": [
-          "M10",
+          "M15",
           "M16"
         ],
         "related_roles": [
@@ -22,49 +22,40 @@
         ]
       },
       {
-        "title_ko": "계측·검사·수율 관련 동향 대두",
-        "interpretation_ko": "계측·검사·수율 분야의 기사가 새롭게 확인되어, 품질 확보와 공정 모니터링에 대한 기술적 관심이 높아지고 있을 가능성이 있습니다.",
-        "evidence_metric_ids": [
-          "M5",
-          "M15"
-        ],
-        "related_roles": [
-          "공정기술·양산기술"
-        ]
-      },
-      {
-        "title_ko": "AI·데이터 및 DRAM·HBM 중심의 기술 확장",
-        "interpretation_ko": "AI·데이터와 DRAM·HBM 관련 기사가 가장 높은 비중을 차지하며 메모리 중심의 시스템 변화와 인프라 설계가 강조되고 있습니다.",
+        "title_ko": "AI·데이터 및 DRAM·HBM 중심의 기술 발표 집중",
+        "interpretation_ko": "AI 인프라와 고대역폭 메모리(HBM) 관련 주제가 다수의 기사에서 다뤄지며 기술 생태계의 주요 화두로 나타났습니다.",
         "evidence_metric_ids": [
           "M1",
           "M2",
           "M14"
         ],
         "related_roles": [
-          "공정기술·양산기술"
+          "공정기술·양산기술",
+          "SW·데이터·AI"
         ]
       }
     ],
     "company_insights": [
       {
         "company": "SK hynix",
-        "observation_ko": "물리적 AI 메모리의 신뢰성 확보, 실리콘 포토닉스와 CPO를 통한 AI 인프라 고도화, 그리고 메모리 중심의 서버 시스템 비전을 지속적으로 발표하고 있습니다.",
+        "observation_ko": "물리적 AI 메모리의 신뢰 구축, 실리콘 포토닉스와 CPO를 활용한 AI 인프라 설계, 메모리 중심 서버 시스템 비전을 연이어 발표했습니다.",
         "evidence_article_ids": [
           "A1",
           "A3",
+          "A4",
           "A8"
         ]
       },
       {
         "company": "KLA",
-        "observation_ko": "학습 속도를 통한 반도체 혁신 가속화와 계측·검사·수율 관련 기술적 접근을 강조하고 있습니다.",
+        "observation_ko": "반도체 혁신을 가속화하기 위한 학습 속도와 계측·검사·수율 관점의 혁신 내용을 다루었습니다.",
         "evidence_article_ids": [
           "A5"
         ]
       },
       {
         "company": "Samsung Electronics",
-        "observation_ko": "전 세계 랜드마크를 중심으로 SSD 브랜드 캠페인을 확대하며 스토리지 솔루션 마케팅을 강화하고 있습니다.",
+        "observation_ko": "전 세계 랜드마크를 통한 SSD 브랜드 캠페인 확대 관련 소식이 발표되었습니다.",
         "evidence_article_ids": [
           "A7"
         ]
@@ -74,41 +65,30 @@
       {
         "role": "공정기술·양산기술",
         "watch_points_ko": [
-          "DRAM·HBM 및 AI 메모리 양산 과정에서의 공정 조건 안정화 동향",
-          "계측 및 검사 데이터를 활용한 수율 관리 프로세스"
+          "AI 메모리 및 HBM 제조 공정에서의 계측·검사 데이터 활용 동향",
+          "양산 단계에서의 공정 안정성 확보 관련 발표 내용"
         ],
         "study_points_ko": [
-          "반도체 제조 공정에서 계측 및 검사 데이터가 수율에 미치는 영향",
-          "고대역폭 메모리(HBM) 및 패키징 공정의 양산 단계별 주요 변수"
+          "반도체 혁신을 위한 학습 속도 및 검사·계측 기술의 기본 개념",
+          "메모리 중심 패러다임 전환에 따른 양산 공정 요구사항"
         ],
         "evidence_metric_ids": [
           "M2",
           "M5",
-          "M10"
-        ]
-      },
-      {
-        "role": "SW·데이터·AI",
-        "watch_points_ko": [
-          "제조 및 설비 운영 데이터와 연계된 AI 적용 사례"
-        ],
-        "study_points_ko": [
-          "실리콘 포토닉스 및 AI 인프라 관련 데이터 처리 구조"
-        ],
-        "evidence_metric_ids": [
-          "M1",
-          "M6"
+          "M10",
+          "M15",
+          "M16"
         ]
       }
     ],
     "limitations_ko": [
-      "본 리포트의 기사 건수는 공식 발표 빈도를 나타내며, 실제 시장에서의 기술적 중요도나 기업별 투자 규모와는 다를 수 있습니다.",
-      "입력된 기사 제목과 통계만을 바탕으로 작성되었으므로, 구체적인 수율 수치나 공정 원인에 대해서는 추가적인 내부 데이터 확인이 필요합니다."
+      "기사 건수는 공식 발표 빈도이며 실제 시장 중요도와 같지 않습니다.",
+      "입력된 기사 제목과 통계 수치만을 바탕으로 작성되었으므로 실제 수율 수치나 구체적인 공정 트러블슈팅 결과는 포함되어 있지 않습니다."
     ]
   },
   "evidence": {
     "period": "최근 30일",
-    "reference_at": "2026-11-13T02:11:01.499529+00:00",
+    "reference_at": "2026-11-14T01:52:47.228513+00:00",
     "article_count": 18,
     "high_relevance_count": 8,
     "metrics": [
