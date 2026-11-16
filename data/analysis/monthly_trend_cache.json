@@ -1,42 +1,46 @@
 {
   "report_version": "monthly_semiconductor_trend_v1",
-  "source_fingerprint": "cec55942093f338722a561bffb76b510ccafcf72755b15ec78aa078b9b4f1715",
-  "generated_at": "2026-11-15T01:21:48.997401+00:00",
+  "source_fingerprint": "2351ed915062f27310be00861a46bb72879ab3ca830d1f17ddb864ad298011cd",
+  "generated_at": "2026-11-16T01:27:21.076160+00:00",
   "model": "gemini-3.5-flash-lite",
   "validation_status": "PASS",
   "validation_issues": [],
   "report": {
     "report_version": "monthly_semiconductor_trend_v1",
-    "headline_ko": "최근 30일간 AI 및 메모리 기술 연계와 공정·계측 분야의 중요성이 강조되고 있습니다.",
-    "summary_ko": "최근 30일 동안 AI·데이터와 DRAM·HBM 분야를 중심으로 한 기술 관련 공식 발표가 다수 확인되었습니다. 특히 공정기술·양산기술 및 계측·검사·수율 관련 항목이 증가하여 제조 공정 안정성과 품질 관리의 연계성이 주목받고 있습니다.",
+    "headline_ko": "최근 30일간 AI·데이터 및 계측·검사 중심의 반도체 기술 동향 분석",
+    "summary_ko": "최근 30일간 공식 뉴스룸 통계에 따르면 AI·데이터 및 DRAM·HBM 관련 주제가 다수 다뤄졌으며, 공정기술·양산기술과 계측·검사·수율 관련 언급이 증가했습니다. 이는 제조 데이터 활용 및 공정 안정성 확보의 중요성이 커지고 있음을 시사합니다.",
     "key_findings": [
       {
-        "title_ko": "AI·데이터 및 메모리 기술 중심 동향",
-        "interpretation_ko": "AI·데이터와 DRAM·HBM 관련 기술 분야의 공식 발표가 집중되어 메모리 중심의 패러다임 변화를 시사하고 있습니다.",
+        "title_ko": "AI·데이터 및 DRAM·HBM 관련 기술 비중 유지",
+        "interpretation_ko": "AI·데이터와 DRAM·HBM 분야가 주요 기술 주제로 다뤄지며 메모리 중심의 패러다임 변화가 언급되고 있습니다.",
         "evidence_metric_ids": [
           "M1",
           "M2"
         ],
         "related_roles": [
-          "공정기술·양산기술"
+          "공정기술·양산기술",
+          "SW·데이터·AI"
         ]
       },
       {
-        "title_ko": "공정기술 및 계측·검사 관련 지표 증가",
-        "interpretation_ko": "공정기술·양산기술 및 계측·검사·수율 관련 기사가 직전 기간 대비 증가하여, 제조 공정 및 품질 관리에 대한 관심이 반영되고 있습니다.",
+        "title_ko": "공정기술·양산기술 및 계측·검사·수율 관련 기사 증가",
+        "interpretation_ko": "직전 30일 대비 공정기술·양산기술 및 계측·검사·수율 관련 언급이 증가하여 양산 안정성과 검사 공정의 중요성이 부각되고 있습니다.",
         "evidence_metric_ids": [
+          "M5",
+          "M7",
           "M14",
           "M15"
         ],
         "related_roles": [
-          "공정기술·양산기술"
+          "공정기술·양산기술",
+          "평가분석·품질·PE"
         ]
       }
     ],
     "company_insights": [
       {
         "company": "SK hynix",
-        "observation_ko": "물리적 AI 메모리 신뢰 구축, 실리콘 포토닉스, AI 인프라 및 생태계 등 AI 메모리 전반에 걸친 기술 노트와 인프라 관련 소식을 다수 발표했습니다.",
+        "observation_ko": "물리적 AI 메모리 신뢰성 확보 및 AI 인프라와 실리콘 포토닉스 등 차세대 메모리 기술 관련 소식이 주로 확인됩니다.",
         "evidence_article_ids": [
           "A1",
           "A3",
@@ -46,14 +50,14 @@
       },
       {
         "company": "KLA",
-        "observation_ko": "반도체 혁신을 위한 학습 속도와 계측·검사·수율, AI·데이터를 연계한 기술 관련 내용을 발표했습니다.",
+        "observation_ko": "반도체 혁신 가속화를 위한 학습 속도와 계측·검사 및 수율 관련 기술적 접근이 언급되었습니다.",
         "evidence_article_ids": [
           "A5"
         ]
       },
       {
         "company": "Samsung Electronics",
-        "observation_ko": "NAND·스토리지 분야와 관련된 글로벌 SSD 브랜드 캠페인 확대 소식을 발표했습니다.",
+        "observation_ko": "글로벌 랜드마크를 통한 SSD 브랜드 캠페인 확대 소식이 확인됩니다.",
         "evidence_article_ids": [
           "A7"
         ]
@@ -63,12 +67,12 @@
       {
         "role": "공정기술·양산기술",
         "watch_points_ko": [
-          "계측·검사 및 수율 관련 공정 데이터 연계 동향",
-          "AI 메모리 및 패키징 공정에서의 공정 안정성 확보 방안"
+          "계측 및 검사 데이터가 대량생산 전환 및 공정 조건 최적화에 어떻게 활용되는지 확인",
+          "메모리 중심 패러다임 전환에 따른 양산 공정 안정성 확보 방안 관찰"
         ],
         "study_points_ko": [
-          "반도체 제조 공정에서의 계측 및 검사 데이터 활용 방법",
-          "메모리 및 AI 인프라 확장에 따른 양산 공정 조건 변화"
+          "반도체 제조 과정에서의 계측·검사 및 수율 관리 기초 개념 학습",
+          "AI 및 데이터 기반 공정 최적화 사례 연구"
         ],
         "evidence_metric_ids": [
           "M1",
@@ -80,13 +84,13 @@
       }
     ],
     "limitations_ko": [
-      "본 리포트의 기사 건수는 공식 발표 빈도일 뿐이며 실제 시장에서의 기술적 중요도나 경제적 파급력과 정확히 일치하지 않을 수 있습니다.",
-      "입력된 공식 기사 제목과 통계만을 바탕으로 하였으므로 구체적인 수율 수치나 내부 공정 문제 원인은 직접 확인할 수 없습니다."
+      "기사 건수는 공식 발표 빈도일 뿐 실제 시장 중요도와 동일하지 않습니다.",
+      "입력된 제목만으로는 구체적인 수율 수치나 공정 원인·결과를 단정할 수 없습니다."
     ]
   },
   "evidence": {
     "period": "최근 30일",
-    "reference_at": "2026-11-15T01:21:37.144246+00:00",
+    "reference_at": "2026-11-16T01:27:09.184368+00:00",
     "article_count": 17,
     "high_relevance_count": 7,
     "metrics": [
