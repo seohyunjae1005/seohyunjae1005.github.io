@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-11-13T02:11:02.797044+00:00",
+  "updated_at": "2026-11-17T04:12:53.143997+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1731,6 +1731,12 @@
       "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
       "source_fingerprint": "864f4b6a4a371f6b47a5fd46076cdc208b38e6a20c7a5f4f0c25b9c1f25480e0",
       "translated_at": "2026-11-13T02:11:02.797021+00:00"
+    },
+    "https://news.skhynix.com/en/ai-ecosystem-series-ep4-5/": {
+      "title_ko": "[AI 생태계] AI의 완성: 물리적 지능과 기억의 역할",
+      "summary_ko": "태그: AI 데이터, AI 데이터 센터, AI 생태계, 물리적 AI, PIM",
+      "source_fingerprint": "72828ba919687311117b8ce7a03db39be7839809c7a73cf7a7c7b254b786fa25",
+      "translated_at": "2026-11-17T04:12:53.143969+00:00"
     }
   }
 }

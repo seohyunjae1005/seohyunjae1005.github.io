@@ -1,18 +1,29 @@
 {
   "report_version": "monthly_semiconductor_trend_v1",
-  "source_fingerprint": "2351ed915062f27310be00861a46bb72879ab3ca830d1f17ddb864ad298011cd",
-  "generated_at": "2026-11-16T01:27:21.076160+00:00",
+  "source_fingerprint": "d1146a64022ccfd82b1748327783b2a9312aa36199fda9d42805e583aedbbb8c",
+  "generated_at": "2026-11-17T04:13:47.640155+00:00",
   "model": "gemini-3.5-flash-lite",
   "validation_status": "PASS",
   "validation_issues": [],
   "report": {
     "report_version": "monthly_semiconductor_trend_v1",
-    "headline_ko": "최근 30일간 AI·데이터 및 계측·검사 중심의 반도체 기술 동향 분석",
-    "summary_ko": "최근 30일간 공식 뉴스룸 통계에 따르면 AI·데이터 및 DRAM·HBM 관련 주제가 다수 다뤄졌으며, 공정기술·양산기술과 계측·검사·수율 관련 언급이 증가했습니다. 이는 제조 데이터 활용 및 공정 안정성 확보의 중요성이 커지고 있음을 시사합니다.",
+    "headline_ko": "최근 30일 반도체 공식 뉴스룸 통계 기반 공정 및 AI·데이터 연계 동향 리포트",
+    "summary_ko": "최근 30일간 AI·데이터 및 DRAM·HBM 관련 기술 보도가 집중되었으며, 공정기술·양산기술 및 계측·검사·수율 관련 언급이 증가했습니다. 해당 통계는 공식 발표 빈도에 기반하며 실제 시장 중요도와는 다를 수 있습니다.",
     "key_findings": [
       {
-        "title_ko": "AI·데이터 및 DRAM·HBM 관련 기술 비중 유지",
-        "interpretation_ko": "AI·데이터와 DRAM·HBM 분야가 주요 기술 주제로 다뤄지며 메모리 중심의 패러다임 변화가 언급되고 있습니다.",
+        "title_ko": "공정기술·양산기술 및 계측·검사 관련 언급 증가",
+        "interpretation_ko": "직전 30일 대비 공정기술·양산기술 및 계측·검사·수율 관련 핵심 기사 건수가 증가하여 제조 공정 및 품질 관리 영역에 대한 관심이 반영되었습니다.",
+        "evidence_metric_ids": [
+          "M14",
+          "M15"
+        ],
+        "related_roles": [
+          "공정기술·양산기술"
+        ]
+      },
+      {
+        "title_ko": "AI·데이터 및 메모리 중심 기술 보도 집중",
+        "interpretation_ko": "AI·데이터와 DRAM·HBM 분야가 주요 기술 분야로 다수 집계되어, 메모리 반도체와 AI 인프라 연계 기술이 주목받고 있습니다.",
         "evidence_metric_ids": [
           "M1",
           "M2"
@@ -21,45 +32,32 @@
           "공정기술·양산기술",
           "SW·데이터·AI"
         ]
-      },
-      {
-        "title_ko": "공정기술·양산기술 및 계측·검사·수율 관련 기사 증가",
-        "interpretation_ko": "직전 30일 대비 공정기술·양산기술 및 계측·검사·수율 관련 언급이 증가하여 양산 안정성과 검사 공정의 중요성이 부각되고 있습니다.",
-        "evidence_metric_ids": [
-          "M5",
-          "M7",
-          "M14",
-          "M15"
-        ],
-        "related_roles": [
-          "공정기술·양산기술",
-          "평가분석·품질·PE"
-        ]
       }
     ],
     "company_insights": [
       {
         "company": "SK hynix",
-        "observation_ko": "물리적 AI 메모리 신뢰성 확보 및 AI 인프라와 실리콘 포토닉스 등 차세대 메모리 기술 관련 소식이 주로 확인됩니다.",
+        "observation_ko": "AI 생태계, 물리적 AI 메모리 신뢰성 확보, 실리콘 포토닉스 및 CPO 기술, 그리고 파트너스 데이 개최 등 AI 메모리 인프라와 협력 관련 소식이 다수 확인됩니다.",
         "evidence_article_ids": [
           "A1",
-          "A3",
+          "A2",
           "A4",
-          "A6"
+          "A5",
+          "A7"
         ]
       },
       {
         "company": "KLA",
-        "observation_ko": "반도체 혁신 가속화를 위한 학습 속도와 계측·검사 및 수율 관련 기술적 접근이 언급되었습니다.",
+        "observation_ko": "반도체 혁신을 위한 학습 속도와 계측·검사·수율, 장비·Fab·인프라, AI·데이터를 연계한 기술 혁신 내용이 확인됩니다.",
         "evidence_article_ids": [
-          "A5"
+          "A6"
         ]
       },
       {
         "company": "Samsung Electronics",
-        "observation_ko": "글로벌 랜드마크를 통한 SSD 브랜드 캠페인 확대 소식이 확인됩니다.",
+        "observation_ko": "NAND·스토리지 분야와 관련하여 글로벌 랜드마크 SSD 브랜드 캠페인 확대 소식이 확인됩니다.",
         "evidence_article_ids": [
-          "A7"
+          "A8"
         ]
       }
     ],
@@ -67,15 +65,16 @@
       {
         "role": "공정기술·양산기술",
         "watch_points_ko": [
-          "계측 및 검사 데이터가 대량생산 전환 및 공정 조건 최적화에 어떻게 활용되는지 확인",
-          "메모리 중심 패러다임 전환에 따른 양산 공정 안정성 확보 방안 관찰"
+          "계측·검사 및 수율 관련 공식 보도 추이와 공정 안정성 관련 언급 확인",
+          "AI·데이터 기술 도입에 따른 제조 공정 및 양산 환경 변화 가능성 주시"
         ],
         "study_points_ko": [
-          "반도체 제조 과정에서의 계측·검사 및 수율 관리 기초 개념 학습",
-          "AI 및 데이터 기반 공정 최적화 사례 연구"
+          "반도체 계측 및 검사 데이터가 양산 공정 최적화에 활용되는 방식 학습",
+          "DRAM·HBM 및 메모리 중심 패러다임 변화에 따른 공정 조건 이해"
         ],
         "evidence_metric_ids": [
           "M1",
+          "M2",
           "M5",
           "M7",
           "M14",
@@ -84,22 +83,21 @@
       }
     ],
     "limitations_ko": [
-      "기사 건수는 공식 발표 빈도일 뿐 실제 시장 중요도와 동일하지 않습니다.",
-      "입력된 제목만으로는 구체적인 수율 수치나 공정 원인·결과를 단정할 수 없습니다."
+      "본 리포트의 기사 건수는 공식 발표 빈도만을 나타내며, 실제 시장에서의 기술 중요도나 기업별 투자 규모와는 다를 수 있습니다."
     ]
   },
   "evidence": {
     "period": "최근 30일",
-    "reference_at": "2026-11-16T01:27:09.184368+00:00",
-    "article_count": 17,
-    "high_relevance_count": 7,
+    "reference_at": "2026-11-17T04:12:51.976493+00:00",
+    "article_count": 18,
+    "high_relevance_count": 8,
     "metrics": [
       {
         "id": "M1",
         "category": "기술 분야",
         "name": "AI·데이터",
-        "count": 5,
-        "text_ko": "최근 30일 핵심 기사 중 AI·데이터 관련 5건"
+        "count": 6,
+        "text_ko": "최근 30일 핵심 기사 중 AI·데이터 관련 6건"
       },
       {
         "id": "M2",
@@ -168,8 +166,8 @@
         "id": "M11",
         "category": "기업",
         "name": "SK hynix",
-        "count": 5,
-        "text_ko": "최근 30일 SK hynix 핵심 기사 5건"
+        "count": 6,
+        "text_ko": "최근 30일 SK hynix 핵심 기사 6건"
       },
       {
         "id": "M12",
@@ -208,6 +206,19 @@
       {
         "id": "A1",
         "company": "SK hynix",
+        "title": "[AI 생태계] AI의 완성: 물리적 지능과 기억의 역할",
+        "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep4-5/",
+        "published_at": "2026-11-17T00:00:00+00:00",
+        "tech_domains": [
+          "AI·데이터"
+        ],
+        "job_roles": [
+          "산업·사업 공통"
+        ]
+      },
+      {
+        "id": "A2",
+        "company": "SK hynix",
         "title": "‘시스템 장애 및 사이버 위협으로부터의 보호’: SK하이닉스, 물리적 AI 메모리에 대한 신뢰 구축",
         "url": "https://news.skhynix.com/en/iec-61508-certification-2026/",
         "published_at": "2026-11-11T00:00:00+00:00",
@@ -222,7 +233,7 @@
         ]
       },
       {
-        "id": "A2",
+        "id": "A3",
         "company": "SK hynix",
         "title": "SK하이닉스, 일본에서 첫 ‘파트너스 데이’ 개최… 주요 현지 파트너사와 사업 방향 공유",
         "url": "https://news.skhynix.com/en/2026-partners-day-japan-3/",
@@ -235,7 +246,7 @@
         ]
       },
       {
-        "id": "A3",
+        "id": "A4",
         "company": "SK hynix",
         "title": "[기술 노트] 수만 개의 GPU를 갖추고도 AI는 왜 여전히 기다려야 할까? 실리콘 포토닉스와 CPO가 어떻게 ‘빛의 고속도로’를 구축하고 있는지",
         "url": "https://news.skhynix.com/en/tech-note-series-ep3/",
@@ -249,7 +260,7 @@
         ]
       },
       {
-        "id": "A4",
+        "id": "A5",
         "company": "SK hynix",
         "title": "[AI 인프라 인사이트] 미래를 위한 AI 인프라는 어떻게 설계될 것인가",
         "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep4/",
@@ -263,7 +274,7 @@
         ]
       },
       {
-        "id": "A5",
+        "id": "A6",
         "company": "KLA",
         "title": "학습 속도: 반도체 혁신의 미래를 가속화하다  | 혁신 | KLA",
         "url": "https://www.kla.com/advance/innovation/learning-velocity-accelerating-the-future-of-semiconductor-innovation",
@@ -282,7 +293,7 @@
         ]
       },
       {
-        "id": "A6",
+        "id": "A7",
         "company": "SK hynix",
         "title": "[AI 생태계] 반도체 패러다임이 메모리 중심으로 전환되고 있다",
         "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep4/",
@@ -299,7 +310,7 @@
         ]
       },
       {
-        "id": "A7",
+        "id": "A8",
         "company": "Samsung Electronics",
         "title": "삼성전자, 전 세계 랜드마크에서 SSD 브랜드 캠페인 확대",
         "url": "https://news.samsung.com/global/samsung-electronics-expands-ssd-brand-campaign-across-global-landmarks",
