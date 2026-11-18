@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-11-17T04:12:53.143997+00:00",
+  "updated_at": "2026-11-18T03:10:50.034197+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
-      "summary_ko": "캘리포니아주 산타클라라, 2026년 9월 10일 (GLOBE NEWSWIRE) -- 애플라이드 머티리얼즈(Applied Materials, Inc.)는 오늘 이사회가 자사 보통주에 대해 주당 0.53달러의 분기별 현금 배당금을 승인했다고 발표했다. 이 배당금은 2026년 11월 기준 주주명부에 등재된 주주들에게 2026년 12월 10일에 지급될 예정이다.",
-      "source_fingerprint": "296eb46e80f94abe1d7603e59c815a1d732e2b220fb08d1612afc74cdc5c5905",
-      "translated_at": "2026-09-12T12:42:22.938872+00:00"
+      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
+      "source_fingerprint": "7592fdd3d1da375911109698ef188303fa366112513e575dc4f2a8ee5674ad9e",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
     },
     "https://pr.tsmc.com/english/news/3340": {
       "title_ko": "TSMC 2026년 8월 매출 보고서",
@@ -114,9 +114,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-appoints-akash-palkhiwala-board-directors": {
       "title_ko": "애플라이드 머티리얼즈, 아카시 팔키왈라를 이사회 이사로 선임",
-      "summary_ko": "캘리포니아주 산타클라라, 2026년 8월 27일 (GLOBE NEWSWIRE) -- 애플라이드 머티리얼즈(Applied Materials, Inc.)는 오늘 아카시 팔키왈라(Akash Palkhiwala) 씨를 이사회 이사로 선임했다고 발표했다. 퀄컴(Qualcomm Incorporated)의 최고재무책임자(CFO) 겸 최고운영책임자(COO)인 팔키왈라 씨는,",
-      "source_fingerprint": "31426ea05d3a90b4bd6e693af36fc5517f5b01e663e0087099a4d75059b8ce7d",
-      "translated_at": "2026-09-12T12:42:22.938872+00:00"
+      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
+      "source_fingerprint": "d2d3042ed6b43a5014be201ec42241c66383b534b3ff14a163bab523f8cf46f3",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
     },
     "https://www.kioxia.com/en-jp/about/news/2026/20260827-3.html": {
       "title_ko": "키옥시아와 샌디스크, 일본에 310억 달러 이상 투자… 메모리 산업 선도적 입지 공고히 할 전망",
@@ -246,9 +246,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-third-quarter-2026-results": {
       "title_ko": "애플라이드 머티리얼즈, 2026년 3분기 실적 발표",
-      "summary_ko": "매출은 전년 대비 25% 증가한 91억 2천만 달러로 사상 최고치를 기록했으며, GAAP 기준 매출총이익률은 50.3%, 비-GAAP 기준 매출총이익률은 50.4%를 기록했습니다. GAAP 기준 주당순이익(EPS)은 3.17달러, 비-GAAP 기준 주당순이익은 3.50달러로 사상 최고치를 기록했으며, 전년 동기 대비 각각 43% 및 41% 증가 EPIC 센터의 R&amp;D 파트너십이 선도 기업들과의 11건의 협업으로 확대",
-      "source_fingerprint": "6489955e2b421f3dfb9673c473dcde3be334b0f4d0483010f75d816b88d75f3a",
-      "translated_at": "2026-09-12T12:42:25.352734+00:00"
+      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
+      "source_fingerprint": "2f411eb2b74e9541b8376a916afd5377d050fbf71cc1329ca7c44dfdefc0fb99",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
     },
     "https://newsroom.lamresearch.com/2026-08-13-Lam-Research-Announces-Plans-to-Invest-More-than-3B-to-Expand-Global-Lab-Network,-Increase-Innovation-Velocity-in-the-AI-Era": {
       "title_ko": "램 리서치, AI 시대에 글로벌 연구소 네트워크를 확장하고 혁신 속도를 높이기 위해 30억 달러 이상을 투자할 계획 발표",
@@ -269,10 +269,10 @@
       "translated_at": "2026-09-12T12:42:25.352734+00:00"
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/uc-berkeley-join-applied-materials-epic-center-speed-chip": {
-      "title_ko": "UC 버클리, 반도체 혁신 가속화를 위해 어플라이드 머티리얼즈의 EPIC 센터에 합류",
-      "summary_ko": "이번 협력은 UC 버클리의 반도체 연구 역량과 어플라이드의 최첨단 장비 및 공정 통합 전문성을 결합한 것입니다. 실리콘밸리에 위치한 어플라이드의 EPIC 센터는 최첨단 칩 제조 장비를 활용할 수 있는 산업 규모의 R&amp;D 환경을 제공하여 신속한",
-      "source_fingerprint": "40cf3eb6147975022738354d90399b67d5a0a9fc646e9281fcf6d42a1234841a",
-      "translated_at": "2026-09-12T12:42:25.352734+00:00"
+      "title_ko": "UC 버클리, 칩 혁신 가속화를 위해 어플라이드 머티리얼즈의 EPIC 센터에 합류",
+      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
+      "source_fingerprint": "48adbc8f3edee58f7e7c8183d63e6c8e57812bf17e4abc2ab3242ae9d52aaaa1",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
     },
     "https://pr.tsmc.com/english/news/3332": {
       "title_ko": "TSMC 이사회 회의 결의안",
@@ -504,9 +504,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-report-fiscal-third-quarter-2026-results-aug": {
       "title_ko": "애플라이드 머티리얼즈, 2026년 8월 13일 2026 회계연도 3분기 실적 발표 예정",
-      "summary_ko": "캘리포니아주 산타클라라, 2026년 7월 23일 (GLOBE NEWSWIRE) -- 애플라이드 머티리얼즈(Applied Materials, Inc.)는 오늘 2026 회계연도 3분기 실적 컨퍼런스 콜을 2026년 8월 13일 목요일, 동부 표준시(ET) 오후 4시 30분 / 태평양 표준시(PT) 오후 1시 30분에 개최할 것이라고 발표했습니다. 이번 컨퍼런스 콜은 https://ir.appliedmaterials.com에서 생중계될 예정입니다.",
-      "source_fingerprint": "029efdda6bd09f42850a0fc5d154e69915bfdafc5ca0c20798cbe9feb591c939",
-      "translated_at": "2026-09-12T12:42:27.415961+00:00"
+      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
+      "source_fingerprint": "393d481f92adfbd48d6dc76ee83b0f153dea569d1e7485b50bf36a1b421c5025",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
     },
     "https://www.intel.com/content/www/us/en/newsroom/news/corporate/intel-reports-second-quarter-2026-financial-results.html": {
       "title_ko": "인텔, 2026년 2분기 실적 발표",
@@ -707,10 +707,10 @@
       "translated_at": "2026-09-12T12:42:28.493242+00:00"
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-introduces-new-systems-accelerate-dram-and": {
-      "title_ko": "애플라이드 머티리얼즈, AI 칩용 DRAM 및 첨단 패키징 개발을 가속화할 신형 시스템 출시",
-      "summary_ko": "DRAM과 첨단 패키징에 걸친 혁신을 통해 최첨단 AI 칩의 기반이 되는 3D 아키텍처가 구현됩니다. DRAM 팹에 최적화된 새로운 에피택시 시스템은 핵심적인 로직급 공정을 추가함으로써, 제한된 팹 공간과 공급 제약 조건 내에서 생산량을 극대화하는 동시에 메모리 속도와 효율성을 향상시킵니다. 새로운",
-      "source_fingerprint": "cdffa550a41c05bb8fa9c8177e337ef24437f89a31fff9e307e6e1bf56492330",
-      "translated_at": "2026-09-12T12:42:28.493242+00:00"
+      "title_ko": "애플라이드 머티리얼즈, AI 칩용 DRAM 및 첨단 패키징 가속화를 위한 신제품 시스템 출시",
+      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
+      "source_fingerprint": "07dbb5c11d0e3231b14fa820d765501bc319a42c0ab9a536842d553a4811a352",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
     },
     "https://www.tel.com/news/disaster/2026/20260625_001.html": {
       "title_ko": "6월 25일 일본 도호쿠에서 발생한 지진에 대한 대응",
@@ -774,9 +774,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-unveils-senztm-fully-integrated-visual-system": {
       "title_ko": "애플라이드 머티리얼즈, 차세대 스마트 글래스를 위한 완전 통합형 시각 시스템 ‘SENZ™’ 공개",
-      "summary_ko": "SENZ는 고객과 파트너에게 공동 최적화된 솔루션을 제공하여 고성능 증강현실 디스플레이를 더 빠르게 시장에 출시할 예정입니다. 이 획기적인 기술은 차세대 스마트 글래스를 위해 세계 최고 수준의 시각적 성능, 원활한 통합, 그리고 확장 가능한 제조 능력을 제공할 것입니다. SANTA",
-      "source_fingerprint": "14a6d68e39fdd409c05f10810a223502dadb39ff984726cc856b3001da36212a",
-      "translated_at": "2026-09-12T12:42:29.655858+00:00"
+      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
+      "source_fingerprint": "bddb2ed2ed1e8d5df6987462e13e9ddc23a310947a24c16bf6ddb85a50d2cd29",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
     },
     "https://www.intel.com/content/www/us/en/newsroom/news/corporate/ceo-letter-2025-26-intel-corporate-responsibility-report.html": {
       "title_ko": "CEO 서문: 2025-26 인텔 기업 사회적 책임 보고서",
@@ -792,9 +792,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/essilorluxottica-and-applied-materials-join-forces-advance": {
       "title_ko": "에실로럭소티카와 어플라이드 머티리얼즈, 차세대 스마트 글래스를 위한 증강현실 광학 플랫폼 개발을 위해 협력",
-      "summary_ko": "이번 공동 개발 협약은 스마트 안경 및 증강현실(AR)용 광학 렌즈 스택을 위한 차세대 지능형 광학 시스템의 상용화를 가속화하는 것을 목표로 합니다. 이번 파트너십은 재료 공학, 렌즈 및 스마트 안경 분야의 세계적 수준의 전문성을 결합하여 경량화된,",
-      "source_fingerprint": "90d48defa0d8ec43d27d72bd5a64c926848e9e34f4b497a63fa5a7ce505c1e57",
-      "translated_at": "2026-09-12T12:42:29.655858+00:00"
+      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
+      "source_fingerprint": "d7feffc60dcefcc9a8389c3d60c87f48b76e866454f3b76f3313ec3b7f94612e",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
     },
     "https://www.intel.com/content/www/us/en/newsroom/news/corporate/intel-foundry-details-process-milestones-future-innovation-at-vlsi-symposium.html": {
       "title_ko": "인텔 파운드리, VLSI 심포지엄에서 공정 개발 주요 성과 및 향후 혁신 계획 발표",
@@ -804,9 +804,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-unveils-deposition-and-selective-etch-systems": {
       "title_ko": "애플라이드 머티리얼즈, 3D 칩 미세화 촉진을 위한 증착 및 선택적 식각 시스템 공개",
-      "summary_ko": "새로운 시스템은 종횡비(aspect ratio)가 높은 3D 로직 및 메모리 칩 구조에서 정밀한 재료 공학을 가능하게 합니다. Centris™ Spectral™ SiN ALD는 혁신적인 마이크로파 플라즈마 기술을 활용하여 까다로운 3D 구조에서도 균일한 실리콘 질화물 증착을 구현합니다. Producer™ Selectra™ Mo Etch는 선택적으로",
-      "source_fingerprint": "e964ca42e25b1581276e3474423411f0fc8979b73af1db6bd3c0e827c732f8ce",
-      "translated_at": "2026-09-12T12:42:29.655858+00:00"
+      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
+      "source_fingerprint": "feb57b0f19f6203d583eb420c3fcabe6b2b1da7e3651772cae5a26d58e87e373",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
     },
     "https://www.asml.com/en/company/stories/2026/machines-behind-machines": {
       "title_ko": "기계 뒤에 숨은 기계들",
@@ -1506,9 +1506,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-host-investor-breakfast-presentation-during": {
       "title_ko": "애플라이드 머티리얼즈, SEMICON West 기간 중 투자자 조찬 설명회 개최",
-      "summary_ko": "캘리포니아주 산타클라라, 2026년 9월 21일 (GLOBE NEWSWIRE) -- 어플라이드 머티리얼즈(Applied Materials, Inc.)는 오늘, 2026년 10월 13일 화요일 SEMICON West 행사 기간 중 임원진이 ‘투자자 조찬 프레젠테이션’에 참석할 것이라고 발표했다. 프레젠테이션은 오전 8시에 시작될 예정이다.",
-      "source_fingerprint": "9f705bada8eec902dde30c328b7a38c51017a20e585a75a31fd5740b5663269e",
-      "translated_at": "2026-09-21T22:01:53.763898+00:00"
+      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
+      "source_fingerprint": "a9bf1409103cf6e657b339c9739b64370cef6112a6fcc1dc23f957b4b3323fc3",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
     },
     "https://www.tel.com/news/sustainability/2026/20260925_001.html": {
       "title_ko": "도쿄 일렉트로닉, ‘그린 파트너’ 선정",
@@ -1737,6 +1737,60 @@
       "summary_ko": "태그: AI 데이터, AI 데이터 센터, AI 생태계, 물리적 AI, PIM",
       "source_fingerprint": "72828ba919687311117b8ce7a03db39be7839809c7a73cf7a7c7b254b786fa25",
       "translated_at": "2026-11-17T04:12:53.143969+00:00"
+    },
+    "https://newsroom.lamresearch.com/2026-11-17-Lam-Research-Corporation-Announces-Participation-at-Upcoming-Conference": {
+      "title_ko": "램 리서치 코퍼레이션, 다가오는 컨퍼런스 참가 발표",
+      "summary_ko": "램 리서치(Lam Research Corp., 나스닥: LRCX)는 오늘 팀 아처(Tim Archer) 사장 겸 최고경영자(CEO)와 더그 베팅거(Doug Bettinger) 전무이사 겸 최고재무책임자(CFO)가 참여할 것이라고 발표했습니다...",
+      "source_fingerprint": "2366676fa85e90ad64f5c857eeb0f287bbfc5facd0bfef6590a5a595a9ea15cf",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+    },
+    "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-participate-upcoming-investor-conferences-16": {
+      "title_ko": "애플라이드 머티리얼즈, 다가오는 투자자 컨퍼런스에 참가 예정",
+      "summary_ko": "캘리포니아주 산타클라라, 2026년 11월 16일 (GLOBE NEWSWIRE) -- 애플라이드 머티리얼즈(Applied Materials, Inc.)는 오늘 경영진들이 다가오는 투자자 컨퍼런스에서 파이어사이드 채트에 참여할 것이라고 발표했다. 게리 디커슨(Gary Dickerson) 사장 겸 최고경영자(CEO)는 UBS 글로벌 기술 및 AI 컨퍼런스에 참석할 예정이다.",
+      "source_fingerprint": "4a9265a15ce545ddf06641fc7ceee1bf4deac3d0b33fd7f9167466a5a8f1f4d9",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+    },
+    "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-fourth-quarter-and-fiscal-year-2026": {
+      "title_ko": "애플라이드 머티리얼즈, 2026 회계연도 4분기 및 연간 실적 발표",
+      "summary_ko": "분기 매출은 104억 1천만 달러로 전년 동기 대비 53% 증가해 사상 최고치를 기록했습니다. 분기 GAAP 매출총이익률은 50.4%, 비-GAAP 매출총이익률은 50.6%를 기록했으며, 전년 동기 대비 각각 240 베이시스 포인트, 250 베이시스 포인트 상승 분기 GAAP 주당순이익(EPS) 3.40달러, 비-GAAP 주당순이익(EPS)은 사상 최고치인 4.16달러를 기록하며, 전년 동기 대비 각각 43%, 92%",
+      "source_fingerprint": "58124b5939bdcc8ab04b94830e15e53da204dc3389b8d83f65b47574a384f8a5",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+    },
+    "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-increase-its-strategic-investment-be": {
+      "title_ko": "애플라이드 머티리얼즈, BE 반도체 인더스트리에 대한 전략적 투자 확대",
+      "summary_ko": "애플라이드, 발행 주식의 약 20%까지 지분 투자를 확대하는 계약을 체결하며 첨단 패키징 분야에서의 양사 간 장기적 전략적 파트너십 강화 캘리포니아주 산타클라라, 2026년 10월 26일 (GLOBE NEWSWIRE) -- 애플라이드 머티리얼즈(Applied Materials, Inc.)",
+      "source_fingerprint": "ea9d2d6da18e08c862748a9b9091559a4fa412e2ccdbb1dfe259cca1d91f356a",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+    },
+    "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-report-fourth-quarter-and-fiscal-2026-results": {
+      "title_ko": "애플라이드 머티리얼즈, 2026년 11월 12일 4분기 및 2026 회계연도 실적 발표 예정",
+      "summary_ko": "캘리포니아주 산타클라라, 2026년 10월 22일 (GLOBE NEWSWIRE) -- 애플라이드 머티리얼즈(Applied Materials, Inc.)는 오늘 2026년 11월 12일 목요일 오후 4시 30분(동부 표준시)/오후 1시 30분(태평양 표준시)에 2026 회계연도 4분기 실적 컨퍼런스 콜을 개최할 것이라고 발표했습니다. 이번 컨퍼런스 콜은 https://ir.appliedmaterials.com에서 생중계될 예정입니다.",
+      "source_fingerprint": "4fa50f43ebf2b0799b855c8fb7aacbe8b26bc48a3f5d997a209d0f9a591d4b36",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+    },
+    "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-set-outperform-ai-drives-sustained-demand": {
+      "title_ko": "AI가 웨이퍼 제조 장비에 대한 지속적인 수요를 견인함에 따라 애플라이드 머티리얼즈의 실적이 시장 평균을 상회할 전망",
+      "summary_ko": "회사는 전 세계적인 AI 인프라 확충이 최첨단 파운드리 로직, DRAM 및 첨단 패키징에 대한 수요를 촉진함에 따라 향후 수년간 강력한 성장을 기대하고 있으며, 이 분야들은 애플라이드가 시장 주도권을 확보해 온 분야입니다. 또한 2030년까지 웨이퍼 팹 장비(WFE) 투자 규모가 지난 10년 동안보다 더 빠른 속도로 증가할 것으로 전망하고 있습니다.",
+      "source_fingerprint": "9b0f3a9446045e7e26029467e1405c8e2e44296d3084eefc3b776e8f4f979e81",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+    },
+    "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-unveils-5-billion-epic-center-silicon-valley": {
+      "title_ko": "애플라이드 머티리얼즈, AI 시대를 위한 반도체 혁신 가속화를 위해 실리콘밸리에 50억 달러 규모의 EPIC 센터 공개",
+      "summary_ko": "50억 달러 규모의 투자로 세계 최대 규모의 반도체 장비 및 공정 기술 연구개발(R&D) 시설이 조성됩니다. 이 시설은 획기적인 혁신을 바탕으로 차세대 칩 제조 기술의 대량 생산으로 이어지는 과정을 가속화하기 위해 특별히 설계되었습니다. 주요 칩 제조사, 시스템 기업, 장비",
+      "source_fingerprint": "7efb1dcf3067648d9fe1c82d9111c6ad59a66ad642b66439fa0dd2eebd0d028c",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+    },
+    "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-expands-singapore-manufacturing-support-ai": {
+      "title_ko": "애플라이드 머티리얼즈, AI 칩 수요 대응 위해 싱가포르 생산 시설 확대",
+      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
+      "source_fingerprint": "0320103d195a737ba0f39bea49a2f9d24eb8705b590abfdf8f2742d08d177638",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+    },
+    "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-partners-screen-bring-advanced-wafer-cleaning": {
+      "title_ko": "애플라이드 머티리얼즈, SCREEN과 제휴해 EPIC 센터에 첨단 웨이퍼 세정 기술 도입",
+      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
+      "source_fingerprint": "2fc0330f213d1be798ee9d7603cd5ac42170e8a54f4ceeaa5a604e1b32241167",
+      "translated_at": "2026-11-18T03:10:50.034145+00:00"
     }
   }
 }
