@@ -1,5 +1,19 @@
 .library-heading { margin: 0 0 16px; }
 .library-heading h2 { margin: 0; font-size: 26px; font-weight: 600; }
+.library-experience-guide { margin-bottom: 16px; border: 1px solid #d2d2d7; border-radius: 12px; }
+.library-experience-guide > summary { padding: 14px; font-weight: 600; cursor: pointer; }
+.library-experience-guide > summary span { color: #55555a; margin-inline-start: 8px; font-size: 14px; font-weight: 400; }
+.library-guide-body { padding: 0 14px 14px; }
+.library-guide-body select, .library-guide-body textarea {
+  display: block; width: 100%; margin-top: 6px; padding: 8px; box-sizing: border-box;
+  font: inherit; color: inherit; background: white; border: 1px solid #d2d2d7; border-radius: 8px;
+}
+.library-guide-body textarea { resize: vertical; }
+.library-guide-body textarea[hidden] { display: none; }
+.library-guide-example { padding: 10px 12px; background: #f5f5f7; border-radius: 8px; }
+.library-guide-example summary { cursor: pointer; }
+.library-guide-prompts { display: grid; gap: 12px; margin-block: 14px; }
+#library-guide-status:empty { display: none; }
 .library-note, .library-essay-meta, #library-summary { color: #55555a; font-size: 14px; line-height: 1.6; }
 .library-filters {
   display: grid;

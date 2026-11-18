@@ -23,6 +23,98 @@
   let companyRequest = 0;
   let copyRequest = 0;
 
+  const experienceFlows = [
+    {
+      id: 'anomaly',
+      title: '예상과 다른 결과에서 시작',
+      fit: '이상한 결과를 보고 원인을 좁혔거나, 확인 방법을 바꿔본 경험',
+      example: '처음에는 식각 포화 시점을 6~7초로 봤다. 5초 조건의 값이 흔들려 측정 지점 수를 의심했다. 지점을 늘려 다시 측정해 5초로 판단을 바꾸고, 공정시간을 150초 줄였다고 썼다.',
+      url: 'https://linkareer.com/cover-letter/33865',
+      prompts: ['처음 결과에서 무엇이 예상이나 기준과 달랐나?', '어떤 단서를 보고 어디부터 확인하기로 했나?', '내가 직접 다시 측정하거나 비교·변경한 것은 무엇인가?', '그 뒤 무엇을 확인했고, 적용이나 제안은 어디까지 했나?'],
+    },
+    {
+      id: 'criteria',
+      title: '맞춰야 할 기준에서 시작',
+      fit: '지켜야 할 기준이 있었고, 조건이나 대안을 비교해 선택한 경험',
+      example: '연삭에서 목표 두께와 총 두께 편차 1㎛ 이하를 함께 맞춰야 했다. 조건별 측정값을 비교해 회전 속도와 시간을 조정했고, 목표 두께와 총 두께 편차 0.7㎛를 충족한 조건을 레시피로 정리했다.',
+      url: 'https://www.linkareer.com/cover-letter/36333',
+      prompts: ['어떤 결과를 만들어야 했고, 함께 지켜야 할 기준은 무엇이었나?', '어떤 조건이나 대안을 비교했고, 내가 맡은 일은 무엇이었나?', '어떤 관찰이나 비교 결과로 그 조건을 골랐나?', '선택한 조건은 기준을 어디까지 충족했나?'],
+    },
+    {
+      id: 'learning',
+      title: '배운 내용을 적용한 경험',
+      fit: '수업이나 실습에서 배운 원리를 직접 확인한 경험',
+      example: '유기화학 지식으로 감광재가 빛에 반응하는 원리를 공부했다. 패터닝 실습에서 장비를 조작하고, 노광·현상 시간에 따라 패턴 치수가 어떻게 달라지는지 확인했다.',
+      url: 'https://www.linkareer.com/cover-letter/35621',
+      prompts: ['어떤 원리나 기술을 배웠나?', '그 지식을 어떤 실습이나 과제에서 활용했나?', '직접 다룬 조건이나 확인한 결과는 무엇인가?', '실습 뒤 그 원리를 어떻게 이해하게 됐나?'],
+    },
+  ];
+
+  function renderExperienceGuide() {
+    return `<details id="library-experience-guide" class="library-experience-guide">
+      <summary>자소서용 경험 정리 <span>SK하이닉스 양산기술 · 전문성</span></summary>
+      <div class="library-guide-body">
+        <label for="library-guide-flow">내 경험과 가까운 전개 고르기</label>
+        <select id="library-guide-flow">${experienceFlows.map(flow => `<option value="${flow.id}">${flow.title}</option>`).join('')}</select>
+        ${experienceFlows.map((flow, index) => `<section data-experience-flow="${flow.id}"${index ? ' hidden' : ''}>
+          <p>${flow.fit}</p>
+          <details class="library-guide-example"><summary>합격 사례의 전개 보기</summary>
+            <p>${flow.example}</p><a href="${flow.url}" target="_blank" rel="noopener noreferrer">자소서 원문 ↗</a>
+          </details>
+          <div class="library-guide-prompts">${flow.prompts.map(prompt => `<label>${prompt}<textarea rows="2"></textarea></label>`).join('')}</div>
+        </section>`).join('')}
+        <button type="button" id="library-guide-copy">경험 정리본 복사</button>
+        <p id="library-guide-status" role="status"></p>
+        <textarea id="library-guide-fallback" aria-label="직접 복사할 경험 정리본" rows="6" readonly hidden></textarea>
+      </div>
+    </details>`;
+  }
+
+  function bindExperienceGuide() {
+    const selector = field('guide-flow');
+    const status = field('guide-status');
+    const fallback = field('guide-fallback');
+    const active = () => field('experience-guide').querySelector('[data-experience-flow]:not([hidden])');
+    selector.addEventListener('change', () => {
+      for (const section of field('experience-guide').querySelectorAll('[data-experience-flow]')) {
+        section.hidden = section.dataset.experienceFlow !== selector.value;
+      }
+      fallback.hidden = true;
+      status.textContent = '';
+    });
+    field('guide-copy').addEventListener('click', async () => {
+      const flow = experienceFlows.find(item => item.id === selector.value);
+      const notes = [...active().querySelectorAll('textarea')].flatMap((input, index) => {
+        const answer = input.value.trim();
+        return answer ? [`${flow.prompts[index]}\n${answer}`] : [];
+      });
+      fallback.hidden = true;
+      if (!notes.length) {
+        status.textContent = '경험을 한 줄 이상 적어 주세요.';
+        active().querySelector('textarea').focus();
+        return;
+      }
+      const content = ['SK하이닉스 양산기술 · 직무 전문성', flow.title, ...notes].join('\n\n');
+      let timer;
+      try {
+        await Promise.race([
+          navigator.clipboard.writeText(content),
+          new Promise((_, reject) => { timer = setTimeout(reject, 1500); }),
+        ]);
+        if (selector.value !== flow.id) return;
+        status.textContent = '경험 정리본을 복사했어요.';
+      } catch (_) {
+        if (selector.value !== flow.id) return;
+        fallback.value = content;
+        fallback.hidden = false;
+        fallback.select();
+        status.textContent = '선택된 내용을 직접 복사해 주세요.';
+      } finally {
+        clearTimeout(timer);
+      }
+    });
+  }
+
   function roleFilter(companyId, role) {
     if (companyId === 'skhynix') return /p\s*&\s*t|package/i.test(role) ? '양산기술(P&T)' : '양산기술';
     return role === '미확인' ? '직무 미확인' : role;
@@ -78,6 +170,7 @@
   async function showCompany() {
     const request = ++companyRequest;
     const companyId = field('company').value;
+    field('experience-guide').hidden = companyId !== 'skhynix';
     const previousPeriod = field('period').value;
     const list = field('essays');
     for (const key of ['role', 'period', 'search']) field(key).disabled = true;
@@ -218,6 +311,7 @@
     if (initialized) return;
     initialized = true;
     panel().innerHTML = `<header class="library-heading"><h2>합격 자소서</h2></header>
+      ${renderExperienceGuide()}
       <div class="library-filters">
         <label>회사<select id="library-company">${Object.entries(companies).map(([id, company]) => `<option value="${id}">${company.name}</option>`).join('')}</select></label>
         <label>직무<select id="library-role"></select></label>
@@ -233,6 +327,7 @@
       <textarea id="library-copy-fallback" aria-label="직접 복사할 내용" rows="8" readonly hidden></textarea>
       <section id="library-essays" aria-label="지원자별 자소서"></section>`;
     field('company').addEventListener('change', showCompany);
+    bindExperienceGuide();
     field('role').addEventListener('change', () => {
       if (companies[field('company').value].paths) {
         const role = field('role').value;
