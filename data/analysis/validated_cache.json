@@ -1,6 +1,6 @@
 {
   "schema_version": "validated_analysis_cache_v1",
-  "updated_at": "2026-11-19T02:51:47.530851+00:00",
+  "updated_at": "2026-11-20T02:42:13.557307+00:00",
   "review_notice": "Machine-validated draft cache. Human approval is required before publication.",
   "company_count": 11,
   "companies": {
@@ -434,79 +434,81 @@
       "title": "Applied Materials Set to Outperform as AI Drives Sustained Demand for Wafer Fab Equipment",
       "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-set-outperform-ai-drives-sustained-demand",
       "model": "gemini-3.5-flash-lite",
-      "generated_at": "2026-11-19T02:51:42.651470+00:00",
+      "generated_at": "2026-11-20T02:42:07.124716+00:00",
       "analysis_version": "semiconductor_job_analysis_v1",
-      "extraction_method": "official_feed_summary",
-      "source_scope": "official_summary",
+      "extraction_method": "filtered_html_blocks",
+      "source_scope": "official_article_body",
       "validation_status": "PASS",
       "review_status": "machine_validated",
       "publish_ready": false,
-      "normalization_notes": [
-        "공식 RSS 요약 기반 회사 영향 가설은 최대 medium으로 제한"
-      ],
+      "normalization_notes": [],
       "analysis": {
         "analysis_version": "semiconductor_job_analysis_v1",
-        "summary_ko": "Applied Materials는 AI 인프라 구축으로 인해 최첨단 파운드리-로직, DRAM, 어드밴스드 패키징 분야에서 웨이퍼 팹 장비(WFE) 수요가 지속적으로 증가하여 다년간 성장을 이룰 것으로 예상합니다.",
+        "summary_ko": "어플라이드 머티어리얼즈는 AI 인프라 확대로 인해 웨이퍼 제조 장비(WFE) 수요가 지속될 것으로 예상하며, 파운드리-로직, DRAM, 첨단 패키징 분야에서의 시장 리더십을 바탕으로 2030년까지 시장 성장률을 상회하는 실적과 점유율 확대를 목표로 하고 있습니다.",
         "facts": [
           {
-            "statement_ko": "AI 인프라 구축이 최첨단 파운드리-로직, DRAM, 어드밴스드 패키징 분야의 수요를 견인하고 있습니다.",
-            "evidence_en": "global AI infrastructure buildout fuels demand for leading-edge foundry-logic, DRAM and advanced packaging"
+            "statement_ko": "어플라이드 머티어리얼즈는 AI 인프라 확대로 인해 파운드리-로직, DRAM, 첨단 패키징이 2025-2030년 WFE 성장의 약 75%를 견인할 것으로 예상합니다.",
+            "evidence_en": "Applied expects leading-edge foundry-logic, DRAM and advanced packaging to drive around 75 percent of WFE growth from 2025-2030."
           },
           {
-            "statement_ko": "웨이퍼 팹 장비(WFE) 지출은 지난 10년보다 2030년까지 더 빠르게 성장할 것으로 예상됩니다.",
-            "evidence_en": "Expects wafer fab equipment (WFE) spending to grow faster through 2030 than over the past decade"
+            "statement_ko": "어플라이드의 eBeam 장비 포트폴리오는 업계 최고 수준의 해상도와 빠른 이미징 능력을 바탕으로 2026 달력 연도에 20억 달러의 매출을 올릴 것으로 예상됩니다.",
+            "evidence_en": "Applied’s eBeam equipment portfolio is expected to generate $2 billion in revenue in calendar year 2026."
+          },
+          {
+            "statement_ko": "어플라이드는 실리콘 밸리에 반도체 공정 기술 및 제조 장비 R&D 전용 시설인 EPIC Center를 공개했습니다.",
+            "evidence_en": "The company yesterday unveiled its new Equipment and Process Innovation and Commercialization (EPIC) Center in Silicon Valley"
           }
         ],
         "technology_signals": [
-          "Wafer Fab Equipment (WFE)",
-          "leading-edge foundry-logic",
-          "DRAM",
-          "advanced packaging"
+          "High-NA EUV 및 첨단 노드 공정 가속화를 위한 eBeam 기술",
+          "파운드리-로직, DRAM, 첨단 패키징용 공정 장비",
+          "R&D 시설 및 협업 플랫폼(EPIC Center)"
         ],
         "company_implications": [
           {
             "target_company": "Samsung Electronics",
-            "inference_ko": "최첨단 파운드리 및 DRAM, 어드밴스드 패키징 라인 확장에 따라 Applied Materials의 장비 도입 및 투자 협력이 지속될 수 있습니다.",
-            "basis_ko": "AI 수요로 인해 WFE 시장과 해당 첨단 기술 영역의 투자가 가속화될 것이라는 전망 때문입니다.",
-            "confidence": "medium"
+            "inference_ko": "어플라이드의 eBeam 및 첨단 장비 도입을 통해 차세대 파운드리 및 메모리 공정의 수율 최적화와 램프업을 가속화할 수 있습니다.",
+            "basis_ko": "어플라이드가 eBeam 장비와 고급 서비스 솔루션을 통해 고객사의 신규 공정 노드 램프 가속 및 수율 최적화를 지원한다고 밝혔기 때문입니다.",
+            "confidence": "high"
           },
           {
             "target_company": "SK hynix",
-            "inference_ko": "HBM 등 어드밴스드 패키징과 고성능 DRAM 생산 능력을 확대하기 위한 장비 수급 및 공정 고도화가 가속화될 수 있습니다.",
-            "basis_ko": "기사에서 AI 구동에 따른 DRAM 및 어드밴스드 패키징 장비 수요 증가를 명시했기 때문입니다.",
+            "inference_ko": "HBM 및 첨단 패키징 투자 확대 과정에서 어플라이드의 소재 공정 및 패키징 장비 협업이 강화될 수 있습니다.",
+            "basis_ko": "AI 인프라 확대로 DRAM과 첨단 패키징 분야에서 장비 수요가 지속될 것이며 어플라이드가 이 분야에서 리더십을 보유하고 있다고 언급되었기 때문입니다.",
             "confidence": "medium"
           }
         ],
         "role_insights": [
           {
             "role": "설비기술·기반기술",
-            "why_relevant_ko": "웨이퍼 팹 장비(WFE) 수요 증가에 따라 장비 도입, 설치, 가동률 유지 및 성능 최적화의 중요성이 커집니다.",
+            "why_relevant_ko": "eBeam 장비 및 웨이퍼 제조 장비(WFE)의 성능 유지, 가용성 극대화, 장비 인프라 지원이 필수적이기 때문입니다.",
             "considerations_ko": [
-              "신규 장비 도입 시 생산 라인 연계성 및 유지보수 효율성"
+              "고해상도 장비의 유지보수 및 셋업 역량",
+              "장비 가동률(Availability) 향상을 위한 데이터 기반 관리"
             ],
             "study_points_ko": [
-              "반도체 전공정 및 패키징 장비의 메커니즘",
-              "장비 가용성(availability) 및 생산성 향상 기법"
+              "전자빔(eBeam) 원리와 검사/측정 장비의 이해",
+              "반도체 팹 장비의 생산성 및 수율 연계 지표"
             ]
           },
           {
-            "role": "P&T·패키지개발",
-            "why_relevant_ko": "AI 수요 중심에 어드밴스드 패키징이 포함되어 있어 관련 패키지 공정 개발 및 양산 적용 역할이 중요합니다.",
+            "role": "공정기술·양산기술",
+            "why_relevant_ko": "파운드리-로직 및 DRAM 공정에서 신규 노드 도입 시 장비를 활용한 양산 수율 최적화가 직결되기 때문입니다.",
             "considerations_ko": [
-              "최첨단 패키징 공정 장비의 특성 이해 및 수율 확보"
+              "양산 팹에서의 공정 안정화 및 결함 제어",
+              "장비 제조사와 협력을 통한 램프업 기간 단축"
             ],
             "study_points_ko": [
-              "어드밴스드 패키징 기술 동향",
-              "패키징 공정에서의 장비 정밀도와 제어 요소"
+              "첨단 노드에서의 식각, 증착, 검사 공정 트렌드",
+              "수율 분석 방법론 및 통계적 공정 관리(SPC)"
             ]
           }
         ],
         "uncertainties_ko": [
-          "공식 RSS 요약만 제공되어 전체 기사 본문 및 구체적인 세부 투자 계획을 확인할 수 없습니다.",
-          "구체적인 수율 수치, 공정 조건, 세부 장비 모델명 및 납품 일정은 알 수 없습니다.",
-          "공식 RSS 요약만 분석하여 전체 기사의 세부 내용은 확인하지 못했습니다."
+          "구체적인 개별 고객사명이나 특정 공급 계약 규모",
+          "거시경제 및 무역 규제 변화에 따른 장비 인도 일정 변동 가능성"
         ],
-        "overall_confidence": "low"
+        "overall_confidence": "high"
       }
     },
     "Lam Research": {

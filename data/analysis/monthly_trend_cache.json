@@ -1,60 +1,62 @@
 {
   "report_version": "monthly_semiconductor_trend_v1",
-  "source_fingerprint": "616de4c8a26927f50b70e8c15584c6d5da9ef924ccc77b0c94c2b8559a084df4",
-  "generated_at": "2026-11-19T02:51:50.964107+00:00",
+  "source_fingerprint": "c5fa374a7a287703bd60ec129d3ec9c7764dd1aab53700244fc3f60e8f5d37a2",
+  "generated_at": "2026-11-20T02:42:17.170930+00:00",
   "model": "gemini-3.5-flash-lite",
   "validation_status": "PASS",
   "validation_issues": [],
   "report": {
     "report_version": "monthly_semiconductor_trend_v1",
-    "headline_ko": "최근 30일간 AI·데이터 및 DRAM·HBM 중심의 기술 동향과 계측·검사 분야의 변화",
-    "summary_ko": "최근 30일 동안 AI·데이터 및 DRAM·HBM 분야와 연계된 공식 뉴스룸 보도가 활발히 이루어졌으며, 계측·검사·수율 관련 보도가 직전 대비 증가하였습니다. 특히 물리적 AI 메모리 및 패키징 패러다임 전환과 관련하여 공정기술 및 양산기술 관점의 면밀한 확인이 요구됩니다.",
+    "headline_ko": "최근 30일간 AI·데이터 및 DRAM·HBM 중심의 기술 보도와 계측·검사 분야의 활동 관측",
+    "summary_ko": "최근 30일 동안 AI·데이터와 DRAM·HBM 분야를 중심으로 한 공식 뉴스 및 기술 보도가 다수 확인되었습니다. 특히 계측·검사·수율 및 장비·인프라 영역에서 관련 기사가 새롭게 집계되며 공정 안정성과 설비 운영 관점의 참고 요소가 늘어났습니다. 공식 발표 빈도는 실제 시장 중요도와 다를 수 있으므로 개별 공정 조건과 연계해 추가 확인할 필요가 있습니다.",
     "key_findings": [
       {
-        "title_ko": "AI·데이터 및 DRAM·HBM 기술 분야의 보도 집중",
-        "interpretation_ko": "AI·데이터와 DRAM·HBM 관련 주제가 다수 보도되면서 메모리 중심의 패러다임 전환과 인프라 설계 관련 논의가 이어지고 있습니다.",
+        "title_ko": "AI·데이터 및 DRAM·HBM 관련 기술 비전 발표 집중",
+        "interpretation_ko": "AI 생태계와 메모리 연계에 관한 보도가 주를 이루며, 관련 직무에서 데이터 및 인프라적 요소를 고려하는 동향이 관찰됩니다.",
         "evidence_metric_ids": [
           "M1",
           "M2"
         ],
         "related_roles": [
-          "공정기술·양산기술"
+          "공정기술·양산기술",
+          "SW·데이터·AI"
         ]
       },
       {
         "title_ko": "계측·검사·수율 관련 보도 건수 증가",
-        "interpretation_ko": "계측·검사·수율과 관련된 핵심 기사가 직전 30일 0건에서 최근 30일 1건으로 증가하여 관련 공정 및 품질 관리 영역에 대한 관심이 반영되었습니다.",
+        "interpretation_ko": "직전 기간 대비 계측·검사·수율 관련 언급이 소폭 증가하여 공정 검증 및 품질 관리 영역의 공식 정보가 확인되었습니다.",
         "evidence_metric_ids": [
           "M5",
           "M14"
         ],
         "related_roles": [
-          "공정기술·양산기술"
+          "공정기술·양산기술",
+          "평가분석·품질·PE"
         ]
       }
     ],
     "company_insights": [
       {
         "company": "SK hynix",
-        "observation_ko": "AI 생태계와 물리적 AI 메모리 신뢰성 구축, 그리고 메모리 중심의 반도체 패러다임 전환에 관한 내용을 지속적으로 발표하고 있습니다.",
+        "observation_ko": "미래 AI 생태계 구축 및 물리적 AI 메모리, AI 인프라와 관련된 기술 비전을 지속적으로 발표하고 있습니다.",
         "evidence_article_ids": [
           "A1",
-          "A2",
+          "A3",
+          "A7"
+        ]
+      },
+      {
+        "company": "KLA",
+        "observation_ko": "반도체 혁신을 가속화하기 위한 학습 속도와 계측·검사 관련 기술적 방향성을 다루고 있습니다.",
+        "evidence_article_ids": [
           "A8"
         ]
       },
       {
         "company": "Applied Materials",
-        "observation_ko": "BE 반도체 인더스트리에 대한 전략적 투자를 확대하며 패키징 및 관련 장비 분야의 협력을 강화하고 있습니다.",
+        "observation_ko": "패키징 및 테스트 분야의 전략적 투자를 확대하는 동향이 확인됩니다.",
         "evidence_article_ids": [
-          "A5"
-        ]
-      },
-      {
-        "company": "KLA",
-        "observation_ko": "학습 속도와 반도체 혁신의 가속화를 주제로 계측·검사 및 수율 관련 혁신 방향을 다루고 있습니다.",
-        "evidence_article_ids": [
-          "A7"
+          "A6"
         ]
       }
     ],
@@ -62,43 +64,29 @@
       {
         "role": "공정기술·양산기술",
         "watch_points_ko": [
-          "메모리 중심 패러다임 전환에 따른 양산 공정 상의 요구사항 변화 확인",
-          "계측·검사 관련 최신 기술 동향이 실제 양산 공정 안정성에 미치는 영향 파악"
+          "계측·검사 관련 공식 보도에 따른 공정 검증 및 수율 관련 언급 확인",
+          "AI 인프라 및 메모리 연계 공정에서의 설비 가동 및 조건 변화 가능성"
         ],
         "study_points_ko": [
-          "DRAM 및 HBM 제조 공정에서의 수율 확보 및 검사 데이터 활용 방안 학습",
-          "AI 및 패키징 기술 발전이 단위 공정에 미치는 영향 분석"
+          "반도체 제조 공정에서의 계측 및 검사 데이터 활용 방식",
+          "DRAM 및 HBM 양산 과정에서의 공정 안정성 확보 요소"
         ],
         "evidence_metric_ids": [
           "M2",
           "M5",
-          "M9",
           "M14"
-        ]
-      },
-      {
-        "role": "설비기술·기반기술",
-        "watch_points_ko": [
-          "물리적 AI 메모리 및 시스템 장애 방지를 위한 기반 인프라 요구사항 확인"
-        ],
-        "study_points_ko": [
-          "장비 및 Fab 인프라의 신뢰성 인증 기준 학습"
-        ],
-        "evidence_metric_ids": [
-          "M3",
-          "M7"
         ]
       }
     ],
     "limitations_ko": [
-      "기사 건수는 공식 발표 빈도일 뿐이며 실제 시장 중요도나 매출 비중과 같지 않습니다.",
-      "입력된 공식 기사 제목과 통계 수치만을 바탕으로 작성되었으므로 구체적인 수율 수치나 세부 공정 원인은 확인할 수 없습니다."
+      "기사 건수는 공식 발표 빈도일 뿐 실제 시장 중요도나 생산 비중과 같지 않습니다.",
+      "입력된 제목과 분류 정보만으로는 구체적인 수율 수치나 세부 공정 원인을 확정할 수 없습니다."
     ]
   },
   "evidence": {
     "period": "최근 30일",
-    "reference_at": "2026-11-19T02:51:39.087461+00:00",
-    "article_count": 22,
+    "reference_at": "2026-11-20T02:42:01.894383+00:00",
+    "article_count": 24,
     "high_relevance_count": 8,
     "metrics": [
       {
@@ -125,9 +113,9 @@
       {
         "id": "M4",
         "category": "기술 분야",
-        "name": "패키징·테스트",
-        "count": 2,
-        "text_ko": "최근 30일 핵심 기사 중 패키징·테스트 관련 2건"
+        "name": "NAND·스토리지",
+        "count": 1,
+        "text_ko": "최근 30일 핵심 기사 중 NAND·스토리지 관련 1건"
       },
       {
         "id": "M5",
@@ -153,16 +141,16 @@
       {
         "id": "M8",
         "category": "관련 직무",
-        "name": "P&T·패키지개발",
-        "count": 2,
-        "text_ko": "최근 30일 핵심 기사 중 P&T·패키지개발 관련 2건"
+        "name": "AE·솔루션",
+        "count": 1,
+        "text_ko": "최근 30일 핵심 기사 중 AE·솔루션 관련 1건"
       },
       {
         "id": "M9",
         "category": "관련 직무",
-        "name": "공정기술·양산기술",
-        "count": 2,
-        "text_ko": "최근 30일 핵심 기사 중 공정기술·양산기술 관련 2건"
+        "name": "P&T·패키지개발",
+        "count": 1,
+        "text_ko": "최근 30일 핵심 기사 중 P&T·패키지개발 관련 1건"
       },
       {
         "id": "M10",
@@ -206,6 +194,22 @@
       {
         "id": "A1",
         "company": "SK hynix",
+        "title": "“메모리를 중심으로 한 미래 AI 생태계 구축”: SK하이닉스, ‘슈퍼컴퓨팅 2026’에서 기술 비전 발표",
+        "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition/",
+        "published_at": "2026-11-20T00:00:00+00:00",
+        "tech_domains": [
+          "DRAM·HBM",
+          "NAND·스토리지",
+          "AI·데이터"
+        ],
+        "job_roles": [
+          "AE·솔루션",
+          "SW·데이터·AI"
+        ]
+      },
+      {
+        "id": "A2",
+        "company": "SK hynix",
         "title": "[AI 생태계] AI의 완성: 물리적 지능과 기억의 역할",
         "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep4-5/",
         "published_at": "2026-11-17T00:00:00+00:00",
@@ -217,7 +221,7 @@
         ]
       },
       {
-        "id": "A2",
+        "id": "A3",
         "company": "SK hynix",
         "title": "‘시스템 장애 및 사이버 위협으로부터의 보호’: SK하이닉스, 물리적 AI 메모리에 대한 신뢰 구축",
         "url": "https://news.skhynix.com/en/iec-61508-certification-2026/",
@@ -233,7 +237,7 @@
         ]
       },
       {
-        "id": "A3",
+        "id": "A4",
         "company": "SK hynix",
         "title": "SK하이닉스, 일본에서 첫 ‘파트너스 데이’ 개최… 주요 현지 파트너사와 사업 방향 공유",
         "url": "https://news.skhynix.com/en/2026-partners-day-japan-3/",
@@ -246,7 +250,7 @@
         ]
       },
       {
-        "id": "A4",
+        "id": "A5",
         "company": "SK hynix",
         "title": "[기술 노트] 수만 개의 GPU를 갖추고도 AI는 왜 여전히 기다려야 할까? 실리콘 포토닉스와 CPO가 어떻게 ‘빛의 고속도로’를 구축하고 있는지",
         "url": "https://news.skhynix.com/en/tech-note-series-ep3/",
@@ -260,7 +264,7 @@
         ]
       },
       {
-        "id": "A5",
+        "id": "A6",
         "company": "Applied Materials",
         "title": "애플라이드 머티리얼즈, BE 반도체 인더스트리에 대한 전략적 투자 확대",
         "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-increase-its-strategic-investment-be",
@@ -274,7 +278,7 @@
         ]
       },
       {
-        "id": "A6",
+        "id": "A7",
         "company": "SK hynix",
         "title": "[AI 인프라 인사이트] 미래를 위한 AI 인프라는 어떻게 설계될 것인가",
         "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep4/",
@@ -288,7 +292,7 @@
         ]
       },
       {
-        "id": "A7",
+        "id": "A8",
         "company": "KLA",
         "title": "학습 속도: 반도체 혁신의 미래를 가속화하다  | 혁신 | KLA",
         "url": "https://www.kla.com/advance/innovation/learning-velocity-accelerating-the-future-of-semiconductor-innovation",
@@ -303,23 +307,6 @@
           "R&D공정·공정설계",
           "설비기술·기반기술",
           "평가분석·품질·PE",
-          "SW·데이터·AI"
-        ]
-      },
-      {
-        "id": "A8",
-        "company": "SK hynix",
-        "title": "[AI 생태계] 반도체 패러다임이 메모리 중심으로 전환되고 있다",
-        "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep4/",
-        "published_at": "2026-10-21T00:00:00+00:00",
-        "tech_domains": [
-          "패키징·테스트",
-          "DRAM·HBM",
-          "AI·데이터"
-        ],
-        "job_roles": [
-          "공정기술·양산기술",
-          "P&T·패키지개발",
           "SW·데이터·AI"
         ]
       }

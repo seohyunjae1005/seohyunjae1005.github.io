@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-11-18T03:10:50.034197+00:00",
+  "updated_at": "2026-11-20T02:42:03.284697+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1791,6 +1791,42 @@
       "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
       "source_fingerprint": "2fc0330f213d1be798ee9d7603cd5ac42170e8a54f4ceeaa5a604e1b32241167",
       "translated_at": "2026-11-18T03:10:50.034145+00:00"
+    },
+    "https://news.skhynix.com/en/sc26-ai-hpc-exhibition/": {
+      "title_ko": "“메모리를 중심으로 한 미래 AI 생태계 구축”: SK하이닉스, ‘슈퍼컴퓨팅 2026’에서 기술 비전 발표",
+      "summary_ko": "태그: CXL, DRAM, HBM, MARS, NAND, 슈퍼컴퓨팅",
+      "source_fingerprint": "726f4ee059d62a94748bb7c6d795cb7a6836e96ee08dac37a0acd86a632fc15a",
+      "translated_at": "2026-11-20T02:42:03.284660+00:00"
+    },
+    "https://pr.tsmc.com/english/news/3355": {
+      "title_ko": "TSMC 2026 공급망 관리 포럼, 우수 공급업체에 시상",
+      "summary_ko": "공식 출처: TSMC 보도자료 센터",
+      "source_fingerprint": "4fdba122678ebeb24ed2b33443c2b44c0e29098c94abf3d0b456f11aab4fa726",
+      "translated_at": "2026-11-20T02:42:03.284660+00:00"
+    },
+    "https://pr.tsmc.com/english/news/3349": {
+      "title_ko": "TSMC 2026년 10월 매출 보고서",
+      "summary_ko": "공식 출처: TSMC 보도자료 센터",
+      "source_fingerprint": "0f6c8caff128bdad4edef75b90022c8da5c55f3185f96dda87ecdb9971c9e746",
+      "translated_at": "2026-11-20T02:42:03.284660+00:00"
+    },
+    "https://pr.tsmc.com/english/news/3352": {
+      "title_ko": "TSMC 이사회 회의 결의안",
+      "summary_ko": "공식 출처: TSMC 보도자료 센터",
+      "source_fingerprint": "4de13bfc79cb604251a854b0d1da5395cee389448d4a6a18a5c6fe581ea8adbb",
+      "translated_at": "2026-11-20T02:42:03.284660+00:00"
+    },
+    "https://pr.tsmc.com/english/news/3346": {
+      "title_ko": "TSMC, 3분기 주당순이익(EPS) 29.43 대만달러 기록",
+      "summary_ko": "공식 출처: TSMC 보도자료 센터",
+      "source_fingerprint": "46462b835aa35565eba860e18a10b6c22c8b2247e4a20b6646a24093ed64e956",
+      "translated_at": "2026-11-20T02:42:03.284660+00:00"
+    },
+    "https://pr.tsmc.com/english/news/3343": {
+      "title_ko": "TSMC 2026년 9월 매출 보고서",
+      "summary_ko": "공식 출처: TSMC 보도자료 센터",
+      "source_fingerprint": "eb3363d1c5de43efb081325a18e2f237cb0a7a3012e803f47d68cd7a0354a99c",
+      "translated_at": "2026-11-20T02:42:03.284660+00:00"
     }
   }
 }
