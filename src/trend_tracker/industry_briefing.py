@@ -16,7 +16,7 @@ from xml.etree import ElementTree
 from trend_tracker.article_body import USER_AGENT, _html_block_body, _json_ld_body
 
 VERSION = "industry_briefing_v1"
-PROMPT_VERSION = 4
+PROMPT_VERSION = 5
 AREAS = ("메모리", "파운드리", "첨단 패키징", "장비")
 HOSTS = {
     "www.semiconductors.org", "news.samsung.com", "pr.tsmc.com",
@@ -195,12 +195,15 @@ facts는 6~9개. 각 출처에서 최소 하나씩 추출하세요. 각각 한�
 금액을 한국어 단위로 환산하지 마세요. 예를 들어 $10.41 billion은 그대로 '$10.41 billion'으로 쓰고 '104억 1천만 달러'로 바꾸지 마세요. 분기와 연도는 문서 제목의 표기를 사용할 수 있습니다.
 overview는 메모리/파운드리/첨단 패키징/장비의 4개 항목. 각각 90자 이내 한국어 해석과 fact_ids. 근거 부족인 분야는 text_ko='확인된 자료 부족', fact_ids=[]로 표시하세요.
 overview에는 실제 근황을 곧바로 쓰세요. '살펴볼 필요가 있다/함께 볼 수 있다/중요하다' 같은 독자 지침으로 근황을 대신하지 마세요. 특정 기업의 실적을 산업 전체의 실적으로 확대하지 마세요.
+overview의 주어는 반드시 원문 발표 기업·기관명으로 명시하세요. 해당 분야 전체가 같은 실적을 달성한 것처럼 주어를 생략하지 마세요.
+공정 세대의 '7-nanometer and more advanced'는 '7nm 및 그보다 미세한 공정'입니다. '7nm 이상'으로 번역하지 마세요.
 issues는 서로 다른 사회·산업 쟁점 3개. 기업별 홍보 목록이나 같은 AI 성장 주장의 반복을 피하세요.
 전력·인프라, AI 수요에 따른 산업의 균형, 첨단제조 생태계 등 실제 입력으로 뒷받침되는 서로 다른 쟁점을 고르세요.
 각 쟁점은 title_ko(30자), why_ko(100자), perspectives(서로 다른 고려사항 2개, 각 80자), questions(구체적인 열린 질문 2개, 각 65자), samsung_connection_ko(80자), fact_ids로 구성하세요.
 why/perspectives/questions/삼성 연결은 모두 AI 해석·검토 질문입니다. 확인되지 않은 피해, 실제 갈등, 삼성의 정책/내부입장/채용 의도를 사실처럼 쓰지 마세요.
 해석은 반드시 연결한 facts로부터 도출하세요. 원문에 다른 정보가 있더라도 facts로 추출해 인용하지 않은 지역별 성장·연속 분기 추세 등은 해석에 새로운 사실로 추가하지 마세요.
 협력이 '필수', 기술이 성능을 '좌우한다'는 단정 대신, 서로 다른 판단 기준·선택의 장점과 고려사항을 보여주세요.
+단일 분기 성장이나 서로 다른 회사의 실적 증가만으로 '실적 변동성을 보여준다'고 주장하지 마세요. 시계열 변화가 없으면 변동성의 증거가 아닙니다.
 삼성 발표 근거가 없는 연결은 검토 가능한 산업적 접점으로 표현하세요. 개인 경험이나 자소서 완성문을 만들지 마세요.
 source가 reviewed_excerpt인 자료는 해당 발췌만 확인한 배경자료입니다. 문서 전체를 읽었다고 표현하지 마세요.
 한국어 전문용어는 쉽게 풀어 쓰고, '시사한다/중요하다'만 반복하지 마세요. issues마다 최소 2개의 fact_ids와 2개 이상의 서로 다른 source 출처를 연결하세요.
@@ -300,6 +303,13 @@ def validate_report(report: dict, sources: list[dict]) -> list[str]:
                     issues.append(f"쟁점 {key} 2개 필요")
     if used != set(fact_map):
         issues.append("연결되지 않은 사실이 있음")
+    texts = json.dumps(report, ensure_ascii=False)
+    if "more advanced technologies" in texts and re.search(
+            r"\d+\s*(?:nm|나노(?:미터)?)\s*(?:및\s*(?:그\s*)?)?이상", texts):
+        issues.append("공정 세대 번역 반전: more advanced는 더 미세한 공정이며 nm 이상이 아님")
+    if re.search(r"변동성[을이가].{0,25}(?:보여|나타|높|커)", texts) and not any(
+            re.search(r"volatil|fluctuat|변동성", fact.get("quote", ""), re.I) for fact in facts if isinstance(fact, dict)):
+        issues.append("단일 성장 수치를 실적 변동성의 증거로 확대하지 마세요")
     return issues
 
 

@@ -77,6 +77,16 @@ class IndustryBriefingTests(unittest.TestCase):
         report["issues"][0]["fact_ids"] = ["F1", "F1"]
         self.assertTrue(any("서로 다른 출처" in i for i in validate_report(report, sources)))
 
+    def test_node_translation_and_growth_as_volatility_are_rejected(self):
+        sources, report = fixture()
+        quote = 'Advanced technologies, defined as 7-nanometer and more advanced technologies, accounted for 79% of total wafer revenue.'
+        sources[0]['body'] = quote
+        report['facts'][0].update(quote=quote, statement_ko='7나노미터 및 그 이상의 기술이 매출의 79%를 차지했다.')
+        self.assertTrue(any('공정 세대 번역' in i for i in validate_report(report, sources)))
+        report['facts'][0]['statement_ko'] = '7nm 및 그보다 미세한 공정의 매출 비중이 79%다.'
+        report['issues'][0]['perspectives'][0] = '매출의 증가는 실적 변동성을 보여준다.'
+        self.assertTrue(any('실적 변동성' in i for i in validate_report(report, sources)))
+
     def test_old_future_and_expired_reviewed_sources_are_excluded(self):
         sources, _ = fixture()
         sources[0]["published_at"] = "2025-01-01"
