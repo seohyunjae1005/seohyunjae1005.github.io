@@ -5,6 +5,7 @@ screen overlap is never counted as an additional interview. No OCR text is publi
 """
 import json
 from pathlib import Path
+from equipment_answer_content import build_guidance, REFERENCES, COMPANY_CONTEXTS
 
 ROOT = Path(__file__).resolve().parents[1]
 CATEGORIES = {
@@ -258,6 +259,15 @@ def build():
                    notice='제공된 후기 모음의 질문 의도를 재구성한 연습 자료입니다. 회사 공식 기출이나 출제 확률을 뜻하지 않습니다. 시기·직무는 원자료 표기를 따릅니다.',
                    companies=[dict(id=c,name=n,sourceRows=t) for c,n,t in COMPANIES],
                    categories=[dict(id=k,name=v) for k,v in CATEGORIES.items()], items=items)
+    guides = build_guidance({item['id'][6:] for item in items if 'englishPrompt' in item})
+    if set(guides) != {item['id'][6:] for item in items}:
+        raise ValueError('Every practice topic must have one reviewed answer guide')
+    for item in items:
+        item['guide'] = guides[item['id'][6:]]
+    catalog['answerGuidance'] = dict(version=1,reviewedAt='2026-11-21',
+        notice='평가 관점은 공개 직무·행동 역량 자료를 참고한 해석이며 회사의 공식 평가표나 합격 답안이 아닙니다. 경험 예시는 가상 사례입니다. 본인의 사실과 선택 기준으로 바꿔 연습하세요. 추가 압박 질문과 예문은 연습용으로 작성했습니다.',
+        references={key:{**value,'checkedAt':'2026-11-21'} for key,value in REFERENCES.items()},
+        companyContexts=COMPANY_CONTEXTS)
     return catalog, dict(version=1,sourceImages=29,rows=coverage,notes=notes)
 
 if __name__ == '__main__':

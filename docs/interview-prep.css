@@ -11,6 +11,25 @@
 .equipment-english p { margin: 8px 0 0; line-height: 1.7; }
 .equipment-sources { padding-left: 20px; font-size: 14px; line-height: 1.7; }
 .equipment-sources li + li { margin-top: 10px; }
+.equipment-answer-guide { display: grid; gap: 20px; padding: 20px 0; border-top: 1px solid #d2d2d7; border-bottom: 1px solid #d2d2d7; }
+#interview-chapter .equipment-answer-guide h3 { margin: 0 0 8px; font-size: 16px; font-weight: 600; line-height: 1.6; }
+#interview-chapter .equipment-answer-guide h4 { margin: 16px 0 6px; font-size: 16px; font-weight: 600; }
+.equipment-answer-guide p { margin: 0; line-height: 1.8; overflow-wrap: anywhere; }
+.equipment-answer-guide .equipment-guide-caption, .equipment-language-guide .equipment-guide-caption { margin: 0 0 10px; color: #6e6e73; font-size: 14px; line-height: 1.7; }
+.equipment-guide-example { padding: 20px; border-radius: 12px; background: #f5f5f7; }
+.equipment-guide-example button { margin-top: 14px; }
+.equipment-answer-guide summary, .equipment-language-guide > summary { cursor: pointer; font-weight: 600; line-height: 1.7; padding: 8px 0; min-height: 28px; }
+.equipment-pressure-case { border-top: 1px solid #d2d2d7; }
+.equipment-pressure-case > div { padding: 10px 0 16px; display: grid; gap: 12px; }
+.equipment-pressure-case h4 { margin: 4px 0 0 !important; }
+.equipment-pressure-question { font-weight: 600; }
+.equipment-followups ul { margin: 8px 0 0; padding-left: 22px; line-height: 1.8; }
+.equipment-company-context > div { padding-top: 8px; }
+.equipment-company-context h4:first-child { margin-top: 0 !important; }
+.equipment-guide-links { display: grid; gap: 8px; padding-top: 12px; font-size: 14px; overflow-wrap: anywhere; }
+.equipment-guide-links a { color: #0071e3; line-height: 1.7; }
+[data-equipment-example-status]:empty { display: none; }
+.equipment-guide-example [data-equipment-example-status] { margin-top: 10px; font-size: 14px; }
 [data-equipment-copy-status] { margin: 0; }
 [data-equipment-copy-status]:empty { display: none; }
 #interview-chapter { color: #1d1d1f; font-size: 16px; }
@@ -56,4 +75,5 @@
   .interview-item > summary { padding: 12px; gap: 8px; }
   .interview-item-body { padding: 16px; }
   .interview-note-actions label { flex: 1 1 100%; }
+  .equipment-guide-example { padding: 16px; }
 }

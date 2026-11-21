@@ -14,6 +14,17 @@
     if (raw?.version !== 1 || raw.sourceType !== 'reported-interview-compilation' || !Array.isArray(raw.items) || !Array.isArray(raw.companies) || !Array.isArray(raw.categories)) throw new Error('면접 자료 형식 오류');
     const companies = new Map(raw.companies.map(c => [c.id,c.sourceRows]));
     const categories = new Set(raw.categories.map(c => c.id));
+    const guidance = raw.answerGuidance;
+    if (guidance?.version !== 1 || !guidance.references || !guidance.companyContexts || typeof guidance.notice !== 'string') throw new Error('답변 가이드 형식 오류');
+    for (const reference of Object.values(guidance.references)) {
+      const url = new URL(reference.url);
+      if (url.protocol !== 'https:' || typeof reference.title !== 'string') throw new Error('참고 자료 주소 오류');
+    }
+    const strings = (value,keys) => value && keys.every(k => typeof value[k] === 'string' && value[k].trim());
+    const refsValid = refs => Array.isArray(refs) && refs.every(k => Object.prototype.hasOwnProperty.call(guidance.references,k));
+    for (const [company,context] of Object.entries(guidance.companyContexts)) {
+      if (!companies.has(company) || !strings(context,['fact','connection']) || !refsValid(context.refs)) throw new Error('회사별 안내 오류');
+    }
     const ids = new Set();
     for (const item of raw.items) {
       if (!/^equip-[a-z]+$/.test(item.id) || ids.has(item.id) || !categories.has(item.category) ||
@@ -29,6 +40,13 @@
         refs.add(key);
       }
       if (item.sources.some(s => s.english) && typeof item.englishPrompt !== 'string') throw new Error('영어 연습문 오류');
+      const guide = item.guide;
+      if (!strings(guide,['evaluation','direction','example','caution']) || !['concept','hypothetical','approach'].includes(guide.kind) ||
+          !Array.isArray(guide.followups) || !guide.followups.every(q => typeof q === 'string') || !refsValid(guide.refs) ||
+          !Array.isArray(guide.pressure) || !guide.pressure.every(p => strings(p,['question','answer','followup','followupAnswer','adapt'])) ||
+          !Array.isArray(guide.technicalVariants) || !guide.technicalVariants.every(p => strings(p,['question','answer']) && refsValid(p.refs)) ||
+          !guide.companyExamples || Object.entries(guide.companyExamples).some(([company,example]) => !companies.has(company) || !strings(example,['example']) || !refsValid(example.refs)) ||
+          (item.sources.some(s => s.english) && !strings(guide,['englishExample']))) throw new Error('답변 가이드 항목 오류');
     }
     return raw;
   }
@@ -53,7 +71,7 @@
     const companyMap = new Map(catalog.companies.map(c => [c.id,c.name]));
     const terms = String(filter.search || '').trim().split(/\s+/).filter(Boolean).map(normalize);
     return catalog.items.flatMap(item => {
-      if (filter.category && item.category !== filter.category) return [];
+      if (filter.category === 'pressure' ? !item.guide.pressure.length : filter.category && item.category !== filter.category) return [];
       const sources = matchingSources(item,filter);
       if (!sources.length) return [];
       const note = notes[noteId(item,filter.company)] || empty();
@@ -61,6 +79,7 @@
       if (filter.state === 'written' && !note.answer.trim() && !note.memo.trim()) return [];
       if (statuses[filter.state] && note.status !== filter.state) return [];
       const haystack = normalize([item.title,item.prompt,item.englishPrompt,aliases[item.id],
+        ...item.guide.pressure.flatMap(p => [p.question,p.followup]), ...item.guide.technicalVariants.map(p => p.question),
         ...sources.map(s => [companyMap.get(s.company),s.company,s.role,s.period].join(' '))].join(' '));
       if (!terms.every(term => haystack.includes(term))) return [];
       return [{...item,matchedSources:sources}];
@@ -80,6 +99,40 @@
       result.push(start === end ? String(start) : start + '–' + end);
     }
     return result.join(', ');
+  }
+  const exampleLabels = {concept:'개념 답변 예시',hypothetical:'가상 경험 예시 · 본인 경험으로 교체',approach:'답변 예시 · 본인 상황에 맞게 수정'};
+  function referenceHtml(catalog,refs) {
+    return refs.map(key => { const ref = catalog.answerGuidance.references[key]; return `<a href="${escape(ref.url)}" target="_blank" rel="noopener noreferrer">${escape(ref.title)}</a>`; }).join('');
+  }
+  function guideHtml(item,catalog,filter = {}) {
+    const guide = item.guide;
+    const companyExample = guide.companyExamples[filter.company];
+    const scope = companyExample ? catalog.companies.find(c => c.id === filter.company).name + ' ' : '';
+    const guideRefs = [...new Set([...guide.refs,...(companyExample?.refs || [])])];
+    const terms = String(filter.search || '').trim().split(/\s+/).filter(Boolean).map(normalize);
+    const matches = p => terms.length && terms.every(t => normalize(p.question + ' ' + p.followup).includes(t));
+    const pressureFirst = filter.category === 'pressure' || guide.pressure.some(matches);
+    const pressure = guide.pressure.length ? `<section class="equipment-pressure"><h3>압박 질문 연습</h3><p class="equipment-guide-caption">추가로 작성한 연습 질문입니다.</p>${guide.pressure.map(p => `<details class="equipment-pressure-case"${filter.category === 'pressure' || matches(p) ? ' open' : ''}>
+      <summary>${escape(p.question)}</summary><div><p>${escape(p.answer)}</p><h4>이렇게 다시 물으면</h4><p class="equipment-pressure-question">${escape(p.followup)}</p><p>${escape(p.followupAnswer)}</p><p class="equipment-guide-caption">${escape(p.adapt)}</p></div></details>`).join('')}</section>` : '';
+    const context = catalog.answerGuidance.companyContexts[filter.company];
+    const connected = ['mv','vr','rm','ck','ce','cv','rk','sk','rc','pp','st','ca'].includes(item.id.slice(6));
+    const company = context && connected ? `<details class="equipment-company-context"><summary>${escape(catalog.companies.find(c => c.id === filter.company).name)} 업무에 연결하기</summary><div><h4>공식 자료에서 확인한 내용</h4><p>${escape(context.fact)}</p><h4>답변에 연결하는 방법 · 해석</h4><p>${escape(context.connection)}</p><div class="equipment-guide-links">${referenceHtml(catalog,context.refs)}</div></div></details>` : '';
+    return `<section class="equipment-answer-guide" aria-label="${escape(item.title)} 답변 가이드">
+      <div><h3>평가 관점 · 해석</h3><p>${escape(guide.evaluation)}</p></div>
+      <div><h3>답변 방향</h3><p>${escape(guide.direction)}</p></div>
+      ${pressureFirst ? pressure : ''}
+      <div class="equipment-guide-example"><h3>${escape(scope)}예시 답변</h3><p class="equipment-guide-caption">${escape(exampleLabels[guide.kind])}</p><p>${escape(companyExample?.example || guide.example)}</p>
+      <button type="button" data-equipment-copy-example>예시 답변 복사</button><p data-equipment-example-status role="status"></p><textarea data-equipment-example-fallback readonly rows="6" aria-label="직접 복사할 예시 답변" hidden></textarea></div>
+      <div><h3>답변할 때 주의할 점</h3><p>${escape(guide.caution)}</p></div>
+      <details class="equipment-followups"><summary>이어질 수 있는 질문</summary><ul>${guide.followups.map(q => '<li>' + escape(q) + '</li>').join('')}</ul></details>
+      ${pressureFirst ? '' : pressure}
+      ${guide.technicalVariants.map(p => `<details class="equipment-followups"><summary>${escape(p.question)}</summary><p>${escape(p.answer)}</p><div class="equipment-guide-links">${referenceHtml(catalog,p.refs)}</div></details>`).join('')}
+      ${company}
+      ${guideRefs.length ? `<details class="equipment-guide-references"><summary>참고한 공식·기술 자료</summary><div class="equipment-guide-links">${referenceHtml(catalog,guideRefs)}</div></details>` : ''}
+      </section>`;
+  }
+  function exampleText(item,company = '') {
+    return [item.title,'[' + exampleLabels[item.guide.kind] + ']',item.guide.companyExamples[company]?.example || item.guide.example,'[바꿔 쓸 때]\n' + item.guide.caution].join('\n\n');
   }
   let mounted = false, root, hooks, catalog, loading, copyVersion = 0;
   const field = key => root.querySelector('[data-equipment="' + key + '"]');
@@ -104,8 +157,9 @@
     const note = hooks.getNotes()[card.dataset.noteId] || empty();
     const scope = companyName(filter.company) || '공통';
     card.querySelector('[data-equipment-body]').innerHTML = `<p class="equipment-question">${escape(item.prompt)}</p>
-      <p class="equipment-focus">${escape(item.focus)}</p>
-      ${sources.some(s => s.english) ? `<div class="equipment-english"><strong>영어 연습</strong><p lang="en">${escape(item.englishPrompt)}</p></div>` : ''}
+      ${guideHtml(item,catalog,filter)}
+      ${sources.some(s => s.english) ? `<details class="equipment-language-guide"${filter.language === 'english' ? ' open' : ''}><summary>영어 질문·답변 예시</summary><div class="equipment-english"><p class="equipment-guide-caption">연습용 예문 · 경험과 수준은 본인 사실로 수정</p><p lang="en"><strong>${escape(item.englishPrompt)}</strong></p><p lang="en">${escape(item.guide.englishExample)}</p></div></details>` : ''}
+      ${sources.some(s => s.japaneseRelated) && item.guide.japaneseExample ? `<details class="equipment-language-guide"${filter.language === 'japanese' ? ' open' : ''}><summary>일본어 답변 연습</summary><div class="equipment-english"><p class="equipment-guide-caption">연습용 예문 · 경험과 수준은 본인 사실로 수정</p><p lang="ja">${escape(item.guide.japaneseExample)}</p></div></details>` : ''}
       <label>${escape(scope)} 답변<textarea data-equipment-note="answer" rows="5" placeholder="본인의 실제 경험과 근거로 정리하세요.">${escape(note.answer)}</textarea></label>
       <label>복습 메모<textarea data-equipment-note="memo" rows="2" placeholder="다시 확인할 개념이나 후속 질문">${escape(note.memo)}</textarea></label>
       <div class="interview-note-actions"><label>복습 상태<select data-equipment-note="status">${optionList(Object.entries(statuses))}</select></label><button type="button" data-equipment-copy>답변 복사</button></div>
@@ -137,14 +191,15 @@
     field('content').hidden = true;
     loading = (async () => {
       try {
-        const response = await fetch('interview/equipment.json?v=20261121-1');
+        const response = await fetch('interview/equipment.json?v=20261121-2');
         if (!response.ok) throw new Error('fetch');
         catalog = validateCatalog(await response.json());
         field('company').innerHTML = '<option value="">전체 회사</option>' + optionList(catalog.companies.map(c => [c.id,c.name]));
-        field('category').innerHTML = '<option value="">전체 주제</option>' + optionList(catalog.categories.map(c => [c.id,c.name]));
+        field('category').innerHTML = '<option value="">전체 주제</option><option value="pressure">압박·꼬리 질문</option>' + optionList(catalog.categories.map(c => [c.id,c.name]));
         const periods = [...new Set(catalog.items.flatMap(i => i.sources.map(s => s.period)))].sort();
         field('period').innerHTML = '<option value="">전체 시기</option>' + optionList(periods.map(p => [p,p]));
         field('info').textContent = catalog.source + ' · 첨부 ' + catalog.sourceImages + '장. AMAT 158개, ASML 362개, TEL 215개, 램리서치 291개 번호를 대조해 질문 ' + catalog.questionRows.toLocaleString() + '개 항목을 ' + catalog.items.length + '개 연습 주제로 묶었습니다. 질문이 아닌 후기 메모 2개는 제외했습니다. ' + catalog.notice + ' 번호는 원자료 행 번호이며 서로 다른 면접 횟수가 아닙니다. 영어 예문은 연습용으로 재작성했습니다. 전체 회사에서는 공통 답변, 회사를 선택하면 회사별 답변을 저장합니다. 답변은 이 브라우저에만 저장됩니다.';
+        field('info').textContent += ' ' + catalog.answerGuidance.notice;
         renderList(); field('loading').hidden = true; field('content').hidden = false;
       } catch (_) {
         field('loading').innerHTML = '질문을 불러오지 못했습니다. <button type="button" data-equipment-retry>다시 불러오기</button>';
@@ -178,18 +233,20 @@
         event.preventDefault(); event.stopPropagation();
         hooks.updateNote(id,{...note,starred:!note.starred}); renderList();
         field('list').querySelector('[data-note-id="' + id + '"] [data-equipment-star]')?.focus();
-      } else if (event.target.closest('[data-equipment-copy]')) {
-        const status = card.querySelector('[data-equipment-copy-status]');
-        if (!note.answer.trim() && !note.memo.trim()) { status.textContent = '정리한 내용을 먼저 적어 주세요.'; return; }
-        const content = noteText(item,note,companyName(filters().company));
+      } else if (event.target.closest('[data-equipment-copy]') || event.target.closest('[data-equipment-copy-example]')) {
+        const isExample = Boolean(event.target.closest('[data-equipment-copy-example]'));
+        const status = card.querySelector(isExample ? '[data-equipment-example-status]' : '[data-equipment-copy-status]');
+        const fallback = card.querySelector(isExample ? '[data-equipment-example-fallback]' : '[data-equipment-fallback]');
+        if (!isExample && !note.answer.trim() && !note.memo.trim()) { status.textContent = '정리한 내용을 먼저 적어 주세요.'; return; }
+        const content = isExample ? exampleText(item,filters().company) : noteText(item,note,companyName(filters().company));
         const request = ++copyVersion; let timer;
-        card.querySelector('[data-equipment-fallback]').hidden = true;
+        fallback.hidden = true;
         try {
           await Promise.race([navigator.clipboard.writeText(content),new Promise((_,reject) => { timer = setTimeout(reject,1500); })]);
-          if (request === copyVersion && card.isConnected) status.textContent = '답변 복사 완료';
+          if (request === copyVersion && card.isConnected) status.textContent = isExample ? '예시 답변 복사 완료 · 본인 사실로 바꿔 연습하세요.' : '답변 복사 완료';
         } catch (_) {
           if (request !== copyVersion || !card.isConnected) return;
-          const box = card.querySelector('[data-equipment-fallback]'); box.value = content; box.hidden = false; box.focus(); box.select();
+          const box = fallback; box.value = content; box.hidden = false; box.focus(); box.select();
           status.textContent = '선택된 내용을 직접 복사하세요.';
         } finally { clearTimeout(timer); }
       }
@@ -206,5 +263,5 @@
     field('list').addEventListener('input',update); field('list').addEventListener('change',update);
     load();
   }
-  return {mount,refresh:renderList,validateCatalog,filterItems,matchingSources,noteId,noteText,ranges};
+  return {mount,refresh:renderList,validateCatalog,filterItems,matchingSources,noteId,noteText,ranges,guideHtml,exampleText};
 });

@@ -1,9 +1,11 @@
 import importlib.util
 import json
 import unittest
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'scripts'))
 spec = importlib.util.spec_from_file_location('equipment_builder', ROOT/'scripts/build_equipment_interviews.py')
 builder = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(builder)
@@ -47,6 +49,41 @@ class EquipmentInterviewTests(unittest.TestCase):
         self.assertEqual(json.loads((ROOT/'config/equipment_interview_audit.json').read_text(encoding='utf-8')),self.audit)
         self.assertTrue(all('question' not in s and 'text' not in s for i in self.catalog['items'] for s in i['sources']))
         self.assertEqual(self.catalog['sourceType'],'reported-interview-compilation')
+
+    def test_each_question_has_a_complete_distinct_answer_guide(self):
+        examples = set()
+        pressure = []
+        english = []
+        refs = self.catalog['answerGuidance']['references']
+        for item in self.catalog['items']:
+            guide = item['guide']
+            for key in ('evaluation','direction','example','caution'):
+                self.assertGreater(len(guide[key]),15,item['id']+' '+key)
+            self.assertGreaterEqual(len(guide['followups']),2)
+            self.assertIn(guide['kind'],('concept','hypothetical','approach'))
+            examples.add(guide['example'])
+            for key in guide['refs']:
+                self.assertIn(key,refs)
+            if guide['kind'] == 'concept':
+                self.assertTrue(guide['refs'],item['id'])
+            if any(s['english'] for s in item['sources']):
+                self.assertGreater(len(guide['englishExample']),60)
+                english.append(item['id'])
+            pressure.extend(guide['pressure'])
+        self.assertEqual(len(examples),83)
+        self.assertEqual(len(pressure),27)
+        self.assertEqual(len(english),21)
+        chip = next(p for p in pressure if '칩메이커 붙으면' in p['question'])
+        self.assertIn('연봉',chip['followup'])
+        self.assertIn('실제로',chip['adapt'])
+        self.assertIn('가상 사례',self.catalog['answerGuidance']['notice'])
+        self.assertEqual(set(self.catalog['answerGuidance']['companyContexts']),{'amat','asml','tel','lam'})
+        company_examples = [example for item in self.catalog['items'] for example in item['guide']['companyExamples'].values()]
+        self.assertEqual(len(company_examples),12)
+        for example in company_examples:
+            self.assertGreater(len(example['example']),100)
+            self.assertTrue(example['refs'])
+            self.assertTrue(all(key in refs for key in example['refs']))
 
 
 if __name__ == '__main__':
