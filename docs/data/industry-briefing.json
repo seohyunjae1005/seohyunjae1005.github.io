@@ -4,42 +4,42 @@
     {
       "id": "F1",
       "source_id": "S1",
-      "statement_ko": "어플라이드 머티어리얼즈는 2026 회계연도 4분기 기록적인 분기 매출을 달성했다.",
+      "statement_ko": "AMAT는 2026 회계연도 4분기 매출이 전년 동기 대비 53% 늘었다고 발표했다.",
       "quote": "Record quarterly revenue $10.41 billion, up 53 percent year over year",
       "nature": "발표"
     },
     {
       "id": "F2",
       "source_id": "S2",
-      "statement_ko": "어플라이드 머티어리얼즈는 AI 중심의 확장 로드맵을 지원하기 위해 투자를 확대했다.",
-      "quote": "AI-driven scaling roadmap",
+      "statement_ko": "AMAT와 Besi는 하이브리드 본딩을 넘어 새로운 연결 구조와 응용 분야로 공동개발을 확대했다.",
+      "quote": "The expanded partnership extends the companies’ co-innovation beyond hybrid bonding into new interconnect architectures and applications supporting the semiconductor industry’s AI-driven scaling roadmap.",
       "nature": "발표"
     },
     {
       "id": "F3",
       "source_id": "S3",
-      "statement_ko": "국제에너지기구는 인공지능 수요 과대평가가 전력망 투자 유휴화로 이어질 수 있다고 경고했다.",
-      "quote": "Overestimating demand can risk creating stranded or underutilised grid investments",
-      "nature": "전망"
+      "statement_ko": "IEA는 전력 수요를 과대평가하면 투자 낭비, 과소평가하면 병목과 지연이 생길 수 있다고 설명했다.",
+      "quote": "Overestimating demand can risk creating stranded or underutilised grid investments, while underestimating it can lead to bottlenecks and delays.",
+      "nature": "발표"
     },
     {
       "id": "F4",
       "source_id": "S4",
-      "statement_ko": "반도체산업협회는 2026년 3분기 전 세계 반도체 매출이 전 분기 대비 증가했다고 발표했다.",
-      "quote": "global semiconductor sales were $517.7 billion during the third quarter of 2026, an increase of 24.1% compared to the second quarter of 2026",
+      "statement_ko": "SIA는 2026년 3분기 세계 반도체 매출이 2분기보다 24.1% 증가했다고 발표했다.",
+      "quote": "global semiconductor sales were $517.7 billion during the third quarter of 2026, an increase of 24.1% compared to the second quarter of 2026.",
       "nature": "발표"
     },
     {
       "id": "F5",
       "source_id": "S5",
-      "statement_ko": "삼성전자는 AI 제품에 집중하여 메모리 사업에서 기록적인 분기를 달성했다.",
-      "quote": "The Memory Business achieved another record-breaking quarter by managing its product mix, with a focus on AI products",
+      "statement_ko": "삼성전자는 생산능력 제약 속에서 AI 제품에 초점을 맞춰 제품 구성을 관리했다고 밝혔다.",
+      "quote": "The Memory Business achieved another record-breaking quarter by managing its product mix, with a focus on AI products, amid capacity constraints.",
       "nature": "발표"
     },
     {
       "id": "F6",
       "source_id": "S6",
-      "statement_ko": "TSMC는 7나노미터 및 그 이하의 첨단 기술이 전체 웨이퍼 매출의 큰 비중을 차지한다고 발표했다.",
+      "statement_ko": "TSMC는 2026년 3분기 웨이퍼 매출의 79%가 7nm 및 그보다 미세한 공정에서 나왔다고 발표했다.",
       "quote": "Advanced technologies, defined as 7-nanometer and more advanced technologies, accounted for 79% of total wafer revenue.",
       "nature": "발표"
     }
@@ -47,92 +47,94 @@
   "overview": [
     {
       "area": "메모리",
-      "text_ko": "삼성전자는 인공지능 중심의 제품 구성을 관리하며 메모리 사업에서 기록적인 실적을 거두었다.",
+      "text_ko": "삼성전자는 생산능력 제약 속에서 AI 제품에 초점을 맞춰 제품 구성을 관리했다고 밝혔다.",
       "fact_ids": [
         "F5"
       ]
     },
     {
       "area": "파운드리",
-      "text_ko": "TSMC는 7나노미터 이하의 첨단 기술이 전체 웨이퍼 매출에서 높은 비중을 기록하고 있다.",
+      "text_ko": "TSMC는 3분기 웨이퍼 매출에서 첨단 공정 비중이 79%라고 발표했다. 선단 공정이 실적에서 큰 비중을 차지한다.",
       "fact_ids": [
         "F6"
       ]
     },
     {
       "area": "첨단 패키징",
-      "text_ko": "장비 기업들은 하이브리드 본딩을 넘어 인공지능 확장을 지원하는 새로운 상호 연결 구조로 협력을 확대하고 있다.",
+      "text_ko": "AMAT·Besi는 하이브리드 본딩을 넘어 새로운 연결 구조와 응용 분야로 공동개발을 확대했다.",
       "fact_ids": [
         "F2"
       ]
     },
     {
       "area": "장비",
-      "text_ko": "어플라이드 머티어리얼즈는 전년 동기 대비 크게 증가한 분기 매출을 기록하며 성장을 이어가고 있다.",
+      "text_ko": "AMAT의 회계연도 4분기 매출은 전년 동기 대비 53% 증가했다. 세계 반도체 매출도 3분기 증가세를 보였다.",
       "fact_ids": [
-        "F1"
+        "F1",
+        "F4"
       ]
     }
   ],
   "issues": [
     {
-      "issue-1": null,
-      "title_ko": "인공지능 전력 수요와 인프라 투자 균형",
-      "why_ko": "인공지능 관련 전력 수요 예측의 정확도가 장비 및 전력망 투자 효율성에 직접적인 영향을 미치기 때문이다.",
+      "id": "energy",
+      "title_ko": "AI 성장 속 전력 투자의 균형",
+      "why_ko": "AI 제품을 확대하는 반도체 기업의 방향과, 전력 수요 예측의 불확실성을 함께 살펴볼 수 있는 쟁점이다.",
       "perspectives": [
-        "수요를 과대평가할 경우 전력망 자원이 유휴화될 위험이 존재한다.",
-        "수요를 과소평가할 경우 인프라 병목 현상과 지연이 발생할 수 있다."
+        "전력 인프라를 미리 준비해야 수요를 과소평가했을 때의 병목과 지연을 줄일 수 있다는 관점.",
+        "미래 수요를 크게 잡은 투자에는 활용되지 않는 설비가 생길 위험도 함께 고려해야 한다는 관점."
       ],
       "questions": [
-        "수요 예측 오류에 대응하는 유연한 인프라 투자 전략은 무엇인가?",
-        "전력 제약 상황이 반도체 공장 가동과 생산성에 미치는 영향은 무엇인가?"
+        "AI 투자를 뒷받침할 전력 수요는 어떤 자료와 기간으로 검증해야 할까?",
+        "반도체의 전력 효율 개선과 전력망 확충에 각각 어떤 역할을 기대할 수 있을까?"
       ],
-      "samsung_connection_ko": "인공지능 제품 중심의 메모리 생산 과정에서 전력 및 인프라 제약 요소를 고려한 제조 효율화 방안을 검토할 수 있다.",
+      "samsung_connection_ko": "삼성이 강조하는 AI 제품의 사업 방향을 전력 인프라의 확장 가능성과 함께 검토할 수 있다.",
       "fact_ids": [
         "F3",
         "F5"
       ]
     },
     {
-      "issue-2": null,
-      "title_ko": "글로벌 반도체 시장의 급격한 성장과 지역별 판매 동향",
-      "why_ko": "전 세계 반도체 매출이 분기마다 큰 폭으로 증가하며 지역별로 상이한 성장세를 보이고 있기 때문이다.",
+      "id": "investment",
+      "title_ko": "반도체 호황과 투자 집중",
+      "why_ko": "산업 전체 매출 증가와 기업의 AI 제품 집중을 함께 읽되, 모든 제품군이 같은 속도로 성장하는지는 별도로 확인해야 한다.",
       "perspectives": [
-        "미주 및 아시아 지역을 중심으로 나타나는 급격한 매출 증가는 시장 확대를 증명한다.",
-        "지역별 성장 편차에 따라 공급망 관리와 수요 대응 전략을 다변화해야 한다."
+        "성장하는 수요에 투자와 생산능력을 집중하면 고객 요구에 빠르게 대응할 수 있다는 관점.",
+        "특정 수요에 대한 의존도와 기존 고객의 공급 계획도 함께 점검해야 한다는 관점."
       ],
       "questions": [
-        "글로벌 시장의 분기별 매출 급증을 견인하는 핵심 수요처의 특징은 무엇인가?",
-        "지역별 성장 속도 차이가 글로벌 공급망 운영에 주는 시사점은 무엇인가?"
+        "현재 실적과 중장기 수요 전망 중 어떤 지표로 증설 규모를 판단할까?",
+        "AI 제품 확대와 기존 제품 고객의 공급 계획을 어떻게 함께 점검할까?"
       ],
-      "samsung_connection_ko": "글로벌 반도체 판매 증가 추세 속에서 각 지역 시장의 수요 변화에 맞춘 제품 포트폴리오 조율 방안을 살펴볼 수 있다.",
+      "samsung_connection_ko": "삼성이 밝힌 생산능력 제약과 AI 중심 제품 구성을 투자 판단·물량 배분의 관점에서 살펴볼 수 있다.",
       "fact_ids": [
         "F4",
-        "F5"
+        "F5",
+        "F1"
       ]
     },
     {
-      "issue-3": null,
-      "title_ko": "첨단 제조 공정과 장비 협업의 확장",
-      "why_ko": "인공지능 공정 로드맵에 대응하기 위해 장비 기업과 제조사 간의 기술 협력이 필수적이기 때문이다.",
+      "id": "collaboration",
+      "title_ko": "첨단 제조 경쟁력과 기업 간 협력",
+      "why_ko": "첨단 공정의 매출 비중과 패키징 공동개발 확대를 보면, 개별 기술의 성능과 기술 간 연결을 함께 살펴볼 수 있다.",
       "perspectives": [
-        "하이브리드 본딩을 넘어선 새로운 상호 연결 구조 개발이 반도체 성능을 좌우한다.",
-        "첨단 공정 비중이 확대되면서 장비 투자와 기술 제휴의 중요성이 커지고 있다."
+        "공정·장비·연결 기술을 함께 개발하면 서로 맞물린 기술 과제를 공동으로 다룰 수 있다는 관점.",
+        "협력 범위가 넓어질수록 역할 분담·기술 보호·검증 기준을 어떻게 조율할지도 검토해야 한다는 관점."
       ],
       "questions": [
-        "차세대 연결 구조 도입을 위해 장비사와 제조사 간 요구되는 협력 방식은 무엇인가?",
-        "첨단 공정 기술 고도화가 장비 매출과 생산 효율성에 미치는 영향은 무엇인가?"
+        "공동개발 성과를 개별 장비 성능 외에 어떤 제조 지표로 평가해야 할까?",
+        "협력 확대와 독자 기술 확보 사이에서 어떤 기준으로 역할을 나눠야 할까?"
       ],
-      "samsung_connection_ko": "첨단 공정 및 패키징 기술 혁신을 위한 외부 장비사와의 전략적 기술 제휴 방향성을 검토하는 데 활용할 수 있다.",
+      "samsung_connection_ko": "삼성의 AI 제품 경쟁력을 살펴볼 때 공정·장비·패키징 협력의 검증 기준도 함께 검토할 수 있다.",
       "fact_ids": [
-        "F1",
         "F2",
-        "F6"
+        "F6",
+        "F5"
       ]
     }
   ],
-  "generated_at": "2026-11-21T04:55:37.200845+00:00",
-  "checked_at": "2026-11-21T04:55:37.200845+00:00",
+  "generated_at": "2026-11-21T04:52:03.254809+00:00",
+  "checked_at": "2026-11-21T04:54:10.624433+00:00",
   "refresh_status": "partial",
   "sources": [
     {
@@ -173,7 +175,7 @@
       "url": "https://www.semiconductors.org/global-semiconductor-sales-increase-24-1-from-q2-2026-to-q3-2026/",
       "published_at": "2026-11-03T13:00:49+00:00",
       "scope": "article_body",
-      "checked_at": "2026-11-21T04:55:37.200845+00:00",
+      "checked_at": "2026-11-21T04:54:10.624433+00:00",
       "id": "S4"
     },
     {
@@ -199,6 +201,6 @@
       "id": "S6"
     }
   ],
-  "model": "gemini-3.5-flash-lite",
-  "source_fingerprint": "3b785c1eb0d27bc81c797f2260feb450532d0ef98876c7f9b018366632d24735"
+  "source_fingerprint": "32cff0f1985de9f976ee928fb5e406e24aa99b58cc2171cd9504a3891769e09e",
+  "generation_method": "reviewed_initial"
 }

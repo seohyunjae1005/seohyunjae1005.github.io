@@ -16,6 +16,7 @@ sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 from trend_tracker.industry_briefing import (
     AREAS, VERSION, discover_candidates, fingerprint, prepare_sources,
     public_document, safe_url, source_from_html, validate_report,
+    validate_review,
 )
 
 NOW = datetime(2026, 11, 21, tzinfo=timezone.utc)
@@ -57,6 +58,17 @@ class IndustryBriefingTests(unittest.TestCase):
         sources[0]["body"] = "Demand is expected to remain strong in the coming quarter."
         report["facts"][0].update(statement_ko="수요가 견조하게 유지됐다.", quote=sources[0]["body"])
         self.assertTrue(any("전망을 실적으로" in issue for issue in validate_report(report, sources)))
+
+    def test_keyword_quote_and_incomplete_semantic_review_are_rejected(self):
+        sources, report = fixture()
+        sources[0]["body"] = "AI-driven scaling roadmap"
+        report["facts"][0]["quote"] = sources[0]["body"]
+        self.assertTrue(any("인용 불일치" in i for i in validate_report(report, sources)))
+        self.assertTrue(validate_review({"verdict": "PASS", "unsupported": []}, report))
+        review = {"verdict": "FAIL", "unsupported": [{"path": "facts.F1", "reason_ko": "별개 행위를 추가함"}],
+                  "reviewed_fact_ids": [f"F{i}" for i in range(1, 7)],
+                  "reviewed_overview_count": 4, "reviewed_issue_count": 3}
+        self.assertTrue(any("별개 행위" in i for i in validate_review(review, report)))
 
     def test_unknown_or_single_source_interpretations_are_rejected(self):
         sources, report = fixture()

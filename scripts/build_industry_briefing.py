@@ -14,8 +14,8 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from analyze_sample_articles import DEFAULT_MODEL, call_gemini
 from trend_tracker.industry_briefing import (
-    build_prompt, discover_candidates, fetch_text, fingerprint, prepare_sources,
-    public_document, source_from_html, validate_report,
+    build_prompt, build_review_prompt, discover_candidates, fetch_text, fingerprint, prepare_sources,
+    public_document, source_from_html, validate_report, validate_review,
 )
 
 INPUT = ROOT / "docs/data/latest.json"
@@ -81,16 +81,25 @@ def main():
             if not key:
                 raise ValueError("GEMINI_API_KEY가 없습니다.")
             model = os.environ.get("GEMINI_MODEL", DEFAULT_MODEL)
-            prompt = build_prompt(sources)
-            report, used_model = call_gemini(prompt, key, model)
-            issues = validate_report(report, sources)
+            base_prompt = build_prompt(sources)
+            prompt = base_prompt
+            for attempt in range(2):
+                report, used_model = call_gemini(prompt, key, model)
+                issues = validate_report(report, sources)
+                if not issues:
+                    reviewed = {**report, "source_metadata": [{k: s.get(k) for k in
+                                ("id", "publisher", "title", "period_label")} for s in sources]}
+                    review, _ = call_gemini(build_review_prompt(reviewed), key, model)
+                    issues = validate_review(review, report)
+                if not issues:
+                    break
+                prompt = base_prompt + "\n[직전 응답]\n" + json.dumps(report, ensure_ascii=False)
+                prompt += "\n[검사 실패 — 위 원문으로만 수정]\n" + "\n".join(issues)
             if issues:
-                # One repair request; a failed second result is never published.
-                repair = prompt + "\n[직전 응답]\n" + json.dumps(report, ensure_ascii=False)
-                repair += "\n[검사 실패 — 위 원문으로만 수정]\n" + "\n".join(issues)
-                report, used_model = call_gemini(repair, key, model)
+                raise ValueError(" / ".join(issues))
             result = public_document(report, sources, timestamp, timestamp, failures)
             result["model"] = used_model
+            result["semantic_review"] = "PASS"
             notes["result"] = "PASS"
         result["source_fingerprint"] = source_hash
         save(OUTPUT, result)
