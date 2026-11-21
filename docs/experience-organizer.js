@@ -1,326 +1,286 @@
-(function () {
+(function (root, factory) {
   'use strict';
-
-  const storageKey = 'skhynix-experience-organizer-v1';
-  const activities = {
-    academic: '전공·연구·프로젝트',
-    work: '알바·인턴·직장',
-    external: '동아리·대외활동·봉사',
-    daily: '일상·개인 활동',
+  const bank = typeof module === 'object' && module.exports ? require('./experience-question-bank.js') : root.ExperienceQuestions;
+  const api = factory(bank);
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.ExperienceOrganizer = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (bank) {
+  'use strict';
+  const storageKey = 'career-experience-organizer-v2';
+  const legacyKey = 'skhynix-experience-organizer-v1';
+  const legacySteps = {
+    expertise: ['맡은 일', '판단의 근거', '직접 한 일', '확인한 결과'],
+    teamwork: ['공동 목표', '상대의 상황', '협업 방식 변경', '함께한 결과'],
+    challenge: ['내가 세운 목표', '첫 시도의 한계', '바꾼 방법', '도달한 수준'],
+    improvement: ['기존의 불편', '변경 이유', '직접 실행', '효과 확인'],
+    personality: ['나를 설명하는 말', '실제 장면', '반복하는 행동', '반응과 의미'],
   };
-  const stages = { ongoing: '진행 중', complete: '마친 경험', proposal: '제안·계획 단계' };
-  const themes = {
-    expertise: {
-      name: '직무 전문성',
-      steps: ['맡은 일', '판단의 근거', '직접 한 일', '확인한 결과'],
-      questions: {
-        academic: ['어떤 연구·과제였고, 내가 맡은 부분은 무엇인가?', '어떤 원리·기준과 비교했나? 결과를 보고 무엇을 더 확인하려 했나?', '어떤 조건을 제안하거나 직접 조작·관찰·기록했나? 함께한 일도 적어 주세요.', '직접 확인한 패턴·측정값·차이는 무엇인가? 아직 판단하기 어려운 점은?'],
-        work: ['어떤 업무를 맡았고, 익혀야 할 방법이나 기준은 무엇이었나?', '업무에서 이상하거나 더 배워야겠다고 느낀 점은? 무엇을 보고 판단했나?', '직접 확인·수행한 일과 동료나 상사에게 확인받은 부분은?', '업무에서 실제로 확인한 변화나 피드백은 무엇인가?'],
-        external: ['활동에서 어떤 일을 맡았고, 필요한 지식이나 기술은 무엇이었나?', '기존에 아는 것만으로 어려웠던 부분은? 어떤 자료·기준을 참고했나?', '새로 익힌 방법을 어디에 직접 적용했나?', '적용한 뒤 무엇을 확인했나? 결과물이나 피드백이 있었나?'],
-        daily: ['어떤 것을 배우거나 만들어봤고, 확인하려던 것은 무엇인가?', '어떤 자료나 기준으로 자신의 수준이나 결과를 확인했나?', '배운 내용을 어디에 직접 써봤나?', '실제로 확인한 결과와 아직 더 배워야 할 부분은?'],
-      },
-      recall: ['처음 배운 내용, 현재 기준, 실제 결과 중 비교할 수 있는 것이 있나요?', '장비를 다룬 일, 관찰한 일, 조건을 제안한 일을 구분해서 떠올려보세요.'],
-      sources: [
-        { id: '29293', number: 3, title: '공정 실습', text: '배운 공정을 실습하고, 위치별 박막 두께와 공정능력을 확인해 목표 기준과 비교했다.' },
-        { id: '32681', number: 3, title: '설비 보전 업무', text: '수리 이력에서 고장 횟수를 파악하고, 부품 수급과 수리 비용에 관한 방안을 기획했다.' },
-      ],
-    },
-    teamwork: {
-      name: '팀워크',
-      steps: ['공동 목표', '상대의 상황', '협업 방식 변경', '함께한 결과'],
-      questions: {
-        academic: ['팀이 완성하려던 것은 무엇이고, 나와 팀원은 각각 어떤 일을 맡았나?', '팀원이 참여하기 어렵거나 일이 기다려진 이유는 무엇이었나?', '역할·기록·논의 방식을 어떻게 제안하거나 조정했나?', '제안 뒤 팀원들이 어떻게 일했고, 공동 작업은 어디까지 진행됐나?'],
-        work: ['동료·다른 교대조·고객과 함께 처리해야 했던 일과 내 역할은?', '동료가 바로 처리하기 어려웠던 사정이나 전달되지 않은 정보는 무엇이었나?', '업무 인계·분담·확인 기준을 어떻게 맞췄나? 상대에게 어떤 도움을 요청했나?', '상대방은 어떻게 대응했고, 업무나 고객 응대는 어디까지 마무리됐나?'],
-        external: ['함께 하려던 행사·운영·봉사와 내가 맡은 일은 무엇인가?', '팀원·참여자마다 시간·경험·입장이 어떻게 달랐나?', '참여 방식·역할·공유 자료를 어떻게 제안하거나 바꿨나?', '그 뒤 다른 사람들이 어떻게 참여했고, 함께 이룬 일은 무엇인가?'],
-        daily: ['누구와 무엇을 함께하려 했고, 나는 어떤 역할이었나?', '각자가 어려워하거나 다르게 생각한 부분은 무엇이었나?', '함께 진행할 수 있도록 직접 요청·조정·공유한 것은?', '상대방의 반응과 실제로 함께 마친 일은?'],
-      },
-      recall: ['상대에게 사정을 물어본 적이 있나요? 확인한 말이나 상황을 적어보세요.', '내 제안 뒤 상대가 한 일을 떠올려보세요. 의견 차이가 없던 경험도 괜찮아요.'],
-      sources: [
-        { id: '33864', number: 2, title: '논문 작성', text: '취업 준비로 시간이 부족한 팀원들을 고려해, 추가 실험·그래프·개략도 작업을 나누었다.' },
-        { id: '35319', number: 2, title: '동아리 운영', text: '인원 부족에 대응해 홍보하고, 차기 운영진에게 절차·예산·회의 기록을 남겼다.' },
-        { id: '32681', number: 4, title: '협력업체 대응', text: '업체의 문의를 취합해 안전 담당 부서에 확인하고, 답을 공유해 수리 작업 재개를 도왔다.' },
-      ],
-    },
-    challenge: {
-      name: '도전·목표 달성',
-      steps: ['내가 세운 목표', '첫 시도의 한계', '바꾼 방법', '도달한 수준'],
-      questions: {
-        academic: ['직접 세운 연구·과제 목표는 무엇이고, 왜 해보려 했나?', '처음 방식으로 해보니 어디에서 막혔나?', '무엇을 보고 다음 실험·설계·학습 방법을 바꿨나? 직접 바꾼 부분은?', '본래 목표와 비교해 어디까지 도달했나? 미완료된 부분도 적어 주세요.'],
-        work: ['맡은 업무에서 스스로 더 해보려던 목표와 그 이유는?', '처음 시도할 때 어떤 제약이나 어려움이 있었나?', '다음 시도에서 확인·준비·처리 방법을 어떻게 바꿨나?', '목표 대비 실제로 처리하거나 확인한 범위는? 남은 부분은?'],
-        external: ['활동·대회·행사에서 직접 정한 목표와 그 이유는?', '첫 준비나 시도가 기대대로 되지 않은 지점은?', '그 뒤 준비·연습·운영 방식을 무엇 때문에 어떻게 바꿨나?', '활동 결과가 원래 목표에 어디까지 도달했나?'],
-        daily: ['도전하려던 공부·운동·취미 목표와 개인적인 이유는?', '처음 연습이나 시도에서 반복해서 막힌 부분은?', '그걸 알아차린 뒤 연습·학습·점검 방법을 어떻게 바꿨나?', '현재 수준이나 기록은 목표와 어떻게 다른가?'],
-      },
-      recall: ['목표를 누가 정했는지, 자신이 더 해보고 싶었던 부분이 있는지 떠올려보세요.', '같은 방식으로 시간을 늘렸나요, 방법도 바꿨나요? 실제로 한 것만 적어 주세요.'],
-      sources: [
-        { id: '33390', number: 1, title: '통역병 시험 준비', text: '첫 시험에서 떨어진 뒤, 기사 통역 녹음과 모의시험으로 준비 방식을 바꾸고 시험에 통과했다.' },
-        { id: '25576', number: 1, title: '태양전지 연구', text: '실험 조건을 바꿔 확인한 효율을 제시하면서, 처음 목표에는 미치지 못했다는 점도 밝혔다.' },
-      ],
-    },
-    improvement: {
-      name: '개선·아이디어',
-      steps: ['기존의 불편', '변경 이유', '직접 실행', '효과 확인'],
-      questions: {
-        academic: ['기존 설계·실험·제작 방식의 불편이나 한계는?', '왜 그 대안이나 조건을 선택했나? 비교한 장단점은?', '직접 제안·설계·구현한 것과 다른 사람이 맡은 부분은?', '실험·계산·사용자 확인 중 무엇으로 효과를 확인했나?'],
-        work: ['기존 주문·정리·재고·고객 응대에서 직접 본 불편은?', '어떤 방식을 제안했고, 그게 이 상황에 맞는다고 본 이유는?', '동료나 담당자와 상의한 뒤 직접 바꾸거나 실행한 부분은?', '고객·동료의 반응이나 운영 결과를 실제로 확인했나? 어디까지인가?'],
-        external: ['기존 홍보·신청·행사·운영 방식에서 무엇이 불편했나?', '참여자 의견이나 조사에서 어떤 단서를 얻어 새 방식을 골랐나?', '직접 제안하거나 운영에 반영한 것은 무엇인가?', '실제 참여·사용 반응을 봤나, 기획안 평가까지 받았나?'],
-        daily: ['일상에서 반복되던 불편과 원래 해결 방식은?', '왜 그 방법으로 바꾸려 했나? 다른 대안과 비교했나?', '직접 만들거나 바꿔 써본 것은 무엇인가?', '사용 뒤 편의나 결과가 어떻게 달랐나? 아직 모르는 점은?'],
-      },
-      recall: ['기존 방식을 계속 쓰기 어려웠던 구체적인 장면을 떠올려보세요.', '제안·도입·효과 확인 중 어디까지 했나요? 수치가 없으면 관찰한 반응을 적어도 돼요.'],
-      sources: [
-        { id: '26607', number: 2, title: '영화제 기획', text: '대학생 설문에서 얻은 단서를 행사 구성에 반영하고, 실제 관객 수 변화를 서술했다.' },
-        { id: '25576', number: 2, title: '매장 운영', text: '매장 위치의 약점을 보완하려 홍보·판매·대관 방식을 실행하고 매출 변화를 제시했다.' },
-        { id: '28480', number: 2, title: '도어락 제작', text: '누구나 쓰기 쉬운 안내 방식을 구현한 뒤, 기존 방식과 비교하는 사용자 설문을 진행했다.' },
-      ],
-    },
-    personality: {
-      name: '자유 자기소개',
-      steps: ['나를 설명하는 말', '실제 장면', '반복하는 행동', '반응과 의미'],
-      questions: {
-        academic: ['수업·팀 과제에서 평소 어떤 식으로 행동하는 사람인가?', '그 성향이 드러났던 장면 하나는?', '그때 직접 한 행동은? 비슷한 상황에서 반복해 온 습관도 있나?', '그 행동에 대한 반응이나 본인이 중요하게 생각하는 이유는?'],
-        work: ['알바·직장에서 평소 어떤 식으로 일하는 사람인가?', '그 모습이 드러난 근무·교대·고객 응대 장면은?', '직접 관찰·기록·응대한 것과 반복해 온 행동은?', '동료·고객의 실제 반응이나 그 습관을 지키는 이유는?'],
-        external: ['모임·행사·봉사에서 나는 어떤 사람인가?', '그걸 보여주는 참여자·팀원과의 장면 하나는?', '그때 직접 도운 일이나 계속해 온 습관은?', '주변 사람의 반응과 나에게 그 행동이 중요한 이유는?'],
-        daily: ['평소 자신을 설명할 수 있는 행동이나 습관은?', '최근 일상·취미·공부에서 그 모습이 나타난 장면은?', '그 상황에서 직접 한 일과 반복해 온 행동은?', '그 행동이 자신에게 어떤 의미이고, 주변 반응이 있었나?'],
-      },
-      recall: ['성격 단어 대신 최근 실제로 했던 행동 하나를 떠올려보세요.', '큰 성과가 없어도 괜찮아요. 남이 한 말과 자신이 느낀 점을 구분해 적어 주세요.'],
-      sources: [
-        { id: '36019', number: 4, title: '편의점 근무', text: '날씨와 시험 기간에 따른 판매 흐름을 관찰해 발주를 제안하는 행동으로 관찰력을 설명했다.' },
-        { id: '36333', number: 4, title: '러닝 모임', text: '함께 운동 기록과 응원을 공유하는 모임을 운영한 장면으로 함께 성장하려는 성향을 설명했다.' },
-      ],
-    },
-  };
-
-  const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  }[char]));
-
+  const own = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
+  const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+  const id = () => globalThis.crypto?.randomUUID?.() || Date.now() + '-' + Math.random().toString(36).slice(2);
+  const text = value => typeof value === 'string' ? value : '';
   function createDraft() {
-    return {
-      id: globalThis.crypto?.randomUUID?.() || String(Date.now()) + '-' + Math.random().toString(36).slice(2),
-      title: '', theme: 'expertise', activity: 'academic', stage: 'ongoing',
-      notes: ['', '', '', ''], next: '',
-    };
+    return { id: id(), title: '', theme: 'expertise', activity: 'academic', track: 'chipmaker', stage: 'ongoing', company: '', question: '', answers: {} };
   }
-
-  function readState() {
-    try {
-      const parsed = JSON.parse(localStorage.getItem(storageKey));
-      if (parsed?.version === 1 && Array.isArray(parsed.drafts)) {
-        const drafts = parsed.drafts.filter(draft =>
-          typeof draft.id === 'string' && typeof draft.title === 'string' &&
-          Object.hasOwn(themes, draft.theme) && Object.hasOwn(activities, draft.activity) &&
-          Object.hasOwn(stages, draft.stage) && Array.isArray(draft.notes) &&
-          draft.notes.length === 4 && draft.notes.every(note => typeof note === 'string') &&
-          typeof draft.next === 'string');
-        const ids = new Set();
-        const unique = drafts.filter(draft => !ids.has(draft.id) && ids.add(draft.id));
-        if (unique.length) {
-          return { version: 1, active: unique.some(draft => draft.id === parsed.active) ? parsed.active : unique[0].id, drafts: unique };
-        }
-      }
-    } catch (_) {
-      // The form also works in memory when browser storage is unavailable.
+  function normalizeDraft(raw) {
+    if (!raw || typeof raw.id !== 'string' || !raw.id || typeof raw.title !== 'string' ||
+        !own(bank.themes, raw.theme) || !own(bank.activities, raw.activity) ||
+        !own(bank.tracks, raw.track) || !own(bank.stages, raw.stage) ||
+        !raw.answers || Array.isArray(raw.answers) || typeof raw.answers !== 'object') throw new Error('경험 자료 형식을 확인해 주세요.');
+    const answers = Object.fromEntries(Object.entries(raw.answers).filter(([key, value]) =>
+      typeof value === 'string' && key !== '__proto__' && key !== 'constructor' && key !== 'prototype'));
+    const draft = { id: raw.id, title: raw.title, theme: raw.theme, activity: raw.activity, track: raw.track, stage: raw.stage,
+      company: text(raw.company), question: text(raw.question), answers };
+    if (raw.legacy && Array.isArray(raw.legacy.notes) && raw.legacy.notes.length === 4 && raw.legacy.notes.every(note => typeof note === 'string')) {
+      draft.legacy = { theme: own(legacySteps, raw.legacy.theme) ? raw.legacy.theme : 'expertise',
+        stage: own(bank.stages, raw.legacy.stage) ? raw.legacy.stage : 'ongoing', notes: [...raw.legacy.notes], next: text(raw.legacy.next) };
     }
+    return draft;
+  }
+  function normalizeState(raw) {
+    if (!raw || raw.version !== 2 || !Array.isArray(raw.drafts) || !raw.drafts.length) throw new Error('경험 백업 파일을 확인해 주세요.');
+    const drafts = raw.drafts.map(normalizeDraft);
+    if (new Set(drafts.map(draft => draft.id)).size !== drafts.length) throw new Error('중복된 경험 번호가 있습니다.');
+    return { version: 2, active: drafts.some(draft => draft.id === raw.active) ? raw.active : drafts[0].id, drafts };
+  }
+  function migrateLegacy(raw) {
+    if (!raw || raw.version !== 1 || !Array.isArray(raw.drafts) || !raw.drafts.length) throw new Error('이전 경험 자료를 읽지 못했습니다.');
+    if (raw.drafts.some(old => !old || !Array.isArray(old.notes) || old.notes.length !== 4 || !old.notes.every(note => typeof note === 'string'))) throw new Error('이전 경험 답변을 확인해 주세요.');
+    return normalizeState({ version: 2, active: raw.active, drafts: raw.drafts.map(old => ({
+      ...createDraft(), id: old.id, title: old.title, theme: old.theme, activity: old.activity, stage: old.stage,
+      legacy: { theme: old.theme, stage: old.stage, notes: old.notes, next: old.next },
+    })) });
+  }
+  function loadState(storage) {
     const draft = createDraft();
-    return { version: 1, active: draft.id, drafts: [draft] };
+    const fallback = { state: { version: 2, active: draft.id, drafts: [draft] }, readError: false };
+    try {
+      const saved = storage.getItem(storageKey);
+      if (saved !== null) return { state: normalizeState(JSON.parse(saved)), readError: false };
+      const legacy = storage.getItem(legacyKey);
+      if (legacy !== null) return { state: migrateLegacy(JSON.parse(legacy)), readError: false };
+    } catch (_) { fallback.readError = true; }
+    return fallback;
+  }
+  function mergeState(current, incoming) {
+    const merged = normalizeState(current);
+    const imported = normalizeState(incoming);
+    const used = new Map(merged.drafts.map(draft => [draft.id, draft]));
+    let active = merged.active;
+    for (const draft of imported.drafts) {
+      if (used.has(draft.id) && JSON.stringify(used.get(draft.id)) === JSON.stringify(draft)) { active = draft.id; continue; }
+      if (used.has(draft.id)) draft.id = id();
+      merged.drafts.push(draft); used.set(draft.id, draft); active = draft.id;
+    }
+    merged.active = active;
+    return merged;
+  }
+  function legacyText(draft) {
+    if (!draft.legacy) return '';
+    const old = draft.legacy;
+    const steps = [...legacySteps[old.theme]];
+    if (old.stage === 'proposal') steps[2] = '완료한 준비·제안';
+    if (old.stage !== 'complete') steps[3] = '현재까지 확인한 내용';
+    const notes = old.notes.map((note, index) => note.trim() ? steps[index] + '\n' + note.trim() : '').filter(Boolean);
+    if (old.next.trim()) notes.push('당시 앞으로 할 일\n' + old.next.trim());
+    return notes.length ? '이전 정리 (' + bank.stages[old.stage] + ')\n' + notes.join('\n\n') : '';
+  }
+  function hasContent(draft) {
+    return !!legacyText(draft) || bank.questionGroups(draft).some(group => group.questions.some(q => text(draft.answers[q.id]).trim()));
+  }
+  function buildText(draft) {
+    const groups = bank.questionGroups(draft);
+    const sections = groups.map(group => {
+      const rows = group.questions.filter(q => q.id !== 'next' && text(draft.answers[q.id]).trim())
+        .map(q => q.label + '\n' + draft.answers[q.id].trim());
+      return rows.length ? '[' + group.title + ']\n' + rows.join('\n\n') : '';
+    }).filter(Boolean);
+    // Plans stay separate even if the user later changes the overall stage to complete.
+    if (text(draft.answers.next).trim()) sections.push('[계획·미확인]\n' + draft.answers.next.trim());
+    const old = legacyText(draft);
+    return [draft.title.trim() || '경험 정리',
+      bank.tracks[draft.track] + ' / ' + bank.themes[draft.theme].name + ' / ' + bank.activities[draft.activity] + ' / ' + bank.stages[draft.stage],
+      draft.company.trim() ? '지원 회사: ' + draft.company.trim() : '',
+      draft.question.trim() ? '지원 문항: ' + draft.question.trim() : '',
+      ...sections, old].filter(Boolean).join('\n\n');
+  }
+  function buildAiPrompt(draft) {
+    const technical = draft.activity === 'academic' && ['expertise', 'improvement'].includes(draft.theme);
+    const angle = technical ? (draft.track === 'chipmaker'
+      ? '공정 조건의 선택 근거와 품질·특성 검증을 중심으로 구성해 주세요.'
+      : '장비 동작과 결과의 관계, 점검·판단 순서, 확인·공유한 내용을 중심으로 구성해 주세요. 고장이나 고객 대응이 입력되지 않았다면 만들어 넣지 마세요.')
+      : '인성·팀워크·소통은 회사 종류에 따라 성격을 꾸미지 말고, 문항이 묻는 행동과 변화를 중심으로 구성해 주세요.';
+    return ['아래 경험 답변을 바탕으로 ' + (draft.company.trim() || bank.tracks[draft.track]) + ' 지원용 자기소개서 초안을 작성해 주세요.',
+      draft.question.trim() ? '답할 문항: ' + draft.question.trim() : '문항 유형: ' + bank.themes[draft.theme].name,
+      angle,
+      '핵심 행동을 먼저 밝히고 상황·판단·행동·결과가 자연스럽게 이어지도록 작성해 주세요. 질문 순서를 그대로 나열할 필요는 없습니다.',
+      '입력한 사실의 의미를 구체적으로 설명하되, 없는 행동·수치·도구·성과·상대 반응을 추가하지 마세요. 직접 수행·공동 수행·관찰·제안·계획을 구분하고, 진행 중인 일을 완료한 성과로 바꾸지 마세요.',
+      '지원자들의 사례나 예시 문구는 내 경험이 아닙니다. 내 답변만 사용하고, 사실이 부족하면 초안 뒤에 추가로 확인할 질문을 최대 3개 적어 주세요.',
+      '회사 인재상을 단정하거나 억지로 고객·공정 업무를 덧붙이지 말고, 과장된 수식어 없이 학생이 직접 쓴 말투로 작성해 주세요.',
+      '--- 내 경험 답변 ---', buildText(draft)].join('\n\n');
   }
 
   function mount(root) {
     if (root.dataset.mounted) return;
     root.dataset.mounted = 'true';
-    const state = readState();
+    let storage;
+    try { storage = globalThis.localStorage; } catch (_) { storage = null; }
+    const loaded = loadState(storage);
+    let state = loaded.state;
     const field = name => root.querySelector('[data-organizer="' + name + '"]');
     const current = () => state.drafts.find(draft => draft.id === state.active);
-    const options = values => Object.entries(values).map(([value, text]) =>
-      '<option value="' + escape(value) + '">' + escape(text) + '</option>').join('');
+    const options = values => Object.entries(values).map(([value, label]) => '<option value="' + escape(value) + '">' + escape(label) + '</option>').join('');
     let copyVersion = 0;
-
-    root.innerHTML = `<summary>자소서용 경험 정리 <span>SK하이닉스 양산기술</span></summary>
-      <div class="library-guide-body">
-        <div class="organizer-drafts" data-organizer="drafts-row"><label>저장한 경험<select data-organizer="draft" aria-label="저장한 경험"></select></label></div>
-        <div class="organizer-title-row"><label class="organizer-title">경험 이름<input data-organizer="title" placeholder="예: PBL 제작, 카페 근무"></label>
-          <button type="button" data-organizer="new">새 경험</button></div>
-        <div class="organizer-options">
-          <label>문항<select data-organizer="theme">${options(Object.fromEntries(Object.entries(themes).map(([key, value]) => [key, value.name])))}</select></label>
-          <label>활동<select data-organizer="activity">${options(activities)}</select></label>
-          <label>진행 단계<select data-organizer="stage">${options(stages)}</select></label>
-        </div>
-        <details class="library-guide-example"><summary>합격 사례와 질문의 근거</summary>
-          <p data-organizer="steps"></p><div data-organizer="sources"></div>
-        </details>
-        <div class="library-guide-prompts">
-          ${[0, 1, 2, 3].map(index => `<div class="organizer-prompt">
-            <label for="organizer-note-${index}" data-organizer="label-${index}"></label>
-            <textarea id="organizer-note-${index}" data-note="${index}" rows="3"></textarea>
-          </div>`).join('')}
-        </div>
-        <details class="organizer-recall"><summary>기억이 잘 안 날 때</summary><ul data-organizer="recall"></ul></details>
-        <label class="organizer-next" data-organizer="next-label">앞으로 할 일<textarea data-organizer="next" rows="2"></textarea></label>
-        <div class="organizer-actions"><button type="button" data-organizer="preview">순서대로 정리하기</button>
-          <button type="button" data-organizer="copy">정리본 복사</button></div>
-        <p class="organizer-save" data-organizer="save" role="status">이 브라우저에 저장돼요.</p>
-        <p data-organizer="status" role="status"></p>
-        <section data-organizer="result" class="organizer-result" aria-label="경험 정리본" hidden></section>
-        <textarea data-organizer="fallback" aria-label="직접 복사할 경험 정리본" rows="8" readonly hidden></textarea>
-      </div>`;
+    let deleting = '';
+    root.classList.add('experience-manager');
+    root.innerHTML = `<div class="organizer-drafts"><label>저장한 경험<select data-organizer="draft"></select></label>
+        <button type="button" data-organizer="new">경험 추가</button></div>
+      <label class="organizer-title">경험 이름<input data-organizer="title" placeholder="예: 공정 실습, 카페 근무, 러닝 모임"></label>
+      <div class="organizer-track" role="group" aria-label="지원 분야">
+        ${Object.entries(bank.tracks).map(([value, label]) => `<button type="button" data-track="${value}" aria-pressed="false">${label}</button>`).join('')}
+      </div>
+      <div class="organizer-options">
+        <label>문항 유형<select data-organizer="theme">${options(Object.fromEntries(Object.entries(bank.themes).map(([key, theme]) => [key, theme.name])))}</select></label>
+        <label>활동<select data-organizer="activity">${options(bank.activities)}</select></label>
+        <label>진행 단계<select data-organizer="stage">${options(bank.stages)}</select></label>
+      </div>
+      <div class="organizer-status-line"><p>기억나는 질문부터 답하세요.</p><p data-organizer="save" role="status"></p></div>
+      <details class="organizer-legacy" data-organizer="legacy" hidden><summary>이전 정리</summary><p data-organizer="legacy-text"></p></details>
+      <div data-organizer="questions" class="organizer-groups"></div>
+      <details class="organizer-sources"><summary>질문 근거</summary><p>합격 사례의 전개를 바탕으로 만든 질문입니다.</p><ul data-organizer="sources"></ul></details>
+      <details class="organizer-submission"><summary>지원 회사·문항 지정</summary>
+        <label>지원 회사<input data-organizer="company" placeholder="선택 입력"></label>
+        <label>자소서 문항<textarea data-organizer="question" rows="2" placeholder="실제 지원 문항이 있으면 붙여 넣으세요."></textarea></label></details>
+      <div class="organizer-actions"><button type="button" data-organizer="preview">답변 모아보기</button>
+        <button type="button" data-organizer="copy">정리본 복사</button>
+        <button type="button" data-organizer="ai-copy" class="organizer-primary">AI 작성용 복사</button></div>
+      <p data-organizer="status" role="status"></p>
+      <section class="organizer-result" data-organizer="result" hidden>
+        <label>복사할 내용<textarea data-organizer="output" rows="12" readonly></textarea></label></section>
+      <details class="organizer-manage"><summary>백업·관리</summary><div class="organizer-actions">
+        <button type="button" data-organizer="backup">전체 백업</button>
+        <button type="button" data-organizer="import">백업 불러오기</button>
+        <button type="button" data-organizer="delete">이 경험 삭제</button></div>
+        <input data-organizer="file" type="file" accept=".json,application/json" hidden></details>`;
 
     function save() {
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(state));
-        field('save').textContent = '이 브라우저에 저장했어요.';
-      } catch (_) {
-        field('save').textContent = '브라우저에 저장하지 못했어요. 정리본을 복사해 보관해 주세요.';
+      copyVersion += 1;
+      if (loaded.readError) {
+        field('save').textContent = '기존 저장 자료를 읽지 못했어요. 복사·백업으로 보관하세요.';
+        return;
       }
+      try {
+        storage.setItem(storageKey, JSON.stringify(state));
+        field('save').textContent = '이 브라우저에 자동 저장';
+      } catch (_) { field('save').textContent = '저장되지 않았어요. 복사·백업으로 보관하세요.'; }
     }
-
     function renderDrafts() {
-      field('drafts-row').hidden = state.drafts.length === 1;
-      field('draft').innerHTML = state.drafts.map((draft, index) =>
-        '<option value="' + escape(draft.id) + '">' + escape(draft.title.trim() || '이름 없는 경험 ' + (index + 1)) + '</option>').join('');
+      field('draft').innerHTML = state.drafts.map((draft, index) => '<option value="' + escape(draft.id) + '">' + escape(draft.title.trim() || '새 경험 ' + (index + 1)) + '</option>').join('');
       field('draft').value = state.active;
     }
-
-    function labels(draft) {
-      const questions = [...themes[draft.theme].questions[draft.activity]];
-      if (draft.stage === 'proposal') {
-        questions[2] = '직접 완료한 준비·조사·제안은 무엇인가? 함께 준비한 부분도 적어 주세요.';
-        questions[3] = '제안·준비에 대해 실제로 받은 반응이나 확인한 내용은? 아직 미확인이면 그대로 적어 주세요.';
-      } else if (draft.stage === 'ongoing') {
-        questions[3] += ' 현재까지 확인한 범위만 적어 주세요.';
+    function renderCounts() {
+      for (const group of bank.questionGroups(current())) {
+        const count = group.questions.filter(q => text(current().answers[q.id]).trim()).length;
+        const target = root.querySelector('[data-group-count="' + group.id + '"]');
+        if (target) target.textContent = count + '/' + group.questions.length;
       }
-      return questions;
     }
-
-    function outline() {
-      const draft = current();
-      const questions = labels(draft);
-      const sections = draft.notes.map((note, index) => ({
-        heading: themes[draft.theme].steps[index],
-        text: note.trim() || '미작성 · ' + questions[index],
-        missing: !note.trim(),
-      }));
-      if (draft.stage === 'proposal') sections[2].heading = '완료한 준비·제안';
-      if (draft.stage !== 'complete') sections[3].heading = '현재까지 확인한 내용';
-      return sections;
+    function renderQuestions() {
+      const groups = bank.questionGroups(current());
+      field('questions').innerHTML = groups.map((group, index) => `<details class="organizer-group"${index === 0 ? ' open' : ''}>
+        <summary><strong>${escape(group.title)}</strong><span data-group-count="${group.id}"></span></summary>
+        <div class="organizer-question-list">${group.questions.map(q => `<label class="organizer-prompt" for="experience-answer-${q.id}">
+          <span>${escape(q.label)}</span><textarea id="experience-answer-${q.id}" data-answer="${q.id}" rows="3" placeholder="${escape(q.hint)}">${escape(current().answers[q.id] || '')}</textarea></label>`).join('')}</div></details>`).join('');
+      const refs = [...new Set(groups.flatMap(group => group.questions.flatMap(q => q.refs)))];
+      field('sources').innerHTML = refs.map(key => {
+        const source = bank.sources[key];
+        return `<li><a href="https://linkareer.com/cover-letter/${source.post}" target="_blank" rel="noopener noreferrer">${escape(source.company)} · 문항 ${source.number}</a><span>${escape(source.point)}</span></li>`;
+      }).join('');
+      renderCounts();
     }
-
-    function renderResult() {
-      const draft = current();
-      const sections = outline();
-      field('result').innerHTML = '<h3>' + escape(draft.title.trim() || '경험 정리본') + '</h3>' +
-        '<p>' + escape(themes[draft.theme].name + ' · ' + activities[draft.activity] + ' · ' + stages[draft.stage]) + '</p>' +
-        sections.map(section => '<section><h4>' + escape(section.heading) + '</h4><p' +
-          (section.missing ? ' class="organizer-missing"' : '') + '>' + escape(section.text) + '</p></section>').join('') +
-        (draft.stage !== 'complete' && draft.next.trim() ? '<section><h4>앞으로 할 일</h4><p>' + escape(draft.next.trim()) + '</p></section>' : '');
-    }
-
     function refresh() {
-      const draft = current();
-      const theme = themes[draft.theme];
+      copyVersion += 1; deleting = '';
       renderDrafts();
-      for (const name of ['title', 'theme', 'activity', 'stage', 'next']) field(name).value = draft[name];
-      labels(draft).forEach((label, index) => {
-        field('label-' + index).textContent = label;
-        const input = root.querySelector('[data-note="' + index + '"]');
-        input.value = draft.notes[index];
-      });
-      field('steps').textContent = '합격 사례를 바탕으로 구성한 정리 순서 · ' + theme.steps.join(' → ');
-      field('sources').innerHTML = theme.sources.map(source =>
-        '<p><a href="https://www.linkareer.com/cover-letter/' + source.id + '" target="_blank" rel="noopener noreferrer">' +
-        escape(source.title) + ' · 문항 ' + source.number + '</a><br>' + escape(source.text) + '</p>').join('');
-      const recall = [...theme.recall];
-      if (draft.stage !== 'complete') recall.push('한 일·관찰한 결과와 앞으로 할 일을 나눠 적어 주세요. 원인이 확실하지 않으면 본 모습까지 적어도 돼요.');
-      field('recall').innerHTML = recall.map(text => '<li>' + escape(text) + '</li>').join('');
-      field('next-label').hidden = draft.stage === 'complete';
-      field('result').hidden = true;
-      field('fallback').hidden = true;
-      field('status').textContent = '';
-      copyVersion += 1;
+      for (const key of ['title', 'theme', 'activity', 'stage', 'company', 'question']) field(key).value = current()[key];
+      root.querySelectorAll('[data-track]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.track === current().track)));
+      renderQuestions();
+      const old = legacyText(current());
+      field('legacy').hidden = !old; field('legacy-text').textContent = old;
+      field('result').hidden = true; field('output').value = ''; field('status').textContent = '';
+      field('delete').textContent = '이 경험 삭제';
+      field('save').textContent = loaded.readError ? '기존 저장 자료를 읽지 못했어요. 복사·백업으로 보관하세요.' : '이 브라우저에 저장';
     }
-
     root.addEventListener('input', event => {
       const draft = current();
-      if (event.target.matches('[data-note]')) {
-        draft.notes[Number(event.target.dataset.note)] = event.target.value;
-      } else if (event.target === field('title')) {
-        draft.title = event.target.value;
-        renderDrafts();
-      } else if (event.target === field('next')) {
-        draft.next = event.target.value;
-      } else {
-        return;
-      }
-      copyVersion += 1;
-      field('fallback').hidden = true;
-      field('status').textContent = '';
-      save();
-      if (!field('result').hidden) renderResult();
+      if (event.target.matches('[data-answer]')) draft.answers[event.target.dataset.answer] = event.target.value;
+      else if (['title', 'company', 'question'].includes(event.target.dataset.organizer)) draft[event.target.dataset.organizer] = event.target.value;
+      else return;
+      if (event.target === field('title')) renderDrafts();
+      save(); renderCounts();
+      field('status').textContent = ''; field('result').hidden = true;
     });
-
     root.addEventListener('change', event => {
       const name = event.target.dataset.organizer;
-      if (name === 'draft') {
-        state.active = event.target.value;
-      } else if (['theme', 'activity', 'stage'].includes(name)) {
-        current()[name] = event.target.value;
-      } else {
-        return;
-      }
-      refresh();
-      save();
+      if (name === 'draft') state.active = event.target.value;
+      else if (['theme', 'activity', 'stage'].includes(name)) current()[name] = event.target.value;
+      else return;
+      refresh(); save();
     });
-
+    root.querySelectorAll('[data-track]').forEach(button => button.addEventListener('click', () => {
+      current().track = button.dataset.track; refresh(); save();
+    }));
     field('new').addEventListener('click', () => {
-      const draft = createDraft();
-      state.drafts.push(draft);
-      state.active = draft.id;
-      refresh();
-      save();
-      field('title').focus();
+      const draft = createDraft(); draft.track = current().track;
+      state.drafts.push(draft); state.active = draft.id; refresh(); save(); field('title').focus();
     });
-
-    function hasNotes() {
-      if (current().notes.some(note => note.trim())) return true;
-      field('status').textContent = '기억나는 내용을 한 줄 이상 적어 주세요.';
-      root.querySelector('[data-note="0"]').focus();
-      return false;
+    field('delete').addEventListener('click', () => {
+      if (deleting !== current().id) { deleting = current().id; field('delete').textContent = '삭제 확인'; return; }
+      state.drafts = state.drafts.filter(draft => draft.id !== state.active);
+      if (!state.drafts.length) state.drafts.push(createDraft());
+      state.active = state.drafts[0].id; refresh(); save();
+    });
+    function ready() {
+      if (hasContent(current())) return true;
+      field('status').textContent = '기억나는 내용부터 한 가지 적어 주세요.';
+      root.querySelector('[data-answer]').focus(); return false;
     }
-
-    field('preview').addEventListener('click', () => {
-      if (!hasNotes()) return;
-      renderResult();
-      field('result').hidden = false;
-    });
-    field('copy').addEventListener('click', async () => {
-      if (!hasNotes()) return;
-      renderResult();
-      field('result').hidden = false;
-      const draft = current();
-      const content = [draft.title.trim() || '경험 정리본',
-        'SK하이닉스 양산기술 · ' + themes[draft.theme].name + ' · ' + activities[draft.activity] + ' · ' + stages[draft.stage],
-        ...outline().map(section => section.heading + '\n' + section.text)];
-      if (draft.stage !== 'complete' && draft.next.trim()) content.push('앞으로 할 일\n' + draft.next.trim());
-      const text = content.join('\n\n');
+    function showOutput(content) {
+      field('output').value = content; field('result').hidden = false;
+    }
+    async function copy(content, label) {
       const request = ++copyVersion;
       let timer;
       try {
-        await Promise.race([
-          navigator.clipboard.writeText(text),
-          new Promise((_, reject) => { timer = setTimeout(reject, 1500); }),
-        ]);
-        if (request === copyVersion) field('status').textContent = '경험 정리본을 복사했어요.';
+        await Promise.race([navigator.clipboard.writeText(content), new Promise((_, reject) => { timer = setTimeout(reject, 1500); })]);
+        if (request === copyVersion) field('status').textContent = label + ' 복사 완료';
       } catch (_) {
         if (request !== copyVersion) return;
-        field('fallback').value = text;
-        field('fallback').hidden = false;
-        field('fallback').focus();
-        field('fallback').select();
-        field('status').textContent = '선택된 내용을 직접 복사해 주세요.';
-      } finally {
-        clearTimeout(timer);
-      }
+        showOutput(content); field('output').focus(); field('output').select();
+        field('status').textContent = '선택된 내용을 직접 복사하세요.';
+      } finally { clearTimeout(timer); }
+    }
+    field('preview').addEventListener('click', () => { if (ready()) { showOutput(buildText(current())); field('status').textContent = ''; } });
+    field('copy').addEventListener('click', () => { if (ready()) copy(buildText(current()), '정리본'); });
+    field('ai-copy').addEventListener('click', () => { if (ready()) copy(buildAiPrompt(current()), 'AI 작성용 내용'); });
+    field('backup').addEventListener('click', () => {
+      const url = URL.createObjectURL(new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' }));
+      const link = document.createElement('a'); link.href = url;
+      link.download = 'experience-notes-' + new Date().toISOString().slice(0, 10) + '.json';
+      link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+      field('status').textContent = '전체 경험 백업 파일 저장';
+    });
+    field('import').addEventListener('click', () => field('file').click());
+    field('file').addEventListener('change', async event => {
+      const file = event.target.files[0]; if (!file) return;
+      try {
+        const parsed = JSON.parse(await file.text());
+        const incoming = parsed.version === 1 ? migrateLegacy(parsed) : normalizeState(parsed);
+        state = mergeState(state, incoming); refresh(); save();
+        field('status').textContent = '백업을 불러왔어요. 기존 경험도 유지됩니다.';
+      } catch (_) { field('status').textContent = '백업 파일을 읽지 못했어요. 기존 경험은 유지됩니다.'; }
+      event.target.value = '';
     });
     refresh();
   }
-
-  window.ExperienceOrganizer = { mount };
-})();
+  return { storageKey, legacyKey, createDraft, normalizeState, migrateLegacy, loadState, mergeState, buildText, buildAiPrompt, hasContent, mount };
+});

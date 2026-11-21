@@ -78,7 +78,6 @@
   async function showCompany() {
     const request = ++companyRequest;
     const companyId = field('company').value;
-    field('experience-guide').hidden = companyId !== 'skhynix';
     const previousPeriod = field('period').value;
     const list = field('essays');
     for (const key of ['role', 'period', 'search']) field(key).disabled = true;
@@ -219,7 +218,11 @@
     if (initialized) return;
     initialized = true;
     panel().innerHTML = `<header class="library-heading"><h2>합격 자소서</h2></header>
-      <details id="library-experience-guide" class="library-experience-guide"></details>
+      <div class="library-view-tabs" role="tablist" aria-label="합격 자소서 메뉴">
+        <button type="button" id="library-browse-tab" data-library-view="browse" role="tab" aria-selected="true" aria-controls="library-browse-panel">자소서 찾기</button>
+        <button type="button" id="library-organizer-tab" data-library-view="organizer" role="tab" aria-selected="false" aria-controls="library-experience-guide">경험 정리</button>
+      </div>
+      <div id="library-browse-panel" role="tabpanel" aria-labelledby="library-browse-tab">
       <div class="library-filters">
         <label>회사<select id="library-company">${Object.entries(companies).map(([id, company]) => `<option value="${id}">${company.name}</option>`).join('')}</select></label>
         <label>직무<select id="library-role"></select></label>
@@ -233,7 +236,24 @@
       </div>
       <p id="library-copy-status" role="status"></p>
       <textarea id="library-copy-fallback" aria-label="직접 복사할 내용" rows="8" readonly hidden></textarea>
-      <section id="library-essays" aria-label="지원자별 자소서"></section>`;
+      <section id="library-essays" aria-label="지원자별 자소서"></section>
+      </div>
+      <section id="library-experience-guide" role="tabpanel" aria-labelledby="library-organizer-tab" hidden></section>`;
+    const switchView = view => {
+      panel().querySelectorAll('[data-library-view]').forEach(button => button.setAttribute('aria-selected', String(button.dataset.libraryView === view)));
+      field('browse-panel').hidden = view !== 'browse';
+      field('experience-guide').hidden = view !== 'organizer';
+    };
+    panel().querySelectorAll('[data-library-view]').forEach(button => {
+      button.addEventListener('click', () => switchView(button.dataset.libraryView));
+      button.addEventListener('keydown', event => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const buttons = [...panel().querySelectorAll('[data-library-view]')];
+        const next = buttons[event.key === 'Home' ? 0 : event.key === 'End' ? buttons.length - 1 : (buttons.indexOf(button) + 1) % buttons.length];
+        next.focus(); switchView(next.dataset.libraryView);
+      });
+    });
     field('company').addEventListener('change', showCompany);
     window.ExperienceOrganizer.mount(field('experience-guide'));
     field('role').addEventListener('change', () => {
