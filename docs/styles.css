@@ -1202,3 +1202,39 @@ footer { max-width: var(--max); margin: 0 auto; padding: 1.5rem 1.25rem 2.5rem; 
   .news-filter-details .select-grid { grid-template-columns: 1fr; }
   .news-filter-details .filter-actions { flex-wrap: wrap; }
 }
+.industry-briefing { margin: 0 0 28px; color: #1d1d1f; }
+.industry-briefing [hidden] { display: none !important; }
+.brief-heading, .trend-window-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 16px; }
+.brief-heading h3, .trend-window-heading h3 { margin: 0; font-size: 1.15rem; font-weight: 600; }
+.brief-heading > span, .brief-caption, .brief-source-meta, [data-brief-status], [data-brief-generated] { color: #6e6e73; font-size: .875rem; line-height: 1.6; }
+.brief-caption { margin: 0 0 10px; }
+.brief-overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.brief-overview > div { background: #f5f5f7; border-radius: 16px; padding: 20px; }
+.industry-briefing h4 { margin: 0 0 8px; font-size: 1rem; font-weight: 600; }
+.industry-briefing p, .industry-briefing li { font-size: 1rem; line-height: 1.65; overflow-wrap: anywhere; }
+.industry-briefing p { margin: 0 0 8px; }
+.industry-briefing ul { padding-left: 20px; margin: 8px 0 0; }
+.industry-briefing li + li { margin-top: 10px; }
+.industry-briefing a { color: #0071e3; text-decoration: underline; text-underline-offset: 3px; }
+.industry-briefing summary { cursor: pointer; }
+.brief-overview-evidence { margin-top: 12px; }
+.brief-overview-evidence > summary, .brief-source-link, .brief-sources > summary, .brief-sources details > summary { font-size: .875rem; }
+.brief-topics-title { margin-top: 24px !important; }
+.brief-issue { border-bottom: 1px solid #d2d2d7; }
+.brief-issue > summary { padding: 16px 0; font-size: 1.05rem; font-weight: 600; }
+.brief-issue-body { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 4px 0 24px; }
+.brief-questions { grid-column: 1 / -1; background: #f5f5f7; border-radius: 16px; padding: 20px; }
+.brief-samsung { margin-top: 16px !important; }
+.brief-label { display: inline-block; padding: 0 5px; border: 1px solid #d2d2d7; border-radius: 4px; font-size: .875rem; font-weight: 400; }
+.brief-sources { margin-top: 16px; }
+.brief-sources > ul { list-style: none; padding: 0; }
+.brief-sources > ul > li { padding: 16px 0; border-bottom: 1px solid #d2d2d7; }
+.brief-sources blockquote { margin: 12px 0; padding-left: 14px; border-left: 2px solid #d2d2d7; font-size: .875rem; }
+.brief-sources [data-brief-generated] { margin-top: 12px; }
+.trend-window-heading { border-top: 1px solid #d2d2d7; padding-top: 24px; }
+@media (max-width: 640px) {
+  .brief-overview, .brief-issue-body { grid-template-columns: 1fr; }
+  .brief-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .brief-overview > div, .brief-questions { padding: 16px; }
+  .trend-window-heading { flex-wrap: wrap; }
+}

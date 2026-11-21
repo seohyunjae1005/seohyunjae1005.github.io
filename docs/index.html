@@ -8,7 +8,8 @@
       content="주요 반도체 기업의 공식 뉴스룸에서 기술 동향과 기업 맥락을 추적합니다."
     />
     <title>반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261121-1" />
+    <link rel="stylesheet" href="styles.css?v=20261121-2" />
+    <script src="industry-briefing.js?v=20261121-1" defer></script>
     <script src="pdf-import.js?v=20261001-2" defer></script>
     <script src="jd-analyzer-v4.js?v=20261007-7" defer></script>
     <script src="jd-recall-questions.js?v=20261108-3" defer></script>
@@ -55,7 +56,21 @@
           <div>
             <h2 id="trend-title">산업 동향 요약</h2>
           </div>
-          <div class="trend-period-tabs" id="trend-period-tabs" aria-label="동향 집계 기간">
+        </div>
+        <section class="industry-briefing" id="industry-briefing" aria-labelledby="industry-brief-title">
+          <div class="brief-heading"><h3 id="industry-brief-title">반도체 산업 브리핑</h3><span data-brief-date></span></div>
+          <p data-brief-status role="status">브리핑을 불러오는 중입니다.</p>
+          <div data-brief-body hidden>
+            <p class="brief-caption">산업 근황 · AI 요약</p>
+            <div class="brief-overview" data-brief-overview></div>
+            <h4 class="brief-topics-title">주요 이슈</h4>
+            <div data-brief-issues></div>
+            <details class="brief-sources"><summary>출처·분석 기준</summary><p data-brief-generated></p><ul data-brief-sources></ul></details>
+          </div>
+        </section>
+        <div class="trend-window-heading">
+          <h3>기업 발표 동향</h3>
+          <div class="trend-period-tabs" id="trend-period-tabs" aria-label="기업 발표 집계 기간">
             <button type="button" data-trend-days="7">7일</button>
             <button class="active" type="button" data-trend-days="30">30일</button>
             <button type="button" data-trend-days="90">90일</button>

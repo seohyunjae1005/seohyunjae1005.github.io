@@ -16,7 +16,7 @@ concurrency:
 jobs:
   collect-and-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
 
     steps:
       - name: Check out repository
@@ -68,6 +68,13 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/analyze_monthly_trend.py
 
+      - name: Refresh industry briefing from primary sources
+        continue-on-error: true
+        timeout-minutes: 6
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/build_industry_briefing.py
+
       - name: Build public privacy-safe email digests
         run: |
           DIGEST_DAYS=1 DIGEST_OUTPUT_PATH=docs/newsletter/daily.html DIGEST_META_PATH=docs/newsletter/daily.json python scripts/build_email_digest.py
@@ -75,13 +82,13 @@ jobs:
 
       - name: Commit updated website data
         run: |
-          if git diff --quiet -- docs/data/latest.json docs/newsletter data/translations/ko.json data/analysis/validated_cache.json data/analysis/monthly_trend_cache.json; then
+          if git diff --quiet -- docs/data docs/newsletter data/translations/ko.json data/analysis/validated_cache.json data/analysis/monthly_trend_cache.json; then
             echo "No website data changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/data/latest.json docs/newsletter data/translations/ko.json data/analysis/validated_cache.json data/analysis/monthly_trend_cache.json
+          git add docs/data docs/newsletter data/translations/ko.json data/analysis/validated_cache.json data/analysis/monthly_trend_cache.json
           git commit -m "Update daily semiconductor news"
           git pull --rebase origin main
           git push

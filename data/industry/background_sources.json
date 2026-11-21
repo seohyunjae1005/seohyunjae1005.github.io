@@ -1,0 +1,57 @@
+{
+  "sources": [
+    {
+      "publisher": "IEA",
+      "kind": "연구보고서",
+      "title": "Powering Artificial Intelligence — Executive summary",
+      "url": "https://www.iea.org/reports/powering-artificial-intelligence/executive-summary",
+      "published_at": "2026-10-14",
+      "reviewed_at": "2026-11-21",
+      "scope": "reviewed_excerpt",
+      "body": "Overestimating demand can risk creating stranded or underutilised grid investments, while underestimating it can lead to bottlenecks and delays."
+    },
+    {
+      "publisher": "Samsung Electronics",
+      "kind": "기업 발표",
+      "title": "Samsung Electronics Announces Third Quarter 2026 Results",
+      "url": "https://news.samsung.com/global/samsung-electronics-announces-third-quarter-2026-results",
+      "published_at": "2026-10-29",
+      "period_label": "2026년 3분기",
+      "reviewed_at": "2026-11-21",
+      "scope": "reviewed_excerpt",
+      "body": "The Memory Business achieved another record-breaking quarter by managing its product mix, with a focus on AI products, amid capacity constraints."
+    },
+    {
+      "publisher": "TSMC",
+      "kind": "기업 발표",
+      "title": "TSMC Reports Third Quarter EPS of NT$29.43",
+      "url": "https://pr.tsmc.com/english/news/3346",
+      "published_at": "2026-10-15",
+      "period_label": "2026년 3분기",
+      "reviewed_at": "2026-11-21",
+      "scope": "reviewed_excerpt",
+      "body": "Advanced technologies, defined as 7-nanometer and more advanced technologies, accounted for 79% of total wafer revenue."
+    },
+    {
+      "publisher": "Applied Materials",
+      "kind": "기업 발표",
+      "title": "Applied Materials Announces Fourth Quarter and Fiscal Year 2026 Results",
+      "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-fourth-quarter-and-fiscal-year-2026",
+      "published_at": "2026-11-12",
+      "period_label": "2026 회계연도 4분기",
+      "reviewed_at": "2026-11-21",
+      "scope": "reviewed_excerpt",
+      "body": "Record quarterly revenue $10.41 billion, up 53 percent year over year"
+    },
+    {
+      "publisher": "Applied Materials",
+      "kind": "기업 발표",
+      "title": "Applied Materials to Increase its Strategic Investment in BE Semiconductor Industries",
+      "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-increase-its-strategic-investment-be",
+      "published_at": "2026-10-26",
+      "reviewed_at": "2026-11-21",
+      "scope": "reviewed_excerpt",
+      "body": "The expanded partnership extends the companies’ co-innovation beyond hybrid bonding into new interconnect architectures and applications supporting the semiconductor industry’s AI-driven scaling roadmap."
+    }
+  ]
+}

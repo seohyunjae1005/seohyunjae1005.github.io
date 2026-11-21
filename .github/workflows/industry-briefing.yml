@@ -1,0 +1,61 @@
+name: Industry briefing
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/industry-briefing.yml
+      - scripts/build_industry_briefing.py
+      - src/trend_tracker/industry_briefing.py
+      - data/industry/background_sources.json
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repository-data-updates
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate briefing rules
+        env:
+          PYTHONPATH: src
+        run: python -m unittest discover -s tests -p test_industry_briefing.py -v
+      - name: Refresh verified industry briefing
+        id: briefing
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/build_industry_briefing.py
+      - name: Publish briefing data
+        run: |
+          if [ ! -f docs/data/industry-briefing.json ]; then exit 0; fi
+          git add docs/data/industry-briefing.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Refresh verified industry briefing'
+          git pull --rebase origin main
+          git push
+      - name: Upload validation notes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: industry-briefing-validation
+          path: runtime/industry_briefing_validation.json
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Report generation failure
+        if: steps.briefing.outcome == 'failure'
+        run: exit 1
