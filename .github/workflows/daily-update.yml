@@ -61,9 +61,9 @@ jobs:
       - name: Build public website data
         run: python scripts/build_site.py
 
-      - name: Refresh the 30-day AI trend report
+      - name: Refresh the 7-, 30- and 90-day AI trend reports
         continue-on-error: true
-        timeout-minutes: 5
+        timeout-minutes: 8
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/analyze_monthly_trend.py

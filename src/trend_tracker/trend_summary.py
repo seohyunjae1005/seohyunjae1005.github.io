@@ -136,6 +136,11 @@ def build_trend_summary(articles: list[dict], generated_at: str | None) -> dict:
         str(days): _summarize_window(_window_articles(articles, reference, days))
         for days in WINDOW_DAYS
     }
+    for days in WINDOW_DAYS:
+        windows[str(days)]["company_profiles"] = _company_profiles([
+            row for row in _window_articles(articles, reference, days)
+            if row.get("relevance") == "high"
+        ])
     current_30 = [
         row
         for row in _window_articles(articles, reference, 30)

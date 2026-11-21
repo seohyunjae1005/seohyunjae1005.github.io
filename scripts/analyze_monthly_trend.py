@@ -1,4 +1,4 @@
-"""최근 30일 통계로 근거 ID가 검증되는 AI 종합 리포트를 한 번 생성한다."""
+"""7·30·90일의 개별 근거로 AI 리포트를 생성하고 검증한다."""
 
 from __future__ import annotations
 
@@ -16,11 +16,13 @@ if str(SRC) not in sys.path:
 
 from analyze_sample_articles import DEFAULT_MODEL, call_gemini
 from trend_tracker.monthly_report import (
+    attach_reports,
     build_evidence_pack,
     build_monthly_prompt,
     evidence_fingerprint,
     validate_monthly_report,
 )
+from trend_tracker.trend_summary import build_trend_summary
 
 
 WEB_DATA_PATH = PROJECT_ROOT / "docs" / "data" / "latest.json"
@@ -28,77 +30,80 @@ CACHE_PATH = PROJECT_ROOT / "data" / "analysis" / "monthly_trend_cache.json"
 REPORT_PATH = PROJECT_ROOT / "runtime" / "monthly_trend_validation.md"
 
 
-def attach_to_web_data(payload: dict, cache: dict) -> None:
-    payload["monthly_trend_report"] = {
-        "generated_at": cache.get("generated_at"),
-        "model": cache.get("model"),
-        "report": cache.get("report"),
-        "evidence": cache.get("evidence"),
-        "notice": "공식 기사 통계와 제목만 사용하고 근거 ID를 자동 검사한 AI 참고용 리포트입니다.",
-    }
-    WEB_DATA_PATH.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+def write_json(path: Path, data: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    temporary.replace(path)
 
 
 def main() -> None:
     payload = json.loads(WEB_DATA_PATH.read_text(encoding="utf-8"))
-    pack = build_evidence_pack(payload)
-    fingerprint = evidence_fingerprint(pack)
-    if CACHE_PATH.exists():
-        try:
-            cached = json.loads(CACHE_PATH.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            cached = {}
-        if (
-            cached.get("source_fingerprint") == fingerprint
-            and cached.get("validation_status") == "PASS"
-        ):
-            attach_to_web_data(payload, cached)
-            print("동향 근거가 이전 실행과 같아 기존 리포트를 사용합니다. API 호출: 0회")
-            return
-
+    reference_at = (payload.get("trend_summary") or {}).get("reference_at") or payload.get("generated_at")
+    payload["trend_summary"] = build_trend_summary(payload.get("articles", []), reference_at)
+    try:
+        cache = json.loads(CACHE_PATH.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        cache = {}
+    if not isinstance(cache, dict):
+        cache = {}
+    entries = cache.get("reports")
+    if not isinstance(entries, dict):
+        entries = {"30": cache} if cache.get("report") else {}
+    cache = {"reports": entries}
     api_key = os.environ.get("GEMINI_API_KEY", "").strip()
-    if not api_key:
-        raise SystemExit("GEMINI_API_KEY가 없습니다. GitHub Actions 비밀키를 확인하세요.")
     model = os.environ.get("GEMINI_MODEL", DEFAULT_MODEL).strip() or DEFAULT_MODEL
-    report, used_model = call_gemini(build_monthly_prompt(pack), api_key, model)
-    issues = validate_monthly_report(report, pack)
-    status = "PASS" if not issues else "FAIL"
-    generated_at = datetime.now(timezone.utc).isoformat()
-    cache = {
-        "report_version": report.get("report_version"),
-        "source_fingerprint": fingerprint,
-        "generated_at": generated_at,
-        "model": used_model,
-        "validation_status": status,
-        "validation_issues": issues,
-        "report": report,
-        "evidence": pack,
-    }
+    notes = ["# 기간별 AI 리포트 검증", ""]
+    failures = []
+    calls = 0
+    for days in (7, 30, 90):
+        pack = build_evidence_pack(payload, days)
+        fingerprint = evidence_fingerprint(pack)
+        cached = entries.get(str(days))
+        if (
+            isinstance(cached, dict)
+            and cached.get("source_fingerprint") == fingerprint
+            and cached.get("validation_status") == "PASS"
+            and not validate_monthly_report(cached.get("report"), pack)
+        ):
+            notes.append(f"- 최근 {days}일: 기존 근거 일치, 캐시 사용")
+            continue
+        if not pack["metrics"] or not pack["articles"]:
+            entries.pop(str(days), None)
+            notes.append(f"- 최근 {days}일: 분석 근거 부족")
+            continue
+        try:
+            if not api_key:
+                raise ValueError("GEMINI_API_KEY가 없습니다.")
+            calls += 1
+            report, used_model = call_gemini(build_monthly_prompt(pack), api_key, model)
+            issues = validate_monthly_report(report, pack)
+            if issues:
+                raise ValueError(" / ".join(issues))
+            entries[str(days)] = {
+                "source_fingerprint": fingerprint,
+                "generated_at": datetime.now(timezone.utc).isoformat(),
+                "model": used_model,
+                "validation_status": "PASS",
+                "report": report,
+                "evidence": pack,
+            }
+            write_json(CACHE_PATH, cache)
+            notes.append(
+                f"- 최근 {days}일: PASS, 통계 {len(pack['metrics'])}개, 기사 {len(pack['articles'])}개"
+            )
+        except Exception as error:
+            failures.append(f"최근 {days}일: {type(error).__name__}")
+            notes.append(f"- 최근 {days}일: FAIL ({type(error).__name__}: {str(error)[:300]})")
+    attach_reports(payload, cache)
+    write_json(CACHE_PATH, cache)
+    write_json(WEB_DATA_PATH, payload)
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    REPORT_PATH.write_text(
-        "\n".join(
-            [
-                "# 월간 AI 동향 리포트 검증",
-                "",
-                f"- 상태: **{status}**",
-                f"- 모델: `{used_model}`",
-                f"- 통계 근거: {len(pack['metrics'])}개",
-                f"- 기사 제목 근거: {len(pack['articles'])}개",
-                *(f"- [FAIL] {issue}" for issue in issues),
-                "",
-            ]
-        ),
-        encoding="utf-8",
-    )
-    if issues:
-        raise SystemExit("월간 리포트 검증 실패: " + " / ".join(issues))
-    CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
-    attach_to_web_data(payload, cache)
-    print("월간 AI 동향 리포트 생성 및 근거 ID 검증: PASS")
-    print("Gemini API 호출: 1회")
+    notes.append(f"- API 요청 작업: {calls}회")
+    REPORT_PATH.write_text("\n".join(notes) + "\n", encoding="utf-8")
+    print("\n".join(notes))
+    if failures:
+        raise SystemExit("기간별 리포트 일부 생성 실패: " + " / ".join(failures))
 
 
 if __name__ == "__main__":

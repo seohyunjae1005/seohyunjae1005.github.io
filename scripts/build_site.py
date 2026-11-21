@@ -20,6 +20,7 @@ from trend_tracker.classification import (
     enrich_article,
 )
 from trend_tracker.trend_summary import build_trend_summary, validate_trend_summary
+from trend_tracker.monthly_report import attach_reports
 
 INPUT_PATH = PROJECT_ROOT / "data" / "processed" / "latest_semiconductor_news.json"
 OUTPUT_PATH = PROJECT_ROOT / "docs" / "data" / "latest.json"
@@ -92,7 +93,7 @@ def _monthly_trend_cache() -> dict:
     except json.JSONDecodeError:
         print("경고: 월간 AI 동향 캐시가 손상되어 통계 동향판만 게시합니다.")
         return {}
-    if payload.get("validation_status") != "PASS" or not isinstance(payload.get("report"), dict):
+    if not isinstance(payload, dict):
         return {}
     return payload
 
@@ -171,15 +172,7 @@ def main() -> None:
     trend_issues = validate_trend_summary(payload["trend_summary"], payload["articles"])
     if trend_issues:
         raise SystemExit("동향 집계 검증 실패: " + " / ".join(trend_issues))
-    monthly_cache = _monthly_trend_cache()
-    if monthly_cache:
-        payload["monthly_trend_report"] = {
-            "generated_at": monthly_cache.get("generated_at"),
-            "model": monthly_cache.get("model"),
-            "report": monthly_cache.get("report"),
-            "evidence": monthly_cache.get("evidence"),
-            "notice": "공식 기사 통계와 제목만 사용하고 근거 ID를 자동 검사한 AI 참고용 리포트입니다.",
-        }
+    attach_reports(payload, _monthly_trend_cache())
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2),

@@ -8,7 +8,7 @@
       content="주요 반도체 기업의 공식 뉴스룸에서 기술 동향과 기업 맥락을 추적합니다."
     />
     <title>반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261113-1" />
+    <link rel="stylesheet" href="styles.css?v=20261121-1" />
     <script src="pdf-import.js?v=20261001-2" defer></script>
     <script src="jd-analyzer-v4.js?v=20261007-7" defer></script>
     <script src="jd-recall-questions.js?v=20261108-3" defer></script>
@@ -23,7 +23,7 @@
     <script src="experience-organizer.js?v=20261121-1" defer></script>
     <script src="cover-letter-library.js?v=20261121-1" defer></script>
     <link rel="stylesheet" href="cover-letter-library.css?v=20261121-1" />
-    <script src="app.js?v=20261113-1" defer></script>
+    <script src="app.js?v=20261121-1" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -62,7 +62,10 @@
           </div>
         </div>
         <details class="monthly-ai-report" id="monthly-ai-report" hidden>
-          <summary class="monthly-report-heading"><strong>최근 30일 AI 리포트</strong><time id="monthly-report-date"></time></summary>
+          <summary class="monthly-report-heading"><strong id="trend-report-label">최근 30일 AI 리포트</strong><span id="monthly-report-date"></span></summary>
+          <p id="trend-report-status" role="status" hidden></p>
+          <div id="monthly-report-body">
+          <p id="trend-report-period"></p>
           <h3 id="monthly-report-title"></h3>
           <p class="monthly-report-summary" id="monthly-report-summary"></p>
           <button class="process-focus-button" id="process-focus-button" type="button">공정·양산 기사 보기</button>
@@ -76,6 +79,7 @@
             <div id="monthly-evidence-list"></div>
             <ul id="monthly-limitations"></ul>
           </details>
+          </div>
         </details>
 
         <div class="trend-metrics" aria-label="선택 기간 동향 현황">

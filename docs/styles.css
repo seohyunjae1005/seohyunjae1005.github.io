@@ -155,7 +155,11 @@ main { max-width: var(--max); margin: 0 auto; padding: 0.9rem 1.25rem 3rem; }
 .monthly-ai-report { margin-top: 1rem; padding: 1.2rem; border: 1px solid var(--line-strong); border-radius: 0.35rem; background: var(--accent-soft); }
 .monthly-report-heading { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
 .monthly-report-heading h3 { margin: 0; font-size: 1.05rem; }
-.monthly-report-heading > span { color: var(--muted); font-size: 0.68rem; }
+.monthly-report-heading > span { color: var(--muted); font-size: 0.88rem; }
+.monthly-ai-report [hidden] { display: none !important; }
+#trend-report-period, #trend-report-status { font-size: 0.95rem; line-height: 1.65; }
+.monthly-report-grid article details { font-size: 0.88rem; }
+.monthly-report-grid article details summary { cursor: pointer; }
 .monthly-report-summary { margin: 0.7rem 0; color: var(--text); font-size: 0.85rem; }
 .process-focus-button { margin: 0 0 0.8rem; padding: 0.55rem 0.8rem; border: 1px solid var(--accent); border-radius: 0.35rem; background: var(--surface); color: var(--accent-strong); cursor: pointer; }
 .process-focus-button:hover, .process-focus-button:focus-visible { background: var(--accent); color: #ffffff; }

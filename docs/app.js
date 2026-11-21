@@ -10,6 +10,7 @@ const state = {
   trendDays: "30",
   trendSummary: null,
   monthlyTrendReport: null,
+  trendReports: {},
   processFocus: false,
   chapter: "trend",
   jdAnalysis: null,
@@ -193,7 +194,7 @@ function profileTags(rows) {
 function renderCompanyProfiles(rows) {
   const container = document.querySelector("#company-profile-list");
   if (!Array.isArray(rows) || rows.length === 0) {
-    container.innerHTML = '<p class="trend-empty">최근 30일 핵심 기업 신호가 없습니다.</p>';
+    container.innerHTML = `<p class="trend-empty">최근 ${Number(state.trendDays)}일 핵심 기업 신호가 없습니다.</p>`;
     return;
   }
   container.innerHTML = rows.map((row) => `
@@ -208,23 +209,41 @@ function renderCompanyProfiles(rows) {
 }
 
 function renderMonthlyReport() {
-  const payload = state.monthlyTrendReport;
+  const days = Number(state.trendDays);
+  const payload = state.trendReports[state.trendDays] || (days === 30 ? state.monthlyTrendReport : null);
   const container = document.querySelector("#monthly-ai-report");
-  const report = payload?.report;
+  const periodDays = payload?.window_days ?? payload?.evidence?.window_days ?? 30;
+  const evidenceAt = Date.parse(payload?.evidence?.reference_at);
+  const currentAt = Date.parse(state.trendSummary?.reference_at);
+  const report = periodDays === days && Number.isFinite(evidenceAt) && evidenceAt === currentAt ? payload?.report : null;
+  const status = document.querySelector("#trend-report-status");
+  document.querySelector("#trend-report-label").textContent = `최근 ${days}일 AI 리포트`;
+  document.querySelector("#monthly-report-body").hidden = !report;
+  document.querySelector("#monthly-report-date").textContent = "";
+  container.hidden = false;
   if (!report) {
-    container.hidden = true;
+    status.hidden = false;
+    status.textContent = state.trendSummary?.windows?.[state.trendDays]?.high_relevance_count
+      ? "선택한 기간의 최신 리포트를 준비하고 있습니다."
+      : "선택한 기간에 AI 분석의 근거로 사용할 핵심 기사가 부족합니다.";
     return;
   }
-  container.hidden = false;
-  document.querySelector("#monthly-report-title").textContent = report.headline_ko || "최근 30일 공정 직무 동향";
+  status.hidden = true;
+  status.textContent = "";
+  const start = payload.evidence?.period_start || new Date(evidenceAt - days * 86400000).toISOString();
+  document.querySelector("#trend-report-period").textContent = `기사 ${formatDate(start)} ~ ${formatDate(payload.evidence.reference_at)} · 공식 발표 기반 AI 해석`;
+  document.querySelector("#monthly-report-title").textContent = report.headline_ko || `최근 ${days}일 공정 직무 동향`;
   document.querySelector("#monthly-report-date").textContent = `분석 ${formatDate(payload.generated_at)}`;
   document.querySelector("#monthly-report-summary").textContent = report.summary_ko || "";
   const metrics = new Map((payload.evidence?.metrics || []).map((row) => [row.id, row.text_ko]));
   const articles = new Map((payload.evidence?.articles || []).map((row) => [row.id, row]));
+  const metricEvidence = ids => `<details><summary>근거 보기</summary>${(ids || []).filter(id => metrics.has(id))
+    .map(id => `<p>${escapeHtml(metrics.get(id))}</p>`).join("")}</details>`;
   document.querySelector("#monthly-findings").innerHTML = (report.key_findings || []).map((row) => `
     <article>
       <strong>${escapeHtml(row.title_ko)}</strong>
       <p>${escapeHtml(row.interpretation_ko)}</p>
+      ${metricEvidence(row.evidence_metric_ids)}
     </article>
   `).join("");
   const processActions = (report.role_actions || []).filter((row) => row.role === "공정기술·양산기술");
@@ -235,21 +254,26 @@ function renderMonthlyReport() {
       <ul>${(row.watch_points_ko || []).map((value) => `<li>${escapeHtml(value)}</li>`).join("")}</ul>
       <span>취업 준비 학습</span>
       <ul>${(row.study_points_ko || []).map((value) => `<li>${escapeHtml(value)}</li>`).join("")}</ul>
+      ${metricEvidence(row.evidence_metric_ids)}
     </article>
   `).join("") || '<p class="trend-empty">공정 직무 제안이 검증되지 않아 표시하지 않습니다.</p>';
   document.querySelector("#monthly-company-insights").innerHTML = (report.company_insights || []).map((row) => `
     <article>
       <strong>${escapeHtml(row.company)}</strong>
       <p>${escapeHtml(row.observation_ko)}</p>
+      <details><summary>공식 원문</summary>${(row.evidence_article_ids || []).filter(id => articles.has(id)).map(id => {
+        const article = articles.get(id);
+        return `<p><a href="${escapeHtml(article.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(article.title)}</a> · ${formatDate(article.published_at)}</p>`;
+      }).join("")}</details>
     </article>
   `).join("");
-  const citedMetricIds = new Set((report.key_findings || []).flatMap((row) => row.evidence_metric_ids || []));
+  const citedMetricIds = new Set([...(report.key_findings || []), ...(report.role_actions || [])].flatMap((row) => row.evidence_metric_ids || []));
   const citedArticleIds = new Set((report.company_insights || []).flatMap((row) => row.evidence_article_ids || []));
   document.querySelector("#monthly-evidence-list").innerHTML = [
-    ...[...citedMetricIds].map((id) => metrics.has(id) ? `<p><strong>${escapeHtml(id)}</strong> ${escapeHtml(metrics.get(id))}</p>` : ""),
+    ...[...citedMetricIds].map((id) => metrics.has(id) ? `<p>${escapeHtml(metrics.get(id))}</p>` : ""),
     ...[...citedArticleIds].map((id) => {
       const row = articles.get(id);
-      return row ? `<p><strong>${escapeHtml(id)}</strong> <a href="${escapeHtml(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.company)} — ${escapeHtml(row.title)}</a></p>` : "";
+      return row ? `<p><a href="${escapeHtml(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.company)} — ${escapeHtml(row.title)}</a> · ${formatDate(row.published_at)}</p>` : "";
     }),
   ].join("");
   document.querySelector("#monthly-limitations").innerHTML = (report.limitations_ko || []).map((value) => `<li>${escapeHtml(value)}</li>`).join("");
@@ -272,7 +296,7 @@ function renderTrendSummary() {
   document.querySelector("#trend-company-list").innerHTML = rankingList(windowData.top_companies);
   document.querySelector("#momentum-tech-list").innerHTML = momentumList(summary.momentum_30d?.tech_domains);
   document.querySelector("#momentum-job-list").innerHTML = momentumList(summary.momentum_30d?.job_roles);
-  renderCompanyProfiles(summary.company_profiles_30d);
+  renderCompanyProfiles(windowData.company_profiles || (state.trendDays === "30" ? summary.company_profiles_30d : []));
   document.querySelector("#momentum-panel").hidden = state.trendDays !== "30";
 }
 
@@ -285,6 +309,7 @@ function bindTrendPeriodTabs() {
     });
     state.trendDays = button.dataset.trendDays;
     renderTrendSummary();
+    renderMonthlyReport();
   });
 }
 
@@ -2561,6 +2586,7 @@ async function loadData() {
     const options = data.filter_options || {};
     state.trendSummary = data.trend_summary || null;
     state.monthlyTrendReport = data.monthly_trend_report || null;
+    state.trendReports = data.trend_reports || {};
     state.translatedCount = Number(data.translation?.translated_count || 0);
     document.querySelector("#updated").textContent = `최근 갱신 ${formatDate(data.generated_at)}`;
     createCompanyFilters(companies);

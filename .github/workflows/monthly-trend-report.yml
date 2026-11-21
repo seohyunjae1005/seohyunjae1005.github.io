@@ -1,4 +1,4 @@
-name: Monthly process job trend report
+name: Period AI trend reports
 
 on:
   workflow_dispatch:
@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - .github/workflows/monthly-trend-report.yml
+      - scripts/analyze_monthly_trend.py
+      - src/trend_tracker/monthly_report.py
 
 permissions:
   contents: write
@@ -17,7 +19,7 @@ concurrency:
 jobs:
   analyze-and-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: Check out repository
@@ -30,7 +32,9 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Build one evidence-grounded process job report
+      - name: Build period-specific evidence-grounded reports
+        id: generate
+        continue-on-error: true
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/analyze_monthly_trend.py
@@ -56,3 +60,7 @@ jobs:
           path: runtime/monthly_trend_validation.md
           if-no-files-found: warn
           retention-days: 7
+
+      - name: Report incomplete generation
+        if: steps.generate.outcome == 'failure'
+        run: exit 1
