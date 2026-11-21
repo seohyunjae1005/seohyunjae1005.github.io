@@ -26,6 +26,18 @@
           url.protocol !== 'https:' || url.hostname !== 'sshmyb.tistory.com') throw new Error('자료 항목 오류');
       ids.add(item.id);
     }
+    if (raw.studyGuide) {
+      const guide = raw.studyGuide;
+      if (guide.version !== 1 || !Array.isArray(guide.stages) || !Array.isArray(guide.priorities) || !Array.isArray(guide.sources)) throw new Error('학습 가이드 형식 오류');
+      const sources = new Set(guide.sources.map(source => source.id));
+      const stages = new Set(guide.stages.map(stage => stage.id));
+      if (sources.size !== guide.sources.length || stages.size !== guide.stages.length || guide.sources.some(source => new URL(source.url).protocol !== 'https:')) throw new Error('학습 출처 형식 오류');
+      for (const row of [...guide.stages,...guide.priorities]) {
+        if (!Array.isArray(row.posts) || !row.posts.length || new Set(row.posts).size !== row.posts.length || row.posts.some(post => !ids.has('ddan-' + post))) throw new Error('학습 경로 형식 오류');
+        if (row.sources?.some(id => !sources.has(id))) throw new Error('학습 근거 형식 오류');
+      }
+      if (raw.items.some(item => item.reviewNote?.sources.some(id => !sources.has(id)))) throw new Error('확인 메모 출처 오류');
+    }
     return raw;
   }
   function normalizeState(raw) {
@@ -56,7 +68,10 @@
     const topicMap = new Map(catalog.topics.map(t => [t.id, t]));
     const terms = String(filter.search || '').trim().split(/\s+/).filter(Boolean).map(normalize);
     const order = new Map(catalog.topics.map((t,i) => [t.id,i]));
+    const stage = catalog.studyGuide?.stages.find(row => row.id === filter.stage);
+    const stageOrder = stage ? new Map(stage.posts.map((post,i) => ['ddan-' + post,i])) : null;
     return catalog.items.filter(item => {
+      if (stageOrder && !stageOrder.has(item.id)) return false;
       if (filter.group && !item.topics.some(t => topicMap.get(t).group === filter.group)) return false;
       if (filter.topic && !item.topics.includes(filter.topic)) return false;
       const note = noteFor(notes,item.id);
@@ -65,7 +80,7 @@
       if (filter.state === 'written' && !note.answer.trim() && !note.memo.trim()) return false;
       const haystack = normalize([item.title,item.originalTitle,item.aliases].join(' '));
       return terms.every(term => haystack.includes(term));
-    }).sort((a,b) => order.get(a.primary)-order.get(b.primary) || a.sortOrder[0]-b.sortOrder[0] || a.sortOrder[1]-b.sortOrder[1] || a.order-b.order);
+    }).sort((a,b) => (stageOrder ? stageOrder.get(a.id)-stageOrder.get(b.id) : order.get(a.primary)-order.get(b.primary)) || a.sortOrder[0]-b.sortOrder[0] || a.sortOrder[1]-b.sortOrder[1] || a.order-b.order);
   }
   function noteText(item, note) {
     return [item.title, '원문: ' + item.url, note.answer.trim() ? '[내 답변]\n' + note.answer.trim() : '',
@@ -78,6 +93,7 @@
   let storage = null;
   let storageReadError = false;
   let copyVersion = 0;
+  let selectedStage = '';
   let root;
   const field = name => root.querySelector('[data-interview="' + name + '"]');
   const options = rows => rows.map(([id,name]) => '<option value="' + escape(id) + '">' + escape(name) + '</option>').join('');
@@ -102,6 +118,7 @@
     const item = catalog.items.find(item => item.id === card.dataset.interviewId);
     const note = noteFor(state.notes,item.id);
     card.querySelector('[data-interview-body]').innerHTML = `<div class="interview-source-row"><a href="${escape(item.url)}" target="_blank" rel="noopener noreferrer">원문 보기</a><span>${escape(item.publishedAt)}</span></div>
+      ${item.reviewNote ? `<aside class="process-reading-note"><h3>${escape(item.reviewNote.title)}</h3><p>${escape(item.reviewNote.text)}</p>${sourceLinks(item.reviewNote.sources)}</aside>` : ''}
       ${item.format === 'image' ? '<p class="interview-material-note">이미지 슬라이드 자료입니다. 원문에서 확인하세요.</p>' : ''}
       <label class="interview-answer-label">${item.format === 'index' ? '학습 메모' : '내 답변'}<textarea data-note-field="answer" rows="5" placeholder="원문을 읽고 내 말로 정리하세요.">${escape(note.answer)}</textarea></label>
       <label class="interview-memo-label">헷갈리는 점<textarea data-note-field="memo" rows="2" placeholder="다시 확인할 개념이나 질문">${escape(note.memo)}</textarea></label>
@@ -113,11 +130,15 @@
   function renderList() {
     const oldOpen = new Set([...field('list').querySelectorAll('details[data-interview-id][open]')].map(node => node.dataset.interviewId));
     const topicMap = new Map(catalog.topics.map(t => [t.id,t]));
-    const shown = filterItems(catalog,filters(),state.notes);
+    const shown = filterItems(catalog,{...filters(),stage:selectedStage},state.notes);
     field('count').textContent = '자료 ' + shown.length + '개';
+    const stage = catalog.studyGuide?.stages.find(row => row.id === selectedStage);
+    field('route').hidden = !stage;
+    field('route-name').textContent = stage ? '학습 경로: ' + stage.title : '';
+    root.querySelectorAll('[data-study-stage]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.studyStage === selectedStage)));
     field('list').innerHTML = shown.map(item => {
       const note = noteFor(state.notes,item.id);
-      const format = item.format === 'image' ? ' · 이미지 자료' : item.format === 'index' ? ' · 목차' : '';
+      const format = (item.format === 'image' ? ' · 이미지 자료' : item.format === 'index' ? ' · 목차' : '') + (item.reviewNote ? ' · 확인 메모' : '');
       return `<details class="interview-item" data-interview-id="${item.id}"${oldOpen.has(item.id) ? ' open' : ''}>
         <summary><button type="button" data-star aria-pressed="${note.starred}" aria-label="${escape(item.title)} 북마크" title="북마크">${note.starred ? '★' : '☆'}</button>
           <span class="interview-summary"><strong>${escape(item.title)}</strong><span>${escape(topicMap.get(item.primary).name + format)}<span data-note-badge>${note.status === 'new' ? '' : ' · ' + states[note.status]}</span></span></span></summary>
@@ -125,17 +146,33 @@
     }).join('') || '<p class="interview-empty">조건에 맞는 자료가 없습니다.</p>';
     field('list').querySelectorAll('details[open]').forEach(fillBody);
   }
+  function sourceLinks(ids) {
+    const sources = catalog.studyGuide?.sources || [];
+    return `<div class="process-guide-links">${ids.map(id => sources.find(source => source.id === id)).filter(Boolean).map(source => `<a href="${escape(source.url)}" target="_blank" rel="noopener noreferrer">${escape(source.title)}</a>`).join('')}</div>`;
+  }
+  function renderGuide() {
+    const guide = catalog.studyGuide;
+    if (!guide) { field('guide').hidden = true; return; }
+    field('guide').hidden = false;
+    const related = posts => `<div class="process-related">${posts.map(post => catalog.items.find(item => item.id === 'ddan-' + post)).filter(Boolean).map(item => `<button type="button" data-study-post="${item.id}">${escape(item.title)}</button>`).join('')}</div>`;
+    field('guide').innerHTML = `<h3>공정기술 면접 학습</h3><p>${escape(guide.summary)}</p>
+      <p class="process-answer-frame">${escape(guide.answerFrame)}</p>
+      <details class="process-learning-path" open><summary>추천 학습 순서</summary><ol>${guide.stages.map(stage => `<li><button type="button" data-study-stage="${escape(stage.id)}" aria-pressed="false">${escape(stage.title)}<span>자료 ${stage.posts.length}편 보기</span></button><p>${escape(stage.description)}</p></li>`).join('')}</ol></details>
+      <details class="process-priorities"><summary>보강할 6가지 · 연습 질문과 답변 방향</summary><p>아래는 학습을 위한 가상 질문과 답변 예시입니다. 실제 경험이나 특정 회사의 정답을 뜻하지 않습니다.</p>
+        ${guide.priorities.map(row => `<details class="process-priority"><summary>${escape(row.title)}</summary><div><p>${escape(row.assessment)}</p><h4>보강할 내용</h4><p>${escape(row.learn)}</p><h4>연습 질문</h4><p class="process-practice-question">${escape(row.question)}</p><h4>답변 방향 예시</h4><p>${escape(row.direction)}</p><p class="process-avoid"><strong>피할 답변</strong> · ${escape(row.avoid)}</p><h4>기존 자료와 연결하기</h4>${related(row.posts)}${sourceLinks(row.sources)}</div></details>`).join('')}</details>
+      <details class="process-review-basis"><summary>검토 범위와 기준</summary><p>${escape(guide.scope)}</p><p>공식 직무 소개와 공개 기술 자료를 대조한 학습 추천입니다. 기업의 내부 평가표나 실제 출제 기준은 아닙니다. 확인 메모는 발견한 부분만 표시합니다.</p><p>검토일 ${escape(guide.reviewedAt)} · 기존 원문 제목은 각 자료의 ‘자료 정보’에서 볼 수 있습니다.</p>${sourceLinks(['samsung-role','hynix-role'])}</details>`;
+  }
   async function loadCatalog() {
     if (loading) return loading;
     field('loading').hidden = false; field('loading').textContent = '자료 불러오는 중…';
     field('content').hidden = true;
     loading = (async () => {
       try {
-        const response = await fetch('interview/catalog.json?v=20261121-1');
+        const response = await fetch('interview/catalog.json?v=20261121-3');
         if (!response.ok) throw new Error('fetch');
         catalog = validateCatalog(await response.json());
         field('group').innerHTML = '<option value="">전체 분야</option>' + options(catalog.groups.map(g => [g.id,g.name]));
-        renderTopics(); renderList();
+        renderTopics(); renderGuide(); renderList();
         field('info').textContent = catalog.source + ' · ' + catalog.collectedAt + ' 수집 목록. 제목과 목록을 기준으로 재분류했으며 본문은 포함하지 않습니다. 원문은 새 창에서 열립니다. 복습 상태와 답변은 이 브라우저에만 저장됩니다.';
         field('loading').hidden = true; field('content').hidden = false;
       } catch (_) {
@@ -155,10 +192,12 @@
       <div id="equipment-interview-panel" role="tabpanel" aria-labelledby="equipment-interview-tab" data-interview="equipment"></div>
       <div id="process-study-panel" role="tabpanel" aria-labelledby="process-study-tab" data-interview="study" hidden>
       <p data-interview="loading" role="status"></p><div data-interview="content" hidden>
+      <section data-interview="guide" class="process-study-guide" aria-label="공정기술 학습 가이드"></section>
       <div class="interview-filters"><label>분야<select data-interview="group"></select></label><label>주제<select data-interview="topic"></select></label>
         <label>내 기록<select data-interview="state">${options([['','전체'],['starred','북마크'],['review','복습 필요'],['done','정리 완료'],['written','작성한 자료'],['new','미정리']])}</select></label>
         <label>검색<input data-interview="search" type="search" placeholder="제목·키워드"></label></div>
       <div class="interview-result-line"><p data-interview="count"></p><button type="button" data-interview="reset">필터 초기화</button></div>
+      <div data-interview="route" class="process-active-route" hidden><span data-interview="route-name"></span><button type="button" data-study-all>전체 자료로 돌아가기</button></div>
       <div data-interview="list" class="interview-list"></div>
       <details class="interview-info"><summary>자료 안내</summary><p data-interview="info"></p></details></div></div>`;
     function showView(view) {
@@ -179,8 +218,20 @@
     });
     for (const name of ['group','topic','state']) field(name).addEventListener('change', () => { if (name === 'group') renderTopics(); renderList(); });
     field('search').addEventListener('input',renderList);
-    field('reset').addEventListener('click', () => { for (const key of ['group','state','search']) field(key).value = ''; renderTopics(); field('topic').value = ''; renderList(); });
-    root.addEventListener('click', event => { if (event.target.closest('[data-interview-retry]')) loadCatalog(); });
+    function resetStudy() { selectedStage = ''; for (const key of ['group','state','search']) field(key).value = ''; renderTopics(); field('topic').value = ''; }
+    field('reset').addEventListener('click', () => { resetStudy(); renderList(); });
+    root.addEventListener('click', event => {
+      if (event.target.closest('[data-interview-retry]')) loadCatalog();
+      const stage = event.target.closest('[data-study-stage]');
+      const post = event.target.closest('[data-study-post]');
+      if (stage) { resetStudy(); selectedStage = stage.dataset.studyStage; renderList(); field('count').scrollIntoView({block:'start'}); }
+      if (event.target.closest('[data-study-all]')) { resetStudy(); renderList(); }
+      if (post) {
+        resetStudy(); renderList();
+        const card = field('list').querySelector('[data-interview-id="' + post.dataset.studyPost + '"]');
+        if (card) { card.open = true; fillBody(card); card.scrollIntoView({block:'start'}); card.querySelector('summary').focus({preventScroll:true}); }
+      }
+    });
     field('list').addEventListener('toggle',event => { if (event.target.matches('details[data-interview-id]') && event.target.open) fillBody(event.target); },true);
     field('list').addEventListener('click', async event => {
       const card = event.target.closest('[data-interview-id]'); if (!card) return;

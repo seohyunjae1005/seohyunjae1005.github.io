@@ -37,6 +37,26 @@ assert.deepEqual(prep.filterItems(catalog,{search:'TSV'}).map(item => item.id),[
 assert.equal(prep.filterItems(catalog,{search:'존재하지않는검색어'}).length,0);
 assert(prep.filterItems(catalog,{topic:'photo',search:'EUV'}).length > 1);
 
+// Learning routes select existing material in a deliberate reading order.
+assert.equal(catalog.studyGuide.priorities.length,6);
+assert.equal(catalog.studyGuide.reviewedPostIds.length,27);
+for (const stage of catalog.studyGuide.stages) {
+  assert.deepEqual(prep.filterItems(catalog,{stage:stage.id}).map(item => item.id),stage.posts.map(post => 'ddan-' + post));
+}
+assert.equal(prep.filterItems(catalog,{stage:'core',topic:'photo'}).length,1);
+assert(prep.filterItems(catalog,{stage:'core',search:'존재하지않는검색어'}).length === 0);
+assert.match(byId(308).title,/산화·확산·열처리/);
+assert.match(byId(213).reviewNote.text,/양·음/);
+assert.match(byId(197).reviewNote.text,/저자가 만든 예시/);
+assert.equal(catalog.items.filter(item => item.reviewNote).length,4);
+assert(prep.filterItems(catalog,{search:'Diffusion'}).some(item => item.id === 'ddan-308')); // Original title remains searchable after retitling.
+const badRoute = JSON.parse(JSON.stringify(catalog)); badRoute.studyGuide.stages[0].posts.push(999999);
+assert.throws(() => prep.validateCatalog(badRoute));
+const badGuideSource = JSON.parse(JSON.stringify(catalog)); badGuideSource.studyGuide.sources[0].url='javascript:alert(1)';
+assert.throws(() => prep.validateCatalog(badGuideSource));
+const badReviewSource = JSON.parse(JSON.stringify(catalog)); badReviewSource.items.find(item => item.reviewNote).reviewNote.sources.push('missing');
+assert.throws(() => prep.validateCatalog(badReviewSource));
+
 // Notes are user-owned material, never article bodies or automatically graded answers.
 const current = { version:1, notes:{ 'ddan-4': { answer:'직접 정리한 첫 답변', memo:'분해능 조건 다시 확인', status:'review', starred:true } } };
 assert.equal(prep.filterItems(catalog,{state:'starred'},current.notes).length,1);

@@ -30,5 +30,14 @@ class InterviewCatalogTests(unittest.TestCase):
         self.assertEqual(builder.classify('jeongjuhaeng-metal-03-schottky-ohmic.md'),('contact',['metal']))
         self.assertEqual(builder.classify('jeongjuhaeng-photo-tutor-07-lowk1.md'),('photo',[]))
 
+    def test_review_preserves_originals_and_limits_its_claims(self):
+        source = json.loads((ROOT/'config/interview_source_metadata.json').read_text(encoding='utf-8'))
+        catalog = builder.build(source)
+        originals = {row['url']: row['title'] for row in source['items']}
+        self.assertTrue(all(row['originalTitle'] == originals[row['url']] for row in catalog['items']))
+        self.assertIn('표본',catalog['studyGuide']['scope'])
+        self.assertEqual(len(catalog['studyGuide']['reviewedPostIds']),27)
+        self.assertEqual({row['postId'] for row in catalog['items'] if 'reviewNote' in row},{'283','308','213','197'})
+
 if __name__ == '__main__':
     unittest.main()
