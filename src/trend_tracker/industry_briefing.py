@@ -16,6 +16,7 @@ from xml.etree import ElementTree
 from trend_tracker.article_body import USER_AGENT, _html_block_body, _json_ld_body
 
 VERSION = "industry_briefing_v1"
+PROMPT_VERSION = 1
 AREAS = ("메모리", "파운드리", "첨단 패키징", "장비")
 HOSTS = {
     "www.semiconductors.org", "news.samsung.com", "pr.tsmc.com",
@@ -179,7 +180,8 @@ def fingerprint(sources: list[dict]) -> str:
     data = [{key: row.get(key) for key in (
         "id", "publisher", "kind", "title", "url", "published_at", "body", "scope"
     )} for row in sources]
-    return hashlib.sha256(json.dumps(data, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+    encoded = {"version": VERSION, "prompt_version": PROMPT_VERSION, "sources": data}
+    return hashlib.sha256(json.dumps(encoded, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
 def build_prompt(sources: list[dict]) -> str:
