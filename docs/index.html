@@ -25,7 +25,9 @@
     <script src="experience-organizer.js?v=20261121-2" defer></script>
     <script src="cover-letter-library.js?v=20261121-2" defer></script>
     <link rel="stylesheet" href="cover-letter-library.css?v=20261121-2" />
-    <script src="app.js?v=20261121-1" defer></script>
+    <script src="interview-prep.js?v=20261121-1" defer></script>
+    <link rel="stylesheet" href="interview-prep.css?v=20261121-1" />
+    <script src="app.js?v=20261121-2" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -47,6 +49,7 @@
           <button id="news-tab" type="button" role="tab" aria-selected="false" data-chapter="news">최신 뉴스</button>
           <button id="profile-tab" type="button" role="tab" aria-selected="false" aria-controls="profile-chapter" data-chapter="profile">이력서</button>
           <button id="jd-tab" type="button" role="tab" aria-selected="false" aria-controls="library-chapter" data-chapter="jd">합격 자소서</button>
+          <button id="interview-tab" type="button" role="tab" aria-selected="false" aria-controls="interview-chapter" data-chapter="interview">면접 대비</button>
           <button id="assessment-tab" type="button" role="tab" aria-selected="false" aria-controls="assessment-chapter" data-chapter="assessment">인적성 및 업무 흐름</button>
         </div>
       </section>
@@ -483,6 +486,7 @@
         <iframe id="assessment-frame" data-src="assessment.html?v=20261112-3" title="인적성 및 업무 흐름"></iframe>
       </section>
       <section class="chapter-panel" id="library-chapter" role="tabpanel" aria-labelledby="jd-tab" hidden><p>자료 불러오는 중…</p></section>
+      <section class="chapter-panel" id="interview-chapter" role="tabpanel" aria-labelledby="interview-tab" hidden></section>
     </main>
 
   </body>

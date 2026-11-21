@@ -321,6 +321,8 @@ function showChapter(chapter) {
   document.querySelector("#jd-chapter").hidden = true;
   document.querySelector("#library-chapter").hidden = chapter !== "jd";
   if (chapter === "jd") window.CoverLetterLibrary.open();
+  document.querySelector("#interview-chapter").hidden = chapter !== "interview";
+  if (chapter === "interview") window.InterviewPrep.open();
   document.querySelector("#assessment-chapter").hidden = chapter !== "assessment";
   if (chapter === "assessment") {
     const frame = document.querySelector("#assessment-frame");

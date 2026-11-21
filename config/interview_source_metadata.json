@@ -1,0 +1,1100 @@
+{
+  "source": "딴딴's 반도체사관학교",
+  "sourceUrl": "https://sshmyb.tistory.com",
+  "collectedAt": "2026-11-21",
+  "basis": "첨부 README의 제목·날짜·원문 주소. 본문 미첨부.",
+  "items": [
+    {
+      "file": "jeongjuhaeng-photo-basics-01-training-1.md",
+      "title": "[포토공정] 훈련 1 : \"포토공정에 대해서 설명하세요\"",
+      "publishedAt": "2022-01-03",
+      "url": "https://sshmyb.tistory.com/4"
+    },
+    {
+      "file": "jeongjuhaeng-photo-basics-02-training-2.md",
+      "title": "[포토공정] 훈련 2 : \"포토마스크에 대해서 설명하세요\"",
+      "publishedAt": "2022-01-06",
+      "url": "https://sshmyb.tistory.com/5"
+    },
+    {
+      "file": "jeongjuhaeng-photo-basics-03-training-3.md",
+      "title": "[포토공정] 훈련 3 : \"Illumination mode, OPC, PSM 기술\"",
+      "publishedAt": "2022-01-07",
+      "url": "https://sshmyb.tistory.com/6"
+    },
+    {
+      "file": "jeongjuhaeng-photo-basics-05-training-4.md",
+      "title": "[포토공정] 훈련 4 : \"Resolution에 대해서 공식으로 설명해보세요\"",
+      "publishedAt": "2022-01-07",
+      "url": "https://sshmyb.tistory.com/7"
+    },
+    {
+      "file": "jeongjuhaeng-photo-basics-04-training-5.md",
+      "title": "[포토공정] 훈련 5 : \"Resolution과 DoF의 관계에 대해서 설명하세요\"",
+      "publishedAt": "2022-01-08",
+      "url": "https://sshmyb.tistory.com/9"
+    },
+    {
+      "file": "jeongjuhaeng-photo-basics-06-training-6.md",
+      "title": "[포토공정] 훈련 6 : \"포토공정, 공정여유 or 공정마진\"",
+      "publishedAt": "2022-01-08",
+      "url": "https://sshmyb.tistory.com/10"
+    },
+    {
+      "file": "jeongjuhaeng-photo-basics-07-training-7.md",
+      "title": "[포토공정] 훈련 7 : \"Photoresist technology\"",
+      "publishedAt": "2022-01-09",
+      "url": "https://sshmyb.tistory.com/11"
+    },
+    {
+      "file": "jeongjuhaeng-photo-09-arf-dpt-qpt.md",
+      "title": "[포토공정] 훈련 9 : \"ArF-immersion, DPT, QPT에 대해서 설명하세요\"",
+      "publishedAt": "2022-01-10",
+      "url": "https://sshmyb.tistory.com/13"
+    },
+    {
+      "file": "jeongjuhaeng-photo-basics-08-training-8.md",
+      "title": "[포토공정] 훈련 8 : \"포토공정 내 수율을 저하시키는 요인\"",
+      "publishedAt": "2022-01-10",
+      "url": "https://sshmyb.tistory.com/12"
+    },
+    {
+      "file": "jeongjuhaeng-photo-10-euv-issues.md",
+      "title": "[포토공정] 훈련 10 : \"EUV의 이슈에 대해서 설명하세요\"",
+      "publishedAt": "2022-01-12",
+      "url": "https://sshmyb.tistory.com/14"
+    },
+    {
+      "file": "jeongjuhaeng-photo-extra-pr-1.md",
+      "title": "[포토공정] 추가교육 : \"교육생들 질문 photoresist technology #1 \"",
+      "publishedAt": "2022-01-24",
+      "url": "https://sshmyb.tistory.com/36"
+    },
+    {
+      "file": "jeongjuhaeng-photo-extra-pr-2.md",
+      "title": "[포토공정] 추가교육 : \"교육생들 질문 photoresist technology #2\"",
+      "publishedAt": "2022-01-27",
+      "url": "https://sshmyb.tistory.com/40"
+    },
+    {
+      "file": "jeongjuhaeng-photo-extra-pr-3.md",
+      "title": "[포토공정] 추가교육 : \"교육생들 질문 photoresist technology #3\"",
+      "publishedAt": "2022-01-29",
+      "url": "https://sshmyb.tistory.com/44"
+    },
+    {
+      "file": "jeongjuhaeng-photo-extra-highna.md",
+      "title": "[포토공정] 추가교육 : \"EUV, High-NA 기술원리\"",
+      "publishedAt": "2022-02-13",
+      "url": "https://sshmyb.tistory.com/104"
+    },
+    {
+      "file": "jeongjuhaeng-photo-mask-3d.md",
+      "title": "[포토공정] \"Mask 3D Effects에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-13",
+      "url": "https://sshmyb.tistory.com/105"
+    },
+    {
+      "file": "jeongjuhaeng-photo-tutor-01-basics.md",
+      "title": "[딴딴's 속성과외] 포토공정 #01 : \"기초부터 차세대 EUV 공정까지\" -기초편-",
+      "publishedAt": "2023-05-05",
+      "url": "https://sshmyb.tistory.com/256"
+    },
+    {
+      "file": "jeongjuhaeng-photo-tutor-02-background.md",
+      "title": "[딴딴'S 속성과외] 포토공정 #02 : \"기초부터 차세대 EUV 공정까지\" -배경지식 편-",
+      "publishedAt": "2023-05-05",
+      "url": "https://sshmyb.tistory.com/257"
+    },
+    {
+      "file": "jeongjuhaeng-photo-arf-immersion-resolution-dof.md",
+      "title": "[포토공정] ArF-immersion, \"Resolution & DoF Trade-off 관계인데 왜 향상되는가?\" - 정량적 풀이",
+      "publishedAt": "2023-07-19",
+      "url": "https://sshmyb.tistory.com/272"
+    },
+    {
+      "file": "jeongjuhaeng-photo-tutor-03-pr-1.md",
+      "title": "[딴딴's 속성과외] 포토공정 #03 : 포토레지스트, Photoresist #1편 -기초-",
+      "publishedAt": "2023-11-19",
+      "url": "https://sshmyb.tistory.com/275"
+    },
+    {
+      "file": "jeongjuhaeng-photo-tutor-04-pr-2.md",
+      "title": "[딴딴's 속성과외] 포토공정 #04 : 포토레지스트, Photoresist #2편 -심화- \"Resist의 구성요소\"",
+      "publishedAt": "2023-11-28",
+      "url": "https://sshmyb.tistory.com/277"
+    },
+    {
+      "file": "jeongjuhaeng-photo-tutor-05-euv-summary.md",
+      "title": "[딴딴's 속성과외] 포토공정 #05 : EUV 노광기술 총정리, #3편 -심화- \"ArF-i / EUV 노광기술 / Photoresist\"",
+      "publishedAt": "2023-11-28",
+      "url": "https://sshmyb.tistory.com/278"
+    },
+    {
+      "file": "jeongjuhaeng-photo-tutor-06-imaging.md",
+      "title": "[딴딴's 속성과외] 포토공정 #06 : 포토공정에서 이미징이 되는 원리??",
+      "publishedAt": "2023-12-04",
+      "url": "https://sshmyb.tistory.com/279"
+    },
+    {
+      "file": "jeongjuhaeng-photo-tutor-07-lowk1.md",
+      "title": "[딴딴's 속성과외] 포토공정 #07 : 고해상도 / Low-k1 Technology (#OAI, #OPC, #PSM, #Double Patterning, #SADP, #SAQP)",
+      "publishedAt": "2023-12-06",
+      "url": "https://sshmyb.tistory.com/280"
+    },
+    {
+      "file": "jeongjuhaeng-photo-tutor-08-advanced-litho.md",
+      "title": "[딴딴's 속성과외] 포토공정 #08 : Advanced Lithography & Patterning 경쟁 \"#NIL, #DSA, #High-NA EUV\"",
+      "publishedAt": "2023-12-07",
+      "url": "https://sshmyb.tistory.com/282"
+    },
+    {
+      "file": "jeongjuhaeng-photo-tutor-09-process-defects.md",
+      "title": "[딴딴's 속성과외] 포토공정 #09 : 공정 프로세스 및 불량 유형, Engineer's 실무",
+      "publishedAt": "2023-12-07",
+      "url": "https://sshmyb.tistory.com/283"
+    },
+    {
+      "file": "jeongjuhaeng-photo-basics-index.md",
+      "title": "[딴사관 정주행 프로젝트] 반도체 공정 - \"포토공정, 기초 편\"",
+      "publishedAt": "2024-10-28",
+      "url": "https://sshmyb.tistory.com/318"
+    },
+    {
+      "file": "jeongjuhaeng-photo-index.md",
+      "title": "[딴사관 정주행 프로젝트] 반도체 공정 - \"포토공정, 기초+심화 편\"",
+      "publishedAt": "2024-10-31",
+      "url": "https://sshmyb.tistory.com/319"
+    },
+    {
+      "file": "jeongjuhaeng-etch-01-terms.md",
+      "title": "[식각공정] 훈련 1 : \"Etching 공정, 용어정리\"",
+      "publishedAt": "2022-02-15",
+      "url": "https://sshmyb.tistory.com/113"
+    },
+    {
+      "file": "jeongjuhaeng-etch-02-wet.md",
+      "title": "[식각공정] 훈련 2 : \"Etching (식각) 공정에 대해서 설명해주세요\"",
+      "publishedAt": "2022-03-11",
+      "url": "https://sshmyb.tistory.com/179"
+    },
+    {
+      "file": "jeongjuhaeng-etch-03-dry.md",
+      "title": "[식각공정] 훈련 3 : \"Dry Etching, 건식 식각 공정에 대해서 설명하세요\"",
+      "publishedAt": "2022-04-11",
+      "url": "https://sshmyb.tistory.com/182"
+    },
+    {
+      "file": "jeongjuhaeng-etch-04-rie.md",
+      "title": "[식각공정] 훈련 4 : \"Reactive Ion Etching, RIE 공정에 대해서 설명하세요\"",
+      "publishedAt": "2022-04-11",
+      "url": "https://sshmyb.tistory.com/183"
+    },
+    {
+      "file": "jeongjuhaeng-etch-05-plasma-etch.md",
+      "title": "[식각공정] 훈련 5 : Conductor & Dielectric Etch 방법 + ICP vs. CCP Type Plasma",
+      "publishedAt": "2022-04-11",
+      "url": "https://sshmyb.tistory.com/199"
+    },
+    {
+      "file": "jeongjuhaeng-etch-06-loading.md",
+      "title": "[식각공정] 훈련 6 : Depth Loading Effect / Blocking Mask 이슈",
+      "publishedAt": "2022-04-12",
+      "url": "https://sshmyb.tistory.com/200"
+    },
+    {
+      "file": "jeongjuhaeng-etch-07-crystal-etch-rate.md",
+      "title": "[식각공정] 훈련 7 : SiO2, Si3N4 Etch Rate & 결정면에 따른 Etch Rate",
+      "publishedAt": "2022-04-13",
+      "url": "https://sshmyb.tistory.com/201?category=1027213"
+    },
+    {
+      "file": "jeongjuhaeng-etch-08-rf-frequency.md",
+      "title": "[식각공정] 훈련 8 : 이온 질량에 따른 RF Frequency가 미치는 영향",
+      "publishedAt": "2022-04-13",
+      "url": "https://sshmyb.tistory.com/203?category=1027213"
+    },
+    {
+      "file": "jeongjuhaeng-etch-09-nextgen-1.md",
+      "title": "[식각공정] 훈련 9 : Pulsed Etch, Cryogenic Etch - 차세대 에치공정 기술 [1/2]",
+      "publishedAt": "2022-04-13",
+      "url": "https://sshmyb.tistory.com/202"
+    },
+    {
+      "file": "jeongjuhaeng-etch-10-ale.md",
+      "title": "[식각공정] 훈련 10 : Atomic Layer Etching (ALE) 차세대 식각공정 기술 [2/2]",
+      "publishedAt": "2022-04-13",
+      "url": "https://sshmyb.tistory.com/204"
+    },
+    {
+      "file": "jeongjuhaeng-etch-11-bosch.md",
+      "title": "[식각공정] 훈련 11 : MEMS : Bosch Process를 파헤쳐보자",
+      "publishedAt": "2022-04-16",
+      "url": "https://sshmyb.tistory.com/205"
+    },
+    {
+      "file": "jeongjuhaeng-plasma-01-generation-paschen.md",
+      "title": "[딴딴's 속성과외] #1편, \"플라즈마, 3편으로 끝낸다.\" #Plasma Summary!! #Plasma #발생원리 #파센법칙",
+      "publishedAt": "2023-12-16",
+      "url": "https://sshmyb.tistory.com/285"
+    },
+    {
+      "file": "jeongjuhaeng-plasma-02-types-icp-ccp-dc.md",
+      "title": "[딴딴's 속성과외] #2편, \"플라즈마, 3편으로 끝낸다. #Plasma Summary!!, #Plasma 종류, #ICP, #CCP, #DC",
+      "publishedAt": "2023-12-20",
+      "url": "https://sshmyb.tistory.com/288?category=1027213"
+    },
+    {
+      "file": "jeongjuhaeng-plasma-03-sheath-self-bias.md",
+      "title": "[딴딴's 속성과외] #3편, \"플라즈마, 3편으로 끝낸다\" #Plasma Summary!!, #Sheath #Self Bias Effect #면적에 따른 자기바이어스효과",
+      "publishedAt": "2023-12-22",
+      "url": "https://sshmyb.tistory.com/289"
+    },
+    {
+      "file": "jeongjuhaeng-plasma-index.md",
+      "title": "[딴사관 정주행 프로젝트] 플라즈마 (Plasma) 기초부터 심화까지.",
+      "publishedAt": "2024-11-10",
+      "url": "https://sshmyb.tistory.com/327"
+    },
+    {
+      "file": "jeongjuhaeng-etch-index.md",
+      "title": "[딴사관 정주행 프로젝트] 반도체 공정 -\"에치공정, 기초+심화 편\"",
+      "publishedAt": "2024-11-26",
+      "url": "https://sshmyb.tistory.com/m/343"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-01-terms.md",
+      "title": "[증착공정] 훈련 1 : \"Deposition 용어 정리\"",
+      "publishedAt": "2022-02-09",
+      "url": "https://sshmyb.tistory.com/78"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-02-cvd.md",
+      "title": "[증착공정] 훈련 2 : \"Chemical Vapor Deposition, CVD에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-10",
+      "url": "https://sshmyb.tistory.com/79"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-03-apcvd-lpcvd.md",
+      "title": "[증착공정] 훈련 3 : \"APCVD, LPCVD에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-10",
+      "url": "https://sshmyb.tistory.com/80"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-04-pecvd-hdpcvd.md",
+      "title": "[증착공정] 훈련 4 : \"PECVD, HDPCVD에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-10",
+      "url": "https://sshmyb.tistory.com/81"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-05-cvd-evolution.md",
+      "title": "[증착공정] 훈련 5 : \"Evolution of Chemical Vapor Deposition, CVD\"",
+      "publishedAt": "2022-02-10",
+      "url": "https://sshmyb.tistory.com/82"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-06-mocvd.md",
+      "title": "[증착공정] 훈련 6 : \"MOCVD에 대해서 설명하세요.\"",
+      "publishedAt": "2022-02-13",
+      "url": "https://sshmyb.tistory.com/108"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-07-ald.md",
+      "title": "[증착공정] 훈련 8 : \"Atomic Layer Deposition, ALD에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-14",
+      "url": "https://sshmyb.tistory.com/110"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-08-ald-interview.md",
+      "title": "[증착공정] 훈련 9 : \"미세공정에 따른 ALD 추가 직무면접\"",
+      "publishedAt": "2022-02-14",
+      "url": "https://sshmyb.tistory.com/111"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-09-pvd.md",
+      "title": "[증착공정] 훈련 10 : \"PVD 공정에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-15",
+      "url": "https://sshmyb.tistory.com/127"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-10-debye-length.md",
+      "title": "[증착공정] 훈련 11 : \"Debye length에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-23",
+      "url": "https://sshmyb.tistory.com/133"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-11-paschen-law.md",
+      "title": "[증착공정] 훈련 12 : \"플라즈마와 파센 법칙, Paschen's Law\"",
+      "publishedAt": "2022-02-24",
+      "url": "https://sshmyb.tistory.com/134"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-12-dc-sputter-sheath.md",
+      "title": "[증착공정] 훈련 : 13 \"DC Sputter, 음극전압강하, sheath 영역에 대해서 설명해보세요\"",
+      "publishedAt": "2022-02-24",
+      "url": "https://sshmyb.tistory.com/136"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-13-dc-plasma-insulator.md",
+      "title": "[증착공정] 훈련 : 14 \"DC Plasma는 부도체 전극에서 플라즈마를 유지할 수 없는 건지, 플라즈마의 collective motion에 대해서 설명하세요.\"",
+      "publishedAt": "2022-02-25",
+      "url": "https://sshmyb.tistory.com/145"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-14-rf-plasma-self-bias.md",
+      "title": "[증착공정] 훈련 : 15 \"RF Plasma, 자기바이어스효과에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-27",
+      "url": "https://sshmyb.tistory.com/146"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-15-electrode-area-self-bias-2.md",
+      "title": "[증착공정] 훈련 : 16 \"전극 면적에 따른 자기바이어스효과, 中\"",
+      "publishedAt": "2022-02-28",
+      "url": "https://sshmyb.tistory.com/147"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-16-electrode-area-self-bias-3.md",
+      "title": "[증착공정] 훈련 17 : \"전극면적에 따른 자기바이어스 효과, 完\"",
+      "publishedAt": "2022-02-28",
+      "url": "https://sshmyb.tistory.com/150"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-17-reactive-sputtering.md",
+      "title": "[증착공정] 훈련 18 : \"반응성 스퍼터링 (Reactive sputtering)에 대해서 설명하세요\"",
+      "publishedAt": "2022-03-01",
+      "url": "https://sshmyb.tistory.com/151"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-tutor-01.md",
+      "title": "[딴딴's 속성과외] 증착 공정 -1편- / 불량사례 / 실무에서 충분히 일어날 수 있는 불량 유형.",
+      "publishedAt": "2024-04-22",
+      "url": "https://sshmyb.tistory.com/303"
+    },
+    {
+      "file": "jeongjuhaeng-deposition-index.md",
+      "title": "[딴사관 정주행 프로젝트] 반도체 공정 - \"증착공정, 기초+심화 편\"",
+      "publishedAt": "2024-11-08",
+      "url": "https://sshmyb.tistory.com/324"
+    },
+    {
+      "file": "jeongjuhaeng-cleaning-01-terms.md",
+      "title": "[세정 공정] 훈련 1 : 세정 공정 - Cleaning 관련 용어",
+      "publishedAt": "2022-05-30",
+      "url": "https://sshmyb.tistory.com/228"
+    },
+    {
+      "file": "jeongjuhaeng-cleaning-02-overview.md",
+      "title": "[세정 공정] 훈련 2 : Cleaning 공정의 개요 - \"세정공정의 중요성\"",
+      "publishedAt": "2022-05-30",
+      "url": "https://sshmyb.tistory.com/229"
+    },
+    {
+      "file": "jeongjuhaeng-cleaning-03-wet.md",
+      "title": "[세정 공정] 훈련 3 : Wet Cleaning , 습식세정에 대해서 설명하세요.",
+      "publishedAt": "2022-06-06",
+      "url": "https://sshmyb.tistory.com/231"
+    },
+    {
+      "file": "jeongjuhaeng-cleaning-tutor.md",
+      "title": "[딴딴's 속성과외] 반도체 제조공정에 필수 공정 \"세정\" 공정",
+      "publishedAt": "2023-04-30",
+      "url": "https://sshmyb.tistory.com/255"
+    },
+    {
+      "file": "jeongjuhaeng-cmp-index.md",
+      "title": "[딴사관 정주행 프로젝트] CMP 공정 + 세정공정, C&C",
+      "publishedAt": "2024-11-27",
+      "url": "https://sshmyb.tistory.com/m/344"
+    },
+    {
+      "file": "sokseong-01-diffusion.md",
+      "title": "[속성 직무면접 편] Diffusion 공정 : 기출 및 예상 질문 정리 편",
+      "publishedAt": "2024-07-21",
+      "url": "https://sshmyb.tistory.com/m/308"
+    },
+    {
+      "file": "sokseong-02-metal-03.md",
+      "title": "[속성 직무면접 편] 메탈 공정 : 기출 및 예상 질문 정리 편 - #03",
+      "publishedAt": "2024-08-25",
+      "url": "https://sshmyb.tistory.com/m/312"
+    },
+    {
+      "file": "sokseong-03-cmp.md",
+      "title": "[반도체 공정] C&C (Cleaning & CMP) 공정의 모든 것, 한눈에 이해하는 CMP 공정",
+      "publishedAt": "2024-11-13",
+      "url": "https://sshmyb.tistory.com/330"
+    },
+    {
+      "file": "sokseong-metal-01.md.md",
+      "title": "[속성 직무면접 편] 메탈 공정 : 기출 및 예상 질문 정리 편 - #01",
+      "publishedAt": "2024-07-26",
+      "url": "https://sshmyb.tistory.com/309"
+    },
+    {
+      "file": "sokseong-metal-02.md.md",
+      "title": "[속성 직무면접 편] 메탈 공정 : 기출 및 예상 질문 정리 편 -#02",
+      "publishedAt": "2024-07-27",
+      "url": "https://sshmyb.tistory.com/310"
+    },
+    {
+      "file": "sokseong-metal-04.md.md",
+      "title": "[속성 직무면접 편] 메탈 공정 : 기출 및 예상 질문 정리 편 - #04 Electro Migration (EM), Stress Migration (SM) 저항성",
+      "publishedAt": "2024-10-03",
+      "url": "https://sshmyb.tistory.com/313"
+    },
+    {
+      "file": "sokseong-04-sic-gan.md.md",
+      "title": "[딴딴's 직무면접] SiC, GaN 화합물 전력반도체 산업의 전망 및 Challenge",
+      "publishedAt": "2024-11-24",
+      "url": "https://sshmyb.tistory.com/341"
+    },
+    {
+      "file": "sokseong-05-hbm.md.md",
+      "title": "[딴딴's 직무면접] HBM(High Bandwidth Memory) 기술 동향",
+      "publishedAt": "2026-05-26",
+      "url": "https://sshmyb.tistory.com/393"
+    },
+    {
+      "file": "master-session-1-01-cmp-intro.md",
+      "title": "[딴딴's 직무 Master] Session 1-1. CMP 공정이란 무엇인가.",
+      "publishedAt": "2026-06-04",
+      "url": "https://sshmyb.tistory.com/395"
+    },
+    {
+      "file": "master-session-1-02-step-control.md",
+      "title": "[딴딴's 직무 Master] Session 1-2. CMP공정에서 단차를 제어하는 원리와 방법",
+      "publishedAt": "2026-06-05",
+      "url": "https://sshmyb.tistory.com/396"
+    },
+    {
+      "file": "master-session-1-03-cmp-equipment.md",
+      "title": "[딴딴's 직무 Master] Session 1-3. CMP 설비를 뜯어보자 - 설비 기술",
+      "publishedAt": "2026-06-06",
+      "url": "https://sshmyb.tistory.com/397"
+    },
+    {
+      "file": "master-session-1-04-cleaning-unit.md",
+      "title": "[딴딴's 직무 Master] Session 1-4. C&C, CMP 공정 Cleaning Unit",
+      "publishedAt": "2026-06-06",
+      "url": "https://sshmyb.tistory.com/398"
+    },
+    {
+      "file": "master-session-1-05-defects.md",
+      "title": "[딴딴's 직무 Master] Session 1-5. CMP 공정 주요 불량 이슈 - Defects",
+      "publishedAt": "2026-06-08",
+      "url": "https://sshmyb.tistory.com/399"
+    },
+    {
+      "file": "master-session-1-06-apc-uniformity.md",
+      "title": "[딴딴's 직무 Master] Session 1-6. CMP 공정 APC System & Uniformity",
+      "publishedAt": "2026-06-17",
+      "url": "https://sshmyb.tistory.com/400"
+    },
+    {
+      "file": "master-session-1-07-slurry.md",
+      "title": "[딴딴's 직무 Master] Session 1-7. CMP 공정 Slurry의 모든 것",
+      "publishedAt": "2026-06-17",
+      "url": "https://sshmyb.tistory.com/401"
+    },
+    {
+      "file": "master-session-1-08-equipment-engineer.md",
+      "title": "[딴딴's 직무 Master] Session 1-8. CMP 공정 #설비 엔지니어 직무",
+      "publishedAt": "2026-06-19",
+      "url": "https://sshmyb.tistory.com/402"
+    },
+    {
+      "file": "master-session-1-09-dishing-erosion.md",
+      "title": "[딴딴's 직무 Master] Session 1-9. Dishing & Erosion, Pattern Density / Dummy Pattern의 중요성",
+      "publishedAt": "2026-09-23",
+      "url": "https://sshmyb.tistory.com/403"
+    },
+    {
+      "file": "master-session-1-10-cmp-epd.md",
+      "title": "[딴딴's 직무 Master] Session 1-10. CMP EPD (End-Point Detect) 심화",
+      "publishedAt": "2026-09-29",
+      "url": "https://sshmyb.tistory.com/406"
+    },
+    {
+      "file": "master-session-2-01-cvd-pvd.md",
+      "title": "[딴딴's 직무 Master] Session 2-1. 증착 공정 - CVD vs. PVD 공정",
+      "publishedAt": "2026-09-01",
+      "url": "https://sshmyb.tistory.com/404"
+    },
+    {
+      "file": "master-session-2-02-cvd-film.md",
+      "title": "[딴딴's 직무 Master] Session 2-2. CVD 박막 물성을 알고 있는가.",
+      "publishedAt": "2026-09-23",
+      "url": "https://sshmyb.tistory.com/405"
+    },
+    {
+      "file": "master-session-2-03-carbon-hardmask.md",
+      "title": "[딴딴's 직무 Master] Session 2-3. Carbon Hardmask와 ARC 층의 역할",
+      "publishedAt": "2026-10-01",
+      "url": "https://sshmyb.tistory.com/407"
+    },
+    {
+      "file": "master-session-2-04-lowk.md",
+      "title": "[딴딴's 직무 Master] Session 2-4. Low-k 절연막 & RC Delay 개선",
+      "publishedAt": "2026-10-07",
+      "url": "https://sshmyb.tistory.com/408"
+    },
+    {
+      "file": "master-session-2-05-cvd-factor.md",
+      "title": "[딴딴's 직무 Master] Session 2-5. 설비 엔지니어 - CVD 관리 Factor : #Uniformity, #Depo. Rate, #WER",
+      "publishedAt": "2026-10-08",
+      "url": "https://sshmyb.tistory.com/409"
+    },
+    {
+      "file": "master-session-2-06-rf.md",
+      "title": "[딴딴's 직무 Master] Session 2-6. PT 단골 문제 - RF Generator & Matcher & RPS : 임피던스 매칭과 F-radical 세정 관리",
+      "publishedAt": "2026-10-09",
+      "url": "https://sshmyb.tistory.com/410"
+    },
+    {
+      "file": "master-session-2-07-vacuum.md",
+      "title": "[딴딴's 직무 Master] Session 2-7. CVD 공정의 진공 System - Dry, Turbo, Cryo Pump 정리",
+      "publishedAt": "2026-10-10",
+      "url": "https://sshmyb.tistory.com/411"
+    },
+    {
+      "file": "master-session-2-08-hdp-cvd.md",
+      "title": "[딴딴's 직무 Master] Session 2-8. HDP CVD : Void-free Gap Fill 실현",
+      "publishedAt": "2026-10-10",
+      "url": "https://sshmyb.tistory.com/412"
+    },
+    {
+      "file": "master-session-3-01-metal-al.md",
+      "title": "[딴딴's 직무 Master] Session 3-1. 금속공정 - Al의 한계 - Electromigration & Cu 배선 전환 배경",
+      "publishedAt": "2026-10-26",
+      "url": "https://sshmyb.tistory.com/417"
+    },
+    {
+      "file": "master-session-3-02-cvd-w.md",
+      "title": "[딴딴's 직무 Master] Session 3-2. CVD W, Contact/VIA Hole 텅스텐 Plug 공정 3단계 알고 있는가?",
+      "publishedAt": "2026-10-27",
+      "url": "https://sshmyb.tistory.com/418"
+    },
+    {
+      "file": "master-session-3-03-lfw.md",
+      "title": "[딴딴's 직무 Master] Session 3-3. 3D NAND Word Line - LFW 공정 도입 배경",
+      "publishedAt": "2026-11-01",
+      "url": "https://sshmyb.tistory.com/419"
+    },
+    {
+      "file": "pcm-01-pcm-parameter-1.md",
+      "title": "[반도체 공정] Process Control Monitor, PCM Parameter 총정리 [1/2]",
+      "publishedAt": "2022-03-26",
+      "url": "https://sshmyb.tistory.com/186"
+    },
+    {
+      "file": "pcm-02-pcm-parameter-2.md",
+      "title": "[반도체 공정] Process Control Monitor, PCM Parameter 총정리 [2/2]",
+      "publishedAt": "2022-03-26",
+      "url": "https://sshmyb.tistory.com/187"
+    },
+    {
+      "file": "jeongjuhaeng-ion-implant-01.md",
+      "title": "[이온주입 공정] 훈련 1 : Ion Implant 공정에 대해서 설명하세요.",
+      "publishedAt": "2022-04-18",
+      "url": "https://sshmyb.tistory.com/206"
+    },
+    {
+      "file": "jeongjuhaeng-ion-implant-02-diffusion-vs-implant.md",
+      "title": "[이온주입 공정] 훈련 2 : Diffusion 과 Implant 공정의 차이에 대해서 설명하세요.",
+      "publishedAt": "2022-04-18",
+      "url": "https://sshmyb.tistory.com/207"
+    },
+    {
+      "file": "jeongjuhaeng-ion-implant-03-equipment.md",
+      "title": "[이온주입 공정] 훈련 3 : 이온주입 공정 설비에 대해서 설명해보세요",
+      "publishedAt": "2022-04-18",
+      "url": "https://sshmyb.tistory.com/208"
+    },
+    {
+      "file": "jeongjuhaeng-ion-implant-04-variables-channeling-shadowing.md",
+      "title": "[이온주입 공정] 훈련 4 : 이온주입 공정의 변수, Ion Channeling, Shadowing Effect",
+      "publishedAt": "2022-04-28",
+      "url": "https://sshmyb.tistory.com/209"
+    },
+    {
+      "file": "jeongjuhaeng-ion-implant-05-profile-stopping.md",
+      "title": "[이온주입 공정] 훈련 5 : 이온 분포, Doping Profile, 이온 정지 이론 (Nuclear Stopping & Electronic Stopping Mechanism)",
+      "publishedAt": "2022-04-28",
+      "url": "https://sshmyb.tistory.com/210"
+    },
+    {
+      "file": "jeongjuhaeng-ion-implant-06-damage-annealing-1.md",
+      "title": "[이온주입 공정] 훈련 6 : 격자 손상 & 결함 & Annealing [1/2]",
+      "publishedAt": "2022-05-02",
+      "url": "https://sshmyb.tistory.com/211"
+    },
+    {
+      "file": "jeongjuhaeng-ion-implant-07-damage-annealing-2.md",
+      "title": "[이온주입 공정] 훈련 7 : 격자손상 & 결함 & Annealing [2/2], TED, OED, ORD, 공정 이슈.",
+      "publishedAt": "2022-05-03",
+      "url": "https://sshmyb.tistory.com/212"
+    },
+    {
+      "file": "jeongjuhaeng-ion-implant-08-evaluation-sims-4probe.md",
+      "title": "[이온주입 공정] 훈련 8 : 이온주입 평가 방법, SIMS, 4-Probe",
+      "publishedAt": "2022-05-03",
+      "url": "https://sshmyb.tistory.com/213"
+    },
+    {
+      "file": "jeongjuhaeng-ion-implant-09-shallow-junction.md",
+      "title": "[이온주입 공정] 훈련 9 : 'Shallow Junction Depth Profile' 접합 깊이",
+      "publishedAt": "2022-05-03",
+      "url": "https://sshmyb.tistory.com/214"
+    },
+    {
+      "file": "jeongjuhaeng-metal-01-homo-junction.md",
+      "title": "[금속 공정] 훈련 1 : Schottky & Ohmic Contact, 쇼트키 & 오믹 접합/ 접합 시 에너지 밴드 다이어그램을 그리는 방법 -동종접합 편-",
+      "publishedAt": "2022-06-17",
+      "url": "https://sshmyb.tistory.com/235"
+    },
+    {
+      "file": "jeongjuhaeng-metal-02-hetero-junction.md",
+      "title": "[금속 공정] 훈련 2 : Schottky & Ohmic Contact, 쇼트키 & 오믹 접합/ 접합 시 에너지 밴드 다이어그램을 그리는 방법 -이종접합 편-",
+      "publishedAt": "2022-06-22",
+      "url": "https://sshmyb.tistory.com/236"
+    },
+    {
+      "file": "jeongjuhaeng-metal-03-schottky-ohmic.md",
+      "title": "[금속 공정] 훈련 3 : Schottky Contact & Ohmic Contact, 정말 중요!",
+      "publishedAt": "2022-07-07",
+      "url": "https://sshmyb.tistory.com/237"
+    },
+    {
+      "file": "jeongjuhaeng-metal-04-salicide.md",
+      "title": "[금속공정] 훈련 4 : Ohmic Contact을 만들어라!, Salicide 살리사이드 공정.",
+      "publishedAt": "2022-07-11",
+      "url": "https://sshmyb.tistory.com/238"
+    },
+    {
+      "file": "tsmc-2nm-node-2025-mass-production.md",
+      "title": "TSMC, 2nm node 2025년 양산, 한 번은 반드시 숙지하고 가야 할 내용",
+      "publishedAt": "2025-01-27",
+      "url": "https://sshmyb.tistory.com/350"
+    },
+    {
+      "file": "tsmc-2nm-n2-competitiveness.md",
+      "title": "TSMC 2nm N2 공정, 그들만의 경쟁력은 무엇일까요?. 면접 전에 꼭 한 번 읽고 가야 할 내용",
+      "publishedAt": "2025-01-30",
+      "url": "https://sshmyb.tistory.com/351"
+    },
+    {
+      "file": "jeongjuhaeng-yield-what-is-yield.md",
+      "title": "[반도체 수율] \"수율이 중요하다는데 도대체 수율이 뭘까?\"",
+      "publishedAt": "2022-03-07",
+      "url": "https://sshmyb.tistory.com/171"
+    },
+    {
+      "file": "jeongjuhaeng-yield-process-control.md",
+      "title": "[반도체 수율] \"수율 개선을 위한 공정제어기술\"",
+      "publishedAt": "2022-03-07",
+      "url": "https://sshmyb.tistory.com/172"
+    },
+    {
+      "file": "jeongjuhaeng-process-corners-vlsi.md",
+      "title": "What Are The Process Corners in VLSI Design",
+      "publishedAt": "2022-03-28",
+      "url": "https://sshmyb.tistory.com/192"
+    },
+    {
+      "file": "misc-highk-lowk.md",
+      "title": "[반도체 소재] \\\"High-k / Low-k 소재에 대해서 설명하세요\\\"",
+      "publishedAt": "2022-03-06",
+      "url": "https://sshmyb.tistory.com/168"
+    },
+    {
+      "file": "misc-cmp-planarization.md",
+      "title": "[평탄화 공정] Chemical Mechanical Polishing, CMP 공정",
+      "publishedAt": "2022-05-24",
+      "url": "https://sshmyb.tistory.com/225"
+    },
+    {
+      "file": "jeongjuhaeng-cmos-process-flow.md",
+      "title": "[반도체 전공정] CMOS Process Flow, 현직자도 꼭 한 번 숙지해야 하는 공정 플로우에 대해서 알아보자.",
+      "publishedAt": "2022-07-22",
+      "url": "https://sshmyb.tistory.com/239"
+    },
+    {
+      "file": "guide-before-interview-checklist.md.md",
+      "title": "※필독※ [면접장 들어가기 전에 반드시 정리해야 할 것] 경험정리 / 두괄식 / 스펙이력표",
+      "publishedAt": "2022-05-14",
+      "url": "https://sshmyb.tistory.com/223"
+    },
+    {
+      "file": "guide-answer-tips-dugwalsik.md.md",
+      "title": "※필독※ 면접 답변 Tip. 두괄식, 답변 길이, 마음가짐",
+      "publishedAt": "2022-05-15",
+      "url": "https://sshmyb.tistory.com/224"
+    },
+    {
+      "file": "guide-one-minute-intro.md.md",
+      "title": "[딴딴 면접준비 편] 인성면접: 1분 자기소개, 어떻게 준비해야 할까요?",
+      "publishedAt": "2024-11-17",
+      "url": "https://sshmyb.tistory.com/334"
+    },
+    {
+      "file": "guide-personality-must-questions.md.md",
+      "title": "[딴딴 면접준비 편] 인성면접: 무조건 준비해야 하는 필수 질문 \"당신의 성격, 장단점, 실패한 경험\"",
+      "publishedAt": "2024-11-18",
+      "url": "https://sshmyb.tistory.com/335"
+    },
+    {
+      "file": "guide-resume-travel-map.md.md",
+      "title": "[딴딴 면접준비 편] 이력서.. 이력서는 면접이라는 여행 지도!",
+      "publishedAt": "2024-11-19",
+      "url": "https://sshmyb.tistory.com/336"
+    },
+    {
+      "file": "guide-common-denominator.md.md",
+      "title": "합격하는 면접은 어떤 면접일까?: 합격 면접의 공통분모",
+      "publishedAt": "2025-03-22",
+      "url": "https://sshmyb.tistory.com/362"
+    },
+    {
+      "file": "guide-interviewer-intent.md.md",
+      "title": "면접관의 질문의 의도: 질문의 의도를 알면 답이 보인다.",
+      "publishedAt": "2025-03-23",
+      "url": "https://sshmyb.tistory.com/364"
+    },
+    {
+      "file": "guide-forbidden-expressions.md.md",
+      "title": "면접에서 이걸 말하는 순간.. 위험해!! -탈락으로 이끄는 면접장 금지표현!",
+      "publishedAt": "2025-03-27",
+      "url": "https://sshmyb.tistory.com/365"
+    },
+    {
+      "file": "guide-growth-process-top6.md.md",
+      "title": "합격 자소서: 성장과정 작성 시 놓치면 안 될 TOP 6",
+      "publishedAt": "2025-03-28",
+      "url": "https://sshmyb.tistory.com/366"
+    },
+    {
+      "file": "guide-successful-interview.md.md",
+      "title": "성공적인 면접이란. 면접에서 이것만은 꼭 말하고 오자!",
+      "publishedAt": "2025-04-08",
+      "url": "https://sshmyb.tistory.com/368"
+    },
+    {
+      "file": "guide-resume-attack-questions-top7.md.md",
+      "title": "자소서 작성 시 주의사항! - 공격질문을 만드는 표현 - Top 7",
+      "publishedAt": "2025-05-11",
+      "url": "https://sshmyb.tistory.com/369"
+    },
+    {
+      "file": "training-mos-capacitor-vs-mosfet.md.md",
+      "title": "[반도체 소자] \"MOS Capacitor와 MOSFET의 차이\"",
+      "publishedAt": "2022-01-16",
+      "url": "https://sshmyb.tistory.com/18"
+    },
+    {
+      "file": "training-threshold-voltage-modulation.md.md",
+      "title": "[반도체 소자] \"Threshold voltage modulation\"",
+      "publishedAt": "2022-01-17",
+      "url": "https://sshmyb.tistory.com/21"
+    },
+    {
+      "file": "training-body-effect.md.md",
+      "title": "[반도체 소자]: \"Body Effect에 대해서 설명하세요\"",
+      "publishedAt": "2022-01-20",
+      "url": "https://sshmyb.tistory.com/24"
+    },
+    {
+      "file": "training-hkmg.md.md",
+      "title": "[반도체 소자]: \"HKMG에 대해서 설명하세요\"",
+      "publishedAt": "2022-01-24",
+      "url": "https://sshmyb.tistory.com/35"
+    },
+    {
+      "file": "training-output-characteristics.md.md",
+      "title": "[반도체 소자] \"소자의 출력특성, Output Characteristics\"",
+      "publishedAt": "2022-01-29",
+      "url": "https://sshmyb.tistory.com/46"
+    },
+    {
+      "file": "training-subthreshold-swing.md.md",
+      "title": "[반도체 소자] \"Subthreshold Swing, SS 특성에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-01",
+      "url": "https://sshmyb.tistory.com/47"
+    },
+    {
+      "file": "training-subthreshold-swing-details.md.md",
+      "title": "[반도체 소자] \"Subthreshold Swing, SS 특성 세부정리\"",
+      "publishedAt": "2022-02-03",
+      "url": "https://sshmyb.tistory.com/49"
+    },
+    {
+      "file": "training-vt-roll-off.md.md",
+      "title": "[반도체 소자] \"Channel이 짧아지면 threshold voltage가 왜 작아지나요?\"",
+      "publishedAt": "2022-02-03",
+      "url": "https://sshmyb.tistory.com/50"
+    },
+    {
+      "file": "training-sce-01-dibl-subthreshold-current.md.md",
+      "title": "[반도체 소자]: [Short Channel Effect #1] \"DIBL, Subthreshold Current에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-03",
+      "url": "https://sshmyb.tistory.com/51"
+    },
+    {
+      "file": "training-sce-02-punch-through.md.md",
+      "title": "[반도체 소자]: [Short Channel Effect #2] \"Punch Through에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-03",
+      "url": "https://sshmyb.tistory.com/52"
+    },
+    {
+      "file": "training-sce-03-velocity-saturation.md.md",
+      "title": "[반도체 소자]: [Short Channel Effect #3] \"Velocity Saturation에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-04",
+      "url": "https://sshmyb.tistory.com/53"
+    },
+    {
+      "file": "training-sce-04-gidl-hot-carrier.md.md",
+      "title": "[반도체 소자]: [Short Channel Effect #4] \"GIDL / Hot carrier injection에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-04",
+      "url": "https://sshmyb.tistory.com/54"
+    },
+    {
+      "file": "training-sce-05-body-doping-effect.md.md",
+      "title": "[반도체 소자]: [Short Channel Effect #5] \"심화내용, body doping effect\"",
+      "publishedAt": "2022-02-05",
+      "url": "https://sshmyb.tistory.com/58"
+    },
+    {
+      "file": "training-sce-06-channel-length-effects.md.md",
+      "title": "[반도체 소자]: [Short Channel Effect #6] \"심화내용, Channel length Effects\"",
+      "publishedAt": "2022-02-05",
+      "url": "https://sshmyb.tistory.com/59"
+    },
+    {
+      "file": "training-imos-tfet-nc-fet.md.md",
+      "title": "[반도체 소자] \"I-MOS, TFET, NC-FET, Suspended FET\"",
+      "publishedAt": "2022-02-07",
+      "url": "https://sshmyb.tistory.com/61"
+    },
+    {
+      "file": "training-soi.md.md",
+      "title": "[반도체 소자] \"Silicon on Insulator, SOI 기술에 대해서 설명하세요.\"",
+      "publishedAt": "2022-02-07",
+      "url": "https://sshmyb.tistory.com/62"
+    },
+    {
+      "file": "training-fd-soi.md.md",
+      "title": "[반도체 소자] \"공정 미세화 고비용 구조 깬다.. FD-SOI\"",
+      "publishedAt": "2022-02-08",
+      "url": "https://sshmyb.tistory.com/64"
+    },
+    {
+      "file": "training-finfet.md.md",
+      "title": "[반도체 소자] \"FinFET 소자에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-08",
+      "url": "https://sshmyb.tistory.com/66"
+    },
+    {
+      "file": "training-3d-mosfet-gaa.md.md",
+      "title": "[반도체 소자] 3D MOSFET의 진화, Gate-All-Around / 차세대 소자",
+      "publishedAt": "2022-02-08",
+      "url": "https://sshmyb.tistory.com/67"
+    },
+    {
+      "file": "training-3nm-2nm-gaafet.md.md",
+      "title": "[반도체 소자] 3nm/2nm 공정 GAAFET, 반도체 산업",
+      "publishedAt": "2022-02-08",
+      "url": "https://sshmyb.tistory.com/69"
+    },
+    {
+      "file": "training-leakage-current-1.md.md",
+      "title": "[반도체 소자] 이것만 보면 된다! Leakage Current 총정리 [1/2]",
+      "publishedAt": "2022-03-24",
+      "url": "https://sshmyb.tistory.com/184"
+    },
+    {
+      "file": "training-leakage-current-2.md.md",
+      "title": "[반도체 소자] 이것만 보면 된다! Leakage Current 총정리 [2/2]",
+      "publishedAt": "2022-03-25",
+      "url": "https://sshmyb.tistory.com/185"
+    },
+    {
+      "file": "training-dynamic-static-power.md.md",
+      "title": "[반도체 소자] Dynamic/Static Power, Vcc, Vdd, Vee, Vss에 대해서 설명하세요.",
+      "publishedAt": "2022-04-01",
+      "url": "https://sshmyb.tistory.com/195"
+    },
+    {
+      "file": "training-dynamic-static-power-current.md.md",
+      "title": "[반도체 소자] Dynamic/Static Power Current, VCC & VDD 차이",
+      "publishedAt": "2022-06-09",
+      "url": "https://sshmyb.tistory.com/233"
+    },
+    {
+      "file": "training-pmic.md.md",
+      "title": "[전력반도체] \"Power Module IC, PMIC에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-09",
+      "url": "https://sshmyb.tistory.com/76"
+    },
+    {
+      "file": "training-pim.md.md",
+      "title": "[차세대 메모리] \"Processing-In-Memory, PIM '차세대 메모리'\"",
+      "publishedAt": "2022-03-02",
+      "url": "https://sshmyb.tistory.com/156"
+    },
+    {
+      "file": "training-ddr-lpddr.md.md",
+      "title": "[DDR & LPDDR] \"#DRAM, DDR & LPDDR에 대해서 설명해보세요\"",
+      "publishedAt": "2022-03-02",
+      "url": "https://sshmyb.tistory.com/157"
+    },
+    {
+      "file": "training-dram-01.md.md",
+      "title": "[DRAM #1] \"Dynamic Random Access Memory, D램에 대해서 설명하세요\"",
+      "publishedAt": "2022-03-02",
+      "url": "https://sshmyb.tistory.com/158"
+    },
+    {
+      "file": "training-dram-02-hbm-rcat-dcat.md.md",
+      "title": "[DRAM #2] \"고대역폭 메모리 HBM, RCAT, DCAT, 차세대 DRAM\"",
+      "publishedAt": "2022-03-02",
+      "url": "https://sshmyb.tistory.com/159"
+    },
+    {
+      "file": "training-nand-01.md.md",
+      "title": "[NAND Flash #1] \"낸드플래시, 플로팅게이트, NAND / NOR Flash\"",
+      "publishedAt": "2022-03-03",
+      "url": "https://sshmyb.tistory.com/164"
+    },
+    {
+      "file": "training-nand-02-cell-level.md.md",
+      "title": "[NAND Flash #2] \"Cell level, SLC MLC, TLC에 대해서 설명하세요\"",
+      "publishedAt": "2022-03-03",
+      "url": "https://sshmyb.tistory.com/165"
+    },
+    {
+      "file": "training-nand-03-ctf.md.md",
+      "title": "[NAND Flash #3] \"Charge Trap Flash, CTF에 대해서 설명하세요\"",
+      "publishedAt": "2022-03-04",
+      "url": "https://sshmyb.tistory.com/166"
+    },
+    {
+      "file": "training-nand-04-3d-nand.md.md",
+      "title": "[NAND Flash #4] \"3D NAND, V-NAND에 대해서 설명하세요\"",
+      "publishedAt": "2022-03-04",
+      "url": "https://sshmyb.tistory.com/167"
+    },
+    {
+      "file": "training-system-semiconductor-terms.md.md",
+      "title": "[시스템반도체] \"시스템반도체 용어 총정리\"",
+      "publishedAt": "2022-03-04",
+      "url": "https://sshmyb.tistory.com/169"
+    },
+    {
+      "file": "training-memory-semiconductor-terms.md.md",
+      "title": "[메모리반도체] \"메모리반도체 용어 총정리\"",
+      "publishedAt": "2022-03-05",
+      "url": "https://sshmyb.tistory.com/170"
+    },
+    {
+      "file": "training-dram-04-operation.md.md",
+      "title": "[DRAM #4] 한 눈에 보는 DRAM 동작원리",
+      "publishedAt": "2022-03-08",
+      "url": "https://sshmyb.tistory.com/174"
+    },
+    {
+      "file": "training-power-device.md.md",
+      "title": "[전력반도체] Power Device, 파워반도체, 화합물 반도체, Isolation 기술",
+      "publishedAt": "2022-05-10",
+      "url": "https://sshmyb.tistory.com/222"
+    },
+    {
+      "file": "training-lcr-meter-capacitance.md.md",
+      "title": "[평가 및 분석] LCR 미터 \"커패시턴스 측정 방법\"",
+      "publishedAt": "2022-01-23",
+      "url": "https://sshmyb.tistory.com/33"
+    },
+    {
+      "file": "training-nbti-pbti-hci.md.md",
+      "title": "[평가 및 분석] \"NBTI, PBTI, HCI에 대해서 설명해보세요\"",
+      "publishedAt": "2022-01-24",
+      "url": "https://sshmyb.tistory.com/34"
+    },
+    {
+      "file": "training-xrd.md.md",
+      "title": "[평가 및 분석] \"X-ray Diffraction, XRD에 대해서 설명하세요\"",
+      "publishedAt": "2022-02-08",
+      "url": "https://sshmyb.tistory.com/65"
+    },
+    {
+      "file": "training-inline-monitoring-pcm.md.md",
+      "title": "[평가 및 분석] FAB 공정 진행 중에는 In-line Monitoring 평가, FAB 공정 완료 후에는 Process Control Monitoring, PCM 평가",
+      "publishedAt": "2022-04-10",
+      "url": "https://sshmyb.tistory.com/196"
+    },
+    {
+      "file": "training-yield-correlation-analysis.md.md",
+      "title": "[평가 및 분석] 수율 관리를 위한 상관성 분석에 대해서 설명하세요",
+      "publishedAt": "2022-04-10",
+      "url": "https://sshmyb.tistory.com/197"
+    },
+    {
+      "file": "training-shmoo-plot.md.md",
+      "title": "[평가 및 분석] Shmoo Plot에 대해서 설명하세요. feat WiKi",
+      "publishedAt": "2022-04-10",
+      "url": "https://sshmyb.tistory.com/198"
+    },
+    {
+      "file": "training-sio2-lpcvd-pecvd.md.md",
+      "title": "[반도체 소재] \"SiO2 grown on LPCVD & PECVD\"",
+      "publishedAt": "2022-02-10",
+      "url": "https://sshmyb.tistory.com/83"
+    },
+    {
+      "file": "training-si3n4-sion-lpcvd-pecvd.md.md",
+      "title": "[반도체 소재] \"Si3N4, SiON grown on LPCVD & PECVD\"",
+      "publishedAt": "2022-02-10",
+      "url": "https://sshmyb.tistory.com/84"
+    },
+    {
+      "file": "training-plug-w-cvd.md.md",
+      "title": "[반도체 소재] \"Plug W(텅스텐) grown on CVD\"",
+      "publishedAt": "2022-02-11",
+      "url": "https://sshmyb.tistory.com/85"
+    },
+    {
+      "file": "knowledge-bspdn.md.md",
+      "title": "[딴딴's 비밀노트] Back Side Power Delivery Network (BSPDN) -면접 준비용-",
+      "publishedAt": "2024-11-07",
+      "url": "https://sshmyb.tistory.com/323"
+    },
+    {
+      "file": "knowledge-yield-defect-density.md.md",
+      "title": "공정이 미세해지면 '수율'이 오른다!!? / 수율 예측을 위한 Defect Density의 이해",
+      "publishedAt": "2025-02-04",
+      "url": "https://sshmyb.tistory.com/354"
+    },
+    {
+      "file": "company-lx-semicon.md.md",
+      "title": "[LX세미콘] \"기업분석 및 취업공략\"",
+      "publishedAt": "2022-02-09",
+      "url": "https://sshmyb.tistory.com/77"
+    },
+    {
+      "file": "training-tsv.md.md",
+      "title": "[패키징 공정] \"TSV (Through Silicon Via)에 대해서 설명하세요\"",
+      "publishedAt": "2022-01-20",
+      "url": "https://sshmyb.tistory.com/25"
+    },
+    {
+      "file": "training-process-corner-margin.md.md",
+      "title": "[공정 Margin 평가] Process Corner Model 기법을 통한 Margin 평가",
+      "publishedAt": "2022-03-26",
+      "url": "https://sshmyb.tistory.com/188"
+    },
+    {
+      "file": "training-oled-passivation-encapsulation.md.md",
+      "title": "[디스플레이] OLED의 박막 Passivation 공정 = Encapsulation 공정 = 봉지 공정 : Trade Off 관계만 공부해보자.",
+      "publishedAt": "2022-06-13",
+      "url": "https://sshmyb.tistory.com/234"
+    }
+  ]
+}
