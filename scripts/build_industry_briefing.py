@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from analyze_sample_articles import DEFAULT_MODEL, call_gemini
 from trend_tracker.industry_briefing import (
-    build_prompt, build_review_prompt, discover_candidates, fetch_text, fingerprint, prepare_sources,
+    assign_issue_ids, build_prompt, build_review_prompt, discover_candidates, fetch_text, fingerprint, prepare_sources,
     public_document, source_from_html, validate_report, validate_review,
 )
 
@@ -85,6 +85,7 @@ def main():
             prompt = base_prompt
             for attempt in range(3):
                 report, used_model = call_gemini(prompt, key, model)
+                assign_issue_ids(report)
                 issues = validate_report(report, sources)
                 if not issues:
                     reviewed = {**report, "source_metadata": [{k: s.get(k) for k in

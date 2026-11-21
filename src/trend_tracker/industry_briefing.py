@@ -16,7 +16,7 @@ from xml.etree import ElementTree
 from trend_tracker.article_body import USER_AGENT, _html_block_body, _json_ld_body
 
 VERSION = "industry_briefing_v1"
-PROMPT_VERSION = 3
+PROMPT_VERSION = 4
 AREAS = ("메모리", "파운드리", "첨단 패키징", "장비")
 HOSTS = {
     "www.semiconductors.org", "news.samsung.com", "pr.tsmc.com",
@@ -316,6 +316,14 @@ JSON만 반환:
 모든 facts/overview/issues를 검토하고, 문제없으면 unsupported=[]로 반환하세요.
 [검토 대상]
 """ + json.dumps(report, ensure_ascii=False)
+
+
+def assign_issue_ids(report: dict) -> None:
+    """Identifiers are application metadata; leave all analytical content untouched."""
+    if isinstance(report, dict) and isinstance(report.get("issues"), list):
+        for index, row in enumerate(report["issues"], 1):
+            if isinstance(row, dict):
+                row["id"] = f"issue-{index}"
 
 
 def validate_review(review: dict, report: dict) -> list[str]:
