@@ -25,6 +25,11 @@ TOPICS = [
     ('personality','interview','인성·자기소개'), ('experience','interview','이력서·경험'),
     ('answer','interview','답변·면접 전략'), ('roadmap','industry','기술 로드맵'), ('company','industry','기업 이해'),
 ]
+TOPIC_ORDER = ['flow','cleaning','thermal','deposition','photo','etch','cmp','implant',
+               'mos','short','structure','contact','materials','metal','metrology','yield','margin','reliability',
+               'packaging','plasma','rf','vacuum','dram','nand','memory','power','display',
+               'roadmap','company','personality','experience','answer']
+TOPICS.sort(key=lambda row:TOPIC_ORDER.index(row[0]))
 TOPIC_IDS = {row[0] for row in TOPICS}
 # Exact filename overrides keep cross-cutting topics out of broad series-based categories.
 OVERRIDES = {
@@ -171,7 +176,8 @@ def series_order(filename, title, index):
     return [2, index, index]
 
 def build(source):
-    guide = json.loads((ROOT/'config/process_study_guide.json').read_text(encoding='utf-8'))
+    layout = json.loads((ROOT/'config/process_materials.json').read_text(encoding='utf-8'))
+    sections = {row['id']:index for index,row in enumerate(layout['sections'])}
     items = []
     seen = set()
     for index, row in enumerate(source['items']):
@@ -190,25 +196,32 @@ def build(source):
         fmt = 'image' if post in {'362','364','365','366','368','369'} else ('index' if filename.endswith('-index.md') else 'article')
         items.append({
             'id':'ddan-' + post, 'postId':post, 'sourceFile':row['file'], 'file':filename,
-            'title':guide['titleOverrides'].get(post, display_title(row['title'])), 'originalTitle':row['title'],
+            'title':layout['titleOverrides'].get(post, display_title(row['title'])), 'originalTitle':row['title'],
             'publishedAt':row['publishedAt'], 'url':row['url'],
             'primary':primary, 'topics':topics, 'format':fmt,
             'aliases':' '.join([*(ALIASES.get(topic,'') for topic in topics), *(alias for pattern,alias in LEXICAL_ALIASES if re.search(pattern,row['title'],re.I))]),
             'order':index, 'sortOrder':series_order(filename,row['title'],index), 'bodyIncluded':False,
+            'section':layout['postSections'].get(post, layout['topicSections'][primary]),
         })
-        if post in guide['corrections']:
-            items[-1]['reviewNote'] = guide['corrections'][post]
-    referenced = {str(post) for stage in guide['stages'] for post in stage['posts']}
-    referenced |= {str(post) for row in guide['priorities'] for post in row['posts']}
-    referenced |= set(guide['titleOverrides']) | set(guide['corrections']) | {str(post) for post in guide['reviewedPostIds']}
+        if post in layout['supplements']:
+            items[-1]['supplements'] = layout['supplements'][post]
+    referenced = set(layout['postSections']) | set(layout['titleOverrides']) | set(layout['supplements'])
     if not referenced <= seen:
-        raise ValueError('Study guide references unknown sources: ' + ', '.join(sorted(referenced - seen)))
+        raise ValueError('Process layout references unknown sources: ' + ', '.join(sorted(referenced - seen)))
+    if any(item['section'] not in sections for item in items):
+        raise ValueError('Unknown process section')
+    topic_order = {row[0]:index for index,row in enumerate(TOPICS)}
+    def process_position(item):
+        order = layout.get('sectionTopicOrder',{}).get(item['section'])
+        position = order.index(item['primary']) if order else topic_order[item['primary']]
+        return (sections[item['section']],position,item['sortOrder'])
+    items.sort(key=process_position)
     return {
         'version':1, 'source':source['source'], 'sourceUrl':source['sourceUrl'],
         'collectedAt':source['collectedAt'], 'classificationBasis':'첨부 자료의 제목·목록 기준',
         'groups':[{'id':key,'name':name} for key,name in GROUPS],
         'topics':[{'id':key,'group':group,'name':name} for key,group,name in TOPICS],
-        'studyGuide':{key:value for key,value in guide.items() if key not in {'titleOverrides','corrections'}},
+        'sections':layout['sections'], 'referenceSources':layout['referenceSources'],
         'items':items,
     }
 

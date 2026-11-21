@@ -37,25 +37,33 @@ assert.deepEqual(prep.filterItems(catalog,{search:'TSV'}).map(item => item.id),[
 assert.equal(prep.filterItems(catalog,{search:'존재하지않는검색어'}).length,0);
 assert(prep.filterItems(catalog,{topic:'photo',search:'EUV'}).length > 1);
 
-// Learning routes select existing material in a deliberate reading order.
-assert.equal(catalog.studyGuide.priorities.length,6);
-assert.equal(catalog.studyGuide.reviewedPostIds.length,27);
-for (const stage of catalog.studyGuide.stages) {
-  assert.deepEqual(prep.filterItems(catalog,{stage:stage.id}).map(item => item.id),stage.posts.map(post => 'ddan-' + post));
-}
-assert.equal(prep.filterItems(catalog,{stage:'core',topic:'photo'}).length,1);
-assert(prep.filterItems(catalog,{stage:'core',search:'존재하지않는검색어'}).length === 0);
+// The source list itself follows process sections; supplementary text stays with its source.
+assert(!Object.hasOwn(catalog,'studyGuide'));
+const sectionOrder = new Map(catalog.sections.map((row,index) => [row.id,index]));
+const displayed = prep.filterItems(catalog);
+assert.equal(displayed[0].id,'ddan-239');
+assert.deepEqual(displayed.map(item => item.id),catalog.items.map(item => item.id));
+assert(displayed.every((item,index) => !index || sectionOrder.get(item.section) >= sectionOrder.get(displayed[index-1].section)));
+assert.equal(byId(398).section,'isolation'); // Post-CMP cleaning stays with CMP, not incoming wafer preparation.
+const isolation = displayed.filter(item => item.section === 'isolation');
+assert.equal(isolation[0].id,'ddan-412');
+assert.equal(isolation.at(-1).id,'ddan-398');
+assert.equal(byId(213).section,'doping');
+assert.equal(byId(127).section,'interconnect');
 assert.match(byId(308).title,/산화·확산·열처리/);
-assert.match(byId(213).reviewNote.text,/양·음/);
-assert.match(byId(197).reviewNote.text,/저자가 만든 예시/);
-assert.equal(catalog.items.filter(item => item.reviewNote).length,4);
+assert.match(byId(213).supplements[0].paragraphs.join(' '),/양·음/);
+assert.equal(prep.filterItems(catalog,{search:'Cpk'})[0].id,'ddan-172');
+assert(prep.filterItems(catalog,{search:'DOE'}).some(item => item.id === 'ddan-197'));
+assert.equal(prep.filterItems(catalog,{search:'MSA'})[0].id,'ddan-196');
+assert.equal(prep.filterItems(catalog,{search:'Deal–Grove'})[0].id,'ddan-308');
+assert(catalog.items.every(item => !Object.hasOwn(item,'reviewNote')));
 assert(prep.filterItems(catalog,{search:'Diffusion'}).some(item => item.id === 'ddan-308')); // Original title remains searchable after retitling.
-const badRoute = JSON.parse(JSON.stringify(catalog)); badRoute.studyGuide.stages[0].posts.push(999999);
-assert.throws(() => prep.validateCatalog(badRoute));
-const badGuideSource = JSON.parse(JSON.stringify(catalog)); badGuideSource.studyGuide.sources[0].url='javascript:alert(1)';
-assert.throws(() => prep.validateCatalog(badGuideSource));
-const badReviewSource = JSON.parse(JSON.stringify(catalog)); badReviewSource.items.find(item => item.reviewNote).reviewNote.sources.push('missing');
-assert.throws(() => prep.validateCatalog(badReviewSource));
+const badSection = JSON.parse(JSON.stringify(catalog)); badSection.items[0].section='unknown';
+assert.throws(() => prep.validateCatalog(badSection));
+const badSource = JSON.parse(JSON.stringify(catalog)); badSource.referenceSources[0].url='javascript:alert(1)';
+assert.throws(() => prep.validateCatalog(badSource));
+const badSupplement = JSON.parse(JSON.stringify(catalog)); badSupplement.items.find(item => item.supplements).supplements[0].sources.push('missing');
+assert.throws(() => prep.validateCatalog(badSupplement));
 
 // Notes are user-owned material, never article bodies or automatically graded answers.
 const current = { version:1, notes:{ 'ddan-4': { answer:'직접 정리한 첫 답변', memo:'분해능 조건 다시 확인', status:'review', starred:true } } };

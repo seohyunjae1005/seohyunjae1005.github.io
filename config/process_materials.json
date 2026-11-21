@@ -1,0 +1,367 @@
+{
+  "sections": [
+    {
+      "id": "flow",
+      "name": "공정 전체 흐름"
+    },
+    {
+      "id": "preparation",
+      "name": "기판 준비·세정"
+    },
+    {
+      "id": "films",
+      "name": "산화·절연막 형성"
+    },
+    {
+      "id": "patterning",
+      "name": "포토·식각으로 패턴 형성"
+    },
+    {
+      "id": "isolation",
+      "name": "격리막 매립·평탄화"
+    },
+    {
+      "id": "doping",
+      "name": "웰·채널 도핑과 열처리"
+    },
+    {
+      "id": "devices",
+      "name": "게이트·소자 형성"
+    },
+    {
+      "id": "interconnect",
+      "name": "접촉·금속배선"
+    },
+    {
+      "id": "metrology",
+      "name": "공정 계측·전기적 검사·수율"
+    },
+    {
+      "id": "packaging",
+      "name": "패키징·적층 연결"
+    },
+    {
+      "id": "equipment",
+      "name": "공통 장비 원리"
+    },
+    {
+      "id": "products",
+      "name": "제품별 구조·공정"
+    },
+    {
+      "id": "industry",
+      "name": "산업·기업"
+    },
+    {
+      "id": "interview",
+      "name": "인성·면접 자료"
+    }
+  ],
+  "topicSections": {
+    "flow": "flow",
+    "cleaning": "preparation",
+    "thermal": "films",
+    "deposition": "films",
+    "photo": "patterning",
+    "etch": "patterning",
+    "cmp": "isolation",
+    "implant": "doping",
+    "mos": "devices",
+    "short": "devices",
+    "structure": "devices",
+    "materials": "devices",
+    "contact": "interconnect",
+    "metal": "interconnect",
+    "metrology": "metrology",
+    "yield": "metrology",
+    "margin": "metrology",
+    "reliability": "metrology",
+    "packaging": "packaging",
+    "plasma": "equipment",
+    "rf": "equipment",
+    "vacuum": "equipment",
+    "dram": "products",
+    "nand": "products",
+    "memory": "products",
+    "power": "products",
+    "display": "products",
+    "roadmap": "industry",
+    "company": "industry",
+    "personality": "interview",
+    "experience": "interview",
+    "answer": "interview"
+  },
+  "postSections": {
+    "398": "isolation",
+    "412": "isolation",
+    "213": "doping",
+    "127": "interconnect",
+    "151": "interconnect",
+    "235": "devices",
+    "236": "devices",
+    "408": "interconnect"
+  },
+  "titleOverrides": {
+    "239": "CMOS 공정 흐름: 소자 형성부터 금속배선까지",
+    "308": "산화·확산·열처리: 원리, 열예산, 공정 평가",
+    "283": "포토 공정 흐름·불량과 엔지니어의 역할",
+    "303": "증착 불량: 갭필·막 균일도·피복성",
+    "354": "수율 분석: 결함밀도 모델과 불량 분석",
+    "172": "공정제어 개요: 검사·계측·결함 리뷰",
+    "197": "수율과 PCM의 상관분석: 가설 세우기",
+    "196": "In-line·PCM·제품 검사: 단계별 데이터",
+    "188": "공정 코너·마진: PVT 변동과 전력 특성",
+    "186": "PCM 1: 트랜지스터 전기특성 평가",
+    "187": "PCM 2: 저항·접촉·커패시터 평가",
+    "411": "진공·펌프: 역할, 구성, 유지관리",
+    "400": "CMP 균일도와 고급 공정제어(APC)",
+    "406": "CMP 종점 검출과 두께 계측",
+    "409": "CVD 공정변수: 균일도·증착률·습식 식각률",
+    "255": "세정 공정: 오염 제거와 표면 관리",
+    "225": "CMP 공정: 원리와 평탄화",
+    "318": "포토 기초 학습 목차",
+    "319": "포토 기초·심화 학습 목차",
+    "324": "증착 공정 학습 목차",
+    "327": "플라즈마 학습 목차",
+    "343": "식각 공정 학습 목차",
+    "344": "CMP·세정 학습 목차",
+    "350": "TSMC 2 nm 로드맵: 2025년 자료",
+    "351": "TSMC N2 기술 경쟁력: 2025년 자료"
+  },
+  "referenceSources": [
+    {
+      "id": "nist-capability",
+      "title": "NIST · 공정능력과 적용 가정",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm"
+    },
+    {
+      "id": "minitab-limits",
+      "title": "Minitab · 관리한계와 규격한계",
+      "url": "https://support.minitab.com/en-us/minitab/help-and-how-to/quality-and-process-improvement/control-charts/supporting-topics/basics/what-are-control-limits/"
+    },
+    {
+      "id": "nist-doe",
+      "title": "NIST · 실험설계와 상호작용",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section1/pri11.htm"
+    },
+    {
+      "id": "nist-designs",
+      "title": "NIST · 실험설계 선택",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri3.htm"
+    },
+    {
+      "id": "nist-gauge",
+      "title": "NIST · 측정 반복성·재현성 평가",
+      "url": "https://www.itl.nist.gov/div898/handbook/mpc/section4/mpc4.htm"
+    },
+    {
+      "id": "mit-front-end",
+      "title": "MIT · 산화·확산·이온주입·열처리 강의",
+      "url": "https://ocw.mit.edu/courses/6-774-physics-of-microfabrication-front-end-processing-fall-2004/pages/calendar/"
+    },
+    {
+      "id": "epfl-photo",
+      "title": "EPFL · 양성·음성 PR의 차이",
+      "url": "https://www.epfl.ch/research/facilities/cmi/process/photolithography/introductiontophotolithography/"
+    },
+    {
+      "id": "microchem-bake",
+      "title": "MicroChemicals · PR 베이크 단계",
+      "url": "https://research.engineering.ucdavis.edu/cnm2/wp-content/uploads/sites/11/2014/07/photoresist_baking.pdf"
+    },
+    {
+      "id": "cameca-sims",
+      "title": "CAMECA · SIMS 원리와 정량",
+      "url": "https://www.cameca.com/products/sims/technique"
+    },
+    {
+      "id": "illinois-fpp",
+      "title": "Illinois · 4점 탐침과 면저항",
+      "url": "https://fabweb.ece.illinois.edu/gt/equations/fpp.aspx"
+    },
+    {
+      "id": "tuwien-oxidation",
+      "title": "TU Wien · Deal–Grove 산화 모델",
+      "url": "https://www.iue.tuwien.ac.at/phd/hollauer/node16.html"
+    },
+    {
+      "id": "mit-diffusion",
+      "title": "MIT · Fick 법칙과 확산계수",
+      "url": "https://ocw.mit.edu/courses/3-091sc-introduction-to-solid-state-chemistry-fall-2010/e984fbef910102c34ac5ef86f1c939c8_MIT3_091SCF09_aln09.pdf"
+    }
+  ],
+  "supplements": {
+    "308": [
+      {
+        "title": "산화막 성장: 반응 지배와 확산 지배",
+        "paragraphs": [
+          "열산화에서는 산화제가 표면에 도달하고, 이미 형성된 산화막을 통과한 뒤 Si/SiO₂ 계면에서 반응한다. 산화막이 얇을 때에는 계면 반응의 영향이, 두꺼워지면 산화막 안에서 산화제가 이동하는 데 걸리는 시간의 영향이 커진다. Si가 소비되며 산화막이 성장한다는 점에서 기판 위에 막을 쌓는 증착과 구분한다.",
+          "Deal–Grove 모델의 기본식은 x² + Ax = B(t + τ)이다. x는 산화막 두께, t는 시간, τ는 초기 산화막을 반영한 등가 시간이다. B는 길이²/시간, B/A는 길이/시간의 단위를 갖는다. 같은 온도·분위기에서 x가 A보다 충분히 작으면 대략 선형 성장, 충분히 크면 x²이 시간에 비례하는 포물선 성장을 보인다.",
+          "따라서 산화 시간을 두 배로 늘린다고 항상 두께가 두 배가 되지는 않는다. 초박막·복잡한 형상에서는 이 단순 모델의 한계도 확인해야 한다. 건식·습식 산화의 비교는 같은 온도와 압력 등 조건을 명시해 설명하고, 두께 값과 성장속도의 단위를 구분한다."
+        ],
+        "sources": [
+          "tuwien-oxidation"
+        ]
+      },
+      {
+        "title": "확산·활성화와 누적 열예산",
+        "paragraphs": [
+          "이온주입은 가속한 이온을 고체 안에 넣는 과정이다. 이후 열처리는 주입 손상 회복과 도펀트의 전기적 활성화를 돕지만 도펀트 분포도 바꿀 수 있다. 주입 자체와 열처리 중 확산을 같은 메커니즘으로 설명하지 않는다.",
+          "단순한 1차원 확산에서 입자 흐름은 J = −D·∂C/∂x, 농도 변화는 ∂C/∂t = D·∂²C/∂x²로 표현한다. 뒤 식은 D가 일정하다는 가정의 형태다. 확산계수 D의 단위는 길이²/시간이고, 보통 D = D₀·exp(−Eₐ/kT)처럼 온도 의존성을 표현한다. T는 절대온도(K), Eₐ는 입자당 활성화에너지, k는 볼츠만 상수다.",
+          "같은 확산 메커니즘을 가정하면 확산 길이의 규모는 √(Dt)에 비례하며, 온도가 변하는 이력은 ∫D(T(t))dt로 연결해 볼 수 있다. 이온주입 직후의 과도 확산이나 농도·결함 의존성이 큰 경우에는 이 단순화가 맞지 않을 수 있다. 열예산은 최고온도 한 값보다 앞뒤 공정의 시간·온도 이력을 함께 보아야 한다.",
+          "활성화 후 면저항이 낮아져도 접합 누설이나 도핑 분포가 목표를 벗어날 수 있다. 면저항, 깊이별 농도, 접합 및 소자 전기특성을 함께 확인해야 활성화 개선과 과도한 확산을 구분할 수 있다."
+        ],
+        "sources": [
+          "mit-diffusion",
+          "mit-front-end",
+          "illinois-fpp"
+        ]
+      }
+    ],
+    "172": [
+      {
+        "title": "통계적 공정관리(SPC)와 공정능력",
+        "paragraphs": [
+          "규격한계는 제품이나 공정이 만족해야 하는 허용 범위이고, 관리한계는 안정된 공정의 관측 변동을 바탕으로 이상 변동을 찾기 위한 경계다. 규격 안에 있는 값도 시간 순서에서 이동·추세 등 이상 징후를 보일 수 있고, 관리 상태의 공정이라도 규격 대비 산포가 너무 클 수 있다.",
+          "시간 순서와 표본 묶음을 유지한 관리도로 평균의 이동과 산포의 변화를 구분한다. 웨이퍼 내 위치 차이, 웨이퍼 간 차이, 챔버 간 차이를 한데 섞으면 원인이 가려질 수 있다. 차트 종류와 판정 규칙은 데이터 유형·표본 구성·독립성에 맞춰 선택한다.",
+          "양측 규격의 통상적인 공정능력지수는 Cp = (USL − LSL)/(6σ), Cpk = min[(USL − μ)/(3σ), (μ − LSL)/(3σ)]이다. USL·LSL은 상·하한 규격, μ는 평균, σ는 평가 목적에 맞게 추정한 공정 표준편차다. Cp는 규격 폭 대비 산포를, Cpk는 중심의 치우침도 반영한다.",
+          "아래 계산은 교육용 가상 두께 데이터다. 평균이 목표에 맞는 경우와 치우친 경우를 비교한다. 공정 안정성, 표본의 독립성, 정규분포 등 통상적인 해석의 가정과 표준편차 추정 방법을 확인하지 않은 채 숫자만으로 합격 판정을 내리지는 않는다."
+        ],
+        "table": {
+          "caption": "교육용 가상 사례 · 실제 제품 규격이나 관리 기준이 아님",
+          "headers": [
+            "항목",
+            "중심 일치",
+            "평균 이동"
+          ],
+          "rows": [
+            [
+              "하한 / 상한",
+              "95 / 105 nm",
+              "95 / 105 nm"
+            ],
+            [
+              "평균 μ / 표준편차 σ",
+              "100 / 1 nm",
+              "103 / 1 nm"
+            ],
+            [
+              "Cp",
+              "1.67",
+              "1.67"
+            ],
+            [
+              "Cpk",
+              "1.67",
+              "0.67"
+            ]
+          ]
+        },
+        "sources": [
+          "nist-capability",
+          "minitab-limits"
+        ]
+      }
+    ],
+    "196": [
+      {
+        "title": "측정 오차와 실제 공정 변동 구분",
+        "paragraphs": [
+          "두께·CD·저항 데이터가 바뀌었다고 곧바로 공정 변화로 단정할 수는 없다. 측정 위치, 시편 상태, 분석 모델, 교정 이력, 장비 상태가 같은지 먼저 확인한다. 같은 웨이퍼의 서로 다른 위치를 비교하면 위치별 공정 차이와 측정 장비 차이가 섞인다.",
+          "반복성은 같은 장비와 조건에서 반복 측정할 때의 변동이고, 재현성은 작업자·장비 등 정해진 측정 조건이 달라질 때 나타나는 변동이다. 측정시스템 분석(MSA)에서는 이것들과 함께 기준값 대비 편향, 시간에 따른 드리프트, 측정 범위에 따른 차이를 구분한다.",
+          "같은 시편·위치를 반복 측정해 장비 내 변동을 확인하고, 동일한 시편 묶음을 장비 간 비교해 장비 차이를 평가한다. 파괴 측정처럼 같은 위치를 반복할 수 없는 경우에는 그 제약에 맞는 시편과 실험 구조가 필요하다. 측정 오차와 공정 변동이 독립이라는 단순 가정에서는 관측 분산을 공정 분산과 측정 분산의 합으로 생각할 수 있다.",
+          "공정 판단에는 평균뿐 아니라 표본의 대표성이 필요하다. 웨이퍼 중심·가장자리와 시간·로트·챔버 이력을 보존해 비교한다. PCM은 공정 모니터용 소자의 특성을, 제품 검사는 실제 제품의 동작·성능을 확인하므로 한 종류의 결과만으로 다른 종류의 합격을 보장할 수는 없다."
+        ],
+        "sources": [
+          "nist-gauge"
+        ]
+      }
+    ],
+    "197": [
+      {
+        "title": "상관분석에서 조건 검증 실험까지",
+        "paragraphs": [
+          "상관관계가 보이면 공정 원인의 후보로 삼되 원인을 확정하지 않는다. 제품 종류·공정 단계·투입 시점·장비·소재 이력이 함께 달랐는지 확인하고, 비교 가능한 집단 안에서도 같은 관계가 있는지 살펴본다. 원문의 가상 전압 기준은 실제 제품의 관리 기준으로 사용할 수 없다.",
+          "실험설계(DOE)는 목표 응답과 조절 인자, 평가 범위를 먼저 정하고 조건 조합을 비교하는 방법이다. 두 인자의 상호작용은 한 인자의 효과가 다른 인자의 수준에 따라 달라지는 현상이다. 아래는 인자 A와 B의 저·고 수준을 조합한 교육용 가상 평균 응답이며 실제 레시피나 측정 결과가 아니다."
+        ],
+        "table": {
+          "caption": "교육용 가상 실험 · 응답 단위는 임의 단위",
+          "headers": [
+            "A 수준",
+            "B 수준",
+            "평균 응답"
+          ],
+          "rows": [
+            [
+              "저",
+              "저",
+              "100"
+            ],
+            [
+              "고",
+              "저",
+              "104"
+            ],
+            [
+              "저",
+              "고",
+              "102"
+            ],
+            [
+              "고",
+              "고",
+              "118"
+            ]
+          ]
+        },
+        "afterTable": [
+          "B가 낮을 때 A의 효과는 104 − 100 = 4, B가 높을 때는 118 − 102 = 16이다. A의 영향이 B 수준에 따라 달라지므로 상호작용을 의심할 수 있다. 다만 반복 오차 정보가 없으므로 이 네 값만으로 통계적 유의성을 판단할 수는 없다.",
+          "실제 평가는 허용된 범위에서 반복과 실험 순서의 무작위화를 고려하고, 날짜·장비 등 통제하기 어려운 차이는 블록으로 구분한다. 후보 조건은 별도의 확인 실험에서 재검증하며, 두께·균일도·막질·생산성처럼 서로 충돌할 수 있는 지표를 함께 비교한다. 공정 레시피 변경은 검증과 승인 후 반영하고 이후의 변동을 모니터링한다."
+        ],
+        "sources": [
+          "nist-doe",
+          "nist-designs"
+        ]
+      }
+    ],
+    "213": [
+      {
+        "title": "SIMS 농도와 전기적 평가의 차이",
+        "paragraphs": [
+          "이차이온 질량분석(SIMS)은 1차 이온으로 표면을 스퍼터링하고, 방출된 입자 중 이온화된 성분을 질량 대 전하비로 분리해 분석한다. 분석 목적과 조건에 따라 양·음의 이차이온을 사용한다. 모든 SIMS를 음이온 검출만으로 설명할 수는 없다.",
+          "깊이별 농도를 정량하려면 깊이 보정과 표준 시료·상대 감도 등 분석 조건을 고려해야 한다. SIMS의 원소 농도는 전기적으로 활성화된 캐리어 농도와 같지 않다. 4점 탐침은 전류와 전압으로 면저항을 평가하며, 이를 농도로 연결할 때에는 이동도·깊이 분포·기하 조건 등을 추가로 고려한다."
+        ],
+        "sources": [
+          "cameca-sims",
+          "illinois-fpp"
+        ]
+      }
+    ],
+    "283": [
+      {
+        "title": "양성·음성 PR과 베이크 순서",
+        "paragraphs": [
+          "일반적인 양성 포토레지스트(PR)는 노광된 영역이 현상액에 더 잘 녹고, 음성 PR은 노광된 영역이 남도록 반응한다. 현상 시 제거되는 영역은 사용하는 PR과 공정 방식에 따라 구분해야 한다.",
+          "화학증폭형 PR에서 적용하는 노광 후 베이크(PEB)는 노광 뒤·현상 전에 진행한다. 현상 후 적용할 수 있는 하드베이크와는 목적과 위치가 다르며, 모든 PR에 같은 베이크 단계나 온도·시간을 적용하지 않는다. 노광량·초점·PR·베이크·현상 조건을 함께 보아 CD와 패턴 형상을 해석한다."
+        ],
+        "sources": [
+          "epfl-photo",
+          "microchem-bake"
+        ]
+      }
+    ]
+  },
+  "sectionTopicOrder": {
+    "isolation": [
+      "deposition",
+      "cmp",
+      "cleaning"
+    ],
+    "interconnect": [
+      "contact",
+      "materials",
+      "deposition",
+      "metal"
+    ]
+  }
+}
