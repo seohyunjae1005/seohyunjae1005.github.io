@@ -1,0 +1,43 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const bank = require('../docs/equipment-interview.js');
+const prep = require('../docs/interview-prep.js');
+const catalog = bank.validateCatalog(JSON.parse(fs.readFileSync(path.join(__dirname,'../docs/interview/equipment.json'),'utf8')));
+assert.equal(bank.filterItems(catalog).length,83);
+for (const company of catalog.companies) {
+  const items = bank.filterItems(catalog,{company:company.id});
+  assert(items.length > 30);
+  assert(items.every(item => item.matchedSources.every(s => s.company === company.id)));
+}
+// Source conditions must match the same reference: ASML English must not make TEL English.
+assert.equal(bank.filterItems(catalog,{company:'tel',language:'english'}).length,0);
+assert(bank.filterItems(catalog,{company:'tel',language:'japanese'}).some(i => i.id === 'equip-si'));
+assert(bank.filterItems(catalog,{company:'asml',language:'english',period:'2026 하'}).some(i => i.id === 'equip-si'));
+assert(bank.filterItems(catalog,{company:'amat',search:'RF'}).some(i => i.id === 'equip-dep'));
+assert.deepEqual(bank.filterItems(catalog,{search:'EUV'}).map(i => i.id),['equip-eu']);
+assert.deepEqual(bank.filterItems(catalog,{search:'자기소개'}).map(i => i.id),['equip-si']);
+assert(bank.filterItems(catalog,{company:'lam',search:'On-call'}).some(i => i.id === 'equip-oc'));
+assert.equal(bank.filterItems(catalog,{company:'tel',category:'technical',search:'Sn'}).length,0);
+assert.equal(bank.filterItems(catalog,{search:'존재하지않는질문'}).length,0);
+const self = catalog.items.find(i => i.id === 'equip-si');
+assert.equal(bank.noteId(self,'amat'),'equip-si--amat');
+assert.equal(bank.noteId(self),'equip-si');
+const note = {answer:'AMAT용 실제 답변',memo:'영어 문장 점검',status:'review',starred:true};
+const state = {version:1,notes:{'ddan-4':{...note,answer:'기존 공정 학습 기록'},'equip-si--amat':note}};
+const restored = prep.normalizeState(JSON.parse(JSON.stringify(state)));
+assert.equal(bank.filterItems(catalog,{company:'amat',state:'written'},restored.notes).length,1);
+assert.equal(bank.filterItems(catalog,{company:'asml',state:'written'},restored.notes).length,0);
+assert.equal(bank.filterItems(catalog,{state:'written'},restored.notes).length,0);
+const incoming = {version:1,notes:{'equip-si--asml':{...note,answer:'ASML용 답변'},'equip-si--amat':{...note,answer:'가져온 다른 답변'}}};
+const merged = prep.mergeState(restored,incoming);
+assert.equal(merged.notes['ddan-4'].answer,'기존 공정 학습 기록');
+assert.match(merged.notes['equip-si--amat'].answer,/AMAT용 실제 답변/);
+assert.match(merged.notes['equip-si--amat'].answer,/가져온 다른 답변/);
+assert.equal(merged.notes['equip-si--asml'].answer,'ASML용 답변');
+assert.match(bank.noteText(self,note,'AMAT'),/AMAT/);
+assert.equal(bank.ranges([1,2,2,3,7,8,11]),'1–3, 7–8, 11');
+assert.throws(() => prep.normalizeState({version:1,notes:{'equip-si--fake':note}}));
+const malicious = JSON.parse(JSON.stringify(catalog)); malicious.items[0].sources[0].company='fake';
+assert.throws(() => bank.validateCatalog(malicious));
+console.log('Equipment interviews: coverage schema, combined filters, scoped notes and existing-note preservation passed');
