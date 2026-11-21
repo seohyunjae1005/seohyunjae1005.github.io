@@ -16,7 +16,7 @@ from xml.etree import ElementTree
 from trend_tracker.article_body import USER_AGENT, _html_block_body, _json_ld_body
 
 VERSION = "industry_briefing_v1"
-PROMPT_VERSION = 2
+PROMPT_VERSION = 3
 AREAS = ("메모리", "파운드리", "첨단 패키징", "장비")
 HOSTS = {
     "www.semiconductors.org", "news.samsung.com", "pr.tsmc.com",
@@ -192,6 +192,7 @@ facts는 6~9개. 각 출처에서 최소 하나씩 추출하세요. 각각 한�
 입력 본문에서 확인할 수 있는 사실만 쓰세요. 계획·전망·예상은 nature='전망', 발표된 실적·현재 사실은 '발표'.
 인용은 최소 8단어의 완결된 절이어야 합니다. 한국어 사실의 주어·행위·성과·조건을 모두 그 인용으로 뒷받침하세요. 'AI-driven scaling roadmap' 같은 짧은 구절로 투자 확대나 협력 확대를 사실로 만들지 마세요.
 같은 문서에서 인용하는 영어 단어의 총합도 25개 이내여야 합니다. 수치는 인용에 있는 수치만 쓰고 단위나 기간을 바꾸지 마세요.
+금액을 한국어 단위로 환산하지 마세요. 예를 들어 $10.41 billion은 그대로 '$10.41 billion'으로 쓰고 '104억 1천만 달러'로 바꾸지 마세요. 분기와 연도는 문서 제목의 표기를 사용할 수 있습니다.
 overview는 메모리/파운드리/첨단 패키징/장비의 4개 항목. 각각 90자 이내 한국어 해석과 fact_ids. 근거 부족인 분야는 text_ko='확인된 자료 부족', fact_ids=[]로 표시하세요.
 overview에는 실제 근황을 곧바로 쓰세요. '살펴볼 필요가 있다/함께 볼 수 있다/중요하다' 같은 독자 지침으로 근황을 대신하지 마세요. 특정 기업의 실적을 산업 전체의 실적으로 확대하지 마세요.
 issues는 서로 다른 사회·산업 쟁점 3개. 기업별 홍보 목록이나 같은 AI 성장 주장의 반복을 피하세요.
@@ -240,8 +241,11 @@ def validate_report(report: dict, sources: list[dict]) -> list[str]:
         quoted_words[source["id"]] = quoted_words.get(source["id"], 0) + len(quote.split())
         if not isinstance(statement, str) or not statement.strip() or len(statement) > 180:
             issues.append(f"{identifier} 사실 내용 오류")
-        elif not numbers(statement) <= numbers(quote + " " + source.get("title", "") + " " + source.get("period_label", "")):
-            issues.append(f"{identifier} 인용에 없는 수치")
+        else:
+            allowed = numbers(quote + " " + source.get("title", "") + " " + source.get("period_label", ""))
+            extra = numbers(statement) - allowed
+            if extra:
+                issues.append(f"{identifier} 인용에 없는 수치 {sorted(extra)}. 허용 수치 {sorted(allowed)}. 원문 단위로 표기하고 환산하지 마세요.")
         if fact.get("nature") not in ("발표", "전망"):
             issues.append(f"{identifier} 실적/전망 구분 누락")
         if re.search(r"\b(?:forecast|projected|expects?|expected|outlook)\b", quote, re.I) and fact.get("nature") != "전망":

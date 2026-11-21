@@ -83,7 +83,7 @@ def main():
             model = os.environ.get("GEMINI_MODEL", DEFAULT_MODEL)
             base_prompt = build_prompt(sources)
             prompt = base_prompt
-            for attempt in range(2):
+            for attempt in range(3):
                 report, used_model = call_gemini(prompt, key, model)
                 issues = validate_report(report, sources)
                 if not issues:
@@ -106,6 +106,8 @@ def main():
     except Exception as error:
         notes["result"] = "FAIL"
         notes["error"] = f"{type(error).__name__}: {str(error)[:500]}"
+        if isinstance(locals().get("report"), dict):
+            notes["rejected_draft"] = report
         if previous.get("version"):
             previous["refresh_status"] = "failed"
             previous["last_attempt_at"] = timestamp
