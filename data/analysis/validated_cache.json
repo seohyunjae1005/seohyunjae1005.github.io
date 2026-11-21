@@ -1,6 +1,6 @@
 {
   "schema_version": "validated_analysis_cache_v1",
-  "updated_at": "2026-11-20T02:42:13.557307+00:00",
+  "updated_at": "2026-11-21T02:52:52.802321+00:00",
   "review_notice": "Machine-validated draft cache. Human approval is required before publication.",
   "company_count": 11,
   "companies": {
@@ -94,10 +94,10 @@
     },
     "SK hynix": {
       "company": "SK hynix",
-      "title": "“Memory-Centric Server Systems Are the Future”: SK hynix Presents Its Next-Generation AI Infrastructure Vision at OCP Global Summit 2026",
-      "url": "https://news.skhynix.com/en/ocp-global-summit-2026/",
+      "title": "“Building the Future AI Ecosystem Around Memory”: SK hynix Presents Its Technology Vision at Supercomputing 2026",
+      "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition/",
       "model": "gemini-3.5-flash-lite",
-      "generated_at": "2026-10-22T00:17:23.120918+00:00",
+      "generated_at": "2026-11-21T02:52:44.720895+00:00",
       "analysis_version": "semiconductor_job_analysis_v1",
       "extraction_method": "filtered_html_blocks",
       "source_scope": "official_article_body",
@@ -105,77 +105,75 @@
       "review_status": "machine_validated",
       "publish_ready": false,
       "normalization_notes": [
-        "사실 2: 원문과 정확히 일치하지 않아 제외"
+        "사실 1: 근거 구절이 25단어를 넘어 제외",
+        "사실 2: 근거 구절이 25단어를 넘어 제외"
       ],
       "analysis": {
         "analysis_version": "semiconductor_job_analysis_v1",
-        "summary_ko": "SK하이닉스는 OCP 글로벌 서밋 2026에서 CXL 3.2 기반 CMM-DDR5, MARS 랙 시스템, CMM-Ax 등 차세대 AI 인프라 솔루션을 공개하고 메모리 중심 서버 시스템 비전을 제시했습니다.",
+        "summary_ko": "SK하이닉스는 Supercomputing 2026에서 CXL 기반의 메모리 중심 AI 랙 시스템(MARS)과 KV 캐시 오프로딩, Compute-using-DRAM, Custom HBM Array 등 차세대 메모리 솔루션을 시연하며 AI 생태계 비전을 제시했습니다.",
         "facts": [
           {
-            "statement_ko": "SK하이닉스는 CXL 3.2 기반의 256GB 용량 CMM-DDR5 제2세대 제품을 공개했습니다.",
-            "evidence_en": "SK hynix unveiled its second-generation product (256GB), optimized for AI workloads and based on CXL 3.2."
-          },
-          {
-            "statement_ko": "SK하이닉스는 연산 기능을 메모리와 결합한 차세대 메모리 솔루션 CMM-Ax를 선보였습니다.",
-            "evidence_en": "CMM-Ax is a next-generation memory solution that combines computation functions with memory."
+            "statement_ko": "SK하이닉스는 HBM 존에서 HBM3E와 함께 차세대 제품인 HBM4 및 HBM4E를 나란히 전시했습니다.",
+            "evidence_en": "In the HBM zone, the next-generation HBM4E and HBM4 were displayed side by side with HBM3E, which currently leads the HBM market."
           }
         ],
         "technology_signals": [
-          "CMM-DDR5 (CXL 3.2, 256GB)",
-          "MARS (Memory Centric AI Rack System)",
-          "CMM-Ax (Computational Memory / PIM)",
-          "HBM4 / HBM4E",
-          "HBF (High Bandwidth Flash)"
+          "MARS(Memory-centric AI Rack System)",
+          "CXL memory pool",
+          "KV Cache Offloading over CXL",
+          "Compute-using-DRAM",
+          "Custom HBM Array",
+          "HBM4 and HBM4E"
         ],
         "company_implications": [
           {
             "target_company": "SK hynix",
-            "inference_ko": "CXL 및 PIM 기반 솔루션의 실제 시스템 검증 확대를 통해 AI 서버 시장에서 메모리 중심 아키텍처 주도권을 강화할 수 있습니다.",
-            "basis_ko": "나이버클라우드 등 파트너사와의 PoC 결과 공개 및 OCP 2026 라이브 데모 진행.",
+            "inference_ko": "CXL 및 컴퓨테이셔널 메모리 기술 리더십을 강화하여 차세대 AI 서버 및 데이터센터 시장에서 솔루션 경쟁력을 높일 수 있습니다.",
+            "basis_ko": "MARS 시스템과 CXL 기반 KV 캐시 오프로딩, Compute-using-DRAM 시연을 통해 AI 성능 향상 효과를 입증했기 때문입니다.",
             "confidence": "high"
           }
         ],
         "role_insights": [
           {
-            "role": "R&D공정·공정설계",
-            "why_relevant_ko": "HBM4 및 차세대 DRAM, NAND 고용량화 공정 개발과 직접 연관됩니다.",
-            "considerations_ko": [
-              "TSV 및 Advanced MR-MUF 등 적층 기술 이해",
-              "미세 공정 적용 시 수율 안정화 방안"
-            ],
-            "study_points_ko": [
-              "선단 패키징 및 3D integration 공정 구조",
-              "메모리 대역폭 한계 극복을 위한 설계 기법"
-            ]
-          },
-          {
             "role": "AE·솔루션",
-            "why_relevant_ko": "CXL 풀드 메모리 및 MARS 랙 시스템 등 고객사 서버 환경 적용 검증에 필수적입니다.",
+            "why_relevant_ko": "CXL 기반 메모리 풀, MARS 시스템 등 차세대 서버 및 AI 인프라 솔루션을 고객사에 제안하고 검증해야 하기 때문입니다.",
             "considerations_ko": [
-              "데이터 센터 워크로드 분석 능력",
-              "고객사 시스템과의 호환성 검증 프로세스"
+              "고객사의 LLM 인프라 환경에서 CXL 및 HBM 솔루션 적용 시의 성능 이점 파악",
+              "서버 시스템 레벨에서의 병목 현상 해결 방안 검토"
             ],
             "study_points_ko": [
-              "CXL 인터페이스 표준 및 메모리 풀링 구조",
-              "AI 인프라 시스템 아키텍처"
+              "CXL 메모리 및 CXL 하이브리드 메모리 아키텍처",
+              "AI 데이터센터 내 메모리 계층화(Memory Tiering) 구조"
             ]
           },
           {
-            "role": "SW·데이터·AI",
-            "why_relevant_ko": "PIM/PNM 및 KV 캐시 공유 등 메모리와 소프트웨어 프레임워크 간 연동이 중요합니다.",
+            "role": "소자",
+            "why_relevant_ko": "Compute-using-DRAM 및 Custom HBM Array 등 메모리 내 연산(PIM) 및 맞춤형 HBM 구조 설계가 핵심이기 때문입니다.",
             "considerations_ko": [
-              "하드웨어와 소프트웨어 간 API 통합 및 표준화",
-              "AI 추론 성능 가속화를 위한 SW 알고리즘"
+              "DRAM 셀 배열의 charge-sharing 행동을 활용한 연산 공정 및 소자 특성 이해",
+              "칩 면적 및 용량 손실 최소화를 위한 설계 최적화"
             ],
             "study_points_ko": [
-              "컴퓨터 아키텍처 및 LLM 서빙 시스템 구조",
-              "이종 컴퓨팅 환경에서의 데이터 병목 현상 완화 기법"
+              "PIM(Processing-in-Memory) 작동 원리",
+              "HBM4 및 차세대 커스텀 HBM 구조"
+            ]
+          },
+          {
+            "role": "R&D공정·공정설계",
+            "why_relevant_ko": "HBM4/HBM4E 및 고용량 서버 DRAM(RDIMM, MRDIMM, SOCAMM 등) 구현을 위한 공정 및 설계 기술이 뒷받침되어야 합니다.",
+            "considerations_ko": [
+              "초고속, 고집적 메모리 제품 구현을 위한 미세 공정 및 패키징 연계성",
+              "대용량 워크로드를 지원하는 서버용 제품의 신뢰성 확보"
+            ],
+            "study_points_ko": [
+              "DDR5, MRDIMM, RDIMM 등 서버용 메모리 표준",
+              "차세대 HBM 제조를 위한 공정 기술 동향"
             ]
           }
         ],
         "uncertainties_ko": [
-          "CMM-DDR5 및 MARS 랙 시스템의 구체적인 양산 수율 및 비용",
-          "고객사 상용화 일정 및 구체적인 공급 계약 규모"
+          "MARS 시스템의 상용화 구체적 일정",
+          "Compute-using-DRAM의 양산 수율 및 비용 효율성 구체적 수치"
         ],
         "overall_confidence": "high"
       }
@@ -760,10 +758,10 @@
     },
     "TSMC": {
       "company": "TSMC",
-      "title": "TSMC Debuts A13 Technology at 2026 North America Technology Symposium",
-      "url": "https://pr.tsmc.com/english/news/3302",
+      "title": "Sony Semiconductor Solutions and TSMC Agreed to Establish Joint Venture for Next-Generation Image Sensors",
+      "url": "https://pr.tsmc.com/english/news/3333",
       "model": "gemini-3.5-flash-lite",
-      "generated_at": "2026-11-18T03:10:53.636893+00:00",
+      "generated_at": "2026-11-21T02:52:48.397082+00:00",
       "analysis_version": "semiconductor_job_analysis_v1",
       "extraction_method": "official_index_metadata",
       "source_scope": "official_index_metadata",
@@ -776,48 +774,41 @@
       ],
       "analysis": {
         "analysis_version": "semiconductor_job_analysis_v1",
-        "summary_ko": "TSMC는 2026 북미 기술 심포지엄에서 A13 기술을 공개하였습니다. 공식 제목 외의 구체적인 공정 조건이나 수율은 본문에서 확인할 수 없습니다.",
+        "summary_ko": "Sony Semiconductor Solutions와 TSMC는 차세대 이미지 센서 제작을 위한 합작 법인을 설립하기로 합의하였습니다.",
         "facts": [
           {
-            "statement_ko": "TSMC 공식 기사 제목에서 ‘TSMC Debuts A13 Technology at 2026 North America Technology Symposium’ 관련 발표임을 확인할 수 있습니다.",
-            "evidence_en": "TSMC Debuts A13 Technology at 2026 North America Technology Symposium"
+            "statement_ko": "TSMC 공식 기사 제목에서 ‘Sony Semiconductor Solutions and TSMC Agreed to Establish Joint Venture for Next-Generation Image Sensors’ 관련 발표임을 확인할 수 있습니다.",
+            "evidence_en": "Sony Semiconductor Solutions and TSMC Agreed to Establish Joint Venture for Next-Generation Image Sensors"
           }
         ],
         "technology_signals": [
-          "A13 Technology"
+          "Next-Generation Image Sensors"
         ],
-        "company_implications": [
-          {
-            "target_company": "Samsung Electronics",
-            "inference_ko": "TSMC의 새로운 A13 기술 공개에 대응하여 첨단 로직 공정 경쟁력 확보 및 고객사 확보 전략을 재점검할 필요가 있습니다.",
-            "basis_ko": "TSMC가 차세대 A13 기술을 공개하며 파운드리 시장에서의 기술 리더십 강화를 시도하고 있기 때문입니다.",
-            "confidence": "low"
-          }
-        ],
+        "company_implications": [],
         "role_insights": [
           {
-            "role": "R&D공정·공정설계",
-            "why_relevant_ko": "새로운 A13 공정 도입 및 기술 개발 동향을 파악하고 공정 설계 방향성을 검토해야 합니다.",
+            "role": "공정기술·양산기술",
+            "why_relevant_ko": "차세대 이미지 센서 제조를 위한 양산 공정 협력 및 수율 확보가 필요할 수 있습니다.",
             "considerations_ko": [
-              "A13 기술과 관련된 공정 과제 및 설계 키트 준비 상황 확인"
+              "합작 법인을 통한 공정 라인 구축 및 양산 일정"
             ],
             "study_points_ko": [
-              "선단 로직 공정의 스케일링 트렌드 및 설계 방법론"
+              "이미지 센서 제조 공정의 기본 이해"
             ]
           },
           {
-            "role": "소자",
-            "why_relevant_ko": "차세대 A13 소자 구조 및 성능 특성 변화를 분석해야 합니다.",
+            "role": "R&D공정·공정설계",
+            "why_relevant_ko": "차세대 이미지 센서 개발을 위한 공정 설계 및 기술 협력이 요구됩니다.",
             "considerations_ko": [
-              "새로운 노드에서의 소자 성능 및 전력 효율 향상 방안"
+              "차세대 센서 소자 구조 및 설계 키트 적용"
             ],
             "study_points_ko": [
-              "나노시트 등 최신 트랜지스터 소자 구조"
+              "CIS(CMOS Image Sensor) 소자 구조 및 R&D 트렌드"
             ]
           }
         ],
         "uncertainties_ko": [
-          "본문이 공식 제목 및 메타데이터로만 구성되어 있어 A13 기술의 구체적인 공정 노드, 수율, 양산 일정, 세부 성능 지표를 확인할 수 없습니다.",
+          "공식 제목 외에 기사 본문 내용이 제공되지 않아 합작 법인의 구체적인 투자 규모, 양산 시기, 공정 노드 등 세부 기술 정보를 확인할 수 없습니다.",
           "공식 기사 본문을 확보하지 못해 제목과 공식 목록 정보만 분석했습니다."
         ],
         "overall_confidence": "low"
