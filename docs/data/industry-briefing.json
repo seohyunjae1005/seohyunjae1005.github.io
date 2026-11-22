@@ -135,7 +135,7 @@
   ],
   "generated_at": "2026-11-21T05:06:18.748082+00:00",
   "checked_at": "2026-11-21T05:06:41.022168+00:00",
-  "refresh_status": "partial",
+  "refresh_status": "failed",
   "sources": [
     {
       "publisher": "Applied Materials",
@@ -203,5 +203,6 @@
   ],
   "source_fingerprint": "cc5b1c36aea5e3a660944961dc61f12e5c8b3834e029af1b98a10a9d656aff58",
   "generation_method": "reviewed_initial",
-  "review_status": "source_checked"
+  "review_status": "source_checked",
+  "last_attempt_at": "2026-11-22T01:44:02.640760+00:00"
 }
