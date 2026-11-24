@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-11-21T02:52:40.341751+00:00",
+  "updated_at": "2026-11-24T05:37:07.123119+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1833,6 +1833,12 @@
       "summary_ko": "▲ SK하이닉스의 연혁과 비전, HBM 개발 과정 및 최신 제품 현황을 소개하는 기업 소개 섹션",
       "source_fingerprint": "0bf7507e82387f2b53e42a88f03082a4e1dde6c984f015529c99fa9ce8d27338",
       "translated_at": "2026-11-21T02:52:40.341727+00:00"
+    },
+    "https://www.tel.com/news/topics/2026/20261124_001.html": {
+      "title_ko": "도쿄 일렉트로닉, 2026년 TSMC 우수 성과상 수상",
+      "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
+      "source_fingerprint": "de457d0201af250ff430eb27623a698d2745b501e36ad73dd32c87a4bd9ace20",
+      "translated_at": "2026-11-24T05:37:07.123090+00:00"
     }
   }
 }
