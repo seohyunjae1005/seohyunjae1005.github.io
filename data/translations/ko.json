@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-11-24T05:37:07.123119+00:00",
+  "updated_at": "2026-11-25T04:38:12.247189+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1839,6 +1839,12 @@
       "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
       "source_fingerprint": "de457d0201af250ff430eb27623a698d2745b501e36ad73dd32c87a4bd9ace20",
       "translated_at": "2026-11-24T05:37:07.123090+00:00"
+    },
+    "https://www.kioxia.com/en-jp/business/news/2026/20261125-1.html": {
+      "title_ko": "키옥시아, ‘KIOXIA 포럼’에서 AI용 차세대 저지연·고성능 플래시 메모리인 XL-FLASH™ 3세대 기술을 선보일 예정",
+      "summary_ko": "공식 분류: 보도자료",
+      "source_fingerprint": "00b37328fef94db069514d016681dc8695762d5bf213190f4e820410f9f8ac9a",
+      "translated_at": "2026-11-25T04:38:12.247162+00:00"
     }
   }
 }
