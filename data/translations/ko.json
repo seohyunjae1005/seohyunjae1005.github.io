@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-11-25T04:38:12.247189+00:00",
+  "updated_at": "2026-11-26T03:48:49.442848+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -1845,6 +1845,24 @@
       "summary_ko": "공식 분류: 보도자료",
       "source_fingerprint": "00b37328fef94db069514d016681dc8695762d5bf213190f4e820410f9f8ac9a",
       "translated_at": "2026-11-25T04:38:12.247162+00:00"
+    },
+    "https://www.kioxia.com/en-jp/business/news/2026/20261126-2.html": {
+      "title_ko": "KIOXIA GP2 시리즈 SSD, GPU 메모리 확장을 위한 차원 높은 성능 제공",
+      "summary_ko": "공식 분류: 보도자료",
+      "source_fingerprint": "2fbedc2b87dab1e1ee2831deb77df9102aa067e4af8deebb97c097bdcf4168bd",
+      "translated_at": "2026-11-26T03:48:49.442824+00:00"
+    },
+    "https://www.kioxia.com/en-jp/business/news/2026/20261126-1.html": {
+      "title_ko": "키옥시아와 엔비디아, SSD를 통해 고대역폭 메모리의 유효 용량을 확대하기 위해 협력",
+      "summary_ko": "공식 분류: 보도자료",
+      "source_fingerprint": "33b58e14ec574a8d651edb58e3e0770fc72b887ad4c400fc7f5c1b06610b9f9c",
+      "translated_at": "2026-11-26T03:48:49.442824+00:00"
+    },
+    "https://www.tel.com/news/sustainability/2026/20261126_001.html": {
+      "title_ko": "도쿄 일렉트로닉, ‘프라이드 인덱스 2026’에서 골드 등급 획득",
+      "summary_ko": "도쿄 일렉트로닉 공식 뉴스룸 기사",
+      "source_fingerprint": "d95b39a8d21150ee76198d5281c70910473a8868ec66c773b789cae02dd9148b",
+      "translated_at": "2026-11-26T03:48:49.442824+00:00"
     }
   }
 }

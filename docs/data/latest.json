@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-11-25T04:38:10.926127+00:00",
-  "article_count": 222,
+  "generated_at": "2026-11-26T03:48:48.042487+00:00",
+  "article_count": 225,
   "company_counts": {
     "Samsung Electronics": 9,
     "SK hynix": 35,
-    "Kioxia": 18,
+    "Kioxia": 20,
     "Micron": 14,
     "TSMC": 13,
     "Intel": 62,
     "ASML": 1,
     "Applied Materials": 22,
-    "Tokyo Electron": 36,
+    "Tokyo Electron": 37,
     "KLA": 12
   },
   "collection_status": {
@@ -30,11 +30,102 @@
     {
       "source_id": "kioxia",
       "company": "Kioxia",
+      "title": "KIOXIA GP2 Series SSD Delivers New Levels of Performance for GPU Memory Expansion",
+      "url": "https://www.kioxia.com/en-jp/business/news/2026/20261126-2.html",
+      "published_at": "2026-11-26T00:00:00+00:00",
+      "summary": "Official category: News Releases",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
+      "selection_method": "keyword_v1",
+      "matched_keywords": [
+        "ssd"
+      ],
+      "relevance": "high",
+      "tech_domains": [
+        "NAND·스토리지"
+      ],
+      "job_roles": [
+        "평가분석·품질·PE",
+        "AE·솔루션"
+      ],
+      "signal_types": [
+        "기술·제품"
+      ],
+      "process_fit": "background",
+      "process_evidence": [],
+      "classification_version": "job_tech_taxonomy_v4",
+      "title_ko": "KIOXIA GP2 시리즈 SSD, GPU 메모리 확장을 위한 차원 높은 성능 제공",
+      "summary_ko": "공식 분류: 보도자료",
+      "translation_provider": "DeepL"
+    },
+    {
+      "source_id": "kioxia",
+      "company": "Kioxia",
+      "title": "Kioxia and NVIDIA Collaborate to Expand Effective High-Bandwidth Memory Capacity with SSDs",
+      "url": "https://www.kioxia.com/en-jp/business/news/2026/20261126-1.html",
+      "published_at": "2026-11-26T00:00:00+00:00",
+      "summary": "Official category: News Releases",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
+      "selection_method": "keyword_v1",
+      "matched_keywords": [
+        "ssd"
+      ],
+      "relevance": "high",
+      "tech_domains": [
+        "기업·산업 일반"
+      ],
+      "job_roles": [
+        "산업·사업 공통"
+      ],
+      "signal_types": [
+        "기술·제품",
+        "투자·생산"
+      ],
+      "process_fit": "background",
+      "process_evidence": [],
+      "classification_version": "job_tech_taxonomy_v4",
+      "title_ko": "키옥시아와 엔비디아, SSD를 통해 고대역폭 메모리의 유효 용량을 확대하기 위해 협력",
+      "summary_ko": "공식 분류: 보도자료",
+      "translation_provider": "DeepL"
+    },
+    {
+      "source_id": "tokyo_electron",
+      "company": "Tokyo Electron",
+      "title": "Tokyo Electron Receives Gold Rating in the Pride Index 2026",
+      "url": "https://www.tel.com/news/sustainability/2026/20261126_001.html",
+      "published_at": "2026-11-26T00:00:00+00:00",
+      "summary": "Official Tokyo Electron newsroom item",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
+      "selection_method": "tel_official_newsroom_with_relevance_v1",
+      "matched_keywords": [],
+      "source_category": [
+        "Topics",
+        "Sustainability"
+      ],
+      "relevance": "context",
+      "tech_domains": [
+        "기업·산업 일반"
+      ],
+      "job_roles": [
+        "산업·사업 공통"
+      ],
+      "signal_types": [
+        "기업·산업 일반"
+      ],
+      "process_fit": "background",
+      "process_evidence": [],
+      "classification_version": "job_tech_taxonomy_v4",
+      "title_ko": "도쿄 일렉트로닉, ‘프라이드 인덱스 2026’에서 골드 등급 획득",
+      "summary_ko": "도쿄 일렉트로닉 공식 뉴스룸 기사",
+      "translation_provider": "DeepL"
+    },
+    {
+      "source_id": "kioxia",
+      "company": "Kioxia",
       "title": "Kioxia to Showcase XL-FLASH™ Generation 3 Technology, the Next-Generation Low-Latency, High-Performance Flash Memory for AI, at KIOXIA Forum",
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20261125-1.html",
       "published_at": "2026-11-25T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory"
@@ -65,7 +156,7 @@
       "url": "https://www.tel.com/news/topics/2026/20261124_001.html",
       "published_at": "2026-11-24T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -96,7 +187,7 @@
       "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition-12/",
       "published_at": "2026-11-20T07:38:41+00:00",
       "summary": "▲ The company introduction section, presenting SK hynix’s history and vision along with its HBM development journey and latest product status",
-      "collected_at": "2026-11-25T04:38:02.456723+00:00",
+      "collected_at": "2026-11-26T03:48:41.043922+00:00",
       "selection_method": "rss_keyword_v1",
       "matched_keywords": [
         "hbm",
@@ -128,7 +219,7 @@
       "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition/",
       "published_at": "2026-11-20T00:00:00+00:00",
       "summary": "Tags: CXL, DRAM, HBM, MARS, NAND, Supercomputing",
-      "collected_at": "2026-11-25T04:37:59.919330+00:00",
+      "collected_at": "2026-11-26T03:48:38.484019+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -241,7 +332,7 @@
       "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep4-5/",
       "published_at": "2026-11-17T00:00:00+00:00",
       "summary": "Tags: AI DATA, AI data center, AI ecosystem, Physical AI, PIM",
-      "collected_at": "2026-11-25T04:37:59.919330+00:00",
+      "collected_at": "2026-11-26T03:48:38.484019+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "ai ecosystem"
@@ -357,7 +448,7 @@
       "url": "https://www.tel.com/news/ir/2026/d5pist00000000h8-att/20261112_001_e.pdf",
       "published_at": "2026-11-12T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -387,7 +478,7 @@
       "url": "https://news.skhynix.com/en/iec-61508-certification-2026/",
       "published_at": "2026-11-11T00:00:00+00:00",
       "summary": "Tags: AI Semiconductor, AI System, IEC61508, ISO/SAE21434, LPDDR5X, Mobility, Physical AI",
-      "collected_at": "2026-11-25T04:37:59.919330+00:00",
+      "collected_at": "2026-11-26T03:48:38.484019+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -478,7 +569,7 @@
       "url": "https://www.tel.com/news/event/2026/20261102_001.html",
       "published_at": "2026-11-02T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -508,7 +599,7 @@
       "url": "https://www.tel.com/news/ir/2026/k6c2lu00000000gf-att/20261030_003_e.pdf",
       "published_at": "2026-10-30T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -539,7 +630,7 @@
       "url": "https://www.tel.com/news/ir/2026/kdpgc400000000n0-att/20261030_002_e.pdf",
       "published_at": "2026-10-30T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -569,7 +660,7 @@
       "url": "https://news.skhynix.com/en/tech-note-series-ep3/",
       "published_at": "2026-10-29T00:00:00+00:00",
       "summary": "Tags: AI, CPO, Data centers, HBM, Silicon Photonics",
-      "collected_at": "2026-11-25T04:37:59.919330+00:00",
+      "collected_at": "2026-11-26T03:48:38.484019+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm"
@@ -655,7 +746,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20261027_001.html",
       "published_at": "2026-10-27T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -746,7 +837,7 @@
       "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep4/",
       "published_at": "2026-10-22T00:00:00+00:00",
       "summary": "Tags: Agentic AI, AI data center, AI Infrastructure, AI Infrastructure Insight, HBM, Rack-scale Systems",
-      "collected_at": "2026-11-25T04:37:59.919330+00:00",
+      "collected_at": "2026-11-26T03:48:38.484019+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -820,7 +911,7 @@
       "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep4/",
       "published_at": "2026-10-21T00:00:00+00:00",
       "summary": "Tags: AI ecosystem, HBM, Hybrid Bonding, PIM",
-      "collected_at": "2026-11-25T04:37:59.919330+00:00",
+      "collected_at": "2026-11-26T03:48:38.484019+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -858,7 +949,7 @@
       "url": "https://news.samsung.com/global/samsung-electronics-expands-ssd-brand-campaign-across-global-landmarks",
       "published_at": "2026-10-19T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-11-25T04:37:57.915002+00:00",
+      "collected_at": "2026-11-26T03:48:36.538521+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -888,7 +979,7 @@
       "url": "https://news.skhynix.com/en/ocp-global-summit-2026/",
       "published_at": "2026-10-16T00:00:00+00:00",
       "summary": "Tags: Agentic AI, AI, CXL, DRAM, eSSD, HBF, HBM, OCP Global Summit",
-      "collected_at": "2026-11-25T04:37:59.919330+00:00",
+      "collected_at": "2026-11-26T03:48:38.484019+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -1034,7 +1125,7 @@
       "url": "https://news.skhynix.com/en/research-inside-ep2/",
       "published_at": "2026-10-14T00:00:00+00:00",
       "summary": "Tags: 3D Fe-NAND, 3D NAND, A-CiM, AI, CiM, CTN, Ferroelectric",
-      "collected_at": "2026-11-25T04:37:59.919330+00:00",
+      "collected_at": "2026-11-26T03:48:38.484019+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "SK hynix TECH&AI"
@@ -1187,7 +1278,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20261013-1.html",
       "published_at": "2026-10-13T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "enterprise ssd",
@@ -1217,7 +1308,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20261013_001.html",
       "published_at": "2026-10-13T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [
         "manufacturing"
@@ -1289,7 +1380,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20261009-1.html",
       "published_at": "2026-10-09T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "ssd"
@@ -1380,7 +1471,7 @@
       "url": "https://www.tel.com/news/event/2026/20261007_001.html",
       "published_at": "2026-10-07T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -1445,7 +1536,7 @@
       "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep3/",
       "published_at": "2026-10-02T00:00:00+00:00",
       "summary": "Tags: Agentic AI, AI ecosystem, CXL, GPU, HBM",
-      "collected_at": "2026-11-25T04:37:59.919330+00:00",
+      "collected_at": "2026-11-26T03:48:38.484019+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -1540,7 +1631,7 @@
       "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep3/",
       "published_at": "2026-09-30T00:00:00+00:00",
       "summary": "Tags: AI, AI data center, AI Infrastructure, AI Infrastructure Insight",
-      "collected_at": "2026-11-25T04:37:59.919330+00:00",
+      "collected_at": "2026-11-26T03:48:38.484019+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "ai infrastructure"
@@ -1669,7 +1760,7 @@
       "url": "https://news.samsung.com/global/samsung-to-invest-usd-1-billion-in-ai-infrastructure-company-helix",
       "published_at": "2026-09-29T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-11-25T04:37:57.915002+00:00",
+      "collected_at": "2026-11-26T03:48:36.538521+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -1700,7 +1791,7 @@
       "url": "https://news.skhynix.com/en/tsmc-oip-conference-2026/",
       "published_at": "2026-09-28T00:00:00+00:00",
       "summary": "Tags: AI Semiconductor, eSSD, HBF, HBM, SOCAMM2, SSD, TSMC OIP",
-      "collected_at": "2026-11-25T04:37:59.919330+00:00",
+      "collected_at": "2026-11-26T03:48:38.484019+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -1736,7 +1827,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260928_001.html",
       "published_at": "2026-09-28T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -1766,7 +1857,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260925_001.html",
       "published_at": "2026-09-25T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -1826,7 +1917,7 @@
       "url": "https://news.skhynix.com/en/ai-infra-summit-2026/",
       "published_at": "2026-09-17T00:00:00+00:00",
       "summary": "Tags: AI, AI Infra Summit, AI Memory, eSSD, HBF, PIM, SALT-KV",
-      "collected_at": "2026-11-25T04:37:59.919330+00:00",
+      "collected_at": "2026-11-26T03:48:38.484019+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "ai memory",
@@ -1859,7 +1950,7 @@
       "url": "https://www.tel.com/news/ir/2026/b4np7600000000ii-att/20260917_001_e.pdf",
       "published_at": "2026-09-17T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -1889,7 +1980,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260915_001.html",
       "published_at": "2026-09-15T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -1976,7 +2067,7 @@
       "url": "https://news.samsung.com/global/samsung-and-mistral-ai-announce-strategic-partnership-for-intelligence-driven-semiconductor-infrastructure",
       "published_at": "2026-09-09T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-11-25T04:37:57.915002+00:00",
+      "collected_at": "2026-11-26T03:48:36.538521+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor"
@@ -2007,7 +2098,7 @@
       "url": "https://news.skhynix.com/en/future-forum-2026/",
       "published_at": "2026-09-09T00:00:00+00:00",
       "summary": "Tags: 3D Memory, AI Memory, AX, Future Semiconductor, SK hynix Future Forum",
-      "collected_at": "2026-11-25T04:38:00.970705+00:00",
+      "collected_at": "2026-11-26T03:48:39.428177+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -2039,7 +2130,7 @@
       "url": "https://news.samsung.com/global/samsung-electronics-and-asml-expand-strategic-collaboration-for-next-generation-semiconductor-manufacturing",
       "published_at": "2026-09-08T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-11-25T04:37:57.915002+00:00",
+      "collected_at": "2026-11-26T03:48:36.538521+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor"
@@ -2103,7 +2194,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260908_001.html",
       "published_at": "2026-09-08T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -2168,7 +2259,7 @@
       "url": "https://www.tel.com/news/event/2026/20260907__001.html",
       "published_at": "2026-09-07T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -2226,7 +2317,7 @@
       "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep2/",
       "published_at": "2026-09-03T00:00:00+00:00",
       "summary": "Tags: AI, AI ecosystem, AI Memory, HBF, HBM",
-      "collected_at": "2026-11-25T04:38:00.970705+00:00",
+      "collected_at": "2026-11-26T03:48:39.428177+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -2323,7 +2414,7 @@
       "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep2/",
       "published_at": "2026-08-31T00:00:00+00:00",
       "summary": "Tags: AI data center, AI Infra, AI Memory, GPU",
-      "collected_at": "2026-11-25T04:38:00.970705+00:00",
+      "collected_at": "2026-11-26T03:48:39.428177+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "ai memory",
@@ -2355,7 +2446,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260827-3.html",
       "published_at": "2026-08-27T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "memory industry"
@@ -2385,7 +2476,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260827-2.html",
       "published_at": "2026-08-27T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory",
@@ -2523,7 +2614,7 @@
       "url": "https://news.samsung.com/global/samsung-showcases-p9-and-p7-ssds-featuring-usb4-at-gamescom-2026",
       "published_at": "2026-08-26T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-11-25T04:37:57.915002+00:00",
+      "collected_at": "2026-11-26T03:48:36.538521+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -2553,7 +2644,7 @@
       "url": "https://news.skhynix.com/en/dtf-2026/",
       "published_at": "2026-08-26T00:00:00+00:00",
       "summary": "Tags: AI Memory, cSSD, DellTechForum, DRAM, DTF, eSSD, HBM, NAND",
-      "collected_at": "2026-11-25T04:38:00.970705+00:00",
+      "collected_at": "2026-11-26T03:48:39.428177+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -2712,7 +2803,7 @@
       "url": "https://news.skhynix.com/en/tech-note-series-ep2/",
       "published_at": "2026-08-25T00:00:00+00:00",
       "summary": "Tags: Advanced Packaging, back-end process, HBM, HBM4, Hybrid Bonding, Packaging",
-      "collected_at": "2026-11-25T04:38:00.970705+00:00",
+      "collected_at": "2026-11-26T03:48:39.428177+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -2880,7 +2971,7 @@
       "url": "https://www.tel.com/news/event/2026/20260824_001.html",
       "published_at": "2026-08-24T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -2938,7 +3029,7 @@
       "url": "https://news.skhynix.com/en/cpo-in-nature-electronics/",
       "published_at": "2026-08-20T00:00:00+00:00",
       "summary": "Tags: AI Infrastructure, AI Memory, CoPackagedOptics, CPO, HBM, HeterogeneousIntegration, NatureElectronics, Photonics",
-      "collected_at": "2026-11-25T04:38:00.970705+00:00",
+      "collected_at": "2026-11-26T03:48:39.428177+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -3026,7 +3117,7 @@
       "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep1/",
       "published_at": "2026-08-18T00:00:00+00:00",
       "summary": "Tags: Agentic AI, AI ecosystem, AI Infrastructure, AI Memory, semiconductor industry",
-      "collected_at": "2026-11-25T04:38:00.970705+00:00",
+      "collected_at": "2026-11-26T03:48:39.428177+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -3088,7 +3179,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260817_001.html",
       "published_at": "2026-08-17T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -3146,7 +3237,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260812-1.html",
       "published_at": "2026-08-12T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory",
@@ -3316,7 +3407,7 @@
       "url": "https://news.skhynix.com/en/ai-infrastructure-insigh-ep1/",
       "published_at": "2026-08-10T00:00:00+00:00",
       "summary": "Tags: AI, AI data center, AI Infrastructure, AI Memory",
-      "collected_at": "2026-11-25T04:38:00.970705+00:00",
+      "collected_at": "2026-11-26T03:48:39.428177+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "ai memory",
@@ -3431,7 +3522,7 @@
       "url": "https://news.skhynix.com/en/fms-2026/",
       "published_at": "2026-08-07T00:00:00+00:00",
       "summary": "Tags: CXL, DRAM, FMS, HBF, HBM, NAND, SSD",
-      "collected_at": "2026-11-25T04:38:00.970705+00:00",
+      "collected_at": "2026-11-26T03:48:39.428177+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -3582,7 +3673,7 @@
       "url": "https://news.samsung.com/global/samsung-unveils-next-gen-3d-memory-vision-at-fms-2026-charting-the-future-of-ai-infrastructure",
       "published_at": "2026-08-05T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-11-25T04:37:57.915002+00:00",
+      "collected_at": "2026-11-26T03:48:36.538521+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -3612,7 +3703,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260805-1.html",
       "published_at": "2026-08-05T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "ssd"
@@ -3641,7 +3732,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260804-2.html",
       "published_at": "2026-08-04T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory",
@@ -3671,7 +3762,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260804-1.html",
       "published_at": "2026-08-04T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash storage"
@@ -3701,7 +3792,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260804-1.html",
       "published_at": "2026-08-04T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "ssd"
@@ -3730,7 +3821,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260803-1.html",
       "published_at": "2026-08-03T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "cxl"
@@ -3759,7 +3850,7 @@
       "url": "https://www.tel.com/news/ir/2026/ahl7jh00000000fd-att/20260803_001_e.pdf",
       "published_at": "2026-08-03T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -3851,7 +3942,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260731_001.html",
       "published_at": "2026-07-31T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -3881,7 +3972,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260730-1.html",
       "published_at": "2026-07-30T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "bics flash",
@@ -3912,7 +4003,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260730-1.html",
       "published_at": "2026-07-30T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory",
@@ -3944,7 +4035,7 @@
       "url": "https://www.tel.com/news/ir/2026/rf97m800000000g3-att/20260730_002_e.pdf",
       "published_at": "2026-07-30T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -3974,7 +4065,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260729-2.html",
       "published_at": "2026-07-29T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory",
@@ -4005,7 +4096,7 @@
       "url": "https://www.kioxia.com/en-jp/business/news/2026/20260729-1.html",
       "published_at": "2026-07-29T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "ssd"
@@ -4070,7 +4161,7 @@
       "url": "https://www.tel.com/news/disaster/2026/20260729_001.html",
       "published_at": "2026-07-29T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4212,7 +4303,7 @@
       "url": "https://www.tel.com/news/disaster/2026/20260728_001.html",
       "published_at": "2026-07-28T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4242,7 +4333,7 @@
       "url": "https://news.samsung.com/global/samsung-electronics-and-broadcom-expand-strategic-collaboration-across-memory-and-foundry-technologies",
       "published_at": "2026-07-25T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-11-25T04:37:57.915002+00:00",
+      "collected_at": "2026-11-26T03:48:36.538521+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -4513,7 +4604,7 @@
       "url": "https://news.skhynix.com/en/research-inside-ep1/",
       "published_at": "2026-07-22T00:00:00+00:00",
       "summary": "Tags: 176 layer NAND, CTI, IEDM, IEEE, Inside the Research, NAND, Research Inside, Scaling",
-      "collected_at": "2026-11-25T04:38:00.970705+00:00",
+      "collected_at": "2026-11-26T03:48:39.428177+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "mass production"
@@ -4546,7 +4637,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260721_001.html",
       "published_at": "2026-07-21T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4720,7 +4811,7 @@
       "url": "https://www.tel.com/news/topics/2026/20260716_001.html",
       "published_at": "2026-07-16T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4811,7 +4902,7 @@
       "url": "https://www.tel.com/news/sustainability/2026/20260709_001.html",
       "published_at": "2026-07-09T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -4842,7 +4933,7 @@
       "url": "https://news.samsung.com/global/samsung-begins-mass-production-of-pm1763-ssd-optimized-for-next-generation-ai-infrastructure",
       "published_at": "2026-07-08T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-11-25T04:37:57.915002+00:00",
+      "collected_at": "2026-11-26T03:48:36.538521+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -4964,7 +5055,7 @@
       "url": "https://news.skhynix.com/en/hbm-to-essd/",
       "published_at": "2026-07-08T00:00:00+00:00",
       "summary": "Tags: AI, AI Infrastructure, AI Memory, cHBM, DRAM, eSSD, HBM, NAND",
-      "collected_at": "2026-11-25T04:38:00.970705+00:00",
+      "collected_at": "2026-11-26T03:48:39.428177+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -4999,7 +5090,7 @@
       "url": "https://news.skhynix.com/en/2026-expert-column-series-ep4/",
       "published_at": "2026-07-06T00:00:00+00:00",
       "summary": "Tags: AI, AI Infrastructure, artificial intelligence, HBM, Semiconductor Ecosystem, semiconductor industry",
-      "collected_at": "2026-11-25T04:38:00.970705+00:00",
+      "collected_at": "2026-11-26T03:48:39.428177+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -5031,7 +5122,7 @@
       "url": "https://news.skhynix.com/en/ai-competition-next-challenge/",
       "published_at": "2026-07-03T00:00:00+00:00",
       "summary": "Tags: AI, AI Infrastructure, AI Memory, DRAM, eSSD, HBM",
-      "collected_at": "2026-11-25T04:38:02.033791+00:00",
+      "collected_at": "2026-11-26T03:48:40.393698+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -5065,7 +5156,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260703-2.html",
       "published_at": "2026-07-03T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "flash memory",
@@ -5098,7 +5189,7 @@
       "url": "https://www.kioxia.com/en-jp/about/news/2026/20260703-1.html",
       "published_at": "2026-07-03T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "bics flash",
@@ -5218,7 +5309,7 @@
       "url": "https://www.tel.com/news/ir/2026/i242su00000001c4-att/20260701_001_e.pdf",
       "published_at": "2026-07-01T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5338,7 +5429,7 @@
       "url": "https://www.tel.com/news/ir/2026/i242su00000000ee-att/20260630_002_e.pdf",
       "published_at": "2026-06-30T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5368,7 +5459,7 @@
       "url": "https://www.tel.com/news/ir/2026/20260630_001.html",
       "published_at": "2026-06-30T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5430,7 +5521,7 @@
       "url": "https://www.tel.com/news/disaster/2026/20260629_001.html",
       "published_at": "2026-06-29T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5460,7 +5551,7 @@
       "url": "https://www.tel.com/news/topics/2026/20260626_001.html",
       "published_at": "2026-06-26T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [
         "semiconductor",
@@ -5621,7 +5712,7 @@
       "url": "https://www.tel.com/news/disaster/2026/20260625_001.html",
       "published_at": "2026-06-25T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5651,7 +5742,7 @@
       "url": "https://news.skhynix.com/en/2026-expert-column-series-ep3/",
       "published_at": "2026-06-24T00:00:00+00:00",
       "summary": "Tags: AI, AI Infrastructure, AI Memory, AI Semiconductor, Semiconductor infra, Yongin Semiconductor Cluster",
-      "collected_at": "2026-11-25T04:38:02.033791+00:00",
+      "collected_at": "2026-11-26T03:48:40.393698+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -5685,7 +5776,7 @@
       "url": "https://www.tel.com/news/ir/2026/dm494s00000000ed-att/20260624_001_e.pdf",
       "published_at": "2026-06-24T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5715,7 +5806,7 @@
       "url": "https://news.samsung.com/global/samsung-unveils-industrys-fastest-ufs-5-0-solution-for-next-gen-on-device-ai-applications",
       "published_at": "2026-06-23T00:00:00+00:00",
       "summary": "Official category: Semiconductors",
-      "collected_at": "2026-11-25T04:37:57.915002+00:00",
+      "collected_at": "2026-11-26T03:48:36.538521+00:00",
       "selection_method": "official_semiconductors_category",
       "matched_keywords": [
         "semiconductor",
@@ -5748,7 +5839,7 @@
       "url": "https://news.skhynix.com/en/5-things-about-skhynix/",
       "published_at": "2026-06-23T00:00:00+00:00",
       "summary": "Tags: AI, AI Infrastructure, AI Memory, Datacenter, DRAM, HBM, NAND",
-      "collected_at": "2026-11-25T04:38:02.033791+00:00",
+      "collected_at": "2026-11-26T03:48:40.393698+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -5782,7 +5873,7 @@
       "url": "https://www.tel.com/news/ir/2026/qhnfr100000000i6-att/20260623_002_e.pdf",
       "published_at": "2026-06-23T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5812,7 +5903,7 @@
       "url": "https://www.tel.com/news/ir/2026/qhnfr100000000g9-att/20260623_001_e.pdf",
       "published_at": "2026-06-23T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5842,7 +5933,7 @@
       "url": "https://www.tel.com/news/ir/2026/20260622_001.html",
       "published_at": "2026-06-22T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -5872,7 +5963,7 @@
       "url": "https://news.skhynix.com/en/hpe-discover-2026/",
       "published_at": "2026-06-19T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, CXL, eSSD, HBM, HEP Discover, HPE",
-      "collected_at": "2026-11-25T04:38:02.033791+00:00",
+      "collected_at": "2026-11-26T03:48:40.393698+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -6121,7 +6212,7 @@
       "url": "https://www.asml.com/en/company/stories/2026/machines-behind-machines",
       "published_at": "2026-06-12T08:26:00+00:00",
       "summary": "Discover how ASML is applying AI-native engineering for the next technology era.",
-      "collected_at": "2026-11-25T04:38:04.322745+00:00",
+      "collected_at": "2026-11-26T03:48:42.417100+00:00",
       "selection_method": "asml_official_sources_with_relevance_v1",
       "matched_keywords": [],
       "source_category": "Technology story",
@@ -6249,7 +6340,7 @@
       "url": "https://news.skhynix.com/en/computex-2026-review/",
       "published_at": "2026-06-11T00:00:00+00:00",
       "summary": "Tags: AI, AI factory, AI Infrastructure, AI Memory, COMPUTEX, HBM, iHBM, SOCAMM2",
-      "collected_at": "2026-11-25T04:38:02.033791+00:00",
+      "collected_at": "2026-11-26T03:48:40.393698+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -6398,7 +6489,7 @@
       "url": "https://news.skhynix.com/en/ai-partnership-foxconn-2026/",
       "published_at": "2026-06-04T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, Foxconn, HBM, semiconductor industry",
-      "collected_at": "2026-11-25T04:38:02.033791+00:00",
+      "collected_at": "2026-11-26T03:48:40.393698+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "semiconductor",
@@ -6458,7 +6549,7 @@
       "url": "https://www.tel.com/news/ir/2026/20260604_001.html",
       "published_at": "2026-06-04T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -6488,7 +6579,7 @@
       "url": "https://news.skhynix.com/en/ai-partnership-tsmc-2026/",
       "published_at": "2026-06-03T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, HBM, TSMC",
-      "collected_at": "2026-11-25T04:38:02.033791+00:00",
+      "collected_at": "2026-11-26T03:48:40.393698+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -6519,7 +6610,7 @@
       "url": "https://news.skhynix.com/en/computex-2026/",
       "published_at": "2026-06-02T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, COMPUTEX, CXL, HBM, LPCAMM2, LPDDR, SOCAMM2",
-      "collected_at": "2026-11-25T04:38:02.033791+00:00",
+      "collected_at": "2026-11-26T03:48:40.393698+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -6554,7 +6645,7 @@
       "url": "https://news.skhynix.com/en/computex-2026-booth-tour/",
       "published_at": "2026-06-02T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, COMPUTEX, NVIDIA",
-      "collected_at": "2026-11-25T04:38:02.033791+00:00",
+      "collected_at": "2026-11-26T03:48:40.393698+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "ai memory"
@@ -6584,7 +6675,7 @@
       "url": "https://www.kioxia-holdings.com/en-jp/news/2026/20260602-1.html",
       "published_at": "2026-06-02T00:00:00+00:00",
       "summary": "Official category: News Releases",
-      "collected_at": "2026-11-25T04:38:03.369703+00:00",
+      "collected_at": "2026-11-26T03:48:41.511675+00:00",
       "selection_method": "keyword_v1",
       "matched_keywords": [
         "ai inference"
@@ -6670,7 +6761,7 @@
       "url": "https://news.skhynix.com/en/gtc-taipei-2026-keynote/",
       "published_at": "2026-06-01T00:00:00+00:00",
       "summary": "Tags: AI, AI Memory, GTC, HBF, HBM",
-      "collected_at": "2026-11-25T04:38:02.033791+00:00",
+      "collected_at": "2026-11-26T03:48:40.393698+00:00",
       "selection_method": "official_tech_ai_category",
       "matched_keywords": [
         "hbm",
@@ -6788,7 +6879,7 @@
       "url": "https://www.tel.com/news/ir/2026/hdnjh300000000h4-att/20260601_002_e.pdf",
       "published_at": "2026-06-01T00:00:00+00:00",
       "summary": "Official Tokyo Electron newsroom item",
-      "collected_at": "2026-11-25T04:38:09.372221+00:00",
+      "collected_at": "2026-11-26T03:48:47.069244+00:00",
       "selection_method": "tel_official_newsroom_with_relevance_v1",
       "matched_keywords": [],
       "source_category": [
@@ -7933,7 +8024,7 @@
   "translation": {
     "target_language": "ko",
     "provider": "DeepL",
-    "translated_count": 222
+    "translated_count": 225
   },
   "ai_analysis": {
     "analyzed_count": 14,
@@ -7943,34 +8034,34 @@
     "notice": "AI가 공식 원문을 바탕으로 작성하고 기계적으로 근거를 검사한 참고용 초안입니다."
   },
   "trend_summary": {
-    "reference_at": "2026-11-25T04:38:10.926127+00:00",
+    "reference_at": "2026-11-26T03:48:48.042487+00:00",
     "methodology": "공식 기사 중 핵심 기술로 분류된 기사만 기술·직무 빈도에 사용하며, 최근 30일과 직전 30일의 기사 건수 차이를 상승 신호로 계산합니다.",
     "windows": {
       "7": {
-        "article_count": 4,
-        "high_relevance_count": 3,
+        "article_count": 7,
+        "high_relevance_count": 5,
         "company_count": 3,
         "top_companies": [
           {
-            "name": "SK hynix",
-            "count": 2
+            "name": "Kioxia",
+            "count": 3
           },
           {
-            "name": "Kioxia",
-            "count": 1
+            "name": "SK hynix",
+            "count": 2
           }
         ],
         "top_tech_domains": [
+          {
+            "name": "NAND·스토리지",
+            "count": 3
+          },
           {
             "name": "AI·데이터",
             "count": 2
           },
           {
             "name": "DRAM·HBM",
-            "count": 2
-          },
-          {
-            "name": "NAND·스토리지",
             "count": 2
           },
           {
@@ -7984,26 +8075,30 @@
             "count": 3
           },
           {
+            "name": "AE·솔루션",
+            "count": 2
+          },
+          {
             "name": "SW·데이터·AI",
             "count": 2
           },
           {
-            "name": "AE·솔루션",
-            "count": 1
+            "name": "평가분석·품질·PE",
+            "count": 2
           },
           {
             "name": "설비기술·기반기술",
-            "count": 1
-          },
-          {
-            "name": "평가분석·품질·PE",
             "count": 1
           }
         ],
         "top_signal_types": [
           {
             "name": "기술·제품",
-            "count": 3
+            "count": 5
+          },
+          {
+            "name": "투자·생산",
+            "count": 1
           },
           {
             "name": "행사·인재",
@@ -8011,6 +8106,30 @@
           }
         ],
         "company_profiles": [
+          {
+            "company": "Kioxia",
+            "high_relevance_count": 3,
+            "top_tech_domains": [
+              {
+                "name": "NAND·스토리지",
+                "count": 2
+              }
+            ],
+            "top_job_roles": [
+              {
+                "name": "평가분석·품질·PE",
+                "count": 2
+              },
+              {
+                "name": "AE·솔루션",
+                "count": 1
+              },
+              {
+                "name": "R&D공정·공정설계",
+                "count": 1
+              }
+            ]
+          },
           {
             "company": "SK hynix",
             "high_relevance_count": 2,
@@ -8042,32 +8161,12 @@
                 "count": 1
               }
             ]
-          },
-          {
-            "company": "Kioxia",
-            "high_relevance_count": 1,
-            "top_tech_domains": [
-              {
-                "name": "NAND·스토리지",
-                "count": 1
-              }
-            ],
-            "top_job_roles": [
-              {
-                "name": "R&D공정·공정설계",
-                "count": 1
-              },
-              {
-                "name": "평가분석·품질·PE",
-                "count": 1
-              }
-            ]
           }
         ]
       },
       "30": {
-        "article_count": 20,
-        "high_relevance_count": 7,
+        "article_count": 21,
+        "high_relevance_count": 8,
         "company_count": 6,
         "top_companies": [
           {
@@ -8075,12 +8174,8 @@
             "count": 5
           },
           {
-            "name": "Applied Materials",
-            "count": 1
-          },
-          {
             "name": "Kioxia",
-            "count": 1
+            "count": 3
           }
         ],
         "top_tech_domains": [
@@ -8094,15 +8189,11 @@
           },
           {
             "name": "NAND·스토리지",
-            "count": 2
+            "count": 3
           },
           {
             "name": "장비·Fab·인프라",
             "count": 2
-          },
-          {
-            "name": "패키징·테스트",
-            "count": 1
           }
         ],
         "top_job_roles": [
@@ -8115,29 +8206,29 @@
             "count": 3
           },
           {
-            "name": "설비기술·기반기술",
-            "count": 3
-          },
-          {
             "name": "AE·솔루션",
-            "count": 1
+            "count": 2
           },
           {
-            "name": "P&T·패키지개발",
-            "count": 1
+            "name": "설비기술·기반기술",
+            "count": 2
+          },
+          {
+            "name": "평가분석·품질·PE",
+            "count": 2
           }
         ],
         "top_signal_types": [
           {
             "name": "기술·제품",
-            "count": 7
+            "count": 8
           },
           {
-            "name": "행사·인재",
+            "name": "투자·생산",
             "count": 1
           },
           {
-            "name": "협업·공급망",
+            "name": "행사·인재",
             "count": 1
           }
         ],
@@ -8175,41 +8266,25 @@
             ]
           },
           {
-            "company": "Applied Materials",
-            "high_relevance_count": 1,
-            "top_tech_domains": [
-              {
-                "name": "패키징·테스트",
-                "count": 1
-              }
-            ],
-            "top_job_roles": [
-              {
-                "name": "P&T·패키지개발",
-                "count": 1
-              },
-              {
-                "name": "설비기술·기반기술",
-                "count": 1
-              }
-            ]
-          },
-          {
             "company": "Kioxia",
-            "high_relevance_count": 1,
+            "high_relevance_count": 3,
             "top_tech_domains": [
               {
                 "name": "NAND·스토리지",
-                "count": 1
+                "count": 2
               }
             ],
             "top_job_roles": [
               {
-                "name": "R&D공정·공정설계",
+                "name": "평가분석·품질·PE",
+                "count": 2
+              },
+              {
+                "name": "AE·솔루션",
                 "count": 1
               },
               {
-                "name": "평가분석·품질·PE",
+                "name": "R&D공정·공정설계",
                 "count": 1
               }
             ]
@@ -8217,8 +8292,8 @@
         ]
       },
       "90": {
-        "article_count": 64,
-        "high_relevance_count": 33,
+        "article_count": 67,
+        "high_relevance_count": 35,
         "company_count": 9,
         "top_companies": [
           {
@@ -8230,12 +8305,12 @@
             "count": 6
           },
           {
-            "name": "Samsung Electronics",
-            "count": 4
+            "name": "Kioxia",
+            "count": 5
           },
           {
-            "name": "Kioxia",
-            "count": 3
+            "name": "Samsung Electronics",
+            "count": 4
           },
           {
             "name": "Intel",
@@ -8257,7 +8332,7 @@
           },
           {
             "name": "NAND·스토리지",
-            "count": 5
+            "count": 6
           },
           {
             "name": "패키징·테스트",
@@ -8283,17 +8358,17 @@
           },
           {
             "name": "평가분석·품질·PE",
-            "count": 6
+            "count": 7
           }
         ],
         "top_signal_types": [
           {
             "name": "기술·제품",
-            "count": 33
+            "count": 35
           },
           {
             "name": "투자·생산",
-            "count": 8
+            "count": 9
           },
           {
             "name": "행사·인재",
@@ -8374,6 +8449,30 @@
             ]
           },
           {
+            "company": "Kioxia",
+            "high_relevance_count": 5,
+            "top_tech_domains": [
+              {
+                "name": "NAND·스토리지",
+                "count": 2
+              }
+            ],
+            "top_job_roles": [
+              {
+                "name": "평가분석·품질·PE",
+                "count": 2
+              },
+              {
+                "name": "AE·솔루션",
+                "count": 1
+              },
+              {
+                "name": "R&D공정·공정설계",
+                "count": 1
+              }
+            ]
+          },
+          {
             "company": "Samsung Electronics",
             "high_relevance_count": 4,
             "top_tech_domains": [
@@ -8401,26 +8500,6 @@
               },
               {
                 "name": "R&D공정·공정설계",
-                "count": 1
-              }
-            ]
-          },
-          {
-            "company": "Kioxia",
-            "high_relevance_count": 3,
-            "top_tech_domains": [
-              {
-                "name": "NAND·스토리지",
-                "count": 1
-              }
-            ],
-            "top_job_roles": [
-              {
-                "name": "R&D공정·공정설계",
-                "count": 1
-              },
-              {
-                "name": "평가분석·품질·PE",
                 "count": 1
               }
             ]
@@ -8572,41 +8651,25 @@
         ]
       },
       {
-        "company": "Applied Materials",
-        "high_relevance_count": 1,
-        "top_tech_domains": [
-          {
-            "name": "패키징·테스트",
-            "count": 1
-          }
-        ],
-        "top_job_roles": [
-          {
-            "name": "P&T·패키지개발",
-            "count": 1
-          },
-          {
-            "name": "설비기술·기반기술",
-            "count": 1
-          }
-        ]
-      },
-      {
         "company": "Kioxia",
-        "high_relevance_count": 1,
+        "high_relevance_count": 3,
         "top_tech_domains": [
           {
             "name": "NAND·스토리지",
-            "count": 1
+            "count": 2
           }
         ],
         "top_job_roles": [
           {
-            "name": "R&D공정·공정설계",
+            "name": "평가분석·품질·PE",
+            "count": 2
+          },
+          {
+            "name": "AE·솔루션",
             "count": 1
           },
           {
-            "name": "평가분석·품질·PE",
+            "name": "R&D공정·공정설계",
             "count": 1
           }
         ]
@@ -8614,19 +8677,268 @@
     ]
   },
   "trend_reports": {
+    "7": {
+      "window_days": 7,
+      "generated_at": "2026-11-26T03:49:01.572538+00:00",
+      "model": "gemini-3.5-flash-lite",
+      "report": {
+        "report_version": "monthly_semiconductor_trend_v1",
+        "window_days": 7,
+        "headline_ko": "최근 7일간 NAND·스토리지 및 AI·데이터 분야를 중심으로 한 기술 발표 동향",
+        "summary_ko": "최근 7일 동안 Kioxia와 SK하이닉스를 중심으로 NAND·스토리지 및 DRAM·HBM, AI·데이터 관련 기술 비전과 제품 발표가 이루어졌습니다. R&D공정·공정설계와 평가분석·품질·PE 등 다양한 직무와 연계된 소식이 확인되었습니다. 기사 건수는 공식 발표 빈도를 나타내며 실제 시장 중요도와는 다를 수 있습니다.",
+        "key_findings": [
+          {
+            "title_ko": "NAND·스토리지 및 AI 연계 기술 발표 집중",
+            "interpretation_ko": "최근 7일간 NAND·스토리지 분야와 AI·데이터 분야를 중심으로 한 기술 및 제품 관련 소식이 다수 확인되었습니다.",
+            "evidence_metric_ids": [
+              "M1",
+              "M2"
+            ],
+            "related_roles": [
+              "공정기술·양산기술",
+              "R&D공정·공정설계"
+            ]
+          },
+          {
+            "title_ko": "R&D공정·공정설계 직무 관련 소식의 비중",
+            "interpretation_ko": "핵심 기사 중 R&D공정·공정설계 직무와 연관된 발표가 상대적으로 자주 언급되었습니다.",
+            "evidence_metric_ids": [
+              "M5"
+            ],
+            "related_roles": [
+              "R&D공정·공정설계"
+            ]
+          }
+        ],
+        "company_insights": [
+          {
+            "company": "Kioxia",
+            "observation_ko": "SSD 제품 성능 및 AI용 차세대 플래시 메모리 기술 관련 포럼 개최 소식을 발표했습니다.",
+            "evidence_article_ids": [
+              "A1",
+              "A3"
+            ]
+          },
+          {
+            "company": "SK hynix",
+            "observation_ko": "슈퍼컴퓨팅 행사를 통해 메모리 중심의 미래 AI 생태계 구축 및 기술 비전을 발표했습니다.",
+            "evidence_article_ids": [
+              "A4",
+              "A5"
+            ]
+          }
+        ],
+        "role_actions": [
+          {
+            "role": "공정기술·양산기술",
+            "watch_points_ko": [
+              "차세대 플래시 메모리 및 스토리지 제품 관련 공정 안정성 및 양산 전환 동향을 확인합니다."
+            ],
+            "study_points_ko": [
+              "NAND 및 스토리지 제조 공정의 기본 조건과 계측 검사 관련 내용을 검토합니다."
+            ],
+            "evidence_metric_ids": [
+              "M1",
+              "M4"
+            ]
+          },
+          {
+            "role": "R&D공정·공정설계",
+            "watch_points_ko": [
+              "차세대 저지연·고성능 플래시 메모리 관련 공정 기술 발표 내용을 참고합니다."
+            ],
+            "study_points_ko": [
+              "고성능 메모리 및 스토리지 구조와 연계된 공정 설계 방향성을 학습합니다."
+            ],
+            "evidence_metric_ids": [
+              "M1",
+              "M5"
+            ]
+          }
+        ],
+        "limitations_ko": [
+          "기사 건수는 공식 발표 빈도이며 실제 시장 중요도와 같지 않습니다.",
+          "입력된 표본 데이터가 한정되어 있어 구체적인 수율 수치나 세부 공정 문제를 파악하기에는 한계가 있습니다."
+        ]
+      },
+      "evidence": {
+        "period": "최근 7일",
+        "window_days": 7,
+        "period_start": "2026-11-19T03:48:48.042487+00:00",
+        "reference_at": "2026-11-26T03:48:48.042487+00:00",
+        "article_count": 7,
+        "high_relevance_count": 5,
+        "metrics": [
+          {
+            "id": "M1",
+            "category": "기술 분야",
+            "name": "NAND·스토리지",
+            "count": 3,
+            "text_ko": "최근 7일 핵심 기사 중 NAND·스토리지 관련 3건"
+          },
+          {
+            "id": "M2",
+            "category": "기술 분야",
+            "name": "AI·데이터",
+            "count": 2,
+            "text_ko": "최근 7일 핵심 기사 중 AI·데이터 관련 2건"
+          },
+          {
+            "id": "M3",
+            "category": "기술 분야",
+            "name": "DRAM·HBM",
+            "count": 2,
+            "text_ko": "최근 7일 핵심 기사 중 DRAM·HBM 관련 2건"
+          },
+          {
+            "id": "M4",
+            "category": "기술 분야",
+            "name": "장비·Fab·인프라",
+            "count": 1,
+            "text_ko": "최근 7일 핵심 기사 중 장비·Fab·인프라 관련 1건"
+          },
+          {
+            "id": "M5",
+            "category": "관련 직무",
+            "name": "R&D공정·공정설계",
+            "count": 3,
+            "text_ko": "최근 7일 핵심 기사 중 R&D공정·공정설계 관련 3건"
+          },
+          {
+            "id": "M6",
+            "category": "관련 직무",
+            "name": "AE·솔루션",
+            "count": 2,
+            "text_ko": "최근 7일 핵심 기사 중 AE·솔루션 관련 2건"
+          },
+          {
+            "id": "M7",
+            "category": "관련 직무",
+            "name": "SW·데이터·AI",
+            "count": 2,
+            "text_ko": "최근 7일 핵심 기사 중 SW·데이터·AI 관련 2건"
+          },
+          {
+            "id": "M8",
+            "category": "관련 직무",
+            "name": "평가분석·품질·PE",
+            "count": 2,
+            "text_ko": "최근 7일 핵심 기사 중 평가분석·품질·PE 관련 2건"
+          },
+          {
+            "id": "M9",
+            "category": "관련 직무",
+            "name": "설비기술·기반기술",
+            "count": 1,
+            "text_ko": "최근 7일 핵심 기사 중 설비기술·기반기술 관련 1건"
+          },
+          {
+            "id": "M10",
+            "category": "기업",
+            "name": "Kioxia",
+            "count": 3,
+            "text_ko": "최근 7일 Kioxia 핵심 기사 3건"
+          },
+          {
+            "id": "M11",
+            "category": "기업",
+            "name": "SK hynix",
+            "count": 2,
+            "text_ko": "최근 7일 SK hynix 핵심 기사 2건"
+          }
+        ],
+        "articles": [
+          {
+            "id": "A1",
+            "company": "Kioxia",
+            "title": "KIOXIA GP2 시리즈 SSD, GPU 메모리 확장을 위한 차원 높은 성능 제공",
+            "url": "https://www.kioxia.com/en-jp/business/news/2026/20261126-2.html",
+            "published_at": "2026-11-26T00:00:00+00:00",
+            "tech_domains": [
+              "NAND·스토리지"
+            ],
+            "job_roles": [
+              "평가분석·품질·PE",
+              "AE·솔루션"
+            ]
+          },
+          {
+            "id": "A2",
+            "company": "Kioxia",
+            "title": "키옥시아와 엔비디아, SSD를 통해 고대역폭 메모리의 유효 용량을 확대하기 위해 협력",
+            "url": "https://www.kioxia.com/en-jp/business/news/2026/20261126-1.html",
+            "published_at": "2026-11-26T00:00:00+00:00",
+            "tech_domains": [
+              "기업·산업 일반"
+            ],
+            "job_roles": [
+              "산업·사업 공통"
+            ]
+          },
+          {
+            "id": "A3",
+            "company": "Kioxia",
+            "title": "키옥시아, ‘KIOXIA 포럼’에서 AI용 차세대 저지연·고성능 플래시 메모리인 XL-FLASH™ 3세대 기술을 선보일 예정",
+            "url": "https://www.kioxia.com/en-jp/business/news/2026/20261125-1.html",
+            "published_at": "2026-11-25T00:00:00+00:00",
+            "tech_domains": [
+              "NAND·스토리지"
+            ],
+            "job_roles": [
+              "R&D공정·공정설계",
+              "평가분석·품질·PE"
+            ]
+          },
+          {
+            "id": "A4",
+            "company": "SK hynix",
+            "title": "“메모리를 중심으로 한 미래 AI 생태계 구축”: SK하이닉스, ‘슈퍼 컴퓨팅 2026’에서 기술 비전 제시",
+            "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition-12/",
+            "published_at": "2026-11-20T07:38:41+00:00",
+            "tech_domains": [
+              "DRAM·HBM",
+              "AI·데이터"
+            ],
+            "job_roles": [
+              "R&D공정·공정설계",
+              "SW·데이터·AI"
+            ]
+          },
+          {
+            "id": "A5",
+            "company": "SK hynix",
+            "title": "“메모리를 중심으로 한 미래 AI 생태계 구축”: SK하이닉스, ‘슈퍼컴퓨팅 2026’에서 기술 비전 발표",
+            "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition/",
+            "published_at": "2026-11-20T00:00:00+00:00",
+            "tech_domains": [
+              "DRAM·HBM",
+              "NAND·스토리지",
+              "장비·Fab·인프라",
+              "AI·데이터"
+            ],
+            "job_roles": [
+              "R&D공정·공정설계",
+              "설비기술·기반기술",
+              "AE·솔루션",
+              "SW·데이터·AI"
+            ]
+          }
+        ]
+      }
+    },
     "30": {
       "window_days": 30,
-      "generated_at": "2026-11-25T04:38:25.888402+00:00",
+      "generated_at": "2026-11-26T03:49:06.077182+00:00",
       "model": "gemini-3.5-flash-lite",
       "report": {
         "report_version": "monthly_semiconductor_trend_v1",
         "window_days": 30,
-        "headline_ko": "최근 30일간 AI·데이터 및 메모리 기술 중심의 공식 발표와 생태계 구축 동향",
-        "summary_ko": "최근 30일 동안 AI·데이터 및 DRAM·HBM 분야를 중심으로 한 기술 비전과 포럼 발표가 활발하게 이루어졌습니다. 관련 공식 기사를 바탕으로 공정 및 장비 관점에서의 기술 동향을 살펴볼 수 있습니다.",
+        "headline_ko": "최근 30일간 AI·데이터 및 메모리 고성능화 관련 기술 발표가 주를 이룸",
+        "summary_ko": "최근 30일 동안 SK하이닉스와 키옥시아를 중심으로 AI, DRAM·HBM, NAND·스토리지 분야의 기술 비전과 제품 성능 향상 관련 공식 기사가 다수 발행되었습니다. 특히 AI 생태계 확장에 대응하기 위한 메모리 성능 개선과 시스템 신뢰성 확보 노력이 관찰됩니다.",
         "key_findings": [
           {
-            "title_ko": "AI·데이터 및 메모리 기술 중심의 발표 집중",
-            "interpretation_ko": "최근 30일간 AI·데이터와 DRAM·HBM 분야가 주요 기술 발표의 중심을 차지하며 관련 동향이 다수 확인되었습니다.",
+            "title_ko": "AI·데이터 및 차세대 메모리 중심의 기술 발표 집중",
+            "interpretation_ko": "입력된 통계에 따르면 AI·데이터 관련 기사가 5건, DRAM·HBM 관련 기사가 4건으로 나타나 인공지능 연동형 메모리 기술에 대한 공식 발표가 활발함을 보여줍니다.",
             "evidence_metric_ids": [
               "M1",
               "M2"
@@ -8636,40 +8948,33 @@
             ]
           },
           {
-            "title_ko": "설비 및 R&D 공정 직무 관련 기술 노트 발행",
-            "interpretation_ko": "설비기술 및 R&D공정 직무와 연계될 수 있는 인프라 및 메모리 기술 관련 공식 소들이 확인되었습니다.",
+            "title_ko": "다양한 직무와 연계된 기술 정보 공개",
+            "interpretation_ko": "SW·데이터·AI 직무와 R&D공정·공정설계 직무와 연관된 기사 비중이 높아, 공정 및 소프트웨어 측면의 기술 협력 가능성이 시사됩니다.",
             "evidence_metric_ids": [
-              "M7",
-              "M8"
+              "M5",
+              "M6"
             ],
             "related_roles": [
-              "설비기술·기반기술",
-              "R&D공정·공정설계"
+              "공정기술·양산기술"
             ]
           }
         ],
         "company_insights": [
           {
-            "company": "SK hynix",
-            "observation_ko": "슈퍼컴퓨팅 행사를 통해 AI 생태계 구축 및 메모리 기술 비전을 발표하고 실리콘 포토닉스 등 차세대 기술 노트를 공개했습니다.",
-            "evidence_article_ids": [
-              "A2",
-              "A3",
-              "A6"
-            ]
-          },
-          {
             "company": "Kioxia",
-            "observation_ko": "포럼을 통해 AI용 차세대 저지연·고성능 플래시 메모리 기술을 선보일 예정임을 발표했습니다.",
+            "observation_ko": "GPU 메모리 확장용 SSD 제품 성능 제공 및 차세대 플래시 메모리 기술인 XL-FLASH 3세대 기술을 선보일 예정임을 발표했습니다.",
             "evidence_article_ids": [
-              "A1"
+              "A1",
+              "A3"
             ]
           },
           {
-            "company": "Applied Materials",
-            "observation_ko": "패키징·테스트 분야의 BE 반도체 인더스트리에 대한 전략적 투자 확대 소식을 알렸습니다.",
+            "company": "SK hynix",
+            "observation_ko": "슈퍼컴퓨팅 행사를 통해 AI 생태계 구축을 위한 기술 비전을 제시하고, 물리적 AI 메모리에 대한 신뢰성 인증 및 실리콘 포토닉스 관련 기술 노트를 공개했습니다.",
             "evidence_article_ids": [
-              "A7"
+              "A4",
+              "A7",
+              "A8"
             ]
           }
         ],
@@ -8677,57 +8982,32 @@
           {
             "role": "공정기술·양산기술",
             "watch_points_ko": [
-              "AI 및 메모리 고도화에 따른 공정 조건 및 설비 가동 관련 발표 내용 확인"
+              "AI 및 고대역폭 메모리 수요 증가에 따른 양산 공정 안정화 요구사항 변화 여부",
+              "차세대 플래시 및 HBM 관련 공정 조건 변경 가능성"
             ],
             "study_points_ko": [
-              "차세대 메모리 및 패키징 기술 도입에 따른 공정 안정성 확보 방안 학습"
-            ],
-            "evidence_metric_ids": [
-              "M1",
-              "M2",
-              "M4"
-            ]
-          },
-          {
-            "role": "R&D공정·공정설계",
-            "watch_points_ko": [
-              "플래시 메모리 및 고성능 메모리 관련 차세대 기술 비전 파악"
-            ],
-            "study_points_ko": [
-              "AI 응용을 위한 메모리 구조 및 저지연·고성능 기술 동향 검토"
+              "DRAM 및 NAND 고성능화에 따른 공정 특성 이해",
+              "제조 데이터 및 설비 운영과 연계된 공정 최적화 개념 파악"
             ],
             "evidence_metric_ids": [
               "M1",
               "M2",
               "M3"
             ]
-          },
-          {
-            "role": "설비기술·기반기술",
-            "watch_points_ko": [
-              "장비 및 Fab 인프라 관련 기술 노트 및 인증 소식 확인"
-            ],
-            "study_points_ko": [
-              "물리적 AI 메모리 신뢰성 및 시스템 인프라 연계성 파악"
-            ],
-            "evidence_metric_ids": [
-              "M4",
-              "M8"
-            ]
           }
         ],
         "limitations_ko": [
-          "본 리포트의 기사 건수는 공식 발표 빈도만을 나타내며, 실제 시장 중요도나 채용 수요와 정확히 일치하지 않을 수 있습니다.",
-          "입력된 표본 데이터가 제한적이므로 구체적인 수율 수치나 공정 원인에 대해서는 추가적인 확인이 필요합니다."
+          "본 리포트의 기사 건수는 기업들의 공식 발표 빈도를 나타낼 뿐이며 실제 시장에서의 중요도나 채용 규모와는 다를 수 있습니다.",
+          "입력된 표본 데이터가 제한적이므로 특정 수율이나 구체적인 공정 문제 원인을 단정할 수 없으며 추가적인 사내외 정보 확인이 필요합니다."
         ]
       },
       "evidence": {
         "period": "최근 30일",
         "window_days": 30,
-        "period_start": "2026-10-26T04:38:10.926127+00:00",
-        "reference_at": "2026-11-25T04:38:10.926127+00:00",
-        "article_count": 20,
-        "high_relevance_count": 7,
+        "period_start": "2026-10-27T03:48:48.042487+00:00",
+        "reference_at": "2026-11-26T03:48:48.042487+00:00",
+        "article_count": 21,
+        "high_relevance_count": 8,
         "metrics": [
           {
             "id": "M1",
@@ -8747,8 +9027,8 @@
             "id": "M3",
             "category": "기술 분야",
             "name": "NAND·스토리지",
-            "count": 2,
-            "text_ko": "최근 30일 핵심 기사 중 NAND·스토리지 관련 2건"
+            "count": 3,
+            "text_ko": "최근 30일 핵심 기사 중 NAND·스토리지 관련 3건"
           },
           {
             "id": "M4",
@@ -8759,71 +9039,84 @@
           },
           {
             "id": "M5",
-            "category": "기술 분야",
-            "name": "패키징·테스트",
-            "count": 1,
-            "text_ko": "최근 30일 핵심 기사 중 패키징·테스트 관련 1건"
-          },
-          {
-            "id": "M6",
             "category": "관련 직무",
             "name": "SW·데이터·AI",
             "count": 4,
             "text_ko": "최근 30일 핵심 기사 중 SW·데이터·AI 관련 4건"
           },
           {
-            "id": "M7",
+            "id": "M6",
             "category": "관련 직무",
             "name": "R&D공정·공정설계",
             "count": 3,
             "text_ko": "최근 30일 핵심 기사 중 R&D공정·공정설계 관련 3건"
           },
           {
+            "id": "M7",
+            "category": "관련 직무",
+            "name": "AE·솔루션",
+            "count": 2,
+            "text_ko": "최근 30일 핵심 기사 중 AE·솔루션 관련 2건"
+          },
+          {
             "id": "M8",
             "category": "관련 직무",
             "name": "설비기술·기반기술",
-            "count": 3,
-            "text_ko": "최근 30일 핵심 기사 중 설비기술·기반기술 관련 3건"
+            "count": 2,
+            "text_ko": "최근 30일 핵심 기사 중 설비기술·기반기술 관련 2건"
           },
           {
             "id": "M9",
             "category": "관련 직무",
-            "name": "AE·솔루션",
-            "count": 1,
-            "text_ko": "최근 30일 핵심 기사 중 AE·솔루션 관련 1건"
+            "name": "평가분석·품질·PE",
+            "count": 2,
+            "text_ko": "최근 30일 핵심 기사 중 평가분석·품질·PE 관련 2건"
           },
           {
             "id": "M10",
-            "category": "관련 직무",
-            "name": "P&T·패키지개발",
-            "count": 1,
-            "text_ko": "최근 30일 핵심 기사 중 P&T·패키지개발 관련 1건"
-          },
-          {
-            "id": "M11",
             "category": "기업",
             "name": "SK hynix",
             "count": 5,
             "text_ko": "최근 30일 SK hynix 핵심 기사 5건"
           },
           {
-            "id": "M12",
-            "category": "기업",
-            "name": "Applied Materials",
-            "count": 1,
-            "text_ko": "최근 30일 Applied Materials 핵심 기사 1건"
-          },
-          {
-            "id": "M13",
+            "id": "M11",
             "category": "기업",
             "name": "Kioxia",
-            "count": 1,
-            "text_ko": "최근 30일 Kioxia 핵심 기사 1건"
+            "count": 3,
+            "text_ko": "최근 30일 Kioxia 핵심 기사 3건"
           }
         ],
         "articles": [
           {
             "id": "A1",
+            "company": "Kioxia",
+            "title": "KIOXIA GP2 시리즈 SSD, GPU 메모리 확장을 위한 차원 높은 성능 제공",
+            "url": "https://www.kioxia.com/en-jp/business/news/2026/20261126-2.html",
+            "published_at": "2026-11-26T00:00:00+00:00",
+            "tech_domains": [
+              "NAND·스토리지"
+            ],
+            "job_roles": [
+              "평가분석·품질·PE",
+              "AE·솔루션"
+            ]
+          },
+          {
+            "id": "A2",
+            "company": "Kioxia",
+            "title": "키옥시아와 엔비디아, SSD를 통해 고대역폭 메모리의 유효 용량을 확대하기 위해 협력",
+            "url": "https://www.kioxia.com/en-jp/business/news/2026/20261126-1.html",
+            "published_at": "2026-11-26T00:00:00+00:00",
+            "tech_domains": [
+              "기업·산업 일반"
+            ],
+            "job_roles": [
+              "산업·사업 공통"
+            ]
+          },
+          {
+            "id": "A3",
             "company": "Kioxia",
             "title": "키옥시아, ‘KIOXIA 포럼’에서 AI용 차세대 저지연·고성능 플래시 메모리인 XL-FLASH™ 3세대 기술을 선보일 예정",
             "url": "https://www.kioxia.com/en-jp/business/news/2026/20261125-1.html",
@@ -8837,7 +9130,7 @@
             ]
           },
           {
-            "id": "A2",
+            "id": "A4",
             "company": "SK hynix",
             "title": "“메모리를 중심으로 한 미래 AI 생태계 구축”: SK하이닉스, ‘슈퍼 컴퓨팅 2026’에서 기술 비전 제시",
             "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition-12/",
@@ -8852,7 +9145,7 @@
             ]
           },
           {
-            "id": "A3",
+            "id": "A5",
             "company": "SK hynix",
             "title": "“메모리를 중심으로 한 미래 AI 생태계 구축”: SK하이닉스, ‘슈퍼컴퓨팅 2026’에서 기술 비전 발표",
             "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition/",
@@ -8871,7 +9164,7 @@
             ]
           },
           {
-            "id": "A4",
+            "id": "A6",
             "company": "SK hynix",
             "title": "[AI 생태계] AI의 완성: 물리적 지능과 기억의 역할",
             "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep4-5/",
@@ -8884,7 +9177,7 @@
             ]
           },
           {
-            "id": "A5",
+            "id": "A7",
             "company": "SK hynix",
             "title": "‘시스템 장애 및 사이버 위협으로부터의 보호’: SK하이닉스, 물리적 AI 메모리에 대한 신뢰 구축",
             "url": "https://news.skhynix.com/en/iec-61508-certification-2026/",
@@ -8900,7 +9193,7 @@
             ]
           },
           {
-            "id": "A6",
+            "id": "A8",
             "company": "SK hynix",
             "title": "[기술 노트] 수만 개의 GPU를 갖추고도 AI는 왜 여전히 기다려야 할까? 실리콘 포토닉스와 CPO가 어떻게 ‘빛의 고속도로’를 구축하고 있는지",
             "url": "https://news.skhynix.com/en/tech-note-series-ep3/",
@@ -8912,72 +9205,66 @@
             "job_roles": [
               "SW·데이터·AI"
             ]
-          },
-          {
-            "id": "A7",
-            "company": "Applied Materials",
-            "title": "애플라이드 머티리얼즈, BE 반도체 인더스트리에 대한 전략적 투자 확대",
-            "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-increase-its-strategic-investment-be",
-            "published_at": "2026-10-26T20:30:00+00:00",
-            "tech_domains": [
-              "패키징·테스트"
-            ],
-            "job_roles": [
-              "설비기술·기반기술",
-              "P&T·패키지개발"
-            ]
           }
         ]
       }
     },
     "90": {
       "window_days": 90,
-      "generated_at": "2026-11-25T04:38:28.972143+00:00",
+      "generated_at": "2026-11-26T03:49:11.946875+00:00",
       "model": "gemini-3.5-flash-lite",
       "report": {
         "report_version": "monthly_semiconductor_trend_v1",
         "window_days": 90,
-        "headline_ko": "최근 90일간 AI·데이터 및 메모리 중심 반도체 생태계 협력과 인프라 확장 동향",
-        "summary_ko": "최근 90일 동안 AI·데이터 기술과 DRAM·HBM, 장비·Fab·인프라 영역을 중심으로 한 공식 발표가 다수 확인되었습니다. SK하이닉스와 애플라이드 머티리얼즈 등 주요 기업들은 AI 인프라와 차세대 메모리 협력을 강조하고 있으며, 이는 공정 안정성과 양산 지원 관점에서 지속적인 모니터링이 필요함을 시사합니다.",
+        "headline_ko": "최근 90일간 AI·데이터 및 메모리(DRAM·HBM) 연계 공정·장비 협력 발표 집중",
+        "summary_ko": "최근 90일 동안 공식 뉴스룸에서는 AI·데이터와 DRAM·HBM을 중심으로 한 기술 및 인프라 협력 발표가 다수 확인되었습니다. 특히 장비 및 소재 기업들과의 연계 속에서 공정 가속화 및 차세대 제조 기반 확충 가능성이 시사되고 있습니다.",
         "key_findings": [
           {
-            "title_ko": "AI·데이터 및 DRAM·HBM 중심의 기술 발표 집중",
-            "interpretation_ko": "최근 90일 동안 AI·데이터와 DRAM·HBM 관련 공식 기사가 각각 24건, 16건으로 높게 집계되어 메모리와 AI 인프라 연계 기술 발표가 주를 이뤘음을 보여줍니다.",
+            "title_ko": "AI·데이터 중심의 기술 발표 집중",
+            "interpretation_ko": "AI·데이터 관련 기사가 24건으로 가장 높은 비중을 차지하며, 메모리 성능 확장 및 인프라 설계 관련 소식이 주를 이루고 있습니다.",
             "evidence_metric_ids": [
-              "M1",
-              "M2"
+              "M1"
             ],
             "related_roles": [
               "공정기술·양산기술"
             ]
           },
           {
-            "title_ko": "장비 및 Fab·인프라 고도화와 장비사 협력 확대",
-            "interpretation_ko": "장비·Fab·인프라 관련 발표가 10건 확인되며, 반도체 제조 장비 및 파운드리·메모리 간 협업 가능성이 부각되고 있습니다.",
+            "title_ko": "DRAM·HBM 및 장비·Fab 관련 협력 지속",
+            "interpretation_ko": "DRAM·HBM(16건)과 장비·Fab·인프라(10건) 분야에서 글로벌 기업들의 공동 연구 및 투자 발표가 확인되어 관련 공정 인프라 준비 가능성이 높습니다.",
             "evidence_metric_ids": [
+              "M2",
               "M3"
             ],
             "related_roles": [
-              "공정기술·양산기술"
+              "공정기술·양산기술",
+              "R&D공정·공정설계"
             ]
           }
         ],
         "company_insights": [
           {
             "company": "SK hynix",
-            "observation_ko": "메모리를 중심으로 한 미래 AI 생태계 구축과 슈퍼컴퓨팅 관련 기술 비전을 지속적으로 발표하고 있습니다.",
+            "observation_ko": "슈퍼컴퓨팅 2026 및 OCP 글로벌 서밋 등을 통해 메모리 중심의 AI 생태계 구축 및 차세대 인프라 비전을 지속적으로 발표했습니다.",
             "evidence_article_ids": [
-              "A2",
-              "A3"
+              "A4",
+              "A14"
             ]
           },
           {
             "company": "Applied Materials",
-            "observation_ko": "AI가 웨이퍼 제조 장비 수요를 견인하며 실리콘밸리 EPIC 센터 공개 및 차세대 메모리 기술 협력을 추진하고 있습니다.",
+            "observation_ko": "EPIC 센터 공개 및 주요 기업들과의 협력을 통해 AI 시대의 반도체 제조 및 장비 혁신 가속화를 도모하고 있습니다.",
             "evidence_article_ids": [
-              "A14",
-              "A17",
-              "A23"
+              "A19",
+              "A25"
+            ]
+          },
+          {
+            "company": "Kioxia",
+            "observation_ko": "고성능 플래시 메모리 기술과 엔터프라이즈 SSD 관련 솔루션을 선보이며 AI용 데이터 센터 및 메모리 확장 지원에 나서고 있습니다.",
+            "evidence_article_ids": [
+              "A1",
+              "A3"
             ]
           }
         ],
@@ -8985,12 +9272,12 @@
           {
             "role": "공정기술·양산기술",
             "watch_points_ko": [
-              "AI 인프라 및 차세대 메모리 양산 전환 과정에서의 공정 안정성 확보 동향",
-              "장비·Fab 투자 확대에 따른 라인 가동 및 계측·검사 관련 요구사항"
+              "장비 및 Fab 투자 발표에 따른 양산 공정 적용 가능성 검토",
+              "AI·데이터 연계 장비 도입 시 가동률 및 공정 안정성 지표 확인"
             ],
             "study_points_ko": [
-              "고대역폭 메모리(HBM) 및 차세대 플래시 메모리 제조 공정의 수율 안정화 조건",
-              "반도체 제조 장비 도입에 따른 설비 가동률 및 공정 조건 최적화 방안"
+              "차세대 메모리(HBM, 고성능 플래시) 제조 공정의 수율 및 계측·검사 기술 동향",
+              "장비사와의 협력 사례를 통한 공정 조건 최적화 방안"
             ],
             "evidence_metric_ids": [
               "M1",
@@ -9001,17 +9288,17 @@
           }
         ],
         "limitations_ko": [
-          "본 리포트의 기사 건수는 공식 발표 빈도만을 나타내며 실제 시장 중요도나 채용 수요와 직접적으로 일치하지 않을 수 있습니다.",
-          "입력된 공식 기사 제목과 통계 수치만을 바탕으로 작성되었으므로, 구체적인 수율 수치나 내부 공정 이슈는 추가 확인할 항목으로 남겨둡니다."
+          "본 리포트의 기사 건수는 공식 발표 빈도를 나타내며 실제 시장 중요도나 채용 수요와 정확히 일치하지 않을 수 있습니다.",
+          "입력된 데이터는 홍보 및 보도자료 중심이므로 실제 라인 내부의 구체적인 수율 수치나 공정 트러블슈팅 결과는 추가 확인할 항목으로 남겨둡니다."
         ]
       },
       "evidence": {
         "period": "최근 90일",
         "window_days": 90,
-        "period_start": "2026-08-27T04:38:10.926127+00:00",
-        "reference_at": "2026-11-25T04:38:10.926127+00:00",
-        "article_count": 64,
-        "high_relevance_count": 33,
+        "period_start": "2026-08-28T03:48:48.042487+00:00",
+        "reference_at": "2026-11-26T03:48:48.042487+00:00",
+        "article_count": 67,
+        "high_relevance_count": 35,
         "metrics": [
           {
             "id": "M1",
@@ -9038,8 +9325,8 @@
             "id": "M4",
             "category": "기술 분야",
             "name": "NAND·스토리지",
-            "count": 5,
-            "text_ko": "최근 90일 핵심 기사 중 NAND·스토리지 관련 5건"
+            "count": 6,
+            "text_ko": "최근 90일 핵심 기사 중 NAND·스토리지 관련 6건"
           },
           {
             "id": "M5",
@@ -9080,8 +9367,8 @@
             "id": "M10",
             "category": "관련 직무",
             "name": "평가분석·품질·PE",
-            "count": 6,
-            "text_ko": "최근 90일 핵심 기사 중 평가분석·품질·PE 관련 6건"
+            "count": 7,
+            "text_ko": "최근 90일 핵심 기사 중 평가분석·품질·PE 관련 7건"
           },
           {
             "id": "M11",
@@ -9100,16 +9387,16 @@
           {
             "id": "M13",
             "category": "기업",
-            "name": "Samsung Electronics",
-            "count": 4,
-            "text_ko": "최근 90일 Samsung Electronics 핵심 기사 4건"
+            "name": "Kioxia",
+            "count": 5,
+            "text_ko": "최근 90일 Kioxia 핵심 기사 5건"
           },
           {
             "id": "M14",
             "category": "기업",
-            "name": "Kioxia",
-            "count": 3,
-            "text_ko": "최근 90일 Kioxia 핵심 기사 3건"
+            "name": "Samsung Electronics",
+            "count": 4,
+            "text_ko": "최근 90일 Samsung Electronics 핵심 기사 4건"
           },
           {
             "id": "M15",
@@ -9123,6 +9410,33 @@
           {
             "id": "A1",
             "company": "Kioxia",
+            "title": "KIOXIA GP2 시리즈 SSD, GPU 메모리 확장을 위한 차원 높은 성능 제공",
+            "url": "https://www.kioxia.com/en-jp/business/news/2026/20261126-2.html",
+            "published_at": "2026-11-26T00:00:00+00:00",
+            "tech_domains": [
+              "NAND·스토리지"
+            ],
+            "job_roles": [
+              "평가분석·품질·PE",
+              "AE·솔루션"
+            ]
+          },
+          {
+            "id": "A2",
+            "company": "Kioxia",
+            "title": "키옥시아와 엔비디아, SSD를 통해 고대역폭 메모리의 유효 용량을 확대하기 위해 협력",
+            "url": "https://www.kioxia.com/en-jp/business/news/2026/20261126-1.html",
+            "published_at": "2026-11-26T00:00:00+00:00",
+            "tech_domains": [
+              "기업·산업 일반"
+            ],
+            "job_roles": [
+              "산업·사업 공통"
+            ]
+          },
+          {
+            "id": "A3",
+            "company": "Kioxia",
             "title": "키옥시아, ‘KIOXIA 포럼’에서 AI용 차세대 저지연·고성능 플래시 메모리인 XL-FLASH™ 3세대 기술을 선보일 예정",
             "url": "https://www.kioxia.com/en-jp/business/news/2026/20261125-1.html",
             "published_at": "2026-11-25T00:00:00+00:00",
@@ -9135,7 +9449,7 @@
             ]
           },
           {
-            "id": "A2",
+            "id": "A4",
             "company": "SK hynix",
             "title": "“메모리를 중심으로 한 미래 AI 생태계 구축”: SK하이닉스, ‘슈퍼 컴퓨팅 2026’에서 기술 비전 제시",
             "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition-12/",
@@ -9150,7 +9464,7 @@
             ]
           },
           {
-            "id": "A3",
+            "id": "A5",
             "company": "SK hynix",
             "title": "“메모리를 중심으로 한 미래 AI 생태계 구축”: SK하이닉스, ‘슈퍼컴퓨팅 2026’에서 기술 비전 발표",
             "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition/",
@@ -9169,7 +9483,7 @@
             ]
           },
           {
-            "id": "A4",
+            "id": "A6",
             "company": "SK hynix",
             "title": "[AI 생태계] AI의 완성: 물리적 지능과 기억의 역할",
             "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep4-5/",
@@ -9182,7 +9496,7 @@
             ]
           },
           {
-            "id": "A5",
+            "id": "A7",
             "company": "SK hynix",
             "title": "‘시스템 장애 및 사이버 위협으로부터의 보호’: SK하이닉스, 물리적 AI 메모리에 대한 신뢰 구축",
             "url": "https://news.skhynix.com/en/iec-61508-certification-2026/",
@@ -9198,7 +9512,7 @@
             ]
           },
           {
-            "id": "A6",
+            "id": "A8",
             "company": "SK hynix",
             "title": "[기술 노트] 수만 개의 GPU를 갖추고도 AI는 왜 여전히 기다려야 할까? 실리콘 포토닉스와 CPO가 어떻게 ‘빛의 고속도로’를 구축하고 있는지",
             "url": "https://news.skhynix.com/en/tech-note-series-ep3/",
@@ -9212,7 +9526,7 @@
             ]
           },
           {
-            "id": "A7",
+            "id": "A9",
             "company": "Applied Materials",
             "title": "애플라이드 머티리얼즈, BE 반도체 인더스트리에 대한 전략적 투자 확대",
             "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-increase-its-strategic-investment-be",
@@ -9226,7 +9540,7 @@
             ]
           },
           {
-            "id": "A8",
+            "id": "A10",
             "company": "SK hynix",
             "title": "[AI 인프라 인사이트] 미래를 위한 AI 인프라는 어떻게 설계될 것인가",
             "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep4/",
@@ -9240,7 +9554,7 @@
             ]
           },
           {
-            "id": "A9",
+            "id": "A11",
             "company": "KLA",
             "title": "학습 속도: 반도체 혁신의 미래를 가속화하다  | 혁신 | KLA",
             "url": "https://www.kla.com/advance/innovation/learning-velocity-accelerating-the-future-of-semiconductor-innovation",
@@ -9259,7 +9573,7 @@
             ]
           },
           {
-            "id": "A10",
+            "id": "A12",
             "company": "SK hynix",
             "title": "[AI 생태계] 반도체 패러다임이 메모리 중심으로 전환되고 있다",
             "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep4/",
@@ -9276,7 +9590,7 @@
             ]
           },
           {
-            "id": "A11",
+            "id": "A13",
             "company": "Samsung Electronics",
             "title": "삼성전자, 전 세계 랜드마크에서 SSD 브랜드 캠페인 확대",
             "url": "https://news.samsung.com/global/samsung-electronics-expands-ssd-brand-campaign-across-global-landmarks",
@@ -9289,7 +9603,7 @@
             ]
           },
           {
-            "id": "A12",
+            "id": "A14",
             "company": "SK hynix",
             "title": "“메모리 중심 서버 시스템이 미래다”: SK하이닉스, ‘OCP 글로벌 서밋 2026’에서 차세대 AI 인프라 비전 제시",
             "url": "https://news.skhynix.com/en/ocp-global-summit-2026/",
@@ -9308,7 +9622,7 @@
             ]
           },
           {
-            "id": "A13",
+            "id": "A15",
             "company": "SK hynix",
             "title": "[연구 속으로] AI 시대에 NAND는 단순한 저장 장치를 넘어 컴퓨팅 영역으로 확장되고 있다… IEEE에서 발표된 3D FeNAND 공동 최적화",
             "url": "https://news.skhynix.com/en/research-inside-ep2/",
@@ -9323,7 +9637,7 @@
             ]
           },
           {
-            "id": "A14",
+            "id": "A16",
             "company": "Applied Materials",
             "title": "AI가 웨이퍼 제조 장비에 대한 지속적인 수요를 견인함에 따라 애플라이드 머티리얼즈의 실적이 시장 평균을 상회할 전망",
             "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-set-outperform-ai-drives-sustained-demand",
@@ -9348,7 +9662,7 @@
             ]
           },
           {
-            "id": "A15",
+            "id": "A17",
             "company": "Kioxia",
             "title": "키옥시아, 엔터프라이즈 SSD용 직접 액체 냉각 지원 기능 출시",
             "url": "https://www.kioxia.com/en-jp/business/news/2026/20261013-1.html",
@@ -9361,7 +9675,7 @@
             ]
           },
           {
-            "id": "A16",
+            "id": "A18",
             "company": "Tokyo Electron",
             "title": "TEL Manufacturing and Engineering of America, RBA VAP에서 플래티넘 등급 획득",
             "url": "https://www.tel.com/news/sustainability/2026/20261013_001.html",
@@ -9374,7 +9688,7 @@
             ]
           },
           {
-            "id": "A17",
+            "id": "A19",
             "company": "Applied Materials",
             "title": "애플라이드 머티리얼즈, AI 시대를 위한 반도체 혁신 가속화를 위해 실리콘밸리에 50억 달러 규모의 EPIC 센터 공개",
             "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-unveils-5-billion-epic-center-silicon-valley",
@@ -9391,7 +9705,7 @@
             ]
           },
           {
-            "id": "A18",
+            "id": "A20",
             "company": "Kioxia",
             "title": "키옥시아, 하이퍼스케일 데이터 센터용 E1.L QLC 기반 SSD 출시",
             "url": "https://www.kioxia.com/en-jp/business/news/2026/20261009-1.html",
@@ -9404,7 +9718,7 @@
             ]
           },
           {
-            "id": "A19",
+            "id": "A21",
             "company": "Applied Materials",
             "title": "애플라이드 머티리얼즈와 UCLA 공과대학, EPIC 센터에서 반도체 혁신 가속화",
             "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-and-ucla-engineering-accelerate-semiconductor",
@@ -9419,7 +9733,7 @@
             ]
           },
           {
-            "id": "A20",
+            "id": "A22",
             "company": "Applied Materials",
             "title": "애플라이드 머티리얼즈와 인텔, AI 기반 컴퓨팅을 위한 반도체 제조 혁신 가속화를 위해 협력",
             "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-and-intel-collaborate-accelerate-chipmaking",
@@ -9436,7 +9750,7 @@
             ]
           },
           {
-            "id": "A21",
+            "id": "A23",
             "company": "SK hynix",
             "title": "[AI 생태계] 인프라 재설계: 아키텍처가 성능을 좌우하는 이유",
             "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep3/",
@@ -9453,7 +9767,7 @@
             ]
           },
           {
-            "id": "A22",
+            "id": "A24",
             "company": "SK hynix",
             "title": "[AI 인프라 인사이트] 전력 및 냉각이 AI 데이터 센터의 다음 과제가 된 이유",
             "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep3/",
@@ -9466,7 +9780,7 @@
             ]
           },
           {
-            "id": "A23",
+            "id": "A25",
             "company": "Applied Materials",
             "title": "애플라이드 머티리얼즈와 키옥시아, 차세대 메모리 기술 발전을 위해 EPIC 센터에서 협력",
             "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-and-kioxia-partner-epic-center-advance-next",
@@ -9489,7 +9803,7 @@
             ]
           },
           {
-            "id": "A24",
+            "id": "A26",
             "company": "Samsung Electronics",
             "title": "삼성, AI 인프라 기업 헬릭스에 10억 달러 투자 예정",
             "url": "https://news.samsung.com/global/samsung-to-invest-usd-1-billion-in-ai-infrastructure-company-helix",
@@ -9502,7 +9816,7 @@
             ]
           },
           {
-            "id": "A25",
+            "id": "A27",
             "company": "SK hynix",
             "title": "“AI의 급속한 성장 뒤에는 메모리가 있다” — SK하이닉스, TSMC OIP 컨퍼런스에서 차세대 메모리 포트폴리오 공개",
             "url": "https://news.skhynix.com/en/tsmc-oip-conference-2026/",
@@ -9519,7 +9833,7 @@
             ]
           },
           {
-            "id": "A26",
+            "id": "A28",
             "company": "SK hynix",
             "title": "SK하이닉스, ‘AI 인프라 서밋 2026’에서 AI 인프라를 위한 ‘뉴 스펙트럼’ 선보여",
             "url": "https://news.skhynix.com/en/ai-infra-summit-2026/",
@@ -9533,7 +9847,7 @@
             ]
           },
           {
-            "id": "A27",
+            "id": "A29",
             "company": "Samsung Electronics",
             "title": "삼성전자와 미스트랄 AI, 지능형 반도체 인프라 구축을 위한 전략적 파트너십 체결",
             "url": "https://news.samsung.com/global/samsung-and-mistral-ai-announce-strategic-partnership-for-intelligence-driven-semiconductor-infrastructure",
@@ -9546,7 +9860,7 @@
             ]
           },
           {
-            "id": "A28",
+            "id": "A30",
             "company": "SK hynix",
             "title": "SK하이닉스, ‘2026 퓨처 포럼’에서 사업 및 기술 방향 제시—“지금이 도약할 절호의 기회”",
             "url": "https://news.skhynix.com/en/future-forum-2026/",
@@ -9560,7 +9874,7 @@
             ]
           },
           {
-            "id": "A29",
+            "id": "A31",
             "company": "Samsung Electronics",
             "title": "삼성전자와 ASML, 차세대 반도체 제조를 위한 전략적 협력 확대",
             "url": "https://news.samsung.com/global/samsung-electronics-and-asml-expand-strategic-collaboration-for-next-generation-semiconductor-manufacturing",
@@ -9574,7 +9888,7 @@
             ]
           },
           {
-            "id": "A30",
+            "id": "A32",
             "company": "Intel",
             "title": "인텔 파운드리와 ASML, 고수차(High-NA) EUV 기술 도입을 위한 업계 준비 가속화",
             "url": "https://www.intel.com/content/www/us/en/newsroom/news/intel-foundry/intel-foundry-asml-accelerate-industry-readiness-for-high-na-euv.html",
@@ -9590,7 +9904,7 @@
             ]
           },
           {
-            "id": "A31",
+            "id": "A33",
             "company": "SK hynix",
             "title": "[AI 생태계] 진정한 병목 현상: 연산 능력이 아니라 데이터",
             "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep2/",
@@ -9604,7 +9918,7 @@
             ]
           },
           {
-            "id": "A32",
+            "id": "A34",
             "company": "Micron",
             "title": "지역 AI 컴퓨팅의 재정의",
             "url": "https://www.micron.com/about/blog/memory/dram/redefining-local-ai-computing",
@@ -9620,7 +9934,7 @@
             ]
           },
           {
-            "id": "A33",
+            "id": "A35",
             "company": "SK hynix",
             "title": "[AI 인프라 인사이트] 왜 더 빠른 GPU만으로는 AI 성능을 보장할 수 없는가",
             "url": "https://news.skhynix.com/en/ai-infrastructure-insight-ep2/",
@@ -9640,17 +9954,17 @@
   },
   "monthly_trend_report": {
     "window_days": 30,
-    "generated_at": "2026-11-25T04:38:25.888402+00:00",
+    "generated_at": "2026-11-26T03:49:06.077182+00:00",
     "model": "gemini-3.5-flash-lite",
     "report": {
       "report_version": "monthly_semiconductor_trend_v1",
       "window_days": 30,
-      "headline_ko": "최근 30일간 AI·데이터 및 메모리 기술 중심의 공식 발표와 생태계 구축 동향",
-      "summary_ko": "최근 30일 동안 AI·데이터 및 DRAM·HBM 분야를 중심으로 한 기술 비전과 포럼 발표가 활발하게 이루어졌습니다. 관련 공식 기사를 바탕으로 공정 및 장비 관점에서의 기술 동향을 살펴볼 수 있습니다.",
+      "headline_ko": "최근 30일간 AI·데이터 및 메모리 고성능화 관련 기술 발표가 주를 이룸",
+      "summary_ko": "최근 30일 동안 SK하이닉스와 키옥시아를 중심으로 AI, DRAM·HBM, NAND·스토리지 분야의 기술 비전과 제품 성능 향상 관련 공식 기사가 다수 발행되었습니다. 특히 AI 생태계 확장에 대응하기 위한 메모리 성능 개선과 시스템 신뢰성 확보 노력이 관찰됩니다.",
       "key_findings": [
         {
-          "title_ko": "AI·데이터 및 메모리 기술 중심의 발표 집중",
-          "interpretation_ko": "최근 30일간 AI·데이터와 DRAM·HBM 분야가 주요 기술 발표의 중심을 차지하며 관련 동향이 다수 확인되었습니다.",
+          "title_ko": "AI·데이터 및 차세대 메모리 중심의 기술 발표 집중",
+          "interpretation_ko": "입력된 통계에 따르면 AI·데이터 관련 기사가 5건, DRAM·HBM 관련 기사가 4건으로 나타나 인공지능 연동형 메모리 기술에 대한 공식 발표가 활발함을 보여줍니다.",
           "evidence_metric_ids": [
             "M1",
             "M2"
@@ -9660,40 +9974,33 @@
           ]
         },
         {
-          "title_ko": "설비 및 R&D 공정 직무 관련 기술 노트 발행",
-          "interpretation_ko": "설비기술 및 R&D공정 직무와 연계될 수 있는 인프라 및 메모리 기술 관련 공식 소들이 확인되었습니다.",
+          "title_ko": "다양한 직무와 연계된 기술 정보 공개",
+          "interpretation_ko": "SW·데이터·AI 직무와 R&D공정·공정설계 직무와 연관된 기사 비중이 높아, 공정 및 소프트웨어 측면의 기술 협력 가능성이 시사됩니다.",
           "evidence_metric_ids": [
-            "M7",
-            "M8"
+            "M5",
+            "M6"
           ],
           "related_roles": [
-            "설비기술·기반기술",
-            "R&D공정·공정설계"
+            "공정기술·양산기술"
           ]
         }
       ],
       "company_insights": [
         {
-          "company": "SK hynix",
-          "observation_ko": "슈퍼컴퓨팅 행사를 통해 AI 생태계 구축 및 메모리 기술 비전을 발표하고 실리콘 포토닉스 등 차세대 기술 노트를 공개했습니다.",
-          "evidence_article_ids": [
-            "A2",
-            "A3",
-            "A6"
-          ]
-        },
-        {
           "company": "Kioxia",
-          "observation_ko": "포럼을 통해 AI용 차세대 저지연·고성능 플래시 메모리 기술을 선보일 예정임을 발표했습니다.",
+          "observation_ko": "GPU 메모리 확장용 SSD 제품 성능 제공 및 차세대 플래시 메모리 기술인 XL-FLASH 3세대 기술을 선보일 예정임을 발표했습니다.",
           "evidence_article_ids": [
-            "A1"
+            "A1",
+            "A3"
           ]
         },
         {
-          "company": "Applied Materials",
-          "observation_ko": "패키징·테스트 분야의 BE 반도체 인더스트리에 대한 전략적 투자 확대 소식을 알렸습니다.",
+          "company": "SK hynix",
+          "observation_ko": "슈퍼컴퓨팅 행사를 통해 AI 생태계 구축을 위한 기술 비전을 제시하고, 물리적 AI 메모리에 대한 신뢰성 인증 및 실리콘 포토닉스 관련 기술 노트를 공개했습니다.",
           "evidence_article_ids": [
-            "A7"
+            "A4",
+            "A7",
+            "A8"
           ]
         }
       ],
@@ -9701,57 +10008,32 @@
         {
           "role": "공정기술·양산기술",
           "watch_points_ko": [
-            "AI 및 메모리 고도화에 따른 공정 조건 및 설비 가동 관련 발표 내용 확인"
+            "AI 및 고대역폭 메모리 수요 증가에 따른 양산 공정 안정화 요구사항 변화 여부",
+            "차세대 플래시 및 HBM 관련 공정 조건 변경 가능성"
           ],
           "study_points_ko": [
-            "차세대 메모리 및 패키징 기술 도입에 따른 공정 안정성 확보 방안 학습"
-          ],
-          "evidence_metric_ids": [
-            "M1",
-            "M2",
-            "M4"
-          ]
-        },
-        {
-          "role": "R&D공정·공정설계",
-          "watch_points_ko": [
-            "플래시 메모리 및 고성능 메모리 관련 차세대 기술 비전 파악"
-          ],
-          "study_points_ko": [
-            "AI 응용을 위한 메모리 구조 및 저지연·고성능 기술 동향 검토"
+            "DRAM 및 NAND 고성능화에 따른 공정 특성 이해",
+            "제조 데이터 및 설비 운영과 연계된 공정 최적화 개념 파악"
           ],
           "evidence_metric_ids": [
             "M1",
             "M2",
             "M3"
           ]
-        },
-        {
-          "role": "설비기술·기반기술",
-          "watch_points_ko": [
-            "장비 및 Fab 인프라 관련 기술 노트 및 인증 소식 확인"
-          ],
-          "study_points_ko": [
-            "물리적 AI 메모리 신뢰성 및 시스템 인프라 연계성 파악"
-          ],
-          "evidence_metric_ids": [
-            "M4",
-            "M8"
-          ]
         }
       ],
       "limitations_ko": [
-        "본 리포트의 기사 건수는 공식 발표 빈도만을 나타내며, 실제 시장 중요도나 채용 수요와 정확히 일치하지 않을 수 있습니다.",
-        "입력된 표본 데이터가 제한적이므로 구체적인 수율 수치나 공정 원인에 대해서는 추가적인 확인이 필요합니다."
+        "본 리포트의 기사 건수는 기업들의 공식 발표 빈도를 나타낼 뿐이며 실제 시장에서의 중요도나 채용 규모와는 다를 수 있습니다.",
+        "입력된 표본 데이터가 제한적이므로 특정 수율이나 구체적인 공정 문제 원인을 단정할 수 없으며 추가적인 사내외 정보 확인이 필요합니다."
       ]
     },
     "evidence": {
       "period": "최근 30일",
       "window_days": 30,
-      "period_start": "2026-10-26T04:38:10.926127+00:00",
-      "reference_at": "2026-11-25T04:38:10.926127+00:00",
-      "article_count": 20,
-      "high_relevance_count": 7,
+      "period_start": "2026-10-27T03:48:48.042487+00:00",
+      "reference_at": "2026-11-26T03:48:48.042487+00:00",
+      "article_count": 21,
+      "high_relevance_count": 8,
       "metrics": [
         {
           "id": "M1",
@@ -9771,8 +10053,8 @@
           "id": "M3",
           "category": "기술 분야",
           "name": "NAND·스토리지",
-          "count": 2,
-          "text_ko": "최근 30일 핵심 기사 중 NAND·스토리지 관련 2건"
+          "count": 3,
+          "text_ko": "최근 30일 핵심 기사 중 NAND·스토리지 관련 3건"
         },
         {
           "id": "M4",
@@ -9783,71 +10065,84 @@
         },
         {
           "id": "M5",
-          "category": "기술 분야",
-          "name": "패키징·테스트",
-          "count": 1,
-          "text_ko": "최근 30일 핵심 기사 중 패키징·테스트 관련 1건"
-        },
-        {
-          "id": "M6",
           "category": "관련 직무",
           "name": "SW·데이터·AI",
           "count": 4,
           "text_ko": "최근 30일 핵심 기사 중 SW·데이터·AI 관련 4건"
         },
         {
-          "id": "M7",
+          "id": "M6",
           "category": "관련 직무",
           "name": "R&D공정·공정설계",
           "count": 3,
           "text_ko": "최근 30일 핵심 기사 중 R&D공정·공정설계 관련 3건"
         },
         {
+          "id": "M7",
+          "category": "관련 직무",
+          "name": "AE·솔루션",
+          "count": 2,
+          "text_ko": "최근 30일 핵심 기사 중 AE·솔루션 관련 2건"
+        },
+        {
           "id": "M8",
           "category": "관련 직무",
           "name": "설비기술·기반기술",
-          "count": 3,
-          "text_ko": "최근 30일 핵심 기사 중 설비기술·기반기술 관련 3건"
+          "count": 2,
+          "text_ko": "최근 30일 핵심 기사 중 설비기술·기반기술 관련 2건"
         },
         {
           "id": "M9",
           "category": "관련 직무",
-          "name": "AE·솔루션",
-          "count": 1,
-          "text_ko": "최근 30일 핵심 기사 중 AE·솔루션 관련 1건"
+          "name": "평가분석·품질·PE",
+          "count": 2,
+          "text_ko": "최근 30일 핵심 기사 중 평가분석·품질·PE 관련 2건"
         },
         {
           "id": "M10",
-          "category": "관련 직무",
-          "name": "P&T·패키지개발",
-          "count": 1,
-          "text_ko": "최근 30일 핵심 기사 중 P&T·패키지개발 관련 1건"
-        },
-        {
-          "id": "M11",
           "category": "기업",
           "name": "SK hynix",
           "count": 5,
           "text_ko": "최근 30일 SK hynix 핵심 기사 5건"
         },
         {
-          "id": "M12",
-          "category": "기업",
-          "name": "Applied Materials",
-          "count": 1,
-          "text_ko": "최근 30일 Applied Materials 핵심 기사 1건"
-        },
-        {
-          "id": "M13",
+          "id": "M11",
           "category": "기업",
           "name": "Kioxia",
-          "count": 1,
-          "text_ko": "최근 30일 Kioxia 핵심 기사 1건"
+          "count": 3,
+          "text_ko": "최근 30일 Kioxia 핵심 기사 3건"
         }
       ],
       "articles": [
         {
           "id": "A1",
+          "company": "Kioxia",
+          "title": "KIOXIA GP2 시리즈 SSD, GPU 메모리 확장을 위한 차원 높은 성능 제공",
+          "url": "https://www.kioxia.com/en-jp/business/news/2026/20261126-2.html",
+          "published_at": "2026-11-26T00:00:00+00:00",
+          "tech_domains": [
+            "NAND·스토리지"
+          ],
+          "job_roles": [
+            "평가분석·품질·PE",
+            "AE·솔루션"
+          ]
+        },
+        {
+          "id": "A2",
+          "company": "Kioxia",
+          "title": "키옥시아와 엔비디아, SSD를 통해 고대역폭 메모리의 유효 용량을 확대하기 위해 협력",
+          "url": "https://www.kioxia.com/en-jp/business/news/2026/20261126-1.html",
+          "published_at": "2026-11-26T00:00:00+00:00",
+          "tech_domains": [
+            "기업·산업 일반"
+          ],
+          "job_roles": [
+            "산업·사업 공통"
+          ]
+        },
+        {
+          "id": "A3",
           "company": "Kioxia",
           "title": "키옥시아, ‘KIOXIA 포럼’에서 AI용 차세대 저지연·고성능 플래시 메모리인 XL-FLASH™ 3세대 기술을 선보일 예정",
           "url": "https://www.kioxia.com/en-jp/business/news/2026/20261125-1.html",
@@ -9861,7 +10156,7 @@
           ]
         },
         {
-          "id": "A2",
+          "id": "A4",
           "company": "SK hynix",
           "title": "“메모리를 중심으로 한 미래 AI 생태계 구축”: SK하이닉스, ‘슈퍼 컴퓨팅 2026’에서 기술 비전 제시",
           "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition-12/",
@@ -9876,7 +10171,7 @@
           ]
         },
         {
-          "id": "A3",
+          "id": "A5",
           "company": "SK hynix",
           "title": "“메모리를 중심으로 한 미래 AI 생태계 구축”: SK하이닉스, ‘슈퍼컴퓨팅 2026’에서 기술 비전 발표",
           "url": "https://news.skhynix.com/en/sc26-ai-hpc-exhibition/",
@@ -9895,7 +10190,7 @@
           ]
         },
         {
-          "id": "A4",
+          "id": "A6",
           "company": "SK hynix",
           "title": "[AI 생태계] AI의 완성: 물리적 지능과 기억의 역할",
           "url": "https://news.skhynix.com/en/ai-ecosystem-series-ep4-5/",
@@ -9908,7 +10203,7 @@
           ]
         },
         {
-          "id": "A5",
+          "id": "A7",
           "company": "SK hynix",
           "title": "‘시스템 장애 및 사이버 위협으로부터의 보호’: SK하이닉스, 물리적 AI 메모리에 대한 신뢰 구축",
           "url": "https://news.skhynix.com/en/iec-61508-certification-2026/",
@@ -9924,7 +10219,7 @@
           ]
         },
         {
-          "id": "A6",
+          "id": "A8",
           "company": "SK hynix",
           "title": "[기술 노트] 수만 개의 GPU를 갖추고도 AI는 왜 여전히 기다려야 할까? 실리콘 포토닉스와 CPO가 어떻게 ‘빛의 고속도로’를 구축하고 있는지",
           "url": "https://news.skhynix.com/en/tech-note-series-ep3/",
@@ -9935,20 +10230,6 @@
           ],
           "job_roles": [
             "SW·데이터·AI"
-          ]
-        },
-        {
-          "id": "A7",
-          "company": "Applied Materials",
-          "title": "애플라이드 머티리얼즈, BE 반도체 인더스트리에 대한 전략적 투자 확대",
-          "url": "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-increase-its-strategic-investment-be",
-          "published_at": "2026-10-26T20:30:00+00:00",
-          "tech_domains": [
-            "패키징·테스트"
-          ],
-          "job_roles": [
-            "설비기술·기반기술",
-            "P&T·패키지개발"
           ]
         }
       ]
