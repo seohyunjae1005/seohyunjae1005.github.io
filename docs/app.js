@@ -2526,7 +2526,11 @@ function render() {
   grid.innerHTML = rows.map((article) => {
     const showKorean = state.language === "ko" && article.title_ko;
     const displayTitle = showKorean ? article.title_ko : article.title;
-    const summary = showKorean ? (article.summary_ko || "").trim() : "";
+    const rawSummary = showKorean ? (article.summary_ko || "").trim() : "";
+    // RSS 번역에 남은 문단 태그·출처 푸터를 카드 본문에 노출하지 않는다.
+    const firstParagraph = rawSummary.match(/<p\b[^>]*>([\s\S]*?)<\/p>/i);
+    const summary = (firstParagraph ? firstParagraph[1] : rawSummary)
+      .replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
     const translatedSummary = /^(?:태그\s*:|.+ 공식 뉴스룸 기사[.!]?$)/.test(summary) ? "" : summary;
     const tags = badgeList((article.job_roles || []).filter(value => value !== "산업·사업 공통"), "job", 1)
       + badgeList((article.tech_domains || []).filter(value => value !== "기업·산업 일반"), "domain", 1);
