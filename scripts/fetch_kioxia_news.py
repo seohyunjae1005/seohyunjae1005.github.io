@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -16,7 +17,7 @@ from trend_tracker.kioxia import fetch_kioxia_news
 from trend_tracker.rss import filter_semiconductor_articles
 
 
-OUTPUT_PATH = PROJECT_ROOT / "data" / "raw" / "kioxia.json"
+OUTPUT_PATH = Path(os.environ.get("NEWS_OUTPUT_PATH") or str(PROJECT_ROOT / "data" / "raw" / "kioxia.json"))
 FILTERED_OUTPUT_PATH = PROJECT_ROOT / "data" / "processed" / "kioxia_semiconductor.json"
 
 

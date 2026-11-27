@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -15,7 +16,7 @@ if str(SRC) not in sys.path:
 from trend_tracker.intel import fetch_intel_news
 
 
-OUTPUT_PATH = PROJECT_ROOT / "data" / "processed" / "intel_semiconductor.json"
+OUTPUT_PATH = Path(os.environ.get("NEWS_OUTPUT_PATH") or str(PROJECT_ROOT / "data" / "processed" / "intel_semiconductor.json"))
 
 
 def main() -> None:

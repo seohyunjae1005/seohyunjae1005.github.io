@@ -3,13 +3,15 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from .news_http import fetch_bytes, checked_channel
 from xml.etree import ElementTree
 
 from .rss import Article, DEFAULT_USER_AGENT, unique_by_url
 
 
-SITEMAP_URL = "https://pr.tsmc.com/sitemap.xml"
+SITEMAP_URL = "https://pr.tsmc.com/english/sitemap.xml"
 TECH_KEYWORDS = (
     "semiconductor",
     "technology symposium",
@@ -50,14 +52,13 @@ def _keyword_matches(title: str) -> list[str]:
     return [keyword for keyword in TECH_KEYWORDS if keyword in text]
 
 
-def fetch_tsmc_news(
+def _fetch_tsmc_news(
     days: int = 180,
 ) -> list[tuple[Article, list[str], str, str]]:
     """최근 발표를 빠짐없이 모으고 기술성과 맥락 정보를 구분한다."""
 
     request = Request(SITEMAP_URL, headers={"User-Agent": DEFAULT_USER_AGENT})
-    with urlopen(request, timeout=30) as response:
-        root = ElementTree.fromstring(response.read())
+    root = ElementTree.fromstring(fetch_bytes(request.full_url, timeout=30))
 
     namespaces = {
         "sm": "http://www.sitemaps.org/schemas/sitemap/0.9",
@@ -116,3 +117,7 @@ def fetch_tsmc_news(
             unique, key=lambda value: value.published_at or "", reverse=True
         )
     ]
+
+
+def fetch_tsmc_news(days: int = 180) -> list[tuple[Article, list[str], str, str]]:
+    return checked_channel("공식 뉴스 목록", lambda: _fetch_tsmc_news(days))

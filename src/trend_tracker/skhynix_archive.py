@@ -6,7 +6,9 @@ import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from .news_http import fetch_bytes, checked_channel
 
 from .rss import Article, DEFAULT_USER_AGENT, unique_by_url
 
@@ -114,8 +116,7 @@ def fetch_tech_archive(
             ARCHIVE_URL.format(page=page),
             headers={"User-Agent": DEFAULT_USER_AGENT},
         )
-        with urlopen(request, timeout=20) as response:
-            html_text = response.read().decode("utf-8", errors="replace")
+        html_text = fetch_bytes(request.full_url, timeout=20).decode("utf-8", errors="replace")
         articles = parse_archive_page(html_text)
         if not articles:
             break

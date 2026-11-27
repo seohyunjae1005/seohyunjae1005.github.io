@@ -5,7 +5,9 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
 from urllib.parse import urljoin
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from .news_http import fetch_bytes, checked_channel
 
 from .rss import Article, DEFAULT_USER_AGENT, unique_by_url
 
@@ -90,6 +92,5 @@ def parse_kioxia_news(html_text: str, days: int = 180) -> list[Article]:
 
 def fetch_kioxia_news(days: int = 180) -> list[Article]:
     request = Request(NEWS_URL, headers={"User-Agent": DEFAULT_USER_AGENT})
-    with urlopen(request, timeout=30) as response:
-        html_text = response.read().decode("utf-8", errors="replace")
-    return parse_kioxia_news(html_text, days=days)
+    html_text = fetch_bytes(request.full_url, timeout=30).decode("utf-8", errors="replace")
+    return checked_channel("공식 뉴스 목록", lambda: parse_kioxia_news(html_text, days=days))

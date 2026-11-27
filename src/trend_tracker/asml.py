@@ -8,7 +8,10 @@ from datetime import datetime, timedelta, timezone
 from html import unescape
 from html.parser import HTMLParser
 from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
+from urllib.request import Request
+from urllib.parse import urljoin
+
+from .news_http import fetch_bytes, checked_channel
 from xml.etree import ElementTree
 
 from .rss import Article, parse_rss, unique_by_url
@@ -19,6 +22,7 @@ SITEMAP_URLS = (
     "https://www.asml.com/sitemap-2.xml",
 )
 PRESS_RSS_URL = "https://investor.asml.com/rss/news-releases.xml"
+PRESS_LIST_URL = "https://investor.asml.com/news/press-releases-and-announcements"
 ASML_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
@@ -72,8 +76,7 @@ def _request(url: str, timeout: int = 20) -> bytes:
             "Accept-Language": "en-US,en;q=0.9",
         },
     )
-    with urlopen(request, timeout=timeout) as response:
-        return response.read()
+    return fetch_bytes(url, timeout=timeout)
 
 
 def _sitemap_urls() -> list[str]:
@@ -92,14 +95,14 @@ def _page_data(url: str) -> tuple[str, str, datetime | None]:
     try:
         page = _request(url, timeout=12).decode("utf-8", errors="replace")
     except (HTTPError, URLError, TimeoutError):
-        return "", "", None
+        raise
     parser = _MetaParser()
     parser.feed(page)
     match = re.search(
         r'"publicationDate"\s*:\s*\{\s*"value"\s*:\s*"([^"]+)"', page
     )
     if not match:
-        return parser.title, parser.description, None
+        raise ValueError("ASML 기술 스토리 발표일 형식 변경")
     try:
         published = datetime.fromisoformat(match.group(1).replace("Z", "+00:00"))
     except ValueError:
@@ -124,27 +127,13 @@ def _keyword_matches(title: str) -> list[str]:
     return matches
 
 
-def fetch_asml_news(
+def _technology_stories(
     days: int = 180,
 ) -> list[tuple[Article, list[str], str, str]]:
     now = datetime.now(timezone.utc)
     cutoff = now - timedelta(days=days)
     collected_at = datetime.now(timezone.utc).isoformat()
     collected: list[tuple[Article, list[str], str, str]] = []
-
-    # 보도자료는 투자자 사이트로 이전되었다. 기술 스토리만 읽고 전체
-    # 뉴스 갱신에 성공했다고 처리하지 않도록 이 필수 출처의 실패를 전달한다.
-    releases = parse_rss(_request(PRESS_RSS_URL), "asml", "ASML")
-    if not releases:
-        raise ValueError("ASML 공식 보도자료 피드에서 기사를 읽지 못했습니다")
-    for article in releases:
-        try:
-            published = datetime.fromisoformat(article.published_at or "")
-        except ValueError:
-            continue
-        if cutoff <= published <= now:
-            matches = _keyword_matches(article.title)
-            collected.append((article, matches, "Press release", "high" if matches else "context"))
 
     candidate_years = range(cutoff.year, now.year + 1)
     urls = [
@@ -194,3 +183,39 @@ def fetch_asml_news(
             unique, key=lambda value: value.published_at or "", reverse=True
         )
     ]
+
+
+def parse_press_list(html: str) -> list[Article]:
+    pattern = re.compile(r'<div[^>]+class="[^"]*search-results__date-posted[^"]*"[^>]*>(.*?)</div>\s*'
+        r'<div[^>]+class="[^"]*search-results__title[^"]*"[^>]*>.*?<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', re.S)
+    rows = []
+    for date, target, title in pattern.findall(html):
+        published = datetime.strptime(re.sub(r"<[^>]+>", "", date).strip(), "%B %d, %Y").replace(tzinfo=timezone.utc)
+        rows.append(Article("asml", "ASML", unescape(re.sub(r"<[^>]+>", "", title)).strip(),
+            urljoin(PRESS_LIST_URL, unescape(target)), published.isoformat(),
+            "Official ASML press release", datetime.now(timezone.utc).isoformat()))
+    if not rows:
+        raise ValueError("ASML 공식 보도자료 목록 형식 변경")
+    return rows
+
+
+def fetch_asml_news(days: int = 180) -> list[tuple[Article, list[str], str, str]]:
+    now = datetime.now(timezone.utc)
+    cutoff = now - timedelta(days=days)
+    def press_list():
+        articles = []
+        for page in range(6):
+            url = PRESS_LIST_URL + (f"?page={page}" if page else "")
+            rows = parse_press_list(_request(url).decode("utf-8", errors="replace"))
+            articles.extend(row for row in rows if cutoff <= datetime.fromisoformat(row.published_at) <= now)
+            if any(datetime.fromisoformat(row.published_at) < cutoff for row in rows):
+                break
+        return articles
+    releases = checked_channel("공식 보도자료 목록", press_list)
+    releases.extend(checked_channel("공식 공시 피드", lambda: parse_rss(_request(PRESS_RSS_URL), "asml", "ASML")))
+    rows = [(article, _keyword_matches(article.title), "Press release",
+             "high" if _keyword_matches(article.title) else "context") for article in releases
+            if article.published_at and cutoff <= datetime.fromisoformat(article.published_at) <= now]
+    rows.extend(checked_channel("기술 스토리", lambda: _technology_stories(days)))
+    unique = {row[0].url: row for row in rows}
+    return sorted(unique.values(), key=lambda row: row[0].published_at or "", reverse=True)

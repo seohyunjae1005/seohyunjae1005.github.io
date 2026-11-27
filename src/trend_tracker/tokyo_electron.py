@@ -6,7 +6,9 @@ from datetime import datetime, timedelta, timezone
 from html import unescape
 from html.parser import HTMLParser
 from urllib.parse import urljoin
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from .news_http import fetch_bytes, checked_channel
 
 from .rss import Article, unique_by_url
 
@@ -102,8 +104,7 @@ def _request(year: int, timeout: int = 30) -> str:
             "Accept-Language": "en-US,en;q=0.9",
         },
     )
-    with urlopen(request, timeout=timeout) as response:
-        return response.read().decode("utf-8", errors="replace")
+    return fetch_bytes(request.full_url, timeout=timeout).decode("utf-8", errors="replace")
 
 
 def _keyword_matches(title: str) -> list[str]:
@@ -111,7 +112,7 @@ def _keyword_matches(title: str) -> list[str]:
     return [keyword for keyword in TECH_KEYWORDS if keyword in text]
 
 
-def fetch_tokyo_electron_news(
+def _fetch_tokyo_electron_news(
     days: int = 180,
 ) -> list[tuple[Article, list[str], list[str], str]]:
     now = datetime.now(timezone.utc)
@@ -156,3 +157,7 @@ def fetch_tokyo_electron_news(
             unique, key=lambda value: value.published_at or "", reverse=True
         )
     ]
+
+
+def fetch_tokyo_electron_news(days: int = 180) -> list[tuple[Article, list[str], list[str], str]]:
+    return checked_channel("공식 연도별 뉴스 목록", lambda: _fetch_tokyo_electron_news(days))

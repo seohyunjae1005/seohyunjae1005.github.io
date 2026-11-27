@@ -5,7 +5,9 @@ from __future__ import annotations
 import time
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from .news_http import fetch_bytes, checked_channel
 
 from .rss import Article, DEFAULT_USER_AGENT, parse_rss, unique_by_url
 
@@ -22,8 +24,7 @@ def fetch_semiconductor_newsroom(days: int = 180, max_pages: int = 20) -> list[A
     seen = set()
     for page in range(1, max_pages + 1):
         request = Request(SEMICONDUCTOR_FEED.format(page=page), headers={"User-Agent": DEFAULT_USER_AGENT})
-        with urlopen(request, timeout=20) as response:
-            articles = parse_rss(response.read(), "samsung", "Samsung Electronics")
+        articles = parse_rss(fetch_bytes(request.full_url, timeout=20), "samsung", "Samsung Electronics")
         if not articles:
             if page == 1:
                 raise ValueError("삼성 반도체 뉴스룸에서 기사를 읽지 못했습니다")
@@ -102,7 +103,7 @@ def parse_samsung_category(html_text: str) -> list[Article]:
     return articles
 
 
-def fetch_samsung_semiconductors(
+def _fetch_samsung_category(
     days: int = 180,
     max_pages: int = 5,
     request_interval_seconds: float = 0.5,
@@ -114,8 +115,7 @@ def fetch_samsung_semiconductors(
             ARCHIVE_URL.format(page=page),
             headers={"User-Agent": DEFAULT_USER_AGENT},
         )
-        with urlopen(request, timeout=20) as response:
-            articles = parse_samsung_category(response.read().decode("utf-8", errors="replace"))
+        articles = parse_samsung_category(fetch_bytes(request.full_url, timeout=20).decode("utf-8", errors="replace"))
         if not articles:
             break
         dated = [a for a in articles if datetime.fromisoformat(a.published_at or "") >= cutoff]
@@ -124,5 +124,12 @@ def fetch_samsung_semiconductors(
             break
         if page < max_pages:
             time.sleep(request_interval_seconds)
-    # Global Newsroom의 제품 카테고리 밖에 있는 반도체 소식을 함께 포함한다.
-    return unique_by_url([*fetch_semiconductor_newsroom(days), *collected])
+    return unique_by_url(collected)
+
+
+def fetch_samsung_semiconductors(days: int = 180, max_pages: int = 5,
+                                request_interval_seconds: float = 0.5) -> list[Article]:
+    newsroom = checked_channel("반도체 뉴스룸", lambda: fetch_semiconductor_newsroom(days))
+    category = checked_channel("글로벌 뉴스룸 반도체 목록", lambda: _fetch_samsung_category(
+        days, max_pages, request_interval_seconds))
+    return unique_by_url([*newsroom, *category])

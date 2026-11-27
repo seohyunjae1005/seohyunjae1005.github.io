@@ -6,7 +6,9 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from typing import Iterable
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from .news_http import fetch_bytes, checked_channel
 from xml.etree import ElementTree
 
 
@@ -152,8 +154,7 @@ def fetch_rss(
     """공식 RSS URL을 요청하고 기사 목록을 반환한다."""
 
     request = Request(url, headers={"User-Agent": DEFAULT_USER_AGENT})
-    with urlopen(request, timeout=timeout_seconds) as response:
-        xml_bytes = response.read()
+    xml_bytes = fetch_bytes(url, timeout=timeout_seconds)
     return parse_rss(xml_bytes, source_id=source_id, company=company)
 
 

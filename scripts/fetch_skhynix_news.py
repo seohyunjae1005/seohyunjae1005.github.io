@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -19,15 +20,16 @@ from trend_tracker.rss import (
     unique_by_url,
 )
 from trend_tracker.skhynix_archive import fetch_tech_archive
+from trend_tracker.news_http import checked_channel
 
 
 RSS_URL = "https://news.skhynix.com/en/feed"
-OUTPUT_PATH = PROJECT_ROOT / "data" / "processed" / "sk_hynix_semiconductor.json"
+OUTPUT_PATH = Path(os.environ.get("NEWS_OUTPUT_PATH") or str(PROJECT_ROOT / "data" / "processed" / "sk_hynix_semiconductor.json"))
 
 
 def main() -> None:
-    archive = fetch_tech_archive(days=180)
-    rss = unique_by_url(fetch_rss(RSS_URL, source_id="sk_hynix", company="SK hynix"))
+    archive = checked_channel("기술 뉴스 목록", lambda: fetch_tech_archive(days=180))
+    rss = checked_channel("공식 최신 뉴스 피드", lambda: unique_by_url(fetch_rss(RSS_URL, source_id="sk_hynix", company="SK hynix")))
     rss_selected = filter_semiconductor_articles(rss)
 
     rows: list[dict] = []

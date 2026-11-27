@@ -24,10 +24,10 @@ sources:
     company: "Micron"
     company_group: "memory_idm"
     priority: "target"
-    official_url: "https://www.micron.com/about/blog"
-    preferred_method: "official_search_api"
+    official_url: "https://www.micron.com/about/press/news"
+    preferred_method: "official_press_html_plus_technology_search_api"
     status: "verified"
-    notes: "Investor newsroom blocks automated access; use the official blog's public JSON search endpoint and request the Technology category only."
+    notes: "Collect the current official press-news cards plus Technology blog search. Send the referring blog page required by the public search endpoint; validate both channels independently."
 
   - id: kioxia
     company: "Kioxia"
@@ -52,27 +52,27 @@ sources:
     company_group: "logic_idm_foundry"
     priority: "target"
     official_url: "https://www.intel.com/content/www/us/en/newsroom/home.html"
-    preferred_method: "official_newsroom_html"
+    preferred_method: "official_newsroom_html_plus_ir_rss"
     status: "verified"
-    notes: "Collect the official newsroom cards for 180 days and distinguish process, foundry, manufacturing, and advanced-packaging signals from general company context."
+    notes: "Collect official newsroom cards with both supported date formats and the official intc.com investor RSS. Validate both channels and retain successful news if one channel fails."
 
   - id: asml
     company: "ASML"
     company_group: "equipment"
     priority: "must"
     official_url: "https://investor.asml.com/news/press-releases-and-announcements"
-    preferred_method: "investor_rss_plus_story_sitemap"
+    preferred_method: "investor_press_list_plus_rss_plus_story_sitemap"
     status: "verified"
-    notes: "Press releases moved to the investor newsroom. Collect the official investor RSS plus technology story sitemaps. A blocked investor feed is a collection failure, never a successful story-only refresh."
+    notes: "Press releases moved to the investor newsroom. Collect the official investor press-release archive, announcement RSS and technology story sitemaps. A blocked investor feed is a collection failure, never a successful story-only refresh."
 
   - id: applied_materials
     company: "Applied Materials"
     company_group: "equipment"
     priority: "must"
     official_url: "https://ir.appliedmaterials.com/news-releases/"
-    preferred_method: "official_rss"
+    preferred_method: "official_rss_plus_corporate_press_archive"
     status: "verified"
-    notes: "Collect the official news-release RSS for 180 days and distinguish deposition, etch, CMP, epitaxy, metrology, packaging, wafer, fab, and manufacturing signals from general company context. The official feed currently exposes its latest releases."
+    notes: "Collect the official news-release RSS for 180 days and distinguish deposition, etch, CMP, epitaxy, metrology, packaging, wafer, fab, and manufacturing signals from general company context. Combine the official latest RSS with the corporate press-release archive for historical coverage; check both channels."
 
   - id: lam_research
     company: "Lam Research"
@@ -97,6 +97,6 @@ sources:
     company_group: "equipment"
     priority: "target"
     official_url: "https://ir.kla.com/news-events/press-releases"
-    preferred_method: "official_ir_html_plus_advance_sitemap"
+    preferred_method: "official_ir_rss_plus_advance_embedded_archive"
     status: "verified"
-    notes: "Collect the official IR press-release list and recent KLA Advance articles, then classify inspection, metrology, defect, yield, wafer, reticle, lithography, patterning, and advanced-packaging signals separately from corporate context."
+    notes: "Collect the official IR press-release RSS and the public advancePosts archive embedded in KLA Advance, then classify inspection, metrology, defect, yield, wafer, reticle, lithography, patterning, and advanced-packaging signals separately from corporate context."

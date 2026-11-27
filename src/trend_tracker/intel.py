@@ -3,14 +3,18 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+import re
 from html.parser import HTMLParser
 from urllib.parse import urljoin
-from urllib.request import Request, urlopen
+from urllib.request import Request
 
-from .rss import Article, unique_by_url
+from .news_http import fetch_bytes, checked_channel
+
+from .rss import Article, parse_rss, unique_by_url
 
 
 NEWSROOM_URL = "https://www.intel.com/content/www/us/en/newsroom/home.html"
+IR_RSS = "https://www.intc.com/news-events/press-releases/rss"
 INTEL_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
@@ -89,7 +93,7 @@ class _IntelNewsParser(HTMLParser):
 def _parse_date(value: str) -> datetime | None:
     cleaned = " ".join(value.split())
     try:
-        return datetime.strptime(cleaned, "%B %d,%Y").replace(tzinfo=timezone.utc)
+        return datetime.strptime(re.sub(r",\s*", ", ", cleaned), "%B %d, %Y").replace(tzinfo=timezone.utc)
     except ValueError:
         return None
 
@@ -99,7 +103,7 @@ def _keyword_matches(title: str) -> list[str]:
     return [keyword for keyword in TECH_KEYWORDS if keyword in text]
 
 
-def fetch_intel_news(
+def _newsroom_articles(
     days: int = 180,
 ) -> list[tuple[Article, list[str], str, str]]:
     request = Request(
@@ -110,8 +114,7 @@ def fetch_intel_news(
             "Accept-Language": "en-US,en;q=0.9",
         },
     )
-    with urlopen(request, timeout=30) as response:
-        page = response.read().decode("utf-8", errors="replace")
+    page = fetch_bytes(request.full_url, timeout=30).decode("utf-8", errors="replace")
 
     parser = _IntelNewsParser()
     parser.feed(page)
@@ -162,3 +165,18 @@ def fetch_intel_news(
             unique, key=lambda value: value.published_at or "", reverse=True
         )
     ]
+
+
+def fetch_intel_news(days: int = 180) -> list[tuple[Article, list[str], str, str]]:
+    rows = checked_channel("공식 뉴스룸", lambda: _newsroom_articles(days))
+    now = datetime.now(timezone.utc)
+    def ir_news():
+        articles = parse_rss(fetch_bytes(IR_RSS), "intel", "Intel")
+        if not articles:
+            raise ValueError("Intel 공식 투자자 뉴스 피드 형식 변경")
+        return [(article, _keyword_matches(article.title), "Press release",
+                 "high" if _keyword_matches(article.title) else "context") for article in articles
+                if article.published_at and now - timedelta(days=days) <= datetime.fromisoformat(article.published_at) <= now]
+    rows.extend(checked_channel("공식 투자자 뉴스", ir_news))
+    unique = {article.url: (article, matches, category, relevance) for article, matches, category, relevance in rows}
+    return sorted(unique.values(), key=lambda row: row[0].published_at or "", reverse=True)

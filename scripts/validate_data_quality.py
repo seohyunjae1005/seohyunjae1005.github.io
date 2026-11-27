@@ -21,7 +21,7 @@ OFFICIAL_DOMAINS = {
     "Kioxia": ("kioxia.com", "kioxia-holdings.com"),
     "Micron": ("micron.com",),
     "TSMC": ("tsmc.com",),
-    "Intel": ("intel.com",),
+    "Intel": ("intel.com", "intc.com"),
     "ASML": ("asml.com",),
     "Applied Materials": ("appliedmaterials.com",),
     "Lam Research": ("lamresearch.com",),
@@ -81,7 +81,7 @@ def build_report(payload: dict) -> tuple[dict, str]:
     duplicate_urls: list[str] = []
     duplicate_titles: list[str] = []
     seen_urls: set[str] = set()
-    seen_titles: set[tuple[str, str]] = set()
+    seen_titles: set[tuple[str, str, str]] = set()
     actual_company_counts: Counter[str] = Counter()
     role_counts: Counter[str] = Counter()
     domain_counts: Counter[str] = Counter()
@@ -112,7 +112,7 @@ def build_report(payload: dict) -> tuple[dict, str]:
             if company in OFFICIAL_DOMAINS and not is_official_url(company, url):
                 unofficial_urls.append(f"{company}: {url}")
 
-        title_key = (company, normalize_title(title))
+        title_key = (company, normalize_title(title), str(article.get("published_at") or "")[:10])
         if title_key[1]:
             if title_key in seen_titles:
                 duplicate_titles.append(f"{company}: {title}")
@@ -159,8 +159,17 @@ def build_report(payload: dict) -> tuple[dict, str]:
         errors.append(f"article_count={declared_count}, 실제 배열={len(articles)}로 일치하지 않습니다.")
 
     declared_company_counts = payload.get("company_counts") or {}
-    if dict(actual_company_counts) != declared_company_counts:
+    nonzero_declared = {company: count for company, count in declared_company_counts.items() if count != 0}
+    if dict(actual_company_counts) != nonzero_declared:
         errors.append("company_counts와 실제 회사별 기사 수가 일치하지 않습니다.")
+
+    for source in payload.get("collection_sources") or []:
+        company = source.get("company")
+        if source.get("article_count") != actual_company_counts.get(company, 0):
+            errors.append(f"{company}: 수집 현황의 기사 수 불일치")
+        if source.get("status") == "updated" and (not source.get("source_checks") or any(
+                check.get("status") != "ok" for check in source["source_checks"])):
+            errors.append(f"{company}: 경로 검사 실패를 정상 갱신으로 표시")
 
     if field_missing:
         errors.append(f"필수값 또는 분류값 누락: {dict(field_missing)}")

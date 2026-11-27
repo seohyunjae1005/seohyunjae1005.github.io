@@ -9,7 +9,7 @@
 
 ### 산업 동향
 
-- 삼성전자, SK하이닉스, Micron, Kioxia, TSMC, Intel과 주요 반도체 장비사의 공식 뉴스 수집
+- 삼성전자, SK하이닉스, Micron, Kioxia, TSMC, Intel, ASML, Applied Materials, Lam Research, Tokyo Electron, KLA의 공식 뉴스 수집
 - 최근 7·30·90일 기술, 직무, 기업 발표 흐름 집계
 - 기사 원문 링크, 한국어 요약, 기술 분야와 관련 직무 제공
 - 원문에서 확인한 사실과 AI 영향 가설을 분리한 기사 분석
@@ -50,6 +50,7 @@ PowerShell에서 프로젝트 폴더로 이동한 뒤 실행합니다.
 
 ```powershell
 $env:PYTHONPATH='.;src'
+python -m pip install -r requirements-news.txt
 python -m unittest discover -s tests -p 'test_*.py'
 node tests/test_application_workspace.js
 node tests/test_jd_ai_client.js
@@ -58,7 +59,9 @@ node tests/test_jd_api_pipeline.js
 
 ## 자동 실행
 
-GitHub Actions가 공식 기사 수집, 데이터 검사, 공개 페이지 갱신과 이메일 미리보기 생성을 수행합니다. 개별 회사의 접근 오류가 전체 수집을 중단시키지 않도록 이전 정상 데이터와 품질검사를 함께 사용합니다.
+GitHub Actions가 공식 기사 수집, 데이터 검사, 공개 페이지 갱신과 이메일 미리보기 생성을 수행합니다. 공식 서버와 호환되는 HTTP 연결과 인증서 검증을 사용하고 일시적 통신 오류를 제한적으로 재시도합니다. 매 실행은 회사별 새 임시 파일을 사용하며, 기사 날짜·공식 출처·각 수집 경로를 검사합니다. 한 경로의 실패가 다른 경로의 새 기사를 버리지 않도록 부분 성공과 전체 성공을 구분하고 이전 정상 자료를 보존합니다.
+
+회사별 확인 상태·최근 기사 날짜·마지막 전체 성공일을 사이트에서 확인할 수 있습니다. 새 기사 게시 작업을 마친 뒤에도 11개 회사 중 검사에 실패한 곳이 있으면 자동 실행 결과를 실패로 표시하고 14일간 진단 자료를 보존합니다. 번역·AI 분석의 일시적 오류는 공식 뉴스 목록 게시를 막지 않습니다.
 
 ## 한계
 

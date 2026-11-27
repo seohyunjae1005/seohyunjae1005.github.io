@@ -7,7 +7,9 @@ import re
 from datetime import datetime, timedelta, timezone
 from html import unescape
 from html.parser import HTMLParser
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from .news_http import fetch_bytes, checked_channel
 from urllib.parse import quote, urljoin
 
 from .rss import Article, unique_by_url
@@ -62,8 +64,7 @@ def _request(url: str = NEWS_URL, timeout: int = 30) -> str:
             "Accept-Language": "en-US,en;q=0.9",
         },
     )
-    with urlopen(request, timeout=timeout) as response:
-        return response.read().decode("utf-8", errors="replace")
+    return fetch_bytes(request.full_url, timeout=timeout).decode("utf-8", errors="replace")
 
 
 def _parse_news(html: str) -> list[tuple[str, str, str, str]]:
@@ -138,12 +139,7 @@ class _BlogParser(HTMLParser):
             self.current = None
 
 
-def fetch_lam_research_news(
-    days: int = 180,
-) -> list[tuple[Article, list[str], str]]:
-    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
-    collected_at = datetime.now(timezone.utc).isoformat()
-    collected: list[tuple[Article, list[str], str]] = []
+def _release_rows(cutoff):
     rows = []
     for page in range(1, 6):
         payload = json.loads(_request(API_URL.format(page=page)))
@@ -156,11 +152,25 @@ def fetch_lam_research_news(
         oldest = min(datetime.fromisoformat(row[0]).replace(tzinfo=timezone.utc) for row in page_rows)
         if oldest < cutoff or page >= int(payload.get("totalPages", page)):
             break
+    return rows
+
+
+def _blog_rows():
     blog = _BlogParser()
     blog.feed(_request(BLOG_URL))
     if not blog.rows:
         raise ValueError("Lam 기술 블로그 구조를 확인할 수 없습니다")
-    rows.extend(blog.rows)
+    return blog.rows
+
+
+def fetch_lam_research_news(
+    days: int = 180,
+) -> list[tuple[Article, list[str], str]]:
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    collected_at = datetime.now(timezone.utc).isoformat()
+    collected: list[tuple[Article, list[str], str]] = []
+    rows = checked_channel("공식 보도자료", lambda: _release_rows(cutoff))
+    rows.extend(checked_channel("기술 블로그", _blog_rows))
     for date_text, title, url, summary in rows:
         try:
             published = datetime.fromisoformat(date_text).replace(tzinfo=timezone.utc)

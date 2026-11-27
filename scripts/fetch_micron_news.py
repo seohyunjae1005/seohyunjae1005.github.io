@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -12,22 +13,24 @@ SRC = PROJECT_ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from trend_tracker.micron import fetch_micron_technology
+from trend_tracker.micron import fetch_micron_news
 from trend_tracker.rss import semiconductor_keyword_matches
 
 
-OUTPUT_PATH = PROJECT_ROOT / "data" / "processed" / "micron_semiconductor.json"
+OUTPUT_PATH = Path(os.environ.get("NEWS_OUTPUT_PATH") or str(PROJECT_ROOT / "data" / "processed" / "micron_semiconductor.json"))
 
 
 def main() -> None:
-    articles = fetch_micron_technology(days=180)
+    articles = fetch_micron_news(days=180)
     rows = []
     for article in articles:
         matches = semiconductor_keyword_matches(article)
         rows.append(
             {
                 **article.to_dict(),
-                "selection_method": "official_technology_category",
+                "selection_method": "official_newsroom_and_technology_blog_v2",
+                "source_category": "Technology blog" if "/about/blog/" in article.url else "Press release",
+                "relevance": "high" if matches else "context",
                 "matched_keywords": matches or ["Micron Technology blog"],
             }
         )

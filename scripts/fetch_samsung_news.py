@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -16,7 +17,7 @@ from trend_tracker.rss import semiconductor_keyword_matches
 from trend_tracker.samsung_archive import fetch_samsung_semiconductors
 
 
-OUTPUT_PATH = PROJECT_ROOT / "data" / "processed" / "samsung_semiconductor.json"
+OUTPUT_PATH = Path(os.environ.get("NEWS_OUTPUT_PATH") or str(PROJECT_ROOT / "data" / "processed" / "samsung_semiconductor.json"))
 
 
 def main() -> None:

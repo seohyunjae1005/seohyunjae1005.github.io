@@ -121,15 +121,17 @@ function renderCollectionStatus() {
   const delayed = rows.filter(row => row.status !== "updated");
   const selected = state.chapter === "news" && state.company !== "all"
     ? rows.find(row => row.company === state.company) : null;
+  const statusText = row => row.status === "updated" ? "자동 수집 확인"
+    : row.status === "partial" ? "일부 경로 지연 · 수집된 기사 반영" : "자동 수집 지연 · 이전 자료 표시";
   note.textContent = selected
-    ? `${companyName(selected.company)} · ${selected.status === "updated" ? "자동 수집 확인" : "자동 수집 지연 · 이전 자료 표시"} · 최근 기사 ${formatDate(selected.latest_published_at)}`
+    ? `${companyName(selected.company)} · ${statusText(selected)} · 최근 기사 ${formatDate(selected.latest_published_at)}`
     : `공식 뉴스 ${rows.length}개 회사 · ${rows.length - delayed.length}개 자동 수집 확인${delayed.length ? ` · ${delayed.length}개 수집 지연` : ""}`;
   document.querySelector("#collection-source-list").innerHTML = rows.map(row => {
     let target = "";
     try { const parsed = new URL(row.official_url); if (parsed.protocol === "https:") target = parsed.href; } catch (_) {}
     const name = escapeHtml(companyName(row.company));
     return `<tr><th scope="row">${target ? `<a href="${escapeHtml(target)}" target="_blank" rel="noopener noreferrer">${name}</a>` : name}</th>
-      <td>${row.status === "updated" ? "확인" : row.status === "unavailable" ? "자료 없음" : "수집 지연"}${row.manual_reviewed_at ? `<small>원문 보완 ${escapeHtml(formatDate(row.manual_reviewed_at))}</small>` : ""}</td>
+      <td>${row.status === "updated" ? "확인" : row.status === "partial" ? "일부 확인" : row.status === "unavailable" ? "자료 없음" : "수집 지연"}${Array.isArray(row.source_checks) ? `<small>${row.source_checks.filter(check => check.status === "ok").length}/${row.source_checks.length}개 경로 확인</small>` : ""}${row.source_checks?.some(check => check.status !== "ok") ? `<small>지연: ${row.source_checks.filter(check => check.status !== "ok").map(check => escapeHtml(check.name)).join(", ")}</small>` : ""}${row.manual_reviewed_at ? `<small>원문 보완 ${escapeHtml(formatDate(row.manual_reviewed_at))}</small>` : ""}</td>
       <td>${row.last_success_at ? escapeHtml(formatDate(row.last_success_at)) : "확인 기록 없음"}</td>
       <td>${row.latest_published_at ? escapeHtml(formatDate(row.latest_published_at)) : "—"}</td></tr>`;
   }).join("");

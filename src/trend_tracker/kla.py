@@ -3,19 +3,24 @@
 from __future__ import annotations
 
 import re
+import json
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from html import unescape
 from html.parser import HTMLParser
 from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from .news_http import fetch_bytes, checked_channel
 from xml.etree import ElementTree
 
-from .rss import Article, unique_by_url
+from .rss import Article, parse_rss, unique_by_url
 
 
 IR_URL = "https://ir.kla.com/news-events/press-releases"
 POST_SITEMAP_URL = "https://www.kla.com/post-sitemap.xml"
+ADVANCE_URL = "https://www.kla.com/advance"
+IR_RSS_URL = "https://ir.kla.com/news-events/press-releases/rss"
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
@@ -78,8 +83,7 @@ def _request(url: str, timeout: int = 30) -> bytes:
             "Accept-Language": "en-US,en;q=0.9",
         },
     )
-    with urlopen(request, timeout=timeout) as response:
-        return response.read()
+    return fetch_bytes(url, timeout=timeout)
 
 
 def _clean_html(value: str) -> str:
@@ -199,10 +203,15 @@ def fetch_kla_news(
 ) -> list[tuple[Article, list[str], str, str]]:
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     collected_at = datetime.now(timezone.utc).isoformat()
-    collected = [
-        *_ir_articles(cutoff, collected_at),
-        *_advance_articles(cutoff, collected_at),
-    ]
+    def releases():
+        rows = parse_rss(_request(IR_RSS_URL), "kla", "KLA")
+        if not rows:
+            raise ValueError("KLA 보도자료 피드 형식 변경")
+        return [(article, "Press release") for article in rows
+                if article.published_at and cutoff <= datetime.fromisoformat(article.published_at) <= datetime.now(timezone.utc)]
+    collected = checked_channel("공식 보도자료", releases)
+    collected.extend(checked_channel("기술 블로그", lambda: parse_advance_archive(
+        _request(ADVANCE_URL).decode("utf-8", errors="replace"), cutoff, collected_at)))
     enriched: list[tuple[Article, list[str], str, str]] = []
     for article, source_category in collected:
         matches = _keyword_matches(article)
@@ -220,3 +229,18 @@ def fetch_kla_news(
             unique, key=lambda value: value.published_at or "", reverse=True
         )
     ]
+
+
+def parse_advance_archive(html: str, cutoff: datetime, collected_at: str) -> list[tuple[Article, str]]:
+    match = re.search(r"\bvar\s+advancePosts\s*=\s*", html)
+    if not match:
+        raise ValueError("KLA 공식 블로그 목록 형식 변경")
+    posts, _ = json.JSONDecoder().raw_decode(html[match.end():])
+    rows = []
+    for post in posts:
+        published = datetime.fromisoformat(post["dateIso"])
+        if cutoff <= published <= datetime.now(timezone.utc):
+            rows.append((Article("kla", "KLA", _clean_html(post["title"]), post["link"],
+                published.isoformat(), _clean_html(post.get("excerpt") or ""), collected_at),
+                "Innovation" if "/innovation/" in post["link"] else "KLA Advance"))
+    return rows

@@ -8,13 +8,16 @@ from html import unescape
 from html.parser import HTMLParser
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from .news_http import fetch_bytes, checked_channel
 
 from .rss import Article, fetch_rss, unique_by_url
 
 
 RSS_URL = "https://ir.appliedmaterials.com/rss/news-releases.xml"
 ARCHIVE_URL = "https://ir.appliedmaterials.com/news-releases?page={page}"
+CORPORATE_ARCHIVE_URL = "https://www.appliedmaterials.com/us/en/newsroom/press-releases.html"
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
@@ -101,8 +104,7 @@ def _fetch_archive_page(page: int, timeout: int = 25) -> list[tuple[str, str, st
             "Accept-Language": "en-US,en;q=0.9",
         },
     )
-    with urlopen(request, timeout=timeout) as response:
-        body = response.read().decode("utf-8", errors="replace")
+    body = fetch_bytes(request.full_url, timeout=timeout).decode("utf-8", errors="replace")
     parser = _ArchiveParser()
     parser.feed(body)
     return parser.rows
@@ -173,14 +175,15 @@ def fetch_applied_materials_news(
     """공식 RSS 항목을 수집하고 장비·공정 관련성을 분류한다."""
 
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
-    rss_articles = fetch_rss(
+    rss_articles = checked_channel("공식 보도자료 피드", lambda: fetch_rss(
             RSS_URL,
             source_id="applied_materials",
             company="Applied Materials",
             timeout_seconds=30,
-        )
-    # 과거 목록이 차단되거나 느린 날에도 최신 RSS 데이터는 계속 제공한다.
-    articles = unique_by_url([*rss_articles, *_archive_articles(cutoff)])
+        ))
+    archive = checked_channel("공식 보도자료 목록", lambda: parse_corporate_archive(
+        fetch_bytes(CORPORATE_ARCHIVE_URL).decode("utf-8", errors="replace"), cutoff))
+    articles = unique_by_url([*rss_articles, *archive])
     collected: list[tuple[Article, list[str], str]] = []
     for article in articles:
         published = _published_datetime(article.published_at)
@@ -195,3 +198,24 @@ def fetch_applied_materials_news(
         key=lambda row: row[0].published_at or "",
         reverse=True,
     )
+
+
+def parse_corporate_archive(html: str, cutoff: datetime) -> list[Article]:
+    rows = []
+    for block in re.findall(r"<tr\b[^>]*>(.*?)</tr>", html, re.S | re.I):
+        cells = re.findall(r"<td\b[^>]*>(.*?)</td>", block, re.S | re.I)
+        if len(cells) < 2:
+            continue
+        link = re.search(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>', cells[1], re.S)
+        try:
+            published = datetime.strptime(re.sub(r"<[^>]*>", "", cells[0]).strip(), "%b %d, %Y").replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+        if link and cutoff <= published <= datetime.now(timezone.utc):
+            rows.append(Article("applied_materials", "Applied Materials",
+                unescape(re.sub(r"<[^>]*>", "", link.group(2))).strip(),
+                urljoin(CORPORATE_ARCHIVE_URL, unescape(link.group(1))), published.isoformat(),
+                "Official Applied Materials press release", datetime.now(timezone.utc).isoformat()))
+    if not rows:
+        raise ValueError("Applied Materials 공식 보도자료 목록 형식 변경")
+    return rows
