@@ -210,8 +210,14 @@ def fetch_kla_news(
         return [(article, "Press release") for article in rows
                 if article.published_at and cutoff <= datetime.fromisoformat(article.published_at) <= datetime.now(timezone.utc)]
     collected = checked_channel("공식 보도자료", releases)
-    collected.extend(checked_channel("기술 블로그", lambda: parse_advance_archive(
-        _request(ADVANCE_URL).decode("utf-8", errors="replace"), cutoff, collected_at)))
+    def advance():
+        try:
+            return parse_advance_archive(_request(ADVANCE_URL).decode("utf-8", errors="replace"), cutoff, collected_at)
+        except ValueError:
+            # 일부 CDN 응답은 HTTP 200이어도 다른 페이지 템플릿이다.
+            # 같은 공식 주소의 표준 HTTP 응답도 검사한다.
+            return parse_advance_archive(fetch_bytes(ADVANCE_URL, standard=True).decode("utf-8", errors="replace"), cutoff, collected_at)
+    collected.extend(checked_channel("기술 블로그", advance))
     enriched: list[tuple[Article, list[str], str, str]] = []
     for article, source_category in collected:
         matches = _keyword_matches(article)

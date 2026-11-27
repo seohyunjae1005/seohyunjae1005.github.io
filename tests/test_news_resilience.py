@@ -24,6 +24,19 @@ def sample(company="KLA", age=1, title="Official release", url="https://ir.kla.c
 
 
 class NewsResilienceTests(unittest.TestCase):
+    def test_compatible_client_denial_uses_verified_standard_https(self):
+        class Response:
+            status = 200
+            def __enter__(self): return self
+            def __exit__(self, *args): pass
+            def read(self, *args): return b"official page"
+        client = SimpleNamespace(request=Mock(return_value=SimpleNamespace(status_code=403, content=b"denied", headers={})))
+        with patch.object(news_http, "compatible_http", client), patch.object(news_http, "_certificate_path", return_value="public-ca.pem"):
+            with patch.object(news_http, "urlopen", return_value=Response()) as fallback, patch.object(news_http.time, "sleep"):
+                self.assertEqual(news_http.fetch_bytes("https://example.com"), b"official page")
+                self.assertEqual(fallback.call_count, 1)
+                self.assertEqual(client.request.call_args.kwargs["verify"], "public-ca.pem")
+
     def test_incomplete_success_page_is_rechecked_once(self):
         with patch.object(news_http, "CHANNELS", []), patch.object(news_http.time, "sleep"):
             collect = Mock(side_effect=[ValueError("truncated page"), [sample()]])
@@ -80,7 +93,7 @@ class NewsResilienceTests(unittest.TestCase):
         item = sample()
         feed = f'<rss><channel><item><title>{item.title}</title><link>{item.url}</link><pubDate>{datetime.fromisoformat(item.published_at).strftime("%a, %d %b %Y %H:%M:%S +0000")}</pubDate></item></channel></rss>'.encode()
         def request(url): return feed if url == kla.IR_RSS_URL else b'<html>changed blog</html>'
-        with patch.object(kla, "_request", side_effect=request), patch.object(news_http, "CHANNELS", []):
+        with patch.object(kla, "_request", side_effect=request), patch.object(kla, "fetch_bytes", return_value=b'<html>changed blog</html>'), patch.object(news_http, "CHANNELS", []):
             rows = kla.fetch_kla_news()
             self.assertEqual(len(rows), 1)
             self.assertEqual([row["status"] for row in news_http.CHANNELS], ["ok", "failed"])

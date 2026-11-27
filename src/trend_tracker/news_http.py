@@ -39,17 +39,17 @@ def _certificate_path():
 
 
 def fetch_bytes(url: str, timeout: int = 20, *, data: bytes | None = None,
-                headers: dict | None = None, attempts: int = 3) -> bytes:
+                headers: dict | None = None, attempts: int = 3, standard: bool = False) -> bytes:
     if not url.startswith("https://"):
         raise ValueError("공식 뉴스는 HTTPS 주소만 허용합니다")
     request_headers = {"User-Agent": USER_AGENT, "Accept-Language": "en-US,en;q=0.9", **(headers or {})}
-    transport = "curl_cffi" if compatible_http is not None else "urllib"
+    transport = "curl_cffi" if compatible_http is not None and not standard else "urllib"
     record = {"url": url, "transport": transport, "attempts": 0, "status": "failed"}
     REQUESTS.append(record)
     for attempt in range(attempts):
         record["attempts"] = attempt + 1
         try:
-            if compatible_http is not None:
+            if transport == "curl_cffi":
                 response = compatible_http.request("POST" if data is not None else "GET", url,
                     data=data, headers=request_headers, impersonate="chrome", timeout=timeout,
                     verify=_certificate_path(), allow_redirects=True, max_redirects=5)
@@ -69,6 +69,12 @@ def fetch_bytes(url: str, timeout: int = 20, *, data: bytes | None = None,
             if isinstance(error, HTTPError):
                 record["http_status"] = error.code
                 retry = error.code in RETRYABLE
+                # 공개 서버별 통신 호환성 차이: 같은 HTTPS 주소를 표준
+                # 클라이언트로 한 번 확인하며 인증서 검증은 그대로 유지한다.
+                if error.code == 403 and transport == "curl_cffi":
+                    transport = "urllib"
+                    record["transport"] = "curl_cffi_then_urllib"
+                    retry = True
             else:
                 retry = isinstance(error, (TimeoutError, URLError, OSError)) or (
                     compatible_http is not None and isinstance(error, compatible_http.exceptions.RequestException)
@@ -103,6 +109,7 @@ def checked_channel(label: str, collect, *, allow_empty: bool = False) -> list:
                 time.sleep(0.5)
                 continue
             record["error"] = type(error).__name__
+            record["message"] = str(error).splitlines()[0][:160]
             if isinstance(error, HTTPError):
                 record["http_status"] = error.code
             print(f"수집 경로 지연: {label} ({type(error).__name__}: {str(error)[:160]})")
