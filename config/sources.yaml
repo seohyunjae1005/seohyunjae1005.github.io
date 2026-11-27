@@ -99,4 +99,4 @@ sources:
     official_url: "https://ir.kla.com/news-events/press-releases"
     preferred_method: "official_ir_rss_plus_advance_embedded_archive"
     status: "verified"
-    notes: "Collect the official IR press-release RSS and the public advancePosts archive embedded in KLA Advance, then classify inspection, metrology, defect, yield, wafer, reticle, lithography, patterning, and advanced-packaging signals separately from corporate context."
+    notes: "Collect the official IR press-release RSS and the public advancePosts archive embedded in KLA Advance (including the canonical-verified legacy company domain as a fallback), then classify inspection, metrology, defect, yield, wafer, reticle, lithography, patterning, and advanced-packaging signals separately from corporate context."

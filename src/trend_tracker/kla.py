@@ -20,6 +20,7 @@ from .rss import Article, parse_rss, unique_by_url
 IR_URL = "https://ir.kla.com/news-events/press-releases"
 POST_SITEMAP_URL = "https://www.kla.com/post-sitemap.xml"
 ADVANCE_URL = "https://www.kla.com/advance"
+LEGACY_ADVANCE_URL = "https://ask.kla-tencor.com/advance"
 IR_RSS_URL = "https://ir.kla.com/news-events/press-releases/rss"
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -211,12 +212,22 @@ def fetch_kla_news(
                 if article.published_at and cutoff <= datetime.fromisoformat(article.published_at) <= datetime.now(timezone.utc)]
     collected = checked_channel("공식 보도자료", releases)
     def advance():
-        try:
-            return parse_advance_archive(_request(ADVANCE_URL).decode("utf-8", errors="replace"), cutoff, collected_at)
-        except ValueError:
-            # 일부 CDN 응답은 HTTP 200이어도 다른 페이지 템플릿이다.
-            # 같은 공식 주소의 표준 HTTP 응답도 검사한다.
-            return parse_advance_archive(fetch_bytes(ADVANCE_URL, standard=True).decode("utf-8", errors="replace"), cutoff, collected_at)
+        loaders = (
+            lambda: _request(ADVANCE_URL),
+            lambda: fetch_bytes(ADVANCE_URL, standard=True),
+            # KLA의 기존 공식 도메인도 같은 canonical 주소의 공개 목록을 제공한다.
+            lambda: fetch_bytes(LEGACY_ADVANCE_URL),
+        )
+        last_error = None
+        for load in loaders:
+            try:
+                html = load().decode("utf-8", errors="replace")
+                if not re.search(r'<link\b[^>]*rel="canonical"[^>]*href="https://www\.kla\.com/advance/?"', html):
+                    raise ValueError("KLA 공식 블로그 canonical 주소 불일치")
+                return parse_advance_archive(html, cutoff, collected_at)
+            except (ValueError, HTTPError, URLError, TimeoutError) as error:
+                last_error = error
+        raise last_error or ValueError("KLA 공식 기술 블로그를 확인할 수 없습니다")
     collected.extend(checked_channel("기술 블로그", advance))
     enriched: list[tuple[Article, list[str], str, str]] = []
     for article, source_category in collected:

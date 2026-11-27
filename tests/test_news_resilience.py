@@ -98,6 +98,16 @@ class NewsResilienceTests(unittest.TestCase):
             self.assertEqual(len(rows), 1)
             self.assertEqual([row["status"] for row in news_http.CHANNELS], ["ok", "failed"])
 
+    def test_kla_verified_official_alias_recovers_changed_main_template(self):
+        day = (datetime.now(timezone.utc) - timedelta(days=1)).isoformat()
+        posts = [{"dateIso": day, "title": "Inspection innovation", "link": "https://www.kla.com/advance/innovation/test", "excerpt": "Official technology update"}]
+        html = '<link rel="canonical" href="https://www.kla.com/advance"><script>var advancePosts = ' + json.dumps(posts) + ';</script>'
+        def fetch(url, **kwargs): return html.encode() if url == kla.LEGACY_ADVANCE_URL else b'<html>changed</html>'
+        with patch.object(kla, "_request", return_value=b'<rss><channel/></rss>'), patch.object(kla, "fetch_bytes", side_effect=fetch), patch.object(news_http, "CHANNELS", []):
+            rows = kla.fetch_kla_news()
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0][0].url, posts[0]["link"])
+
     def test_cross_site_copies_merge_but_weekly_announcements_survive(self):
         left = sample("Intel", 1, "Quarterly results", "https://www.intc.com/news/a").to_dict()
         copy = {**left, "url": "https://www.intel.com/news/a", "published_at": (datetime.fromisoformat(left["published_at"]) - timedelta(hours=30)).isoformat()}
