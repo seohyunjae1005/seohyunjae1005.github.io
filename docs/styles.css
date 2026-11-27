@@ -1224,7 +1224,16 @@ footer { max-width: var(--max); margin: 0 auto; padding: 1.5rem 1.25rem 2.5rem; 
 .brief-issue > summary { padding: 16px 0; font-size: 1.05rem; font-weight: 600; }
 .brief-issue-body { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 4px 0 24px; }
 .brief-questions { grid-column: 1 / -1; background: #f5f5f7; border-radius: 16px; padding: 20px; }
-.brief-samsung { margin-top: 16px !important; }
+.brief-company { margin-top: 16px !important; }
+.collection-note { color: var(--muted); font-size: 0.9rem; margin: 14px 0 8px; }
+.collection-health { margin-bottom: 20px; font-size: 0.9rem; }
+.collection-health summary { cursor: pointer; color: var(--accent, #0071E3); }
+.collection-health p, .collection-health small { color: var(--muted); }
+.collection-health small { display: block; margin-top: 4px; }
+.collection-table-wrap { overflow-x: auto; margin-top: 12px; }
+.collection-health table { border-collapse: collapse; width: 100%; min-width: 550px; text-align: left; }
+.collection-health th, .collection-health td { padding: 12px; border-bottom: 1px solid #D2D2D7; font-weight: 400; }
+.collection-health thead th { background: #F5F5F7; font-weight: 600; }
 .brief-label { display: inline-block; padding: 0 5px; border: 1px solid #d2d2d7; border-radius: 4px; font-size: .875rem; font-weight: 400; }
 .brief-sources { margin-top: 16px; }
 .brief-sources > ul { list-style: none; padding: 0; }

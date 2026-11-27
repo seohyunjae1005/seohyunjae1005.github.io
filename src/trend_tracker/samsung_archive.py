@@ -7,10 +7,36 @@ from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
 from urllib.request import Request, urlopen
 
-from .rss import Article, DEFAULT_USER_AGENT, unique_by_url
+from .rss import Article, DEFAULT_USER_AGENT, parse_rss, unique_by_url
 
 
 ARCHIVE_URL = "https://news.samsung.com/global/category/products/semiconductors/page/{page}"
+SEMICONDUCTOR_FEED = "https://news.samsungsemiconductor.com/global/feed/?paged={page}"
+
+
+def fetch_semiconductor_newsroom(days: int = 180, max_pages: int = 20) -> list[Article]:
+    """별도 반도체 뉴스룸의 기술 글·보도자료를 발표일 기준으로 수집한다."""
+    now = datetime.now(timezone.utc)
+    cutoff = now - timedelta(days=days)
+    collected = []
+    seen = set()
+    for page in range(1, max_pages + 1):
+        request = Request(SEMICONDUCTOR_FEED.format(page=page), headers={"User-Agent": DEFAULT_USER_AGENT})
+        with urlopen(request, timeout=20) as response:
+            articles = parse_rss(response.read(), "samsung", "Samsung Electronics")
+        if not articles:
+            if page == 1:
+                raise ValueError("삼성 반도체 뉴스룸에서 기사를 읽지 못했습니다")
+            break
+        fresh = [a for a in articles if a.url not in seen]
+        if not fresh:
+            break
+        seen.update(a.url for a in fresh)
+        dated = [a for a in fresh if a.published_at and cutoff <= datetime.fromisoformat(a.published_at) <= now]
+        collected.extend(dated)
+        if any(a.published_at and datetime.fromisoformat(a.published_at) < cutoff for a in fresh):
+            break
+    return unique_by_url(collected)
 
 
 class _SamsungCategoryParser(HTMLParser):
@@ -98,4 +124,5 @@ def fetch_samsung_semiconductors(
             break
         if page < max_pages:
             time.sleep(request_interval_seconds)
-    return unique_by_url(collected)
+    # Global Newsroom의 제품 카테고리 밖에 있는 반도체 소식을 함께 포함한다.
+    return unique_by_url([*fetch_semiconductor_newsroom(days), *collected])

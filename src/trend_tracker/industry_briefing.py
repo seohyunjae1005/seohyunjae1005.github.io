@@ -16,7 +16,7 @@ from xml.etree import ElementTree
 from trend_tracker.article_body import USER_AGENT, _html_block_body, _json_ld_body
 
 VERSION = "industry_briefing_v1"
-PROMPT_VERSION = 5
+PROMPT_VERSION = 6
 AREAS = ("메모리", "파운드리", "첨단 패키징", "장비")
 HOSTS = {
     "www.semiconductors.org", "news.samsung.com", "pr.tsmc.com",
@@ -199,17 +199,17 @@ overview의 주어는 반드시 원문 발표 기업·기관명으로 명시하�
 공정 세대의 '7-nanometer and more advanced'는 '7nm 및 그보다 미세한 공정'입니다. '7nm 이상'으로 번역하지 마세요.
 issues는 서로 다른 사회·산업 쟁점 3개. 기업별 홍보 목록이나 같은 AI 성장 주장의 반복을 피하세요.
 전력·인프라, AI 수요에 따른 산업의 균형, 첨단제조 생태계 등 실제 입력으로 뒷받침되는 서로 다른 쟁점을 고르세요.
-각 쟁점은 title_ko(30자), why_ko(100자), perspectives(서로 다른 고려사항 2개, 각 80자), questions(구체적인 열린 질문 2개, 각 65자), samsung_connection_ko(80자), fact_ids로 구성하세요.
-why/perspectives/questions/삼성 연결은 모두 AI 해석·검토 질문입니다. 확인되지 않은 피해, 실제 갈등, 삼성의 정책/내부입장/채용 의도를 사실처럼 쓰지 마세요.
+각 쟁점은 title_ko(30자), why_ko(100자), perspectives(서로 다른 고려사항 2개, 각 80자), questions(구체적인 열린 질문 2개, 각 65자), company_connection_ko(80자), fact_ids로 구성하세요.
+why/perspectives/questions/반도체 회사 연결은 모두 AI 해석·검토 질문입니다. 확인되지 않은 피해, 실제 갈등, 특정 기업의 정책/내부입장/채용 의도를 사실처럼 쓰지 마세요.
 해석은 반드시 연결한 facts로부터 도출하세요. 원문에 다른 정보가 있더라도 facts로 추출해 인용하지 않은 지역별 성장·연속 분기 추세 등은 해석에 새로운 사실로 추가하지 마세요.
 협력이 '필수', 기술이 성능을 '좌우한다'는 단정 대신, 서로 다른 판단 기준·선택의 장점과 고려사항을 보여주세요.
 단일 분기 성장이나 서로 다른 회사의 실적 증가만으로 '실적 변동성을 보여준다'고 주장하지 마세요. 시계열 변화가 없으면 변동성의 증거가 아닙니다.
-삼성 발표 근거가 없는 연결은 검토 가능한 산업적 접점으로 표현하세요. 개인 경험이나 자소서 완성문을 만들지 마세요.
+연결 대상은 삼성에 한정하지 말고 메모리·파운드리·장비 등 반도체 회사 전반으로 넓히세요. 기업 이름을 사용할 때에는 연결한 fact_ids의 발표 주체를 우선하세요. 특정 회사의 발표 근거가 없는 연결은 회사 유형별로 검토 가능한 산업적 접점으로 표현하세요. 개인 경험이나 자소서 완성문을 만들지 마세요.
 source가 reviewed_excerpt인 자료는 해당 발췌만 확인한 배경자료입니다. 문서 전체를 읽었다고 표현하지 마세요.
 한국어 전문용어는 쉽게 풀어 쓰고, '시사한다/중요하다'만 반복하지 마세요. issues마다 최소 2개의 fact_ids와 2개 이상의 서로 다른 source 출처를 연결하세요.
 JSON 객체만 출력하세요. 모든 facts가 overview 또는 issues에서 실제로 사용되게 하세요.
 구조:
-{"version":"industry_briefing_v1","facts":[{"id":"F1","source_id":"S1","statement_ko":"확인한 사실","quote":"verbatim excerpt","nature":"발표"}],"overview":[{"area":"메모리","text_ko":"짧은 해석","fact_ids":["F1"]}],"issues":[{"id":"issue-1","title_ko":"쟁점","why_ko":"왜 살펴볼지","perspectives":["고려사항 A","고려사항 B"],"questions":["검토 질문?","검토 질문?"],"samsung_connection_ko":"근거에 맞는 삼성과의 산업적 접점","fact_ids":["F1","F2"]}]}
+{"version":"industry_briefing_v1","facts":[{"id":"F1","source_id":"S1","statement_ko":"확인한 사실","quote":"verbatim excerpt","nature":"발표"}],"overview":[{"area":"메모리","text_ko":"짧은 해석","fact_ids":["F1"]}],"issues":[{"id":"issue-1","title_ko":"쟁점","why_ko":"왜 살펴볼지","perspectives":["고려사항 A","고려사항 B"],"questions":["검토 질문?","검토 질문?"],"company_connection_ko":"근거에 맞는 반도체 회사들과의 산업적 접점","fact_ids":["F1","F2"]}]}
 
 [원문 자료]
 """ + json.dumps(sources, ensure_ascii=False)
@@ -295,7 +295,7 @@ def validate_report(report: dict, sources: list[dict]) -> list[str]:
             ids = refs(row)
             if len({fact_map[v].get("source_id") for v in ids}) < 2:
                 issues.append("쟁점에 서로 다른 출처 2개 필요")
-            for key in ("title_ko", "why_ko", "samsung_connection_ko"):
+            for key in ("title_ko", "why_ko", "company_connection_ko"):
                 if not isinstance(row.get(key), str) or not row[key].strip():
                     issues.append(f"쟁점 {key} 누락")
             for key in ("perspectives", "questions"):

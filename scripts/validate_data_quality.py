@@ -16,7 +16,7 @@ DEFAULT_INPUT = PROJECT_ROOT / "docs" / "data" / "latest.json"
 DEFAULT_REPORT = PROJECT_ROOT / "docs" / "week2_quality_report.md"
 
 OFFICIAL_DOMAINS = {
-    "Samsung Electronics": ("samsung.com",),
+    "Samsung Electronics": ("samsung.com", "samsungsemiconductor.com"),
     "SK hynix": ("skhynix.com", "skhynix.co.kr"),
     "Kioxia": ("kioxia.com", "kioxia-holdings.com"),
     "Micron": ("micron.com",),

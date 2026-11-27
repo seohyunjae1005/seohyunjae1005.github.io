@@ -1,15 +1,15 @@
 version: 0.1
-updated_at: "2026-09-03"
+updated_at: "2026-11-27"
 
 sources:
   - id: samsung
     company: "Samsung Electronics"
     company_group: "memory_idm"
     priority: "must"
-    official_url: "https://news.samsung.com/global/category/products/semiconductors"
-    preferred_method: "official_category_html"
+    official_url: "https://news.samsungsemiconductor.com/global/"
+    preferred_method: "semiconductor_newsroom_rss_plus_category"
     status: "verified"
-    notes: "Collect the official Semiconductors category for 180 days; avoids unrelated consumer-news RSS items."
+    notes: "Collect the dedicated semiconductor newsroom paginated RSS and the Global Newsroom semiconductor category for 180 days."
 
   - id: sk_hynix
     company: "SK hynix"
@@ -60,10 +60,10 @@ sources:
     company: "ASML"
     company_group: "equipment"
     priority: "must"
-    official_url: "https://www.asml.com/en/news/press-releases"
-    preferred_method: "official_sitemap_plus_article_metadata"
+    official_url: "https://investor.asml.com/news/press-releases-and-announcements"
+    preferred_method: "investor_rss_plus_story_sitemap"
     status: "verified"
-    notes: "Collect press releases and technology stories from official sitemaps for 180 days, then label EUV, DUV, lithography, metrology, inspection, equipment, and manufacturing relevance."
+    notes: "Press releases moved to the investor newsroom. Collect the official investor RSS plus technology story sitemaps. A blocked investor feed is a collection failure, never a successful story-only refresh."
 
   - id: applied_materials
     company: "Applied Materials"
@@ -78,10 +78,10 @@ sources:
     company: "Lam Research"
     company_group: "equipment"
     priority: "must"
-    official_url: "https://newsroom.lamresearch.com/press-releases?l=100"
-    preferred_method: "html"
+    official_url: "https://newsroom.lamresearch.com/press-releases/"
+    preferred_method: "official_cision_api_plus_technical_blog"
     status: "verified"
-    notes: "Collect up to 100 official press releases, retain the most recent 180 days, and distinguish etch, deposition, cleaning, EUV, wafer, logic, memory, packaging, materials, and yield signals from financial and corporate context."
+    notes: "Collect the new official Cision JSON API with pagination and the technical blog archive for 180 days. Reject empty or changed schemas instead of silently publishing zero articles."
 
   - id: tokyo_electron
     company: "Tokyo Electron"

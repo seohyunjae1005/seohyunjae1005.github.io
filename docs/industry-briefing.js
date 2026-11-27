@@ -44,7 +44,7 @@
           <section><h4>확인된 사실</h4><ul class="brief-facts">${row.fact_ids.map(id => fact(facts.get(id))).join('')}</ul></section>
           <section><h4>AI 해석</h4><p>${escape(row.why_ko)}</p>
             <ul>${row.perspectives.map(text => `<li>${escape(text)}</li>`).join('')}</ul>
-            <p class="brief-samsung"><strong>삼성과의 접점</strong> ${escape(row.samsung_connection_ko)}</p></section>
+            <p class="brief-company"><strong>반도체 회사들과의 접점</strong> ${escape(row.company_connection_ko)}</p></section>
           <section class="brief-questions"><h4>생각해볼 질문</h4><ul>${row.questions.map(text => `<li>${escape(text)}</li>`).join('')}</ul></section>
         </div>
       </details>`).join('');

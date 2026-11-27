@@ -5,6 +5,16 @@ on:
     # GitHub cron은 UTC 기준: 22:00 UTC = 다음 날 07:00 KST
     - cron: "0 22 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/daily-update.yml
+      - config/sources.yaml
+      - scripts/fetch_*_news.py
+      - scripts/run_daily_collection.py
+      - src/trend_tracker/asml.py
+      - src/trend_tracker/samsung_archive.py
+      - src/trend_tracker/lam_research.py
 
 permissions:
   contents: write
@@ -36,6 +46,21 @@ jobs:
 
       - name: Collect official newsroom feeds
         run: python scripts/run_daily_collection.py
+
+      - name: Record company collection health
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path('data/processed/latest_semiconductor_news.json')
+          if path.exists():
+              rows = json.loads(path.read_text())['collection_sources']
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as output:
+                  output.write('### Company news collection\n\n| Company | Status | Latest published |\n| --- | --- | --- |\n')
+                  for row in rows:
+                      output.write(f"| {row['company']} | {row['status']} | {row['latest_published_at'] or 'none'} |\n")
+          PY
 
       - name: Translate new articles within the free quota
         env:

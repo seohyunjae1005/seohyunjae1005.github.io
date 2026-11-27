@@ -21,9 +21,9 @@ def main() -> None:
     rows = [
         {
             **article.to_dict(),
-            "selection_method": "lam_official_press_releases_with_relevance_v1",
+            "selection_method": "lam_cision_api_plus_technical_blog_v2",
             "matched_keywords": matches,
-            "source_category": "Press release",
+            "source_category": "Technology blog" if "blog=true" in article.url else "Press release",
             "relevance": relevance,
         }
         for article, matches, relevance in collected
@@ -31,7 +31,7 @@ def main() -> None:
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
     high_count = sum(row["relevance"] == "high" for row in rows)
-    print(f"Lam Research 최근 180일 공식 보도자료: {len(rows)}건")
+    print(f"Lam Research 최근 180일 공식 발표·기술 글: {len(rows)}건")
     print(f"장비·공정 관련: {high_count}건 / 기타 맥락: {len(rows) - high_count}건")
     print(f"저장 위치: {OUTPUT_PATH}")
 

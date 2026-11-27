@@ -1,5 +1,6 @@
 const state = {
   articles: [],
+  collectionSources: [],
   company: "all",
   job: "all",
   domain: "all",
@@ -103,6 +104,35 @@ function formatDate(value) {
     month: "short",
     day: "numeric",
   }).format(date);
+}
+
+function companyName(value) {
+  return value === "Lam Research" ? "Lam Research · 램리서치" : value;
+}
+
+function renderCollectionStatus() {
+  const rows = state.collectionSources;
+  const details = document.querySelector("#collection-health");
+  const note = document.querySelector("#collection-note");
+  if (!details || !note) return;
+  details.hidden = rows.length === 0 || !["trend", "news"].includes(state.chapter);
+  note.hidden = details.hidden;
+  if (!rows.length) return;
+  const delayed = rows.filter(row => row.status !== "updated");
+  const selected = state.chapter === "news" && state.company !== "all"
+    ? rows.find(row => row.company === state.company) : null;
+  note.textContent = selected
+    ? `${companyName(selected.company)} · ${selected.status === "updated" ? "자동 수집 확인" : "자동 수집 지연 · 이전 자료 표시"} · 최근 기사 ${formatDate(selected.latest_published_at)}`
+    : `공식 뉴스 ${rows.length}개 회사 · ${rows.length - delayed.length}개 자동 수집 확인${delayed.length ? ` · ${delayed.length}개 수집 지연` : ""}`;
+  document.querySelector("#collection-source-list").innerHTML = rows.map(row => {
+    let target = "";
+    try { const parsed = new URL(row.official_url); if (parsed.protocol === "https:") target = parsed.href; } catch (_) {}
+    const name = escapeHtml(companyName(row.company));
+    return `<tr><th scope="row">${target ? `<a href="${escapeHtml(target)}" target="_blank" rel="noopener noreferrer">${name}</a>` : name}</th>
+      <td>${row.status === "updated" ? "확인" : row.status === "unavailable" ? "자료 없음" : "수집 지연"}${row.manual_reviewed_at ? `<small>원문 보완 ${escapeHtml(formatDate(row.manual_reviewed_at))}</small>` : ""}</td>
+      <td>${row.last_success_at ? escapeHtml(formatDate(row.last_success_at)) : "확인 기록 없음"}</td>
+      <td>${row.latest_published_at ? escapeHtml(formatDate(row.latest_published_at)) : "—"}</td></tr>`;
+  }).join("");
 }
 
 function withinDays(value, days) {
@@ -315,6 +345,7 @@ function bindTrendPeriodTabs() {
 
 function showChapter(chapter) {
   state.chapter = chapter;
+  renderCollectionStatus();
   document.querySelector("#trend-chapter").hidden = chapter !== "trend";
   document.querySelector("#news-chapter").hidden = chapter !== "news";
   document.querySelector("#profile-chapter").hidden = chapter !== "profile";
@@ -2484,6 +2515,7 @@ function renderAiAnalysis(item) {
 }
 
 function render() {
+  renderCollectionStatus();
   const rows = visibleArticles();
   resultLine.textContent = state.processFocus
     ? `공정·양산 관련 기사 ${rows.length}건`
@@ -2528,7 +2560,7 @@ function updateLanguageButton() {
 
 function createCompanyFilters(companies) {
   const select = document.querySelector("#news-company");
-  companies.forEach((company) => select.add(new Option(company, company)));
+  companies.forEach((company) => select.add(new Option(companyName(company), company)));
 }
 
 function fillSelect(selector, values, field) {
@@ -2584,13 +2616,14 @@ async function loadData() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
     state.articles = data.articles || [];
+    state.collectionSources = data.collection_sources || [];
     const companies = Object.keys(data.company_counts || {});
     const options = data.filter_options || {};
     state.trendSummary = data.trend_summary || null;
     state.monthlyTrendReport = data.monthly_trend_report || null;
     state.trendReports = data.trend_reports || {};
     state.translatedCount = Number(data.translation?.translated_count || 0);
-    document.querySelector("#updated").textContent = `최근 갱신 ${formatDate(data.generated_at)}`;
+    document.querySelector("#updated").textContent = `자료 집계 ${formatDate(data.generated_at)}`;
     createCompanyFilters(companies);
     fillSelect("#job-filter", options.job_roles || [], "job_roles");
     fillSelect("#domain-filter", options.tech_domains || [], "tech_domains");

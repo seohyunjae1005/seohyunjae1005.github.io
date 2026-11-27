@@ -38,7 +38,7 @@ def fixture():
                      for i, area in enumerate(AREAS, 1)],
         "issues": [{"id": f"issue-{i}", "title_ko": "산업 쟁점", "why_ko": "관찰한 변화의 의미",
                     "perspectives": ["한 관점", "다른 관점"], "questions": ["무엇을 확인할까?", "어떻게 판단할까?"],
-                    "samsung_connection_ko": "산업 내 검토할 접점", "fact_ids": [f"F{i*2-1}", f"F{i*2}"]}
+                    "company_connection_ko": "산업 내 검토할 접점", "fact_ids": [f"F{i*2-1}", f"F{i*2}"]}
                    for i in range(1, 4)],
     }
     return sources, report

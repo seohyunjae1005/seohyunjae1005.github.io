@@ -24,7 +24,7 @@ def main() -> None:
     rows = [
         {
             **article.to_dict(),
-            "selection_method": "official_semiconductors_category",
+            "selection_method": "official_semiconductor_newsroom_plus_category",
             "matched_keywords": semiconductor_keyword_matches(article) or ["Samsung Semiconductors"],
         }
         for article in articles

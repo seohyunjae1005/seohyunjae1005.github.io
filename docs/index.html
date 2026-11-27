@@ -8,8 +8,8 @@
       content="주요 반도체 기업의 공식 뉴스룸에서 기술 동향과 기업 맥락을 추적합니다."
     />
     <title>반도체 산업 동향</title>
-    <link rel="stylesheet" href="styles.css?v=20261121-2" />
-    <script src="industry-briefing.js?v=20261121-1" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20261127-1" />
+    <script src="industry-briefing.js?v=20261127-1" defer></script>
     <script src="pdf-import.js?v=20261001-2" defer></script>
     <script src="jd-analyzer-v4.js?v=20261007-7" defer></script>
     <script src="jd-recall-questions.js?v=20261108-3" defer></script>
@@ -28,7 +28,7 @@
     <script src="equipment-interview.js?v=20261121-2" defer></script>
     <script src="interview-prep.js?v=20261121-4" defer></script>
     <link rel="stylesheet" href="interview-prep.css?v=20261121-5" />
-    <script src="app.js?v=20261121-2" defer></script>
+    <script src="app.js?v=20261127-1" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -54,6 +54,16 @@
           <button id="assessment-tab" type="button" role="tab" aria-selected="false" aria-controls="assessment-chapter" data-chapter="assessment">인적성 및 업무 흐름</button>
         </div>
       </section>
+
+      <p class="collection-note" id="collection-note" role="status"></p>
+      <details class="collection-health" id="collection-health" hidden>
+        <summary>회사별 뉴스 확인 상태</summary>
+        <p>자동 수집 결과와 기사 발표일을 구분합니다. 수집이 지연된 회사는 이전 자료를 표시합니다.</p>
+        <div class="collection-table-wrap"><table>
+          <thead><tr><th>회사</th><th>확인 상태</th><th>자동 수집 성공</th><th>최근 기사 발표</th></tr></thead>
+          <tbody id="collection-source-list"></tbody>
+        </table></div>
+      </details>
 
       <section class="chapter-panel" id="trend-chapter" role="tabpanel" aria-labelledby="trend-tab">
       <section class="trend-board" id="trend-board" aria-labelledby="trend-title" hidden>

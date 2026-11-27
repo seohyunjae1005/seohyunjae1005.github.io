@@ -11,13 +11,14 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree
 
-from .rss import Article, unique_by_url
+from .rss import Article, parse_rss, unique_by_url
 
 
 SITEMAP_URLS = (
     "https://www.asml.com/sitemap-1.xml",
     "https://www.asml.com/sitemap-2.xml",
 )
+PRESS_RSS_URL = "https://investor.asml.com/rss/news-releases.xml"
 ASML_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
@@ -131,6 +132,20 @@ def fetch_asml_news(
     collected_at = datetime.now(timezone.utc).isoformat()
     collected: list[tuple[Article, list[str], str, str]] = []
 
+    # 보도자료는 투자자 사이트로 이전되었다. 기술 스토리만 읽고 전체
+    # 뉴스 갱신에 성공했다고 처리하지 않도록 이 필수 출처의 실패를 전달한다.
+    releases = parse_rss(_request(PRESS_RSS_URL), "asml", "ASML")
+    if not releases:
+        raise ValueError("ASML 공식 보도자료 피드에서 기사를 읽지 못했습니다")
+    for article in releases:
+        try:
+            published = datetime.fromisoformat(article.published_at or "")
+        except ValueError:
+            continue
+        if cutoff <= published <= now:
+            matches = _keyword_matches(article.title)
+            collected.append((article, matches, "Press release", "high" if matches else "context"))
+
     candidate_years = range(cutoff.year, now.year + 1)
     urls = [
         url
@@ -146,7 +161,7 @@ def fetch_asml_news(
         if published.tzinfo is None:
             published = published.replace(tzinfo=timezone.utc)
         published = published.astimezone(timezone.utc)
-        if published < cutoff:
+        if not cutoff <= published <= now:
             continue
         content_type = "Technology story" if "/company/stories/" in url else "Press release"
         matches = _keyword_matches(title)
