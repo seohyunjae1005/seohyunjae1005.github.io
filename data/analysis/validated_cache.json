@@ -1,6 +1,6 @@
 {
   "schema_version": "validated_analysis_cache_v1",
-  "updated_at": "2026-11-27T12:58:49.383726+00:00",
+  "updated_at": "2026-11-27T13:58:00.260597+00:00",
   "review_notice": "Machine-validated draft cache. Human approval is required before publication.",
   "company_count": 11,
   "companies": {
@@ -245,10 +245,10 @@
     },
     "Kioxia": {
       "company": "Kioxia",
-      "title": "Kioxia to Expand 3D Flash Memory Production Capacity with the New Fab3 at Kitakami Plant",
-      "url": "https://www.kioxia.com/en-jp/about/news/2026/20260827-2.html",
+      "title": "Kioxia to Showcase XL-FLASH™ Generation 3 Technology, the Next-Generation Low-Latency, High-Performance Flash Memory for AI, at KIOXIA Forum",
+      "url": "https://www.kioxia.com/en-jp/business/news/2026/20261125-1.html",
       "model": "gemini-3.5-flash-lite",
-      "generated_at": "2026-09-15T05:41:00.009398+00:00",
+      "generated_at": "2026-11-27T13:57:50.837034+00:00",
       "analysis_version": "semiconductor_job_analysis_v1",
       "extraction_method": "filtered_html_blocks",
       "source_scope": "official_article_body",
@@ -258,68 +258,68 @@
       "normalization_notes": [],
       "analysis": {
         "analysis_version": "semiconductor_job_analysis_v1",
-        "summary_ko": "키오시아(Kioxia)가 일본 기타카미 공장에 첨단 3차원 플래시 메모리 BiCS FLASH™ 생산 능력 확대를 위한 새로운 제조 시설인 Fab3 건설을 발표했습니다. 이번 투자는 중장기적인 플래시 메모리 시장 수요 대응을 목표로 하며, 2029 회계연도 가동 개시를 목표로 하고 있습니다.",
+        "summary_ko": "키옥시아는 AI 애플리케이션을 위한 차세대 저지연·고성능 플래시 메모리인 'XL-FLASH™ generation 3' 프로토타입을 공개할 예정이다. 해당 기술은 CMOS directly Bonded to Array (CBA) 기술을 활용하여 이전 세대 대비 향상된 비트 밀도, 3마이크로초의 평균 읽기 지연, 그리고 개선된 읽기 전력 효율을 제공하며 2027년 3월에 기능 평가 샘플이 선별된 고객에게 출하될 예정이다.",
         "facts": [
           {
-            "statement_ko": "키오시아는 일본 이와테현 기타카미 공장에 새로운 제조 시설인 Fab3 건설을 위한 부지 준비 작업을 시작했습니다.",
-            "evidence_en": "commenced site preparation and other related work for the construction of Fab3, a new state-of-the-art manufacturing facility at the Kitakami Plant in Iwate Prefecture"
+            "statement_ko": "XL-FLASH generation 3는 CMOS directly Bonded to Array (CBA) 기술을 활용한다.",
+            "evidence_en": "XL-FLASH™ generation 3 flash memory leverages CMOS directly Bonded to Array (CBA) technology"
           },
           {
-            "statement_ko": "Fab3는 첨단 3차원 플래시 메모리인 BiCS FLASH™의 생산 능력을 확대하기 위해 건설됩니다.",
-            "evidence_en": "expand production capacity for advanced three-dimensional flash memory BiCS FLASH"
+            "statement_ko": "XL-FLASH generation 3는 세대 2에 비해 약 70% 더 높은 비트 밀도를 제공한다.",
+            "evidence_en": "deliver approximately 70% higher bit density than XL-FLASH™ generation 2 flash memory"
           },
           {
-            "statement_ko": "Fab3는 Fab2 남쪽 부지에 건설되며, 2029 회계연도에 운영을 시작하는 것을 목표로 하고 있습니다.",
-            "evidence_en": "Fab3 will be constructed on land south of Fab2, targeting operations to commence in fiscal 2029"
+            "statement_ko": "XL-FLASH generation 3는 평균 읽기 지연 3마이크로초를 달성한다.",
+            "evidence_en": "achieves an average read latency of 3 microseconds"
           }
         ],
         "technology_signals": [
-          "3차원 플래시 메모리 (BiCS FLASH)",
-          "대규모 메모리 팹(Fab3) 인프라 구축"
+          "XL-FLASH™ Generation 3",
+          "CMOS directly Bonded to Array (CBA)",
+          "Super High IOPS SSDs",
+          "Compute Express Link™ (CXL™)-enabled memory expansion modules"
         ],
         "company_implications": [
           {
             "target_company": "Samsung Electronics",
-            "inference_ko": "낸드플래시 시장에서 경쟁사의 신규 팹 투자가 가시화됨에 따라, 향후 첨단 3D 낸드 공급 경쟁이 더욱 심화될 수 있습니다.",
-            "basis_ko": "키오시아가 2029년 가동을 목표로 신규 Fab3 건설을 공식화했기 때문입니다.",
+            "inference_ko": "스토리지와 DRAM 사이의 간극을 메우는 새로운 메모리 티어 시장에서 경쟁이 심화될 수 있다.",
+            "basis_ko": "키옥시아가 XL-FLASH를 통해 AI 서버 및 데이터 센터에서 DRAM을 보완하거나 대체하려는 전략을 추진하기 때문이다.",
             "confidence": "medium"
           },
           {
             "target_company": "SK hynix",
-            "inference_ko": "AI 및 온디바이스 AI 수요에 대응하기 위한 글로벌 메모리 업계의 생산 능력 확대 경쟁에 영향을 받을 수 있습니다.",
-            "basis_ko": "기사에서 에이전틱 AI 및 온디바이스 AI가 플래시 메모리 시장 확대를 견인한다고 언급했기 때문입니다.",
+            "inference_ko": "CXL 및 저지연 낸드 기반 메모리 확장 솔루션 개발 압박이 커질 수 있다.",
+            "basis_ko": "키옥시아가 CXL 지원 메모리 확장 모듈과 슈퍼 하이 IOPS SSD로 응용처를 확대하고 있기 때문이다.",
             "confidence": "medium"
           }
         ],
         "role_insights": [
           {
-            "role": "공정기술·양산기술",
-            "why_relevant_ko": "신규 팹(Fab3) 건설 및 첨단 3D 낸드(BiCS FLASH) 양산 준비 과정에서 수율 확보와 공정 안정화가 핵심 과제이기 때문입니다.",
+            "role": "R&D공정·공정설계",
+            "why_relevant_ko": "CBA(CMOS directly Bonded to Array) 기술을 3D 낸드에 적용하고 비트 밀도를 높이는 공정 설계가 핵심이기 때문이다.",
             "considerations_ko": [
-              "신규 팹 라인 셋업 및 양산 이관 일정 관리",
-              "첨단 3D 낸드 적층 수 증가에 따른 공정 난이도 대응"
+              "본딩 공정의 수율 및 정렬 정확도 확보 방안"
             ],
             "study_points_ko": [
-              "3D 낸드 플래시 구조 및 식각·증착 공정 이해",
-              "신규 팹 램프업(Ramp-up) 프로세스"
+              "Wafer-to-Wafer 또는 Die-to-Wafer 본딩 기술",
+              "3D 낸드 구조의 CBA 공정 적용 동향"
             ]
           },
           {
-            "role": "인프라·안전",
-            "why_relevant_ko": "기타카미 공장 부지 내 대규모 신규 제조 시설(Fab3) 건설 및 유틸리티 인프라 구축이 수반되기 때문입니다.",
+            "role": "평가분석·품질·PE",
+            "why_relevant_ko": "3마이크로초 수준의 읽기 지연 및 전력 효율 향상, 쓰기 내구성을 검증해야 하기 때문이다.",
             "considerations_ko": [
-              "클린룸 및 대규모 설비 유틸리티 설계 및 구축",
-              "신규 팹 건설 현장의 안전 관리"
+              "기능 평가 샘플 출하를 위한 신뢰성 테스트 항목"
             ],
             "study_points_ko": [
-              "반도체 팹 유틸리티 시스템 구조",
-              "건설 현장 및 생산 시설 안전 법규 및 관리"
+              "플래시 메모리 레이턴시 및 전력 측정 방법론",
+              "내구성(Endurance) 평가 기준"
             ]
           }
         ],
         "uncertainties_ko": [
-          "정부 지원 여부에 따른 투자 계획 변경 가능성",
-          "시장 동향에 따른 구체적인 건설 일정 및 장비 투자 규모의 변동성"
+          "CBA 공정의 구체적인 수율 및 양산 수율 데이터",
+          "선별된 고객사 대상 2027년 3월 샘플 출하 이후 구체적인 대량 양산 일정"
         ],
         "overall_confidence": "high"
       }
@@ -595,10 +595,10 @@
     },
     "Tokyo Electron": {
       "company": "Tokyo Electron",
-      "title": "Tokyo Electron Wins “AI Semiconductor Manufacturing Solution of the Year” Award in 2026 AI Breakthrough Awards Program",
-      "url": "https://www.tel.com/news/topics/2026/20260626_001.html",
+      "title": "TEL Manufacturing and Engineering of America achieves Platinum Status in RBA VAP",
+      "url": "https://www.tel.com/news/sustainability/2026/20261013_001.html",
       "model": "gemini-3.5-flash-lite",
-      "generated_at": "2026-10-14T00:40:45.648089+00:00",
+      "generated_at": "2026-11-27T13:57:57.651763+00:00",
       "analysis_version": "semiconductor_job_analysis_v1",
       "extraction_method": "filtered_html_blocks",
       "source_scope": "official_article_body",
@@ -608,69 +608,56 @@
       "normalization_notes": [],
       "analysis": {
         "analysis_version": "semiconductor_job_analysis_v1",
-        "summary_ko": "도쿄일렉트론(TEL)이 2026 AI Breakthrough Awards에서 'AI Semiconductor Manufacturing Solution of the Year' 상을 수상하였으며, 3D Integration(3DI) 기술과 장비 내 AI 기반 공정 제어 솔루션을 통해 고성능 AI 반도체 양산을 지원하고 있음을 발표했습니다.",
+        "summary_ko": "도쿄일렉트론(Tokyo Electron)의 미국 자회사인 TEL Manufacturing and Engineering of America가 RBA VAP 평가에서 만점을 기록하며 플래티넘 등급을 획득했습니다. 이는 도쿄일렉트론 그룹 내 해외 제조 사업장 중 최초의 사례입니다.",
         "facts": [
           {
-            "statement_ko": "도쿄일렉트론은 3D Integration(3DI) 기술을 통해 로직과 메모리의 정밀한 적층 및 통합을 지원합니다.",
-            "evidence_en": "The company’s 3D Integration (3DI) technology enables the precise stacking and integration of logic and memory"
+            "statement_ko": "TEL Manufacturing and Engineering of America가 RBA VAP에서 플래티넘 등급을 획득했습니다.",
+            "evidence_en": "achieves Platinum Status in RBA VAP"
           },
           {
-            "statement_ko": "도쿄일렉트론은 장비에 AI를 직접 내장하여 첨단 소프트웨어와 AI 기반 공정 제어를 통해 수율, 균일성, 신뢰성을 향상시킵니다.",
-            "evidence_en": "Additionally, TEL embeds AI directly into semiconductor manufacturing. Through advanced software and AI-driven process control, TEL’s equipment helps customers improve yield, uniformity, and reliability"
+            "statement_ko": "평가에서 만점인 200점을 기록했습니다.",
+            "evidence_en": "with a perfect score of 200"
           },
           {
-            "statement_ko": "도쿄일렉트론은 작년 말 새로운 DX 솔루션 개념인 Epsira™를 도입했습니다.",
-            "evidence_en": "At TEL, we introduced our new DX solutions concept, Epsira™, at the end of last year"
+            "statement_ko": "도쿄일렉트론 그룹 내 해외 제조 사업장 중 최초로 RBA VAP 평가를 받았습니다.",
+            "evidence_en": "the first overseas manufacturing site within the Tokyo Electron Group to undergo an RBA VAP assessment"
           }
         ],
         "technology_signals": [
-          "3D Integration (3DI)",
-          "AI-driven process control",
-          "Epsira™ DX solutions"
+          "RBA VAP",
+          "Validated Assessment Program"
         ],
         "company_implications": [
           {
             "target_company": "Samsung Electronics",
-            "inference_ko": "TEL의 3DI 및 AI 기반 공정 제어 장비를 도입하여 HBM 등 고성능 메모리 및 첨단 패키징 생산 효율성을 높일 수 있습니다.",
-            "basis_ko": "기사에서 TEL의 3DI 기술이 로직과 메모리의 적층을 통해 대역폭을 개선하고 전력 소비를 줄인다고 언급했기 때문입니다.",
+            "inference_ko": "글로벌 반도체 공급망에서 장비 협력사의 ESG 및 컴플라이언스 준수 수준이 높아짐에 따라, 삼성전자의 협력사 선정 및 지속가능경영 평가 기준에 긍정적인 레퍼런스로 작용할 수 있습니다.",
+            "basis_ko": "주요 장비사인 도쿄일렉트론의 미국 자회사가 RBA VAP 플래티넘 등급을 획득하여 공급망 내 사회적 책임 이행을 입증했기 때문입니다.",
             "confidence": "medium"
           },
           {
             "target_company": "SK hynix",
-            "inference_ko": "TEL의 장비와 데이터 연계 솔루션을 활용해 첨단 패키징 라인의 가동률과 수율을 최적화하는 데 도움을 받을 수 있습니다.",
-            "basis_ko": "TEL이 장비와 고객사 사이트를 데이터로 연결하여 장비 생산성과 전체 제조 성능을 향상시킨다고 밝혔기 때문입니다.",
+            "inference_ko": "반도체 장비 벤더의 글로벌 공급망 표준 및 안전·보건·환경(EHS) 관리 수준 향상이 SK하이닉스의 공급망 지속가능성 관리 정책과 부합합니다.",
+            "basis_ko": "도쿄일렉트론 산하 제조 사업장이 RBA VAP 기준을 충족하며 글로벌 공급망 내에서 책임 있는 비즈니스 관행을 강화하고 있기 때문입니다.",
             "confidence": "medium"
           }
         ],
         "role_insights": [
           {
-            "role": "공정기술·양산기술",
-            "why_relevant_ko": "TEL의 3DI 및 AI 공정 제어 장비 도입에 따른 양산 라인 수율 및 균일성 확보가 직무와 직접적으로 연관되기 때문입니다.",
+            "role": "인프라·안전",
+            "why_relevant_ko": "RBA VAP 평가는 노동, 보건 및 안전(Health and Safety), 환경(Environment) 등 사업장 안전 및 환경 관리 체계를 직접적으로 검증하기 때문입니다.",
             "considerations_ko": [
-              "AI 기반 장비 도입 시 기존 공정 레시피와의 호환성 검토",
-              "3D 적층 공정에서의 불량률 관리 방안"
+              "해외 제조 사업장 및 팹 인프라의 글로벌 안전 보건 기준 준수 여부",
+              "EHS(환경·안전·보건) 경영 체계의 실효성 확보"
             ],
             "study_points_ko": [
-              "첨단 패키징 및 3D Integration 구조 이해",
-              "반도체 제조 공정 데이터 분석 기초"
-            ]
-          },
-          {
-            "role": "설비기술·기반기술",
-            "why_relevant_ko": "장비 내 AI 임베디드 기능과 Epsira™ 같은 DX 솔루션을 현장 장비에 적용하고 유지보수해야 하기 때문입니다.",
-            "considerations_ko": [
-              "스마트 팹 환경에서 장비 데이터 연동 및 가동률 최적화",
-              "AI 기반 프로세스 제어 장비의 유지보수 특이사항"
-            ],
-            "study_points_ko": [
-              "장비 센서 데이터 활용 및 헬스케어 시스템",
-              "반도체 장비 자동화 및 통신 프로토콜"
+              "RBA 행동 규범(Code of Conduct)의 주요 내용",
+              "반도체 제조 및 장비 생산 공정에서의 EHS 기준과 인증 프로세스"
             ]
           }
         ],
         "uncertainties_ko": [
-          "Epsira™ 솔루션의 구체적인 구현 방식과 적용 장비 모델",
-          "3DI 기술이 적용되는 구체적인 고객사 및 양산 일정"
+          "반도체 제조 공정 기술이나 장비 성능 수치에 대한 직접적인 언급은 포함되어 있지 않습니다.",
+          "이번 인증이 개별 반도체 장비의 수율이나 양산 성능에 미치는 직접적인 영향은 기사에서 알 수 없습니다."
         ],
         "overall_confidence": "high"
       }

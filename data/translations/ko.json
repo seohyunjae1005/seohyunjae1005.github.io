@@ -2,7 +2,7 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-11-27T12:58:36.066055+00:00",
+  "updated_at": "2026-11-27T13:57:45.844413+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
@@ -71,10 +71,10 @@
       "translated_at": "2026-09-12T12:42:22.938872+00:00"
     },
     "https://www.intel.com/content/www/us/en/newsroom/news/intel-foundry/intel-foundry-asml-accelerate-industry-readiness-for-high-na-euv.html": {
-      "title_ko": "인텔 파운드리와 ASML, 고수차(High-NA) EUV 기술 도입을 위한 업계 준비 가속화",
+      "title_ko": "인텔 파운드리와 ASML, 고수차(High-NA) EUV 기술 개발 가속화",
       "summary_ko": "인텔 공식 뉴스룸 카테고리: 인텔 파운드리",
-      "source_fingerprint": "57992d7ffe9f77d934b9b3f0f924cb4e9f21410e819170c6affcac68360c688e",
-      "translated_at": "2026-09-12T12:42:22.938872+00:00"
+      "source_fingerprint": "cc54b3fba094b0447aee59dd46f2ac02eb2a4ec7f15e5c280b19b02e5b188c78",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
     },
     "https://www.tel.com/news/event/2026/20260907__001.html": {
       "title_ko": "SEMICON India 2026",
@@ -83,10 +83,10 @@
       "translated_at": "2026-09-12T12:42:22.938872+00:00"
     },
     "https://www.intel.com/content/www/us/en/newsroom/news/client-computing/intel-agentic-pcs-give-asu-football-on-field-edge.html": {
-      "title_ko": "인텔 에이전틱 PC, ASU 미식축구팀에 경기장에서의 우위를 제공하다",
+      "title_ko": "인텔 에이전틱 PC, ASU 미식축구팀에 경쟁력을 더하다",
       "summary_ko": "인텔 공식 뉴스룸 카테고리: 클라이언트 컴퓨팅",
-      "source_fingerprint": "83ec9a36386c88e40733b42c539130324cb1578f5b3176e9f2f8110a5094392a",
-      "translated_at": "2026-09-12T12:42:22.938872+00:00"
+      "source_fingerprint": "b15da7f4189d06f0e8ab82f7e9e51d72b3cf436626964a2c26831ff9847209a2",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
     },
     "https://news.skhynix.com/en/ai-ecosystem-series-ep2/": {
       "title_ko": "[AI 생태계] 진정한 병목 현상: 연산 능력이 아니라 데이터",
@@ -101,10 +101,10 @@
       "translated_at": "2026-09-12T12:42:22.938872+00:00"
     },
     "https://www.intel.com/content/www/us/en/newsroom/news/corporate/foundation-pltw-expand-semiconductor-careers.html": {
-      "title_ko": "인텔 재단과 PLTW, 반도체 분야 진로 진출 경로 확대",
+      "title_ko": "인텔 재단 PLTW, 진로 진출 경로 확대",
       "summary_ko": "인텔 공식 뉴스룸 카테고리: 기업 정보",
-      "source_fingerprint": "38a59e06ecdf51e6e54176c39d30eacfcaaaff8347219ded3a43aa2687be73fb",
-      "translated_at": "2026-09-12T12:42:22.938872+00:00"
+      "source_fingerprint": "21a29b3e5fcda88a56270a6127aab683d9bee357bb23bd6b5fa89bb832a56927",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
     },
     "https://news.skhynix.com/en/ai-infrastructure-insight-ep2/": {
       "title_ko": "[AI 인프라 인사이트] 왜 더 빠른 GPU만으로는 AI 성능을 보장할 수 없는가",
@@ -198,9 +198,9 @@
     },
     "https://ir.kla.com/news-events/press-releases/detail/521/kla-announces-upcoming-investor-webcasts": {
       "title_ko": "KLA, 향후 예정된 투자자 대상 웹캐스트 발표",
-      "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
-      "source_fingerprint": "3876c3719b4fdbde16300304e37f05735d802f43a1d4d3a791346ab207c67c99",
-      "translated_at": "2026-09-12T12:42:24.148527+00:00"
+      "summary_ko": "",
+      "source_fingerprint": "cc6c9e81f9e32b60526685a3d4f914b2b87263d91af5c905cc817ce526e40e8d",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
     },
     "https://news.skhynix.com/en/cpo-in-nature-electronics/": {
       "title_ko": "AI 경쟁이 칩에서 시스템으로 전환되는 가운데, SK하이닉스의 코패키지드 옵틱스 기술 로드맵이 ‘네이처 일렉트로닉스’에 소개됐다",
@@ -330,9 +330,9 @@
     },
     "https://ir.kla.com/news-events/press-releases/detail/520/kla-declares-regular-cash-dividend": {
       "title_ko": "KLA, 정기 현금 배당 발표",
-      "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
-      "source_fingerprint": "8f9ccf56bb0e2462edab0940e8a7a7ebb09ecee47c2ee90d9c90c2eab518f936",
-      "translated_at": "2026-09-12T12:42:25.352734+00:00"
+      "summary_ko": "",
+      "source_fingerprint": "d487bed6c3ed8ea3bc2a8d8544dd2f690a52582e1db3bd2840669262d4fae16d",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
     },
     "https://www.intel.com/content/www/us/en/newsroom/news/corporate/creating-pathways-to-semiconductor-careers-intel-launches-sepp.html": {
       "title_ko": "반도체 분야 진로를 위한 길 열기: 인텔, SEPP 프로그램 출범",
@@ -342,9 +342,9 @@
     },
     "https://ir.kla.com/news-events/press-releases/detail/519/kla-corporation-recommends-stockholders-reject-mini-tender": {
       "title_ko": "KLA CORPORATION, 주주들에게 TUTANOTA LLC의 소규모 공개매수 제안을 거부할 것을 권고",
-      "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
-      "source_fingerprint": "e9b1e62ea9141023f21864f7217dbe9362abc30e47b32a1aa5d31c4c9c155dd8",
-      "translated_at": "2026-09-12T12:42:25.352734+00:00"
+      "summary_ko": "",
+      "source_fingerprint": "d0395f897d2131c4ec534a0f200d0b87ebfe822024951d9da0e6f29f259d4fd3",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
     },
     "https://news.samsung.com/global/samsung-unveils-next-gen-3d-memory-vision-at-fms-2026-charting-the-future-of-ai-infrastructure": {
       "title_ko": "삼성, FMS 2026에서 차세대 3D 메모리 비전 공개… AI 인프라의 미래 제시",
@@ -455,16 +455,16 @@
       "translated_at": "2026-09-12T12:42:26.352374+00:00"
     },
     "https://www.kla.com/advance/leadership/kla-announces-june-quarter-earnings-2026": {
-      "title_ko": "KLA, 6월 분기 실적 발표 | 경영진 | KLA",
-      "summary_ko": "아래 인포그래픽은 6월 분기 실적 보고서에서 발췌한 KLA의 주요 재무 정보를 보여줍니다. 전문을 보시려면",
-      "source_fingerprint": "1de21eb0e733bd862ed94429af7db5bf77d25cb0488518e2e1cea61cee74a077",
-      "translated_at": "2026-09-12T12:42:26.352374+00:00"
+      "title_ko": "KLA, 6월 분기 실적 발표",
+      "summary_ko": "아래 인포그래픽은 6월 분기 실적 보고서에서 발췌한 KLA의 주요 재무 정보를 보여줍니다. 자세한 내용을 보시려면",
+      "source_fingerprint": "8d810ce7029812ee77f178ca77a8faacb92fcf85c7d59613f42b0b2dc0e94446",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
     },
     "https://ir.kla.com/news-events/press-releases/detail/518/kla-corporation-reports-fiscal-2026-fourth-quarter-and-full": {
       "title_ko": "KLA 코퍼레이션, 2026 회계연도 4분기 및 연간 실적 발표",
-      "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
-      "source_fingerprint": "3d9499007f63d7adfa366e6e2f4aa2ef07949b73e786e0da6beb614a7b3fc417",
-      "translated_at": "2026-09-12T12:42:26.352374+00:00"
+      "summary_ko": "",
+      "source_fingerprint": "dc06d50f4e63a8c616d29786179c6aa8cc6ffd7dd9ef7e6f2f9b5252f0caab51",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
     },
     "https://www.intel.com/content/www/us/en/newsroom/opinion/intel-secure-enclave-securing-high-performance-computing-at-the-tactical-edge.html": {
       "title_ko": "인텔 시큐어 엔클레이브: 전술적 최전선에서의 고성능 컴퓨팅 보안",
@@ -635,10 +635,10 @@
       "translated_at": "2026-09-12T12:42:28.493242+00:00"
     },
     "https://ir.kla.com/news-events/press-releases/detail/517/kla-announces-fourth-quarter-fiscal-year-2026-earnings-date": {
-      "title_ko": "KLA, 2026 회계연도 4분기 실적 발표 일정 발표",
-      "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
-      "source_fingerprint": "06c86edfc555dd296e20812d0d1dd7f9c27051ef01a4f9aa1421f2e91b34d751",
-      "translated_at": "2026-09-12T12:42:28.493242+00:00"
+      "title_ko": "KLA, 2026 회계연도 4분기 실적 발표일 공지",
+      "summary_ko": "",
+      "source_fingerprint": "38fe166a8c28d88b7f796d6d0d2e0a6cae4ae40e5c6864a499f199b6608c804d",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
     },
     "https://www.micron.com/about/blog/storage/ssd/qlc-vs-hdd-how-real-world-io-distributions-reshape-storage-cost": {
       "title_ko": "QLC 대 HDD: 실제 IO 분포가 스토리지 비용을 어떻게 변화시키는가",
@@ -1565,10 +1565,10 @@
       "translated_at": "2026-10-02T01:07:43.756551+00:00"
     },
     "https://ir.kla.com/news-events/press-releases/detail/522/kla-announces-first-quarter-fiscal-year-2027-earnings-date": {
-      "title_ko": "KLA, 2027 회계연도 1분기 실적 발표일 및 웹캐스트 일정 공개",
-      "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
-      "source_fingerprint": "1bf8e53636f8e7cc2dd3a6fd729b1b4e377818170a99a7ad65476855c08d081b",
-      "translated_at": "2026-10-02T01:07:43.756551+00:00"
+      "title_ko": "KLA, 2027 회계연도 1분기 실적 발표일 및 웹캐스트 일정 발표",
+      "summary_ko": "",
+      "source_fingerprint": "816f9dc25c6e84313ab4bf1973f4c8e4e7c62a6c68519e267e9560c3a972d955",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-and-intel-collaborate-accelerate-chipmaking": {
       "title_ko": "애플라이드 머티리얼즈와 인텔, AI 기반 컴퓨팅을 위한 반도체 제조 혁신 가속화를 위해 협력",
@@ -1631,10 +1631,10 @@
       "translated_at": "2026-10-21T00:12:21.124255+00:00"
     },
     "https://www.kla.com/advance/innovation/learning-velocity-accelerating-the-future-of-semiconductor-innovation": {
-      "title_ko": "학습 속도: 반도체 혁신의 미래를 가속화하다  | 혁신 | KLA",
-      "summary_ko": "학습 속도, 공정 제어, 생태계 간 협력이 어떻게 AI 칩 혁신과 반도체 제조를 가속화하고 있는지 알아보세요.",
-      "source_fingerprint": "9f6f944153bc507a42ad37a0c100a629d251894de311132349b8c22bbb6a2785",
-      "translated_at": "2026-10-22T00:17:18.838471+00:00"
+      "title_ko": "학습 속도: 반도체 혁신의 미래를 가속화하다",
+      "summary_ko": "2026년 SEMICON 대만 CEO 서밋에서 KLA의 반도체 제품 및 고객 부문 사장인 아흐마드 칸은 다음과 같은 주제에 대해 논의했습니다.",
+      "source_fingerprint": "a7fc3cbcd204cbea644070248a11d1263c150160ba55dcbfd618a159f489580a",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
     },
     "https://newsroom.lamresearch.com/2026-10-21-Lam-Research-Corporation-Reports-Financial-Results-for-the-Quarter-Ended-September-27,-2026": {
       "title_ko": "램 리서치 코퍼레이션, 2026년 9월 27일 종료된 분기 실적 발표",
@@ -1680,9 +1680,9 @@
     },
     "https://ir.kla.com/news-events/press-releases/detail/523/kla-corporation-reports-fiscal-2027-first-quarter-results": {
       "title_ko": "KLA 코퍼레이션, 2027 회계연도 1분기 실적 발표",
-      "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
-      "source_fingerprint": "70915a517eb2eea35cb0b17d7d9e9c4ae67c1cfd560a971ad1f0b8eead6da53f",
-      "translated_at": "2026-10-29T01:19:26.243543+00:00"
+      "summary_ko": "",
+      "source_fingerprint": "ccda88c37058aa414605761cd2b137922983caf59eae06d681492fa08cc7408a",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
     },
     "https://www.tel.com/news/ir/2026/k6c2lu00000000gf-att/20261030_003_e.pdf": {
       "title_ko": "자사주 매입 제도 도입에 관한 공고",
@@ -1866,9 +1866,9 @@
     },
     "https://ir.kla.com/news-events/press-releases/detail/525/kla-announces-upcoming-investor-webcasts": {
       "title_ko": "KLA, 향후 예정된 투자자 대상 웹캐스트 발표",
-      "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
-      "source_fingerprint": "3876c3719b4fdbde16300304e37f05735d802f43a1d4d3a791346ab207c67c99",
-      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+      "summary_ko": "",
+      "source_fingerprint": "cc6c9e81f9e32b60526685a3d4f914b2b87263d91af5c905cc817ce526e40e8d",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
     },
     "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-11-23-Lam-Research%2C-University-at-Albany-Partner-to-Develop-Future-Semiconductor-Engineers": {
       "title_ko": "램 리서치와 올버니 대학교, 미래 반도체 엔지니어 양성을 위해 협력",
@@ -1926,9 +1926,9 @@
     },
     "https://ir.kla.com/news-events/press-releases/detail/524/kla-declares-regular-cash-dividend": {
       "title_ko": "KLA, 정기 현금 배당 발표",
-      "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
-      "source_fingerprint": "8f9ccf56bb0e2462edab0940e8a7a7ebb09ecee47c2ee90d9c90c2eab518f936",
-      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+      "summary_ko": "",
+      "source_fingerprint": "d487bed6c3ed8ea3bc2a8d8544dd2f690a52582e1db3bd2840669262d4fae16d",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
     },
     "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-11-05-Lam-Research-Corporation-Announces-25-Billion-Share-Repurchase-Authorization-and-Declares-Quarterly-Dividend": {
       "title_ko": "램 리서치 코퍼레이션, 250억 달러 규모의 자사주 매입 승인 발표 및 분기 배당금 지급 결정",
@@ -2010,9 +2010,9 @@
     },
     "https://investor.asml.com/news-releases/news-release-details/asml-reports-eu11.7-billion-total-net-sales-and-eu5.0-billion-net-income-q3-2026": {
       "title_ko": "ASML, 2026년 3분기 총 순매출 117억 유로, 순이익 50억 유로 기록",
-      "summary_ko": "ASML이 2026년 3분기 실적을 발표했습니다.",
-      "source_fingerprint": "b85a14417044f6351d660a22e63b44dfa2d54121c2247d319cb0069f0c5c107e",
-      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+      "summary_ko": "ASML은 2026년 3분기 총 순매출 117억 유로, 순이익 50억 유로를 기록했다고 밝혔다. 2026년 연간 총 순매출은 440억 유로에서 450억 유로 사이가 될 것으로 예상되며, 매출총이익률은 약 56% 수준일 전망이다.",
+      "source_fingerprint": "43588194cc33c6a1118dd3322d0474c9c36038c9117e4010e56f6639311157f9",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
     },
     "https://news.samsungsemiconductor.com/global/samsung-electronics-announces-earnings-guidance-for-third-quarter-2026/": {
       "title_ko": "삼성전자, 2026년 3분기 실적 전망치 발표",
@@ -2064,27 +2064,27 @@
     },
     "https://investor.asml.com/news-releases/news-release-details/asml-begins-construction-new-eindhoven-campus-strengthening-its-presence-brainport-region": {
       "title_ko": "ASML, 아인트호벤 신규 캠퍼스 착공… 브레인포트 지역 내 입지 강화",
-      "summary_ko": "ASML이 네덜란드 아인트호벤에 새로운 캠퍼스 착공을 발표했습니다.",
-      "source_fingerprint": "1d5d61ca1ec6b76068879f1e71eabc06707175038cc431de6b0f5544778bb14f",
-      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+      "summary_ko": "ASML 공식 보도자료",
+      "source_fingerprint": "1f9f47321e5f3544511cd3ad8595e9bbc47797fc3b61eca31b8d3753b2a33dfe",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
     },
     "https://investor.asml.com/news-releases/news-release-details/intel-foundry-and-asml-collaborate-accelerate-industry-readiness-high-na-euv": {
-      "title_ko": "인텔 파운드리와 ASML, 고수차(High-NA) EUV의 산업적 도입 가속화를 위해 협력",
-      "summary_ko": "인텔 파운드리와 ASML이 고 NA EUV의 양산 적용 및 마스크 기술 개발 현황을 발표했습니다.",
-      "source_fingerprint": "0123ce421baa1e83d9bd7005601048ab9cca17808b42730531cc31fd64952e29",
-      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+      "title_ko": "인텔 파운드리와 ASML, 고수차(High-NA) EUV의 산업적 상용화 가속화를 위해 협력",
+      "summary_ko": "ASML 공식 보도자료",
+      "source_fingerprint": "a6b25c33f294a073a621624678785b620e627e32b64dcd1c698c5747f51d3428",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
     },
     "https://investor.asml.com/news-releases/news-release-details/samsung-electronics-and-asml-expand-strategic-collaboration-next-generation-semiconductor-manufacturing": {
       "title_ko": "삼성전자와 ASML, 차세대 반도체 제조를 위한 전략적 협력 확대",
-      "summary_ko": "삼성전자와 ASML이 차세대 반도체 제조를 위한 협력 확대를 발표했습니다.",
-      "source_fingerprint": "16102cb3b9be34b3a10f7b31e319be27c29f3f16fa3781217a0bcfc1a28641e2",
-      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+      "summary_ko": "ASML 공식 보도자료",
+      "source_fingerprint": "4cdd7bd1b7fa400672d3cdb3be2011b1aa9c0c52f68c0edfc767e7a7e6f322c7",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
     },
     "https://investor.asml.com/news-releases/news-release-details/asml-and-tsmc-announce-initiative-pioneer-industry-transition-large-format-photomasks-high-na-euv": {
       "title_ko": "ASML과 TSMC, 고 NA EUV용 대형 포토마스크로의 업계 전환을 선도하기 위한 이니셔티브 발표",
-      "summary_ko": "ASML과 TSMC가 고 NA EUV용 대형 포토마스크로의 전환을 위한 협력 계획을 발표했습니다.",
-      "source_fingerprint": "bcfbba150be19317ab75f75cc60f0edba3292b417fdf6ee18fce9b46600758d8",
-      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+      "summary_ko": "ASML 공식 보도자료",
+      "source_fingerprint": "7acd57720ca6b43357075a014250655131af95e9f6d19f6e2f30c2e1ccd5012c",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
     },
     "https://newsroom.lamresearch.com/panel-level-processing-advanced-semiconductor-packaging-semi-101/?blog=true": {
       "title_ko": "패널 단위 공정이 첨단 반도체 패키징을 어떻게 변화시킬 수 있는가 (Semi 101)",
@@ -2220,15 +2220,15 @@
     },
     "https://investor.asml.com/news-releases/news-release-details/high-na-euv-reaches-new-readiness-milestone": {
       "title_ko": "고 NA EUV, 최초의 대량 생산 로직 제품 출시로 새로운 준비 단계 달성",
-      "summary_ko": "ASML은 고 NA EUV를 활용한 첫 양산 로직 제품의 준비 단계에서 진전을 이뤘다고 발표했습니다.",
-      "source_fingerprint": "2606afc68dde93801f1caeb4d61db071c7ae53a71520cfe4038e9a486dbda727",
-      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+      "summary_ko": "ASML 공식 보도자료",
+      "source_fingerprint": "fc34c19a66a39da59f0c5ec855ed3dd5bc95c9dde117bb2084e1f6f17b0f9efd",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
     },
     "https://investor.asml.com/news-releases/news-release-details/q2-2026-financial-results": {
       "title_ko": "ASML, 2026년 2분기 총 순매출 93억 유로, 순이익 29억 유로 기록",
-      "summary_ko": "ASML이 2026년 2분기 실적을 발표했습니다.",
-      "source_fingerprint": "49d2131522fd8c336e9a5c33df890abca32f6e459b9d4c4af697ac50245cbc72",
-      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+      "summary_ko": "ASML 공식 보도자료",
+      "source_fingerprint": "480da643460c21baef5f8caa33209a611769b7f5f3aa5d47bee50e95d15229ee",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
     },
     "https://newsroom.lamresearch.com/lam-asml-imec-advance-high-na-euv-patterning/?blog=true": {
       "title_ko": "램 리서치(Lam Research), ASML, imec, 고수차(High-NA) EUV 패터닝 기술 발전",
@@ -2325,6 +2325,618 @@
       "summary_ko": "램 리서치 공식 기술 블로그",
       "source_fingerprint": "b93d59f3bfcda4a6ef27c6d9bb45a1289aacb2a5f0495296370c654321ad4636",
       "translated_at": "2026-11-27T12:58:36.066030+00:00"
+    },
+    "https://www.kioxia-holdings.com/en-jp/news/2026/20261125-1.html": {
+      "title_ko": "키옥시아, 임원진 개편 발표",
+      "summary_ko": "공식 분류: 보도자료",
+      "source_fingerprint": "9f8dc9889e4671503fb84d1c61ace627ce1aad7238d0688ac2f9f99f9a88a5d1",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.micron.com/about/blog/applications/ai/how-micron-turns-memory-and-storage-innovation-into-customer-value": {
+      "title_ko": "마이크론이 메모리 및 스토리지 혁신을 어떻게 고객 가치로 전환하는가",
+      "summary_ko": "마이크론이 AI 시대에 장기적인 가치를 창출하기 위해 고객과의 공동 혁신, 차별화된 메모리 및 스토리지 기술, AI 기반 엔지니어링, 그리고 탁월한 운영 역량을 어떻게 결합하고 있는지 알아보세요.",
+      "source_fingerprint": "b6d574d9a370ea73e478b8780e088c73ac447f4d78c84a6c73caade636d872c1",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.intc.com/news-events/press-releases/detail/1788/intel-corporation-to-participate-in-upcoming-investor": {
+      "title_ko": "인텔, 다가오는 투자자 컨퍼런스에 참가 예정",
+      "summary_ko": "",
+      "source_fingerprint": "aec785d497abd7e7a2a43406b0f7c7d14b7c4727504dabdd5fa7a2383037c777",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/asml-reports-transactions-under-its-current-share-buyback-program-10": {
+      "title_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표",
+      "summary_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표 네덜란드 벨드호벤 – ASML Holding N.V. (ASML)는 ASML의 현재 자사주 매입 프로그램에 따라 진행된 다음 거래 내역을 발표했습니다. 날짜 총 매입 주식 수 가중평균 가격 총 매입 금액 26년 11월 16일",
+      "source_fingerprint": "c34b3fb6e1d9d481323e225b67a0d5bc20ab5b4439ee88a882201025b00ad693",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/corporate/investor-conferences-december-2026.html": {
+      "title_ko": "예정된 투자자 컨퍼런스",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 기업 정보",
+      "source_fingerprint": "6093b567113a8e79cef3767dea28bb2f6a0c912b9ecde83622e2d77327067e81",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/viettel-real-time-operational-insights.html": {
+      "title_ko": "비엣텔, 복잡한 데이터를 실시간 인사이트로 전환",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "5d784bda589f2f696adbcf3b1327d4405eed2c12bc2760d385a2013a47934dcc",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/client-computing/supercomputing-2026.html": {
+      "title_ko": "슈퍼컴퓨팅 2026",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "843af2ab0b1be95ebd049431644f7651c40bfd22e4b4f6fbe94aaec45904c123",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/opinion/post-quantum-cryptography-performance.html": {
+      "title_ko": "포스트 양자 암호학의 성능",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 정보 기술(IT) / 데이터 센터",
+      "source_fingerprint": "62d3714e21bc9ef18c1f6e2c8f689af8af6a6387ce31cc2454d838e4d2c0fbf8",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.kioxia-holdings.com/en-jp/sustainability.html": {
+      "title_ko": "지속 가능성 관련 전체 페이지를 업데이트했습니다.",
+      "summary_ko": "공식 카테고리: 공지사항",
+      "source_fingerprint": "24fa46b886fd145f3d98e66d36dbc5b4bd97fc2f38b9dbfa1b934b92083d78b5",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://investors.micron.com/news/press-release/2026/Micron-Technology-to-Report-Fiscal-First-Quarter-Results-on-December-17-2026/default.aspx": {
+      "title_ko": "마이크론 테크놀로지가 2026년 12월 17일에 회계연도 1분기 실적을 발표할 예정이다.",
+      "summary_ko": "마이크론 공식 보도자료",
+      "source_fingerprint": "9fced049b3e99af8a257553694f71b231e14c716a978a3e673bfdc8a686d5575",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/microsoft-ai-pc-security.html": {
+      "title_ko": "인텔과 마이크로소프트: AI 기반 PC 보안",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "2338728be7db64aeefa7c87adb3ef4cebc9221037fdc12871812c7a85a0f9a1f",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/quantum-computing-explained.html": {
+      "title_ko": "양자 컴퓨팅 이해하기",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "f228dd82674cdf1c3b7d35963807799367417ec292466421f114f0088cb327d4",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/ai-global-impact-festival-2026-winners.html": {
+      "title_ko": "2026 인텔 AI 글로벌 임팩트 페스티벌 수상자",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "839b3edafddad84605f3a124cdbdae60d26f3794f2f0a101cc5470ea3c6e902c",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/corporate/microsoft-azure-infrastructure-collaboration.html": {
+      "title_ko": "마이크로소프트와 인텔, Azure 협력 확대",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 기업 정보",
+      "source_fingerprint": "2395212d40293896b9da20291ceb43b84206f005f49789ace399f84b3127df7f",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.micron.com/about/blog/memory/dram/lpcamm2-memory-that-grows-with-ai": {
+      "title_ko": "AI는 끊임없이 진화하고 있습니다. 여러분의 노트북도 그 속도를 따라갈 수 있을까요?",
+      "summary_ko": "LPCAMM2 블로그",
+      "source_fingerprint": "6100d9ad5c0700c1d24b08dd4006a25660434b6c7ce7f71f137f02c07a84f70f",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/asml-reports-transactions-under-its-current-share-buyback-program-9": {
+      "title_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표",
+      "summary_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표 네덜란드 벨드호벤 – ASML Holding N.V. (ASML)는 ASML의 현재 자사주 매입 프로그램에 따라 진행된 다음 거래 내역을 발표했습니다. 날짜 총 매입 주식 수 가중평균 가격 총 매입 금액 26년 11월 9일",
+      "source_fingerprint": "a8e2209d0ea57cbfd51080dd0bcee0c6f6396975a0a0eb289d40cb8766e7c7f6",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.micron.com/about/blog/memory/dram/how-ai-is-driving-a-new-era-of-pc-innovation": {
+      "title_ko": "AI가 PC 혁신의 새로운 시대를 어떻게 이끌고 있는가",
+      "summary_ko": "AI가 어떻게 PC 혁신의 새로운 시대를 주도하고 있는지 알아보세요. 마이크론의 크리스 무어(Chris Moore)와 프레임워크(Framework)의 창립자 겸 CEO 니라브 파텔(Nirav Patel)이 모듈형 PC 설계와 업그레이드 가능한 마이크론 LPCAMM2 메모리부터 AI가 컴퓨팅, 메모리, 스토리지에 요구하는 변화하는 요구 사항에 이르기까지, 퍼스널 컴퓨팅의 미래에 대해 논의합니다. Framework 13 Pro가 마이크론 LPCAMM2 메모리와 모듈식 접근 방식을 결합하여 LPDDR5X의 성능과 전력 효율성을 업그레이드 가능한 폼 팩터에 구현한 방법을 알아보고, AI가 차세대 PC를 구동하는 반도체 및 기술을 재고할 새로운 기회를 어떻게 창출하고 있는지 살펴보세요.",
+      "source_fingerprint": "1e02f9d8244f3ecc760d962afdb9203b32582671a0835e62b45f6f591ef851bd",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.micron.com/about/blog/applications/ai/minio-aistor-on-micron-6600-ion-122tb-ssds-tcp-vs-rdma": {
+      "title_ko": "Micron® 6600 ION 122TB SSD에 탑재된 MinIO AIStor: TCP 대 RDMA",
+      "summary_ko": "Micron 6600 ION SSD에 구축된 MinIO AIStor가 RDMA를 활용하여 AI 데이터 레이크의 GET 처리량을 높이고, CPU 사용률을 낮추며, 스토리지 전력 효율을 개선하는 방법을 확인해 보세요.",
+      "source_fingerprint": "8384668c3661459af389a32596fe3c6cb3ff0e292a043ac0a98e503e01827759",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/data-center/why-intel-gpu-d270-belongs-in-the-hpc-conversation.html": {
+      "title_ko": "고성능 컴퓨팅용 인텔 GPU D270",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 데이터 센터",
+      "source_fingerprint": "432aceff567f58ee4f09cdeead64f9ade449f8d1696b5a244387438b49a3dab6",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/opinion/hpc-next-chapter-open-heterogeneous-ai-ready.html": {
+      "title_ko": "HPC의 새로운 장",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 데이터 센터",
+      "source_fingerprint": "0cb6303f3cf840c5b8502df3a5437d6cf399643569c3ef2af30b3326fd10a315",
+      "translated_at": "2026-11-27T13:57:40.370038+00:00"
+    },
+    "https://www.micron.com/about/blog/memory/dram/are-we-optimizing-the-wrong-thing-for-on-device-ai": {
+      "title_ko": "기기 내 AI를 위해 우리가 최적화하고 있는 것이 잘못된 것일까?",
+      "summary_ko": "기기 내 비전 언어 모델의 성능이 단순히 연산 능력에만 좌우되지 않는 이유를 알아보고, 메모리 용량, 대역폭, 전력 효율성이 어떻게 반응성이 뛰어난 멀티모달 AI 경험을 가능하게 하는지 확인해 보세요.",
+      "source_fingerprint": "3093c723157b4efc6c0a913c39be09635ae70013dbb693a0f47f88dab97acf67",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.micron.com/about/blog/memory/dram/why-peak-ai-performance-is-only-part-of-the-story": {
+      "title_ko": "왜 AI 성능의 정점이 전부가 아닐까",
+      "summary_ko": "모델 규모, 컨텍스트 길이 및 동시 처리량이 증가함에 따라 메모리 아키텍처가 지속적인 AI 추론에 어떤 영향을 미치는지, 그리고 메모리, 연산 및 데이터 이동 간의 균형을 맞추는 것이 확장 가능한 AI 성능에 왜 중요한지 살펴보세요.",
+      "source_fingerprint": "d353d43152a6e3c843a04e499745c7c4301de369b2cf85af3e17fb76bd87a716",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/article/how-hyperscale-computing-works.html": {
+      "title_ko": "하이퍼스케일 컴퓨팅의 작동 원리.",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 데이터 센터",
+      "source_fingerprint": "28afb97614461539ebc108644c6acbf77c602efce9a28a6bd05f2f5f33419a87",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/intel-on-the-ground-at-web-summit-2026.html": {
+      "title_ko": "인텔, ‘웹 서밋 2026’ 현장에 참가",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 엣지 AI",
+      "source_fingerprint": "cafd8369aac561a84ac7c59342bb246562fe67d79faae30bb35ef12a89193487",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.intc.com/news-events/press-releases/detail/1787/intel-radixark-collaborate-to-advance-open-ai-inference-on": {
+      "title_ko": "인텔과 RadixArk, 인텔 플랫폼에서의 오픈 AI 추론 기술 발전을 위해 협력",
+      "summary_ko": "",
+      "source_fingerprint": "e69f43ce1f0fcb5ca7d1918e57f5d9ff91bba4258cc59cf18691d49d41484505",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://investors.micron.com/news/press-release/2026/Micron-Announces-Participation-in-Investor-Events/default.aspx": {
+      "title_ko": "마이크론, 투자자 행사 참가 발표",
+      "summary_ko": "마이크론 공식 보도자료",
+      "source_fingerprint": "1f395b5e1c0cf380dd8113347977fc46fdcad2b442a0cc38223904b3859af8ea",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/radixark-open-ai-inference.html": {
+      "title_ko": "인텔과 라딕스아크, 오픈 AI 발전을 위해 협력",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "c700b462c0fab9a168a658cfbf2a4ec5a49b76a6c1ef9899bb0c1e23c3a4b0c4",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/altera-sensor-integration-edge-physical-ai.html": {
+      "title_ko": "인텔과 알테라, 센서 통합을 간소화하다",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 엣지 AI",
+      "source_fingerprint": "7995c780cf6c8298e8b3202ffe76b72ddfd7a3566851fdd0415ac4890da73498",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/asml-reports-transactions-under-its-current-share-buyback-program-8": {
+      "title_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표",
+      "summary_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표 네덜란드 벨드호벤 – ASML Holding N.V. (ASML)는 ASML의 현재 자사주 매입 프로그램에 따라 진행된 다음 거래 내역을 발표했습니다. 날짜 매입 총 주식 수 가중평균 가격 총 매입 금액 26년 11월 2일",
+      "source_fingerprint": "0f7d44f407e1bee104071151ca52c158262edc2f5e0c065128c82827802838cf",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.kioxia-holdings.com/en-jp/ir/library/integrated-report.html": {
+      "title_ko": "“2026년 통합 보고서”가 발간되었습니다.",
+      "summary_ko": "공식 카테고리: 공지사항",
+      "source_fingerprint": "530cf6ae0ce90e09fbabe496ef72b30808724a1f5fc8019418fe71950055cd37",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://investors.micron.com/news/press-release/2026/Micron-Announces-Board-of-Directors-Retirement/default.aspx": {
+      "title_ko": "마이크론, 이사회 임원 퇴임 발표",
+      "summary_ko": "마이크론 공식 보도자료",
+      "source_fingerprint": "5d80e10df16468be08dff0b131762d1f56c6ce721f82dbdf68c9b73db01df635",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/asml-reports-transactions-under-its-current-share-buyback-program-7": {
+      "title_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표",
+      "summary_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표 네덜란드 벨드호벤 – ASML Holding N.V. (ASML)는 ASML의 현재 자사주 매입 프로그램에 따라 진행된 다음 거래 내역을 발표했습니다. 날짜 총 매입 주식 수 가중평균 가격 총 매입 금액 26년 10월 26일",
+      "source_fingerprint": "1bee2582b6dbfa78ba8bcd66669860bd8620d4272d3266b7dd992e616d036629",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/opinion/cognitive-cities-how-ai-drives-active-urban-decisions.html": {
+      "title_ko": "인지 도시: 통찰에서 실행으로 나아가는 AI",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 엣지 AI",
+      "source_fingerprint": "cc76fa1f7bcb89512121f4a082e2b2403e6cd1067338cc4cf1bf5c9793b70084",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/intel-foundry/what-is-the-intel-14a-pdk-0-9-and-why-it-matters.html": {
+      "title_ko": "인텔 14A PDK 0.9란 무엇이며, 왜 중요한가",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인텔 파운드리",
+      "source_fingerprint": "f1dfbe19228d2ee395075973ae86e3df72f79b4823893148a89f9d671825e07a",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.kioxia.com/en-jp/about/news/2026/20261030-1.html": {
+      "title_ko": "자회사의 흡수합병에 관한 공고",
+      "summary_ko": "공식 분류: 보도자료",
+      "source_fingerprint": "1828bfeb77c4553c1323a953139a35def7925fbbc2e1cf7583387c9dbfed3d1e",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.intc.com/news-events/press-releases/detail/1786/intel-reports-third-quarter-2026-financial-results": {
+      "title_ko": "인텔, 2026년 3분기 실적 발표",
+      "summary_ko": "",
+      "source_fingerprint": "9c0953b3aea39d237908730e274fef42c3b569ad094ee03c4ad72d66340259b1",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.micron.com/about/blog/applications/consumer/healing-through-touch-how-hmi-is-transforming-medical-equipment": {
+      "title_ko": "접촉을 통한 치유: HMI가 의료 기기를 어떻게 변화시키고 있는가",
+      "summary_ko": "마이크론 메모리와 르네사스 RZ/G3E MPU가 의료 기기의 반응성을 높이고, 직관적이며, 신뢰성을 강화하는 인간-기계 인터페이스를 어떻게 지원하는지 알아보세요.",
+      "source_fingerprint": "03feb15f46f908f5c8b7604d5e21133cb9aa90b5bcd4ac539b16e666138a795e",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/intel-demonstrates-physical-ai-action-with-sap.html": {
+      "title_ko": "‘업무’에서 ‘이행’으로 – 인텔과 SAP의 시연",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 엣지 AI",
+      "source_fingerprint": "bbaefe00133bf111941615b97671b0e4181230f92f79e48e64725869932dd18d",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.intc.com/news-events/press-releases/detail/1785/intel-and-oracle-plan-expanded-collaboration-to-support": {
+      "title_ko": "인텔과 오라클, 오라클 클라우드 인프라스트럭처(OCI) 기반 엔터프라이즈 및 에이전트형 AI 지원을 위한 협력 확대 계획",
+      "summary_ko": "",
+      "source_fingerprint": "f80a513cada1fababc3d44379f72fd0e0019aa228bebc02aada797c1fb3d24cf",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://investors.micron.com/news/press-release/2026/Micron-Announces-Over-67-Million-in-New-Idaho-Community-Investments-for-Transportation-Housing-and-Children/default.aspx": {
+      "title_ko": "마이크론, 아이다호주 교통·주거·아동 분야를 위한 6,700만 달러 이상의 신규 지역사회 투자 계획 발표",
+      "summary_ko": "마이크론 공식 보도자료",
+      "source_fingerprint": "7b9fa108cd89b6eb63becb02d00a53ac2d8953010e01b643e8adbdcce6d2ce02",
+      "translated_at": "2026-11-27T13:57:41.463671+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/data-center/agentic-ai-moving-fast-enterprise-infrastructure-needs-move-with-it.html": {
+      "title_ko": "엔터프라이즈 인프라는 에이전트를 위해 신속하게 대응해야 합니다",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 데이터 센터",
+      "source_fingerprint": "adb569cb18cfe1900b47dc87d462f126f0fe061f4d212060ec568bacc590f7ac",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/corporate/intel-oracle-collaborate-on-enterprise-and-agentic-ai.html": {
+      "title_ko": "인텔과 오라클, OCI를 통해 기업용 AI 강화.",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 기업 정보",
+      "source_fingerprint": "bc39e022541dc49b3f0125cf217951582197d9db24977784bbaaa4496f261c7f",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.intc.com/news-events/press-releases/detail/1784/intel-to-acquire-classiq-to-create-a-full-stack-quantum": {
+      "title_ko": "인텔, Classiq 인수해 풀스택 양자 컴퓨팅 플랫폼 구축",
+      "summary_ko": "",
+      "source_fingerprint": "ea525826c75e2df7d1e03e9518ee1ab0fcea7a2ec7c279e18430eab8a0ea231e",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/asml-reports-transactions-under-its-current-share-buyback-program-6": {
+      "title_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표",
+      "summary_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표 네덜란드 벨드호벤 – ASML Holding N.V. (ASML)는 ASML의 현재 자사주 매입 프로그램에 따라 진행된 다음 거래 내역을 발표했습니다. 날짜 총 매입 주식 수 가중평균 가격 총 매입 금액 26년 10월 19일",
+      "source_fingerprint": "5d1f0d8f0295a639e04d76b5e9d29669ebb327fd7b4634e96283d7218b18b1bf",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/corporate/intel-classiq-accelerate-scalable-quantum-computing.html": {
+      "title_ko": "인텔, Calssiq 인수 통해 양자 기술 포트폴리오 확대",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 기업 정보",
+      "source_fingerprint": "5e2593f8b9180e35173839acc63a8f3fa009885b334aa1dca5173ffcca127526",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.micron.com/about/blog/memory/dram/from-breakthrough-to-platform-standard-micron-and-lenovo-advance-lpcamm2-for-ai-workstations": {
+      "title_ko": "획기적인 기술에서 플랫폼 표준으로: 마이크론과 레노버, AI 워크스테이션용 LPCAMM2 발전 주도",
+      "summary_ko": "ThinkPad P1 Gen 9는 업계 최초로 마이크론의 1-감마 LPCAMM2를 시장에 선보이며, 모듈형 메모리 아키텍처에 대한 레노버의 3세대에 걸친 노력을 한 단계 더 발전시켰습니다.",
+      "source_fingerprint": "84616fbef4c623c1fa81cc5f6d4da7c86207fb1afc150853e7c2b500de9ef9a5",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/opinion/building-america-capacity-to-innovate.html": {
+      "title_ko": "미국의 혁신 역량 강화",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인텔 파운드리",
+      "source_fingerprint": "2203905cbbc7e161b4caa7ea1c547cbfd1677eb6f7f1884d3ae2671decbf856a",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.micron.com/about/blog/memory/dram/lpddr6-enabling-scalable-power-efficient-memory-systems-for-data-centers": {
+      "title_ko": "LPDDR6: 데이터 센터용 확장성이 뛰어나고 전력 효율이 높은 메모리",
+      "summary_ko": "마이크론과 메타는 새로운 LPDDR6의 기능이 데이터 센터 애플리케이션에 어떻게 이상적인 선택이 될지 설명하기 위해 협력하고 있습니다.",
+      "source_fingerprint": "2b92558858b588a7a2ce7f91121cbeaba9cd4ab08eaf684b1d6a1a8513ca2297",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://investors.micron.com/news/press-release/2026/Micron-Invests-in-New-York-Critical-Minerals-Processing-With-Indium-Corporation/default.aspx": {
+      "title_ko": "마이크론, 인듐 코퍼레이션과 함께 뉴욕의 핵심 광물 가공 사업에 투자",
+      "summary_ko": "마이크론 공식 보도자료",
+      "source_fingerprint": "9c3bd18e4d403a394522310a6f41a4dbfce10cafe0e7aa7067c912aeceed2af9",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/data-center/amd-intel-simplify-x86-ai-development-with-pytorch.html": {
+      "title_ko": "AMD와 인텔, PyTorch를 통해 x86 AI 개발을 간소화",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 데이터 센터",
+      "source_fingerprint": "2e67d755bee02d53deff814a5243b1ace78ad79527da369c0a8f450e3870c809",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/intel-edge-ai-turns-football-crowd-data-into-revenue.html": {
+      "title_ko": "앨라배마 미식축구팀, 제온을 활용해 수익 증대",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 엣지 AI",
+      "source_fingerprint": "b43e570956a846ce40e8e66ae97ff289a9671876871c9690a74c3ef20d5ac20d",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/asml-reports-transactions-under-its-current-share-buyback-program-5": {
+      "title_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표",
+      "summary_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표 네덜란드 벨드호벤 – ASML Holding N.V. (ASML)는 ASML의 현재 자사주 매입 프로그램에 따라 진행된 다음 거래 내역을 발표했습니다. 날짜 매입 총 주식 수 가중평균 가격 총 매입 금액 26년 10월 12일",
+      "source_fingerprint": "4a63be6c28a9487bc279c7598827db9385124368ab970ac267f6480197d493f9",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://investors.micron.com/news/press-release/2026/Micron-to-Host-Technology-Webinar-on-Oct--21/default.aspx": {
+      "title_ko": "마이크론, 10월 21일 기술 웨비나 개최",
+      "summary_ko": "마이크론 공식 보도자료",
+      "source_fingerprint": "64a2c48317ae99fb0606446685a8534396c303d87542fb15ac8b6b5540c93fb3",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/postcard-massrobotics-physical-ai-startup-speed.html": {
+      "title_ko": "MassRobotics에서 보낸 엽서",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "da95d91b0c70ac211ff90dcbb16ed33f1ba452a3abc0acb14edbf10a5ff8e39d",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/intel-offers-day-0-support-for-meta-muse-spark-open.html": {
+      "title_ko": "인텔, 메타의 ‘뮤즈 스파크’에 출시 당일 지원 제공",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "3239e44dcbd55da1c1d2e6de6c7245c6c489b6e350c7e0936c44e832b47f0246",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/intel-at-web-summit-2026.html": {
+      "title_ko": "2026년 웹 서밋에 참가한 인텔",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "9381746445a8d172f51fc5f7c49fa277097231f41950bce49f9da934868cfee8",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/intel-inference-microservices-tuned-llm-processors.html": {
+      "title_ko": "LLM용 인텔® 추론 마이크로서비스",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "f3599a1266a8906794dbf72eb7f5a625ec08b1e1be786df07de801f9e7e0bed9",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.kioxia-holdings.com/en-jp/news/2026/20261013-1.html": {
+      "title_ko": "S&P의 신용등급이 “BBB”로 상향 조정됨",
+      "summary_ko": "공식 분류: 보도자료",
+      "source_fingerprint": "e94913585e117087a6f6eb96b0ab58320400cc7a4569a0f2f0c1a7febd504c56",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://www.intc.com/news-events/press-releases/detail/1783/intel-accelerates-open-infrastructure-for-the-agentic-ai-era": {
+      "title_ko": "인텔, 에이전트 기반 AI 시대를 위한 오픈 인프라 구축 가속화",
+      "summary_ko": "",
+      "source_fingerprint": "0464b90febccc21920a32f192b4f16b7c1a39457fec43f2fe69cfb100c458aaa",
+      "translated_at": "2026-11-27T13:57:42.755316+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/asml-reports-transactions-under-its-current-share-buyback-program-4": {
+      "title_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표",
+      "summary_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표 네덜란드 벨드호벤 – ASML Holding N.V. (ASML)는 ASML의 현재 자사주 매입 프로그램에 따라 진행된 다음 거래 내역을 발표했습니다. 날짜 총 매입 주식 수 가중평균 가격 총 매입 금액 26년 10월 5일",
+      "source_fingerprint": "d06e1d291911b26e272315c6140316366e839a7643d21b5a7f065141f63a84b6",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/intel-accelerates-open-infrastructure-agentic-ai-era.html": {
+      "title_ko": "인텔, 자율적 AI 시대를 위한 개방형 기술 개발을 가속화한다.",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "dc7c943d5e04180f2ae94c143e52885cfe8db6d5846dac76f116e176b78ecf2e",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/intel-at-ocp-2026.html": {
+      "title_ko": "OCP 2026에 참가한 인텔",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "5e4ba13b001503fe8279c5624a60f3f6db6d55a53d8c0c9ca5d7278e098eb5a5",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/client-computing/deep-underground-intel-powered-robots-make-mining-safer.html": {
+      "title_ko": "인텔 기술이 적용된 로봇이 광산 작업의 안전성을 높이는 데 기여하고 있다",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인텔® 코어™ 울트라 프로세서",
+      "source_fingerprint": "6f126434a35dba45881b269ac281a6fae0165dbc81c98aff17057e914a6eb1d3",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/opinion/confidential-computing-growing-momentum-sharpened-focus.html": {
+      "title_ko": "기밀 컴퓨팅: 추진 동력 및 중점 분야",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 데이터 센터",
+      "source_fingerprint": "3419410552388457a55f25800427b7a0bc79d5fb476640bd641fd40e1cf2c689",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/data-center/scaling-sandboxed-agentic-ai-xeon-6.html": {
+      "title_ko": "Xeon CPU에서 샌드박스화된 에이전트 기반 AI의 확장",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 데이터 센터",
+      "source_fingerprint": "cedbce92c8068bf175afca24c079c6a828fb19c311d0969d8456762507f75d0b",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intc.com/news-events/press-releases/detail/1782/intel-to-report-third-quarter-2026-financial-results": {
+      "title_ko": "인텔, 2026년 3분기 실적 발표 예정",
+      "summary_ko": "",
+      "source_fingerprint": "25d53fd8ce9e7b7a4dffe8681b80a69315b236d742354debabd80ff7a7655266",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/data-center/boosting-agentic-ai-throughput-with-intel-xeon-cpus.html": {
+      "title_ko": "인텔® 제온® CPU로 에이전트 기반 AI 성능 향상",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 데이터 센터",
+      "source_fingerprint": "5c00850faf22d00bac4680ce5ef2e8885526e3953651353c1d389c5b005b47fc",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/software-connects-open-blueprint-for-production-ai.html": {
+      "title_ko": "생산용 AI를 위한 소프트웨어 및 시스템 연동",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 데이터 센터",
+      "source_fingerprint": "134c97c69fb368ba7abb3bd7e03e7b0e2b778b1176c1da57292439d5d2127e81",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/corporate/intel-reports-third-quarter-2026-financial-results.html": {
+      "title_ko": "인텔, 2026년 3분기 실적 발표 예정",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 기업 정보",
+      "source_fingerprint": "a7ea4a6fefb045ea5c591b40893134c6a8d5ec77e2cf92963203db4b899f8c6b",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/asml-reports-transactions-under-its-current-share-buyback-program-3": {
+      "title_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표",
+      "summary_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표 네덜란드 벨드호벤 – ASML Holding N.V. (ASML)는 ASML의 현재 자사주 매입 프로그램에 따라 진행된 다음 거래 내역을 발표했습니다. 날짜 총 매입 주식 수 가중평균 가격 총 매입 금액 26년 9월 28일",
+      "source_fingerprint": "2dc3b16a85a89654366efdfc64404bcd59a0cee4e6e24e73babd33e0a6e64bde",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/intel-ocp-2026-open-ai-infrastructure-for-ai-era.html": {
+      "title_ko": "인텔: OCP 2026에서 공개될 차세대 에이전트 기반 AI",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "38de4d41abee5f9752a1f2a4c140aadd8020c8edc922e7ce89375e3d765e15ea",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.kioxia-holdings.com/en-jp/news/2026/20261001-1.html": {
+      "title_ko": "키옥시아 이와테, RBA 플래티넘 등급 획득",
+      "summary_ko": "공식 카테고리: 공지사항",
+      "source_fingerprint": "5b63fad2f25cafbdb347e2a98fdc291b8a1538498c871148f9b1b92f60b2382d",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/opinion/best-employee-experiences-start-with-technology-that-works-together.html": {
+      "title_ko": "최고의 경험은 제대로 작동하는 기술에서 시작됩니다",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 클라이언트 컴퓨팅",
+      "source_fingerprint": "3b88a424c2cfbfe90e882c6b7f2b99c373230ff54b478b8d427b3ab5b3b7d69b",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://investors.micron.com/news/press-release/2026/Micron-Technology-Inc--Reports-Record-Fiscal-Fourth-Quarter-and-Full-Year-2026-Results/default.aspx": {
+      "title_ko": "마이크론 테크놀로지, 2026 회계연도 4분기 및 연간 실적 사상 최고치 달성",
+      "summary_ko": "마이크론 공식 보도자료",
+      "source_fingerprint": "56d22d9b0b39409c75cc7600f0ceb428fabce6a004e0f40a5fb022a5100e8dee",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/asml-reports-transactions-under-its-current-share-buyback-program-2": {
+      "title_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표",
+      "summary_ko": "ASML, 현재 진행 중인 자사주 매입 프로그램에 따른 거래 내역 발표 네덜란드 벨드호벤 – ASML Holding N.V. (ASML)는 ASML의 현재 자사주 매입 프로그램에 따라 진행된 다음 거래 내역을 발표했습니다. 날짜 총 매입 주식 수 가중평균 가격 총 매입 금액 2026년 9월 21일",
+      "source_fingerprint": "3d9f64595b3641093adc3f9dbf29c4c35d09d64e8e99c1136c868c6e0272ac5c",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/data-center/intel-agent-toolkit-adds-nvidia-openshell-for-policy-enforced-sandboxes.html": {
+      "title_ko": "인텔® 에이전트 툴킷 및 Openshell",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 데이터 센터",
+      "source_fingerprint": "ba64496aed4b78d2962ee67dd0e3e556c1d57e50b7a36f24d1768a7e87ad81b8",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.micron.com/about/blog/storage/ai/the-memory-wall-part-3-building-every-tier-for-agentic-ai": {
+      "title_ko": "기억의 벽, 3부: 자율적 AI를 위한 모든 계층 구축",
+      "summary_ko": "메모리와 스토리지가 어떻게 제한적인 인프라를 더 유용한 AI 작업 환경으로 바꾸는지",
+      "source_fingerprint": "4295794c274908cedc9ca7098df14816f82319da2a72e458ca0144bd1f872e55",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/artificial-intelligence/intel-on-the-ground-at-the-ai-infra-summit.html": {
+      "title_ko": "AI 인프라 서밋 현장에 나선 인텔",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인공지능(AI)",
+      "source_fingerprint": "3d4d42f418632e1f69a51f544404311d20e00bb01049b00fd32d4361946b4bdc",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/client-computing/googlebook-launches-with-intel-core-ultra-series-3-processors.html": {
+      "title_ko": "인텔 코어 울트라 시리즈 3이 탑재된 Googlebook",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 클라이언트 컴퓨팅",
+      "source_fingerprint": "3c33c41ec5844e0eb09ded3f725acbffc3377b56bca1557933a16450e0b0e8d5",
+      "translated_at": "2026-11-27T13:57:43.809891+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/intel-foundry/how-intel-researchers-are-advancing-chemistry-behind-high-na-euv-tools.html": {
+      "title_ko": "인텔, 고개구수(High-NA) EUV 포토레지스트 기술 개발 추진",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 인텔 파운드리",
+      "source_fingerprint": "be120ff657ad3908e04145f5b13e2a2fef8d3210cb98182d87dabb7c42b3e4c1",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/data-center/intel-software-optimizations-boost-ai-inference-in-mlperf-v6-1.html": {
+      "title_ko": "인텔의 소프트웨어 최적화, AI 추론 성능 향상",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 데이터 센터",
+      "source_fingerprint": "beb74f9c2ddf88299301ec9b873d215f92dc7ca234faa9fd54591a306c85d6f9",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://www.kioxia-holdings.com/en-jp/news/2026/20260915-1.html": {
+      "title_ko": "일부 언론 보도에 관한 공지",
+      "summary_ko": "공식 카테고리: 공지사항",
+      "source_fingerprint": "3d79c695435990d26d84f58669ef746b1373a8a615f78cee48129218cd98f096",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://investors.micron.com/news/press-release/2026/Micron-Appoints-Deirdre-Hanford-to-Lead-Micron-Research-Labs/default.aspx": {
+      "title_ko": "마이크론, 디어드레 핸포드를 마이크론 리서치 랩스 책임자로 임명",
+      "summary_ko": "마이크론 공식 보도자료",
+      "source_fingerprint": "c626ecf7564f6bd86a7352ba412d1793f34891d369a40eda84edbed8ec2152d5",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://investors.micron.com/news/press-release/2026/Micron-Advances-Memory-Innovation-With-the-Worlds-First-Ultra-Dense-Module-for-Next-Generation-Servers/default.aspx": {
+      "title_ko": "마이크론, 차세대 서버용 세계 최초의 초고밀도 모듈로 메모리 혁신을 주도",
+      "summary_ko": "마이크론 공식 보도자료",
+      "source_fingerprint": "db12990d2ed3351093d3c2152b1b24fd589516fea5926cce761fd2e1c61a38dc",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://www.intel.com/content/www/us/en/newsroom/news/data-center/beyond-prefill-and-decode-disaggregation-moves-from-tokens-to-frames.html": {
+      "title_ko": "사전 채우기 및 디코딩을 넘어",
+      "summary_ko": "인텔 공식 뉴스룸 카테고리: 데이터 센터",
+      "source_fingerprint": "f352159111f4c0a0ae82c26fa4f365aa60f7f68d8131adc8b29d90396a9ead53",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://www.intc.com/news-events/press-releases/detail/1781/intel-foundry-and-asml-collaborate-to-accelerate-industry": {
+      "title_ko": "인텔 파운드리와 ASML, 고 NA EUV의 산업적 상용화 가속화를 위해 협력",
+      "summary_ko": "",
+      "source_fingerprint": "df9d516d779b5ddc0b36086249671cd9116b87d1ed5815007d15f9e492003569",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://www.micron.com/about/press/news/micron-celebrates-first-manassas-apprenticeship-graduates": {
+      "title_ko": "마이크론, 마나사스 지역 첫 견습 과정 수료생들을 축하하다",
+      "summary_ko": "마이크론 공식 보도자료",
+      "source_fingerprint": "7042eda368e262a30a1228a1bdbfa8737dc20f6e0aee2aa6483fd4db7545488d",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://www.kioxia-holdings.com/en-jp/news/2026/20260827-1.html": {
+      "title_ko": "일부 언론 보도에 관한 공지",
+      "summary_ko": "공식 카테고리: 공지사항",
+      "source_fingerprint": "3d79c695435990d26d84f58669ef746b1373a8a615f78cee48129218cd98f096",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://investors.micron.com/news/press-release/2026/Micron-Technology-to-Report-Fiscal-Fourth-Quarter-Results-on-September-30-2026/default.aspx": {
+      "title_ko": "마이크론 테크놀로지, 2026년 9월 30일 회계연도 4분기 실적 발표 예정",
+      "summary_ko": "마이크론 공식 보도자료",
+      "source_fingerprint": "af9c753bcb28d932d24da5e2f1782008be229d3a6e6ab05e53db17378dd31ecc",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://investors.micron.com/news/press-release/2026/Micron-Announces-Leadership-Appointments-to-Accelerate-Innovation-and-Growth/default.aspx": {
+      "title_ko": "마이크론, 혁신과 성장을 가속화하기 위한 경영진 인사 발표",
+      "summary_ko": "마이크론 공식 보도자료",
+      "source_fingerprint": "752da7598ae60ba22ad3ff318b92c2fd06e81a3e34a0d80eed18787aa292e6a7",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://www.intc.com/news-events/press-releases/detail/1780/intel-corporation-to-participate-in-upcoming-investor": {
+      "title_ko": "인텔, 다가오는 투자자 컨퍼런스에 참가 예정",
+      "summary_ko": "",
+      "source_fingerprint": "648b9e1bc611e519f9388b4ef5f4d3bf8b41fe107aae3e08a681bbe7d2ae29cf",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://www.appliedmaterials.com/us/en/newsroom/press-releases/081426-applied-materials-to-participate-in-upcoming-investor-conferences.html": {
+      "title_ko": "애플라이드 머티리얼즈, 다가오는 투자자 컨퍼런스에 참가 예정",
+      "summary_ko": "애플라이드 머티리얼즈의 공식 보도자료",
+      "source_fingerprint": "1bcdcb1836731c57a1abeb5e0c4642eef5733287ff18dc9a91994c38420ab110",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://www.intc.com/news-events/press-releases/detail/1779/intel-announces-upsize-and-pricing-of-20-billion-common": {
+      "title_ko": "인텔, 200억 달러 규모 보통주 공모 규모 확대 및 가격 발표",
+      "summary_ko": "",
+      "source_fingerprint": "613c0b8213b1fe66bc08c1d97c130cd2f513e6c73d9a082daec075b870ce09d5",
+      "translated_at": "2026-11-27T13:57:45.050708+00:00"
+    },
+    "https://www.intc.com/news-events/press-releases/detail/1778/intel-announces-proposed-15-billion-common-stock-offering": {
+      "title_ko": "인텔, 150억 달러 규모의 보통주 발행 계획 발표",
+      "summary_ko": "",
+      "source_fingerprint": "c849ba35ba19c5377319e9957458c1e7e2080b03531f5fb1aacd707e85cef424",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
+    },
+    "https://www.intc.com/news-events/press-releases/detail/1777/intel-announces-leadership-appointment-to-strengthen": {
+      "title_ko": "인텔, 고객 관계 강화 및 성장 가속화를 위한 경영진 임명 발표",
+      "summary_ko": "",
+      "source_fingerprint": "f857904c3dd9eb43687aee2c49bb3099e7bc89b89fa5599298995704998ff6f7",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
+    },
+    "https://www.kioxia.com/en-jp/about/news/2026/20260806-1.html": {
+      "title_ko": "키옥시아, 2026년 구마모토 지진 구호 활동 지원을 위해 기부",
+      "summary_ko": "공식 분류: 보도자료",
+      "source_fingerprint": "85bd18948435fe36d635c19b4ee4514735a1d693e50b8d5720b7e9dae3be72ce",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
+    },
+    "https://www.kioxia-holdings.com/en-jp/news/2026/20260731-1.html": {
+      "title_ko": "키옥시아, 사상 처음으로 FTSE 러셀 ESG 투자 지수 3개에 편입",
+      "summary_ko": "공식 분류: 보도자료",
+      "source_fingerprint": "c681bbeaf1178f781d3404029ab320bc7fe6a84b0533013b34379f3567c3994c",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
+    },
+    "https://www.kioxia-holdings.com/en-jp/news/2026/20260630-1.html": {
+      "title_ko": "키옥시아, SBTi로부터 친환경 온실가스 감축 목표 승인 획득",
+      "summary_ko": "공식 카테고리: 공지사항",
+      "source_fingerprint": "dd17d093bddea79e7aeca226605f1771265f0c293cd1090d373c09df6383b054",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
+    },
+    "https://www.kioxia-holdings.com/en-jp/news/2026/20260625-1.html": {
+      "title_ko": "6월 25일 일본 도호쿠에서 발생한 지진에 대한 대응",
+      "summary_ko": "공식 카테고리: 공지사항",
+      "source_fingerprint": "cf51e85daac6f0cfb803ec56f4a71e25792cd194dbb4502f74606317ef0dea7c",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
+    },
+    "https://www.kioxia.com/en-jp/about/news/2026/20260624-1.html": {
+      "title_ko": "키옥시아, 제20회 아시안게임 및 제5회 아시아 패럴림픽 파트너십 협약 체결",
+      "summary_ko": "공식 분류: 보도자료",
+      "source_fingerprint": "5c6fddbfe50c64b70a5da04798254b741c324c9767ae92b6ed3e398fce86a1ea",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
+    },
+    "https://www.appliedmaterials.com/us/en/newsroom/press-releases/06092026-applied-materials-announces-cash-dividend.html": {
+      "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
+      "summary_ko": "애플라이드 머티리얼즈의 공식 보도자료",
+      "source_fingerprint": "cea2a0b6aae9cb77181b5f03a98fb25129c2e00e99f1ebd742a8eb45077b7079",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
+    },
+    "https://www.tel.com/news/ir/2026/hdnjh300000000e2-att/20260601_001_e.pdf": {
+      "title_ko": "조직 개편 및 인사 변경에 관한 공지",
+      "summary_ko": "도쿄 일렉트론 공식 뉴스룸 기사",
+      "source_fingerprint": "864f4b6a4a371f6b47a5fd46076cdc208b38e6a20c7a5f4f0c25b9c1f25480e0",
+      "translated_at": "2026-11-27T13:57:45.844376+00:00"
     }
   }
 }
