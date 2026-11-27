@@ -4,42 +4,42 @@
     {
       "id": "F1",
       "source_id": "S1",
-      "statement_ko": "AMAT는 2026 회계연도 4분기 매출이 전년 동기 대비 53% 늘었다고 발표했다.",
+      "statement_ko": "Applied Materials는 분기 매출이 $10.41 billion을 기록해 전년 동기 대비 53퍼센트 증가했다고 밝혔다.",
       "quote": "Record quarterly revenue $10.41 billion, up 53 percent year over year",
       "nature": "발표"
     },
     {
       "id": "F2",
       "source_id": "S2",
-      "statement_ko": "AMAT와 Besi는 하이브리드 본딩을 넘어 새로운 연결 구조와 응용 분야로 공동개발을 확대했다.",
+      "statement_ko": "Applied Materials는 BE Semiconductor Industries와의 협력을 확장해 하이브리드 본딩을 넘어선 새로운 상호 연결 구조 등을 지원한다고 밝혔다.",
       "quote": "The expanded partnership extends the companies’ co-innovation beyond hybrid bonding into new interconnect architectures and applications supporting the semiconductor industry’s AI-driven scaling roadmap.",
       "nature": "발표"
     },
     {
       "id": "F3",
       "source_id": "S3",
-      "statement_ko": "IEA는 전력 수요를 과대평가하면 투자 낭비, 과소평가하면 병목과 지연이 생길 수 있다고 설명했다.",
+      "statement_ko": "IEA는 전력망 투자 수요를 과대평가하면 좌초 자산이나 유휴 투자가 발생할 위험이 있고 과소평가하면 병목현상과 지연을 초래한다고 분석했다.",
       "quote": "Overestimating demand can risk creating stranded or underutilised grid investments, while underestimating it can lead to bottlenecks and delays.",
-      "nature": "발표"
+      "nature": "전망"
     },
     {
       "id": "F4",
       "source_id": "S4",
-      "statement_ko": "SIA는 2026년 3분기 세계 반도체 매출이 2분기보다 24.1% 증가했다고 발표했다.",
-      "quote": "global semiconductor sales were $517.7 billion during the third quarter of 2026, an increase of 24.1% compared to the second quarter of 2026.",
+      "statement_ko": "SIA는 2026년 3분기 전 세계 반도체 매출이 2026년 2분기 대비 24.1퍼센트 증가한 $517.7 billion을 기록했다고 발표했다.",
+      "quote": "global semiconductor sales were $517.7 billion during the third quarter of 2026, an increase of 24.1% compared to the second quarter of 2026",
       "nature": "발표"
     },
     {
       "id": "F5",
       "source_id": "S5",
-      "statement_ko": "삼성전자는 생산능력 제약 속에서 AI 제품에 초점을 맞춰 제품 구성을 관리했다고 밝혔다.",
+      "statement_ko": "삼성전자는 생산 능력 제약 속에서 AI 제품에 집중하는 제품 믹스 관리를 통해 메모리 사업에서 사상 최대 분기 실적을 달성했다고 밝혔다.",
       "quote": "The Memory Business achieved another record-breaking quarter by managing its product mix, with a focus on AI products, amid capacity constraints.",
       "nature": "발표"
     },
     {
       "id": "F6",
       "source_id": "S6",
-      "statement_ko": "TSMC는 2026년 3분기 웨이퍼 매출의 79%가 7nm 및 그보다 미세한 공정에서 나왔다고 발표했다.",
+      "statement_ko": "TSMC는 7nm 및 그보다 미세한 공정 기술이 전체 웨이퍼 매출의 79퍼센트를 차지했다고 발표했다.",
       "quote": "Advanced technologies, defined as 7-nanometer and more advanced technologies, accounted for 79% of total wafer revenue.",
       "nature": "발표"
     }
@@ -47,94 +47,91 @@
   "overview": [
     {
       "area": "메모리",
-      "text_ko": "삼성전자는 생산능력 제약 속에서 AI 제품에 초점을 맞춰 제품 구성을 관리했다고 밝혔다.",
+      "text_ko": "삼성전자는 생산 능력 제약 속에서 AI 제품에 집중하는 제품 믹스 관리를 통해 메모리 사업에서 사상 최대 분기 실적을 달성했다고 밝혔다.",
       "fact_ids": [
         "F5"
       ]
     },
     {
       "area": "파운드리",
-      "text_ko": "TSMC는 3분기 웨이퍼 매출에서 첨단 공정 비중이 79%라고 발표했다. 선단 공정이 실적에서 큰 비중을 차지한다.",
+      "text_ko": "TSMC는 7nm 및 그보다 미세한 공정 기술이 전체 웨이퍼 매출의 79퍼센트를 차지했다고 발표했다.",
       "fact_ids": [
         "F6"
       ]
     },
     {
       "area": "첨단 패키징",
-      "text_ko": "AMAT·Besi는 하이브리드 본딩을 넘어 새로운 연결 구조와 응용 분야로 공동개발을 확대했다.",
+      "text_ko": "Applied Materials는 BE Semiconductor Industries와의 협력을 확장해 하이브리드 본딩을 넘어선 새로운 상호 연결 구조 등을 지원한다고 밝혔다.",
       "fact_ids": [
         "F2"
       ]
     },
     {
       "area": "장비",
-      "text_ko": "AMAT의 회계연도 4분기 매출은 전년 동기 대비 53% 증가했다. 세계 반도체 매출도 3분기 증가세를 보였다.",
+      "text_ko": "Applied Materials는 분기 매출이 $10.41 billion을 기록해 전년 동기 대비 53퍼센트 증가했다고 밝혔다.",
+      "fact_ids": [
+        "F1"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "id": "issue-1",
+      "title_ko": "AI 수요와 전력망 인프라의 균형",
+      "why_ko": "전력망 투자를 과대평가하면 좌초 자산 위험이 생기고 과소평가하면 병목현상이 발생할 수 있어 수요 예측과 인프라 투자의 균형을 검토해야 하기 때문이다.",
+      "perspectives": [
+        "전력망 투자 수요를 과대평가할 때 발생하는 좌초 자산 및 유휴 투자 리스크를 관리하는 방안을 검토합니다.",
+        "수요를 과소평가하여 발생하는 병목현상과 공급 지연 가능성을 사전 예방하는 기준을 검토합니다."
+      ],
+      "questions": [
+        "전력망 투자 수요 오차에 따른 좌초 자산 위험을 어떻게 관리할 수 있는가?",
+        "인프라 투자의 과소평가로 인한 병목현상과 지연을 어떻게 예방할 것인가?"
+      ],
+      "company_connection_ko": "메모리 생산 확대와 전력망 인프라 투자가 맞물리는 반도체 제조 환경에서 자원 배분의 균형을 검토하는 데 적용됩니다.",
+      "fact_ids": [
+        "F3",
+        "F5"
+      ]
+    },
+    {
+      "id": "issue-2",
+      "title_ko": "첨단 공정 생태계와 협력 구조",
+      "why_ko": "AI 중심의 미세 공정 로드맵을 지원하기 위해 장비사와 제조사 간의 협력 범위가 새로운 상호 연결 구조 등으로 확장되고 있기 때문이다.",
+      "perspectives": [
+        "하이브리드 본딩을 넘어선 새로운 상호 연결 구조와 응용 분야 확장이 공정 기술 생태계에 미치는 영향을 살펴봅니다.",
+        "7nm 및 그보다 미세한 공정 기술이 전체 웨이퍼 매출에서 차지하는 비중 속에서 첨단 공정의 역할을 검토합니다."
+      ],
+      "questions": [
+        "새로운 상호 연결 구조와 응용 분야 확장은 장비와 제조 생태계에 어떤 변화를 가져오는가?",
+        "전체 웨이퍼 매출에서 미세 공정이 차지하는 비중을 바탕으로 기술 협력 방향을 어떻게 설정하는가?"
+      ],
+      "company_connection_ko": "장비 제조사와 파운드리 기업 간의 차세대 공정 기술 협력 및 미세 공정 비중을 분석하는 데 활용됩니다.",
+      "fact_ids": [
+        "F2",
+        "F6"
+      ]
+    },
+    {
+      "id": "issue-3",
+      "title_ko": "글로벌 시장 성장과 장비 실적",
+      "why_ko": "전 세계 반도체 매출이 분기 대비 증가하고 장비사 매출이 크게 늘어난 발표를 바탕으로 시장 성장세를 입체적으로 검토해야 하기 때문이다.",
+      "perspectives": [
+        "전 세계 반도체 매출이 이전 분기 대비 증가한 흐름이 전체 시장 통계에 어떻게 반영되는지 파악합니다.",
+        "장비 제조사가 기록한 분기 매출 증가 실적이 글로벌 시장 확장 흐름과 어떻게 연결되는지 검토합니다."
+      ],
+      "questions": [
+        "분기별 전 세계 반도체 매출의 증가 추이는 시장 전반의 수요에 어떤 시사점을 주는가?",
+        "장비 제조사의 기록적인 분기 매출 성장은 전 세계 시장 통계와 어떻게 부합하는가?"
+      ],
+      "company_connection_ko": "글로벌 시장 통계와 장비 제조사의 실적 발표를 연결하여 반도체 산업 전반의 성장 흐름을 검토합니다.",
       "fact_ids": [
         "F1",
         "F4"
       ]
     }
   ],
-  "issues": [
-    {
-      "id": "energy",
-      "title_ko": "AI 성장 속 전력 투자의 균형",
-      "why_ko": "AI 제품을 확대하는 반도체 기업의 방향과, 전력 수요 예측의 불확실성을 함께 살펴볼 수 있는 쟁점이다.",
-      "perspectives": [
-        "전력 인프라를 미리 준비해야 수요를 과소평가했을 때의 병목과 지연을 줄일 수 있다는 관점.",
-        "미래 수요를 크게 잡은 투자에는 활용되지 않는 설비가 생길 위험도 함께 고려해야 한다는 관점."
-      ],
-      "questions": [
-        "AI 투자를 뒷받침할 전력 수요는 어떤 자료와 기간으로 검증해야 할까?",
-        "반도체의 전력 효율 개선과 전력망 확충에 각각 어떤 역할을 기대할 수 있을까?"
-      ],
-      "fact_ids": [
-        "F3",
-        "F5"
-      ],
-      "company_connection_ko": "메모리·파운드리·장비 회사는 AI 수요에 대응하는 제품·설비 계획을 전력 인프라의 확장 가능성과 함께 검토할 수 있다."
-    },
-    {
-      "id": "investment",
-      "title_ko": "반도체 호황과 투자 집중",
-      "why_ko": "산업 전체 매출 증가와 기업의 AI 제품 집중을 함께 읽되, 모든 제품군이 같은 속도로 성장하는지는 별도로 확인해야 한다.",
-      "perspectives": [
-        "성장하는 수요에 투자와 생산능력을 집중하면 고객 요구에 빠르게 대응할 수 있다는 관점.",
-        "특정 수요에 대한 의존도와 기존 고객의 공급 계획도 함께 점검해야 한다는 관점."
-      ],
-      "questions": [
-        "현재 실적과 중장기 수요 전망 중 어떤 지표로 증설 규모를 판단할까?",
-        "AI 제품 확대와 기존 제품 고객의 공급 계획을 어떻게 함께 점검할까?"
-      ],
-      "fact_ids": [
-        "F4",
-        "F5",
-        "F1"
-      ],
-      "company_connection_ko": "메모리·파운드리 회사의 생산능력과 제품 구성, 장비 회사의 공급 계획을 투자 규모·물량 배분의 관점에서 함께 살펴볼 수 있다."
-    },
-    {
-      "id": "collaboration",
-      "title_ko": "첨단 제조 경쟁력과 기업 간 협력",
-      "why_ko": "첨단 공정의 매출 비중과 패키징 공동개발 확대를 보면, 개별 기술의 성능과 기술 간 연결을 함께 살펴볼 수 있다.",
-      "perspectives": [
-        "공정·장비·연결 기술을 함께 개발하면 서로 맞물린 기술 과제를 공동으로 다룰 수 있다는 관점.",
-        "협력 범위가 넓어질수록 역할 분담·기술 보호·검증 기준을 어떻게 조율할지도 검토해야 한다는 관점."
-      ],
-      "questions": [
-        "공동개발 성과를 개별 장비 성능 외에 어떤 제조 지표로 평가해야 할까?",
-        "협력 확대와 독자 기술 확보 사이에서 어떤 기준으로 역할을 나눠야 할까?"
-      ],
-      "fact_ids": [
-        "F2",
-        "F6",
-        "F5"
-      ],
-      "company_connection_ko": "삼성·TSMC 등 제조사와 장비 회사의 협력을 살펴볼 때 공정·패키징 개발의 역할 분담과 검증 기준을 함께 검토할 수 있다."
-    }
-  ],
-  "generated_at": "2026-11-21T05:06:18.748082+00:00",
-  "checked_at": "2026-11-27T03:50:21.167219+00:00",
+  "generated_at": "2026-11-27T12:59:00.146726+00:00",
+  "checked_at": "2026-11-27T12:59:00.146726+00:00",
   "refresh_status": "partial",
   "sources": [
     {
@@ -175,7 +172,7 @@
       "url": "https://www.semiconductors.org/global-semiconductor-sales-increase-24-1-from-q2-2026-to-q3-2026/",
       "published_at": "2026-11-03T13:00:49+00:00",
       "scope": "article_body",
-      "checked_at": "2026-11-27T03:50:21.167219+00:00",
+      "checked_at": "2026-11-27T12:59:00.146726+00:00",
       "id": "S4"
     },
     {
@@ -201,8 +198,7 @@
       "id": "S6"
     }
   ],
-  "generation_method": "reviewed_initial",
-  "review_status": "source_checked",
-  "last_attempt_at": "2026-11-22T01:44:02.640760+00:00",
-  "connections_reviewed_at": "2026-11-27"
+  "model": "gemini-3.5-flash-lite",
+  "semantic_review": "PASS",
+  "source_fingerprint": "f69d6702273ae4aee7eb815120749ddc55643006674182bb354d20cc25b0f403"
 }

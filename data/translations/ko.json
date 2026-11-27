@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "deepl",
   "target_language": "KO",
-  "updated_at": "2026-11-26T03:48:49.442848+00:00",
+  "updated_at": "2026-11-27T12:58:36.066055+00:00",
   "translations": {
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-cash-dividend-69": {
       "title_ko": "애플라이드 머티리얼즈, 현금 배당 발표",
-      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
-      "source_fingerprint": "7592fdd3d1da375911109698ef188303fa366112513e575dc4f2a8ee5674ad9e",
-      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+      "summary_ko": "캘리포니아주 산타클라라, 2026년 9월 10일 (GLOBE NEWSWIRE) -- 애플라이드 머티리얼즈(Applied Materials, Inc.)는 오늘 이사회가 자사 보통주에 대해 주당 0.53달러의 분기별 현금 배당금을 승인했다고 발표했다. 이 배당금은 2026년 11월 기준 주주명부에 등재된 주주들에게 2026년 12월 10일에 지급될 예정이다.",
+      "source_fingerprint": "296eb46e80f94abe1d7603e59c815a1d732e2b220fb08d1612afc74cdc5c5905",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
     },
     "https://pr.tsmc.com/english/news/3340": {
       "title_ko": "TSMC 2026년 8월 매출 보고서",
@@ -114,9 +114,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-appoints-akash-palkhiwala-board-directors": {
       "title_ko": "애플라이드 머티리얼즈, 아카시 팔키왈라를 이사회 이사로 선임",
-      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
-      "source_fingerprint": "d2d3042ed6b43a5014be201ec42241c66383b534b3ff14a163bab523f8cf46f3",
-      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+      "summary_ko": "캘리포니아주 산타클라라, 2026년 8월 27일 (GLOBE NEWSWIRE) -- 애플라이드 머티리얼즈(Applied Materials, Inc.)는 오늘 아카시 팔키왈라(Akash Palkhiwala) 씨를 이사회 이사로 선임했다고 발표했다. 퀄컴(Qualcomm Incorporated)의 최고재무책임자(CFO) 겸 최고운영책임자(COO)인 팔키왈라 씨는",
+      "source_fingerprint": "31426ea05d3a90b4bd6e693af36fc5517f5b01e663e0087099a4d75059b8ce7d",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
     },
     "https://www.kioxia.com/en-jp/about/news/2026/20260827-3.html": {
       "title_ko": "키옥시아와 샌디스크, 일본에 310억 달러 이상 투자… 메모리 산업 선도적 입지 공고히 할 전망",
@@ -246,9 +246,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-third-quarter-2026-results": {
       "title_ko": "애플라이드 머티리얼즈, 2026년 3분기 실적 발표",
-      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
-      "source_fingerprint": "2f411eb2b74e9541b8376a916afd5377d050fbf71cc1329ca7c44dfdefc0fb99",
-      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+      "summary_ko": "매출은 전년 대비 25% 증가한 91억 2천만 달러로 사상 최고치를 기록했으며, GAAP 기준 매출총이익률은 50.3%, 비-GAAP 기준 매출총이익률은 50.4%를 기록했습니다. GAAP 기준 주당순이익(EPS)은 3.17달러, 비-GAAP 기준 주당순이익(EPS)은 3.50달러로 사상 최고치를 기록했으며, 전년 동기 대비 각각 43% 및 41% 증가 EPIC 센터의 R&amp;D 파트너십이 선도 기업들과의 11건의 협업으로 확대",
+      "source_fingerprint": "6489955e2b421f3dfb9673c473dcde3be334b0f4d0483010f75d816b88d75f3a",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
     },
     "https://newsroom.lamresearch.com/2026-08-13-Lam-Research-Announces-Plans-to-Invest-More-than-3B-to-Expand-Global-Lab-Network,-Increase-Innovation-Velocity-in-the-AI-Era": {
       "title_ko": "램 리서치, AI 시대에 글로벌 연구소 네트워크를 확장하고 혁신 속도를 높이기 위해 30억 달러 이상을 투자할 계획 발표",
@@ -270,9 +270,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/uc-berkeley-join-applied-materials-epic-center-speed-chip": {
       "title_ko": "UC 버클리, 칩 혁신 가속화를 위해 어플라이드 머티리얼즈의 EPIC 센터에 합류",
-      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
-      "source_fingerprint": "48adbc8f3edee58f7e7c8183d63e6c8e57812bf17e4abc2ab3242ae9d52aaaa1",
-      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+      "summary_ko": "이번 협력은 UC 버클리의 반도체 연구 역량과 애플라이드의 최첨단 장비 및 공정 통합 전문성을 결합한 것입니다. 실리콘밸리에 위치한 애플라이드의 EPIC 센터는 최첨단 반도체 제조 장비를 활용할 수 있는 산업 규모의 연구개발(R&amp;D) 환경을 제공하여 신속한",
+      "source_fingerprint": "40cf3eb6147975022738354d90399b67d5a0a9fc646e9281fcf6d42a1234841a",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
     },
     "https://pr.tsmc.com/english/news/3332": {
       "title_ko": "TSMC 이사회 회의 결의안",
@@ -504,9 +504,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-report-fiscal-third-quarter-2026-results-aug": {
       "title_ko": "애플라이드 머티리얼즈, 2026년 8월 13일 2026 회계연도 3분기 실적 발표 예정",
-      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
-      "source_fingerprint": "393d481f92adfbd48d6dc76ee83b0f153dea569d1e7485b50bf36a1b421c5025",
-      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+      "summary_ko": "캘리포니아주 산타클라라, 2026년 7월 23일 (GLOBE NEWSWIRE) -- 애플라이드 머티리얼즈(Applied Materials, Inc.)는 오늘 2026 회계연도 3분기 실적 발표 컨퍼런스 콜을 2026년 8월 13일 목요일, 동부 표준시(ET) 오후 4시 30분 / 태평양 표준시(PT) 오후 1시 30분에 개최할 것이라고 발표했습니다. 이번 컨퍼런스 콜은 https://ir.appliedmaterials.com에서 생중계될 예정입니다.",
+      "source_fingerprint": "029efdda6bd09f42850a0fc5d154e69915bfdafc5ca0c20798cbe9feb591c939",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
     },
     "https://www.intel.com/content/www/us/en/newsroom/news/corporate/intel-reports-second-quarter-2026-financial-results.html": {
       "title_ko": "인텔, 2026년 2분기 실적 발표",
@@ -708,9 +708,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-introduces-new-systems-accelerate-dram-and": {
       "title_ko": "애플라이드 머티리얼즈, AI 칩용 DRAM 및 첨단 패키징 가속화를 위한 신제품 시스템 출시",
-      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
-      "source_fingerprint": "07dbb5c11d0e3231b14fa820d765501bc319a42c0ab9a536842d553a4811a352",
-      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+      "summary_ko": "DRAM과 첨단 패키징에 걸친 혁신을 통해 최첨단 AI 칩의 기반이 되는 3D 아키텍처가 구현됩니다. DRAM 팹에 최적화된 새로운 에피택시 시스템은 핵심적인 로직 공정 단계를 추가함으로써, 제한된 팹 공간과 공급 제약 조건 내에서 생산량을 극대화하는 동시에 메모리 속도와 효율성을 향상시킵니다. 새로운",
+      "source_fingerprint": "cdffa550a41c05bb8fa9c8177e337ef24437f89a31fff9e307e6e1bf56492330",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
     },
     "https://www.tel.com/news/disaster/2026/20260625_001.html": {
       "title_ko": "6월 25일 일본 도호쿠에서 발생한 지진에 대한 대응",
@@ -774,9 +774,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-unveils-senztm-fully-integrated-visual-system": {
       "title_ko": "애플라이드 머티리얼즈, 차세대 스마트 글래스를 위한 완전 통합형 시각 시스템 ‘SENZ™’ 공개",
-      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
-      "source_fingerprint": "bddb2ed2ed1e8d5df6987462e13e9ddc23a310947a24c16bf6ddb85a50d2cd29",
-      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+      "summary_ko": "SENZ는 고객과 파트너에게 공동 최적화된 솔루션을 제공하여 고성능 증강현실 디스플레이를 시장에 더 빠르게 출시할 수 있도록 지원할 것입니다. 이 획기적인 기술은 차세대 스마트 글래스를 위해 세계 최고 수준의 시각적 성능, 원활한 통합, 확장 가능한 제조 역량을 제공할 것입니다. SANTA",
+      "source_fingerprint": "14a6d68e39fdd409c05f10810a223502dadb39ff984726cc856b3001da36212a",
+      "translated_at": "2026-11-27T12:58:36.066030+00:00"
     },
     "https://www.intel.com/content/www/us/en/newsroom/news/corporate/ceo-letter-2025-26-intel-corporate-responsibility-report.html": {
       "title_ko": "CEO 서문: 2025-26 인텔 기업 사회적 책임 보고서",
@@ -792,9 +792,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/essilorluxottica-and-applied-materials-join-forces-advance": {
       "title_ko": "에실로럭소티카와 어플라이드 머티리얼즈, 차세대 스마트 글래스를 위한 증강현실 광학 플랫폼 개발을 위해 협력",
-      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
-      "source_fingerprint": "d7feffc60dcefcc9a8389c3d60c87f48b76e866454f3b76f3313ec3b7f94612e",
-      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+      "summary_ko": "이번 공동 개발 협약은 스마트 안경 및 증강현실(AR)용 광학 렌즈 스택을 위한 차세대 지능형 광학 시스템의 상용화를 가속화하는 것을 목표로 합니다. 이번 파트너십은 재료 공학, 렌즈 및 스마트 안경 분야의 세계적 수준의 전문 지식을 결합하여 경량화된,",
+      "source_fingerprint": "90d48defa0d8ec43d27d72bd5a64c926848e9e34f4b497a63fa5a7ce505c1e57",
+      "translated_at": "2026-11-27T12:58:36.066030+00:00"
     },
     "https://www.intel.com/content/www/us/en/newsroom/news/corporate/intel-foundry-details-process-milestones-future-innovation-at-vlsi-symposium.html": {
       "title_ko": "인텔 파운드리, VLSI 심포지엄에서 공정 개발 주요 성과 및 향후 혁신 계획 발표",
@@ -1506,9 +1506,9 @@
     },
     "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-host-investor-breakfast-presentation-during": {
       "title_ko": "애플라이드 머티리얼즈, SEMICON West 기간 중 투자자 조찬 설명회 개최",
-      "summary_ko": "애플라이드 머티리얼즈 공식 보도자료",
-      "source_fingerprint": "a9bf1409103cf6e657b339c9739b64370cef6112a6fcc1dc23f957b4b3323fc3",
-      "translated_at": "2026-11-18T03:10:50.034145+00:00"
+      "summary_ko": "캘리포니아주 산타클라라, 2026년 9월 21일 (GLOBE NEWSWIRE) -- 애플라이드 머티리얼즈(Applied Materials, Inc.)는 오늘, 2026년 10월 13일 화요일 SEMICON West 행사 기간 중 경영진 팀 구성원들이 ‘투자자 조찬 프레젠테이션’에 참석할 것이라고 발표했다. 이 프레젠테이션은 오전 8시에 시작될 예정이다.",
+      "source_fingerprint": "9f705bada8eec902dde30c328b7a38c51017a20e585a75a31fd5740b5663269e",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
     },
     "https://www.tel.com/news/sustainability/2026/20260925_001.html": {
       "title_ko": "도쿄 일렉트로닉, ‘그린 파트너’ 선정",
@@ -1863,6 +1863,468 @@
       "summary_ko": "도쿄 일렉트로닉 공식 뉴스룸 기사",
       "source_fingerprint": "d95b39a8d21150ee76198d5281c70910473a8868ec66c773b789cae02dd9148b",
       "translated_at": "2026-11-26T03:48:49.442824+00:00"
+    },
+    "https://ir.kla.com/news-events/press-releases/detail/525/kla-announces-upcoming-investor-webcasts": {
+      "title_ko": "KLA, 향후 예정된 투자자 대상 웹캐스트 발표",
+      "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
+      "source_fingerprint": "3876c3719b4fdbde16300304e37f05735d802f43a1d4d3a791346ab207c67c99",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-11-23-Lam-Research%2C-University-at-Albany-Partner-to-Develop-Future-Semiconductor-Engineers": {
+      "title_ko": "램 리서치와 올버니 대학교, 미래 반도체 엔지니어 양성을 위해 협력",
+      "summary_ko": "UAlbany의 나노기술·과학·공학 대학이 Lam의 Semiverse® Solutions와 협력하여 운영하는 프로그램을 통해 학생들은 나노 규모 제조 분야에서 가상 실습 경험을 쌓을 수 있습니다. 뉴스 요약: 이번 협력을 통해 공학 전공 학생들은 평소에는 좀처럼 얻기 어려운 실용적인 실습 경험을 쌓을 수 있게 되었습니다...",
+      "source_fingerprint": "0538e209ca373a30a5e4f6bfd139ee334a02802a081bba3064c3180daa056c1d",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-electronics-announces-new-leadership-3/": {
+      "title_ko": "삼성전자, 새로운 경영진 발표",
+      "summary_ko": "<p>황상준이 메모리 사업부를, 최원준이 MX 사업부를 이끌며, 전영현과 노태민이 DS 사업부와 DX를 계속 이끌게 된다...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-electronics-announces-new-leadership-3/\">삼성전자, 새로운 경영진 발표</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "9df7f15bcc7699695b64d651ba3d624a90fa957080dfbca97a944d5cef0458a8",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/atomic-layer-etch-3d-semiconductor-scaling/?blog=true": {
+      "title_ko": "원자층 식각을 통한 3차원 기술 정복",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "9063d92b94285ed95feda1adcfbf514df36b5005efd865ca9f70f6b794ef73ff",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-11-17-Lam-Research-Corporation-Announces-Participation-at-Upcoming-Conference": {
+      "title_ko": "램 리서치 코퍼레이션, 다가오는 컨퍼런스 참가 발표",
+      "summary_ko": "램 리서치(Lam Research Corp., 나스닥: LRCX)는 오늘, 팀 아처(Tim Archer) 사장 겸 최고경영자(CEO)와 더그 베팅거(Doug Bettinger) 전무이사 겸 최고재무책임자(CFO)가 곧 개최될 다음 투자자 행사에 참석할 것이라고 발표했습니다. UBS 글로벌...",
+      "source_fingerprint": "8b48e1a62b8626ee246eafead8d97fe396205fbdfb3d5dc67dbda71020d10a43",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsungs-latest-products-recognized-by-consumer-technology-association-ahead-of-ces-2027/": {
+      "title_ko": "CES 2027을 앞두고 삼성의 최신 제품들이 소비자기술협회(CTA)로부터 인정받았다",
+      "summary_ko": "<p>이 회사는 모바일, 홈 엔터테인먼트, 가전 및 반도체 제품인 ‘갤럭시 Z 폴드8 울트라’와 ‘Z 폴드8’으로 CES® 2027 혁신상을 수상했습니다...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsungs-latest-products-recognized-by-consumer-technology-association-ahead-of-ces-2027/\">CES 2027을 앞두고 소비자기술협회(CTA)가 인정한 삼성의 최신 제품들</a>은 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "a892d464b1be2cfd4c6b9ba685f7868eebe13e4fe921ddc7a7dce2b3036702c9",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/advanced-packaging-next-frontier-ai-scaling/?blog=true": {
+      "title_ko": "첨단 패키징이 AI 확장성의 새로운 개척지로 부상하고 있다",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "962223502e7f619d74229a9577f10250e4ac3b7e17b66d738d5cd5edae5fcc6f",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-11-12-Lam-Research%2C-LEGO-R-Education-Partner-to-Expand-Access-to-STEM-Learning-for-Kids-Lam-Named-Founding-Sponsor-of-LEGO-R-League": {
+      "title_ko": "램 리서치(Lam Research)와 레고® 에듀케이션(LEGO® Education), 어린이들의 STEM 학습 기회 확대를 위해 협력; 램 리서치, 레고® 리그(LEGO® League)의 창립 후원사로 선정",
+      "summary_ko": "램 재단, 전 세계 더 많은 청소년에게 레고 에듀케이션의 컴퓨터 과학 및 AI 체험 기회를 제공하기 위해 1,500만 달러 지원 뉴스 요약 업계 선두 기업인 램 리서치(Lam Research)가 레고 에듀케이션(LEGO Education)과 다년간의 협약을 체결하고, 5~16세 학생들을 대상으로 한 실습 중심의 STEM 학습 기회를 지원하기로 했다. 이번 협약에는 다음 내용이 포함된다...",
+      "source_fingerprint": "c8b0c0f2b7eab6e211ef71da87005db76724ecd41c64f81add5e46d14422da12",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/curiosity-is-building-lam-foundation-lego-education/?blog=true": {
+      "title_ko": "호기심이 커지고 있다: 람, 레고 에듀케이션과 손잡고 미래의 혁신가들에게 영감을 불어넣다",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "e3fed07654cfd5a4dcb88dc368397826610e7b1bc047667fae8297099ede16cb",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/national-stem-day-building-tomorrows-talent/?blog=true": {
+      "title_ko": "미래의 인재를 키우는 일은 오늘부터 시작됩니다 (전국 STEM의 날)",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "5e4bef43557fc51ba411ba13330d8db071ed53a32e2e3897ca2ee8c1e570bf7d",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://ir.kla.com/news-events/press-releases/detail/524/kla-declares-regular-cash-dividend": {
+      "title_ko": "KLA, 정기 현금 배당 발표",
+      "summary_ko": "코소보 해방군(KLA) 공식 보도자료",
+      "source_fingerprint": "8f9ccf56bb0e2462edab0940e8a7a7ebb09ecee47c2ee90d9c90c2eab518f936",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-11-05-Lam-Research-Corporation-Announces-25-Billion-Share-Repurchase-Authorization-and-Declares-Quarterly-Dividend": {
+      "title_ko": "램 리서치 코퍼레이션, 250억 달러 규모의 자사주 매입 승인 발표 및 분기 배당금 지급 결정",
+      "summary_ko": "램 리서치 코퍼레이션(나스닥: LRCX)은 오늘 이사회가 250억 달러 규모의 자사주 매입 승인과 보통주 1주당 0.33달러의 분기 배당금을 승인했다고 발표했다. “오늘 발표된 자사주 매입 승인은...",
+      "source_fingerprint": "7bf70fbb974b49fbd8d85a91e9a634e14819555a97ffabd3a0749c5e1a371c3e",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/lam-research-honored-carinthian-coat-of-arms-austria/?blog=true": {
+      "title_ko": "혁신의 40주년을 기념하며: 람, 오스트리아 카린티아 주로부터 표창 수상",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "685d3a954c64e003a8efdd84ded8a01ce2e3e7b907afa8d0fb065f850960c64a",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-electronics-announces-third-quarter-2026-results/": {
+      "title_ko": "삼성전자, 2026년 3분기 실적 발표",
+      "summary_ko": "<p>분기 매출 195.3조 원, 영업이익 107.4조 원 한국 서울 – 2026년 10월 29일 – 삼성전자㈜는 오늘 다음과 같이 발표했다...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-electronics-announces-third-quarter-2026-results/\">삼성전자, 2026년 3분기 실적 발표</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "3ff6ce94da840da9a62fc98daa02c012e42b33ecd0d5fd31c9769bfebc57ab16",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/part-2-zhbm-next-generation-memory-for-the-data-movement-era/": {
+      "title_ko": "2부. zHBM: 데이터 이동 시대를 위한 차세대 메모리",
+      "summary_ko": "<p>1부에서는 HBM이 AI 칩에 데이터를 공급하기 위해 어떻게 발전해 왔는지 살펴보았습니다. 오늘날, 추론, 논리적 사고, 장문 맥락 처리, 에이전트형 AI가 확대됨에 따라 AI 시스템은...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/part-2-zhbm-next-generation-memory-for-the-data-movement-era/\">2부. zHBM: 데이터 이동 시대를 위한 차세대 메모리</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "50738b8df679863da653fcf31ce140fd8862932e186f5edcb508fec354b19b50",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/glass-substrates-advanced-packaging/?blog=true": {
+      "title_ko": "유리 기판, AI 칩 패키징 발전의 길을 열다",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "3af9a3da453d0007ae5049a0fedb4f31761fce41984a900bffb1e4f324361d7d",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/part-1-the-evolution-of-ai-and-ai-chips-and-the-hbm-that-powers-them/": {
+      "title_ko": "1부. AI와 AI 칩의 진화 – 그리고 이를 구동하는 HBM",
+      "summary_ko": "<p>AI가 긴 문서를 이해하고, 복잡한 질문에 답하며, 여러 작업을 수행할 수 있게 됨에 따라, 이를 뒷받침하는 반도체에 대한 요구는...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/part-1-the-evolution-of-ai-and-ai-chips-and-the-hbm-that-powers-them/\">1부. AI와 AI 칩의 진화 – 그리고 이를 구동하는 HBM</a>은 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "e8c04b2916b52c39e3817087a371641e0abc603b3265ba99713d79512e0908a5",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/virtual-twins-optimize-DRAM-yield/?blog=true": {
+      "title_ko": "가상 트윈과 머신러닝이 DRAM 수율을 최적화하는 방법",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "42df3bc52f7f68512ee0f5247dac878758bce76e95cf21e6e267237c55a2f23b",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/lam-imec-3d-integration-dry-resist-ai-semiconductor-scaling/?blog=true": {
+      "title_ko": "Lam과 imec, 차세대 3D 집적 기술의 제조 가능성 제고를 위해 협력 확대 및 Aether 건식 레지스트 활용 사례 모색",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "bf0e92be21f982754e6a92ff55b54e6e20ce9f0dab64b1dfe6fac6ddc7900e7b",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/interview-a-rocket-toward-her-future-eva-neills-career-journey-at-samsung/": {
+      "title_ko": "[인터뷰] 미래를 향한 로켓: 에바 닐의 삼성에서의 커리어 여정",
+      "summary_ko": "<p>에바 닐은 인생의 대부분을 텍사스주 테일러에서 보냈습니다. 그녀는 이곳에서 고등학교를 다녔고, 가족도 이곳에 있습니다. 그리고 이제는 그녀의 직업도 이곳에 자리 잡았습니다. 닐은 ...로 일하고 있습니다.</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/interview-a-rocket-toward-her-future-eva-neills-career-journey-at-samsung/\">[인터뷰] 미래를 향한 로켓: 에바 닐의 삼성에서의 커리어 여정</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "9ac6386343600beec3c9f81a7409853e43ba76be9674ba69d7a02330346fed61",
+      "translated_at": "2026-11-27T12:58:31.138664+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-10-21-Lam-Research-Corporation-Reports-Financial-Results-for-the-Quarter-Ended-September-27%2C-2026": {
+      "title_ko": "램 리서치 코퍼레이션, 2026년 9월 27일 종료된 분기 실적 발표",
+      "summary_ko": "램 리서치 코퍼레이션(이하 “회사”, “램”, “램 리서치”)은 오늘 2026년 9월 27일로 종료된 분기(이하 “2026년 9월 분기”)의 재무 실적을 발표했습니다. 2026년 9월 분기의 주요 실적은 다음과 같습니다. 매출액은 8....달러를 기록했습니다.",
+      "source_fingerprint": "8a406c25a9c2aed2179a8927b45b108f75e898b457062d5a499d23505dd1ca96",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-electronics-expands-ssd-brand-campaign-across-global-landmarks/": {
+      "title_ko": "삼성전자, 전 세계 랜드마크에서 SSD 브랜드 캠페인 확대",
+      "summary_ko": "<p>삼성전자는 SSD 브랜드 캠페인 ‘Choose the Sure Thing’을 뉴욕, 런던, 홍콩 등 전 세계 주요 랜드마크로 확대하며...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-electronics-expands-ssd-brand-campaign-across-global-landmarks/\">삼성전자, 전 세계 랜드마크에서 SSD 브랜드 캠페인 확대</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "7c13bd42fcb5eb63350658229b1fec218aef0a1582479bbce42a73ef37abb9b7",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/video-samsung-austin-semiconductors-two-campuses-inject-10-9b-into-central-texas-economy-in-2025/": {
+      "title_ko": "[동영상] 삼성 오스틴 반도체의 두 캠퍼스가 2025년 텍사스 중부 경제에 109억 달러를 기여할 전망",
+      "summary_ko": "<p>오스틴 및 테일러 캠퍼스는 28,746개의 일자리를 창출하고 근로자 급여로 20억 달러를 창출했습니다. 텍사스주 오스틴—2026년 10월 15일—꾸준한 확장과 지역 사회 기여가 이어진 한 해 동안...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/video-samsung-austin-semiconductors-two-campuses-inject-10-9b-into-central-texas-economy-in-2025/\">[동영상] 삼성 오스틴 반도체의 두 캠퍼스, 2025년 텍사스 중부 경제에 109억 달러 기여</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "4d901174a97a3aa156dcc950d60ac679f340f694295151a7496efc4f6faf1cf8",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-austin-semiconductor-announces-more-than-22-8m-in-investments-to-support-communities-and-careers-in-central-texas/": {
+      "title_ko": "삼성 오스틴 반도체, 텍사스 중부 지역 사회 및 일자리 지원을 위해 2,280만 달러 이상의 투자 계획 발표",
+      "summary_ko": "<p>삼성 오스틴 반도체는 텍사스 중부 지역에서 사업을 확장함에 따라 지역사회 및 인력 개발에 대한 투자를 늘리고 있습니다. 텍사스주 테일러 — 2026년 10월 15일 —...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-austin-semiconductor-announces-more-than-22-8m-in-investments-to-support-communities-and-careers-in-central-texas/\">삼성 오스틴 반도체, 텍사스 중부 지역 사회 및 일자리 지원을 위해 2,280만 달러 이상 투자 발표</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "d8b86f4a46ef7521f4be64025b168f251935ced87c2bf45dbd65a4cb60bab343",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/asml-reports-eu11.7-billion-total-net-sales-and-eu5.0-billion-net-income-q3-2026": {
+      "title_ko": "ASML, 2026년 3분기 총 순매출 117억 유로, 순이익 50억 유로 기록",
+      "summary_ko": "ASML이 2026년 3분기 실적을 발표했습니다.",
+      "source_fingerprint": "b85a14417044f6351d660a22e63b44dfa2d54121c2247d319cb0069f0c5c107e",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-electronics-announces-earnings-guidance-for-third-quarter-2026/": {
+      "title_ko": "삼성전자, 2026년 3분기 실적 전망치 발표",
+      "summary_ko": "<p>한국 서울 – 2026년 10월 8일 – 삼성전자㈜는 오늘 2026년 3분기 실적 전망을 발표했습니다. ·&#160;&#160;&#160;...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-electronics-announces-earnings-guidance-for-third-quarter-2026/\">삼성전자, 2026년 3분기 실적 전망 발표</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "7d2942795ff16311e8be352874b012a974a467fadca7ade628480e137e4ac641",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-09-30-Lam-Research-Corporation-Announces-September-Quarter-Financial-Conference-Call": {
+      "title_ko": "램 리서치 코퍼레이션, 9월 분기 실적 컨퍼런스 콜 개최 발표",
+      "summary_ko": "램 리서치(Lam Research Corp., 나스닥: LRCX)는 오늘, 2026년 10월 21일 수요일 오후 2시(태평양 일광 절약 시간, 동부 일광 절약 시간 기준 오후 5시)부터 분기별 재무 컨퍼런스 콜 및 웹캐스트를 진행할 것이라고 발표했습니다. 웹캐스트...",
+      "source_fingerprint": "4e8ef70a57ff8c58226282f2ba10cd682b1eabc64bd4146a6b204c0ed252ac5b",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://newsroom.lamresearch.com/self-aligned-cfet-architecture-cmos-scaling/?blog=true": {
+      "title_ko": "자가 정렬 CFET 기술이 CMOS 미세화를 10 옹스트롬 이상으로 확장할 수 있는 방법",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "b63e0bf09974ca41033e99a37f620cbaef3a2b4f72edd1cd5623dc70034eb04f",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://newsroom.lamresearch.com/silicon-valley-semiconductor-warehouse-built-for-velocity-resilience/?blog=true": {
+      "title_ko": "속도, 회복탄력성, 그리고 AI 시대의 성장을 위해 건설된 램의 새로운 물류 허브",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "6f1027b209f5800eda82438355646b951fdcc2c773a5d910a4369691eddb4ae4",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-p9-and-p7-portable-ssds-first-unveiled-at-gamescom-to-launch-in-september/": {
+      "title_ko": "게임스컴에서 처음 공개된 삼성 P9 및 P7 휴대용 SSD, 9월 출시 예정",
+      "summary_ko": "<p>삼성전자는 9월, 차세대 휴대용 SSD 라인업의 첫 번째 제품으로 P9과 P7을 정식 출시합니다. 이 두 제품은...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-p9-and-p7-portable-ssds-first-unveiled-at-gamescom-to-launch-in-september/\">게임스컴에서 처음 공개된 삼성 P9 및 P7 휴대용 SSD, 9월 출시 예정</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "dab87afb5e6485794d301ca49e286a1c0565a3d1648e841a5cd62aae62bfa24d",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/video-the-world-of-nano-v-nand-bonding-v-nand-redefining-storage-architecture/": {
+      "title_ko": "[동영상] 나노의 세계 – V-NAND, V-NAND 본딩: 스토리지 아키텍처의 재정의",
+      "summary_ko": "<p>저장 장치에서 AI까지: 차세대 인프라를 위한 NAND의 진화 NAND 플래시는 오랫동안 USB를 비롯한 다양한 기기에서 핵심 저장 기술로 자리매김해 왔습니다...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/video-the-world-of-nano-v-nand-bonding-v-nand-redefining-storage-architecture/\">[동영상] 나노의 세계 – V-NAND, 본딩 V-NAND: 스토리지 아키텍처의 재정의</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "8a6cce2a255e18d9b576e5b6fddd1378cb6421a9de655aaf30be9efecd8f916c",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/video-the-world-of-nano-from-hbm-to-zhbm-rethinking-architecture-innovation/": {
+      "title_ko": "[동영상] 나노의 세계 – HBM에서 zHBM으로: 아키텍처 혁신을 재고하다",
+      "summary_ko": "<p>AI 시대를 위한 메모리 아키텍처 발전 – 최대 8배의 성능 향상 AI에 대한 컴퓨팅 수요가 계속 증가함에 따라 데이터 병목 현상이...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/video-the-world-of-nano-from-hbm-to-zhbm-rethinking-architecture-innovation/\">[동영상] 나노의 세계 – HBM에서 zHBM까지: 아키텍처 혁신을 재고하다</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "870b297af71c5292382887c86539be0410f61c719bf788b4828e1d2868afad71",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-electronics-and-asml-expand-strategic-collaboration-for-next-generation-semiconductor-manufacturing/": {
+      "title_ko": "삼성전자와 ASML, 차세대 반도체 제조를 위한 전략적 협력 확대",
+      "summary_ko": "<p>삼성, 고 NA EUV용 12인치 포토마스크 플랫폼 업계 이니셔티브에 합류… 삼성, 고 NA EUV 도입 계획으로 리더십 강화…</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-electronics-and-asml-expand-strategic-collaboration-for-next-generation-semiconductor-manufacturing/\">삼성전자와 ASML, 차세대 반도체 제조를 위한 전략적 협력 확대</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "079d0378e2036c290791ca12eb051da510a74304d775b3f54ab8a08d504d67f0",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/asml-begins-construction-new-eindhoven-campus-strengthening-its-presence-brainport-region": {
+      "title_ko": "ASML, 아인트호벤 신규 캠퍼스 착공… 브레인포트 지역 내 입지 강화",
+      "summary_ko": "ASML이 네덜란드 아인트호벤에 새로운 캠퍼스 착공을 발표했습니다.",
+      "source_fingerprint": "1d5d61ca1ec6b76068879f1e71eabc06707175038cc431de6b0f5544778bb14f",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/intel-foundry-and-asml-collaborate-accelerate-industry-readiness-high-na-euv": {
+      "title_ko": "인텔 파운드리와 ASML, 고수차(High-NA) EUV의 산업적 도입 가속화를 위해 협력",
+      "summary_ko": "인텔 파운드리와 ASML이 고 NA EUV의 양산 적용 및 마스크 기술 개발 현황을 발표했습니다.",
+      "source_fingerprint": "0123ce421baa1e83d9bd7005601048ab9cca17808b42730531cc31fd64952e29",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/samsung-electronics-and-asml-expand-strategic-collaboration-next-generation-semiconductor-manufacturing": {
+      "title_ko": "삼성전자와 ASML, 차세대 반도체 제조를 위한 전략적 협력 확대",
+      "summary_ko": "삼성전자와 ASML이 차세대 반도체 제조를 위한 협력 확대를 발표했습니다.",
+      "source_fingerprint": "16102cb3b9be34b3a10f7b31e319be27c29f3f16fa3781217a0bcfc1a28641e2",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/asml-and-tsmc-announce-initiative-pioneer-industry-transition-large-format-photomasks-high-na-euv": {
+      "title_ko": "ASML과 TSMC, 고 NA EUV용 대형 포토마스크로의 업계 전환을 선도하기 위한 이니셔티브 발표",
+      "summary_ko": "ASML과 TSMC가 고 NA EUV용 대형 포토마스크로의 전환을 위한 협력 계획을 발표했습니다.",
+      "source_fingerprint": "bcfbba150be19317ab75f75cc60f0edba3292b417fdf6ee18fce9b46600758d8",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://newsroom.lamresearch.com/panel-level-processing-advanced-semiconductor-packaging-semi-101/?blog=true": {
+      "title_ko": "패널 단위 공정이 첨단 반도체 패키징을 어떻게 변화시킬 수 있는가 (Semi 101)",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "f7a2ef7f489e7a62f74c3658c7daef5f86c22f8f78c44e99acbf70d50cada858",
+      "translated_at": "2026-11-27T12:58:32.488032+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/memory-innovation-powering-a-new-ai-infrastructure-cycle-part-2/": {
+      "title_ko": "새로운 AI 인프라 주기를 이끄는 메모리 혁신 (2부)",
+      "summary_ko": "<p>삼성 메모리 솔루션, 엣지 AI의 미래를 연결하다. 1부에서는 엣지 AI의 확장이 용량, 대역폭, 에너지에 어떤 영향을 미치는지 살펴보았습니다...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/memory-innovation-powering-a-new-ai-infrastructure-cycle-part-2/\">새로운 AI 인프라 사이클을 이끄는 메모리 혁신 2부</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "2ef4e715f5c3647aa73c83613df48fea8327ed3b4831af000a479995e7ba90c5",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/memory-innovation-powering-a-new-ai-infrastructure-cycle-part-1/": {
+      "title_ko": "새로운 AI 인프라 주기를 이끄는 메모리 혁신 – 1부",
+      "summary_ko": "<p>엣지 AI가 한 걸음 더 가까워지고 있으며, 메모리의 중요성은 그 어느 때보다 커지고 있습니다. 오늘날 AI는 대규모 데이터 센터를 넘어 스마트폰, AI PC, 차량 등으로 빠르게 확장되고 있습니다...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/memory-innovation-powering-a-new-ai-infrastructure-cycle-part-1/\">새로운 AI 인프라 사이클을 이끄는 메모리 혁신 1부</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "8d3da740e039b419fe6ee61a8d301681497857c1730492d043efd1a37c86f00c",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/fms-2026-3d-nand-innovation-award-v10-bv-nand-pushing-the-boundaries-of-ai-storage-beyond-400-layers/": {
+      "title_ko": "[FMS 2026 3D 및 NAND 혁신상] V10 BV-NAND: 400층을 넘어 AI 스토리지의 한계를 넓히다",
+      "summary_ko": "<p>AI가 지속적으로 발전하고 처리해야 할 데이터의 양이 기하급수적으로 증가함에 따라, 스토리지 솔루션은 더 큰 성능을 제공해야 할 필요성이 대두되고 있습니다...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/fms-2026-3d-nand-innovation-award-v10-bv-nand-pushing-the-boundaries-of-ai-storage-beyond-400-layers/\">[FMS 2026 3D 및 NAND 혁신상] V10 BV-NAND: 400층을 넘어 AI 스토리지의 한계를 넓히다</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "917eb61e231abc42fdc5dba354a082755c578090e92905aa47ce1a180bc7814e",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://newsroom.lamresearch.com/lam-oregon-lab-expansion-accelerates-ai-chip-innovation/?blog=true": {
+      "title_ko": "AI 칩 혁신 가속화를 위한 램의 오리건 연구소 확장 사업 본격화",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "8a78d2c203c9445caf6ae6d7f61bd2e71b671e80025a3d6c0029fa425c17750e",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-08-27-Lam-Research-Announces-Retirement-of-Michael-R-Cannon-and-Sohail-U-Ahmed-from-Board-of-Directors": {
+      "title_ko": "램 리서치, 마이클 R. 캐넌과 소하일 U. 아메드의 이사회 퇴임 발표",
+      "summary_ko": "램 리서치(Lam Research Corp., 나스닥: LRCX)는 오늘, 마이클(“마이크”) R. 캐넌과 소하일 U. 아메드가 수년간의 리더십을 바탕으로 2026년 11월 2일부로 램 리서치 이사회에서 은퇴하기로 결정했다고 회사에 통보했다고 발표했습니다...",
+      "source_fingerprint": "a12df1c6ed1f6f82725bb2f2ff041017c4c258cdb44b0aa7a9133b36156b1f27",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-08-27-Lam-Research-Corporation-Announces-a-27-Increase-in-Quarterly-Dividend": {
+      "title_ko": "램 리서치 코퍼레이션, 분기 배당금 27% 인상 발표",
+      "summary_ko": "램 리서치 코퍼레이션(나스닥: LRCX)은 오늘 이사회가 보통주 1주당 분기 배당금을 0.26달러에서 0.33달러로 0.07달러(27%) 인상하는 안을 승인했다고 발표했다. 배당금은 10월 14일에 지급될 예정이다...",
+      "source_fingerprint": "4985ea96fa4edb9a313da8caa46b58fe463d0cdcb1329760e85a61232fa6f0ec",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-showcases-p9-and-p7-ssds-featuring-usb4-at-gamescom-2026/": {
+      "title_ko": "삼성, ‘게임스컴 2026’에서 USB4를 탑재한 P9 및 P7 SSD 공개",
+      "summary_ko": "<p>플래그십 모델 P9와 다용도 모델 P7이 USB4 연결 기능을 탑재해 삼성의 휴대용 SSD 라인업을 확장합니다. 4,000MB/s의 두 배 성능으로 까다로운...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-showcases-p9-and-p7-ssds-featuring-usb4-at-gamescom-2026/\">삼성, 게임스컴 2026에서 USB4를 탑재한 P9 및 P7 SSD 공개</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "37969d0fbfa8706317d7e37dd7e95a54f20136b87da4db5ae49d4ba0e27f763d",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-08-26-Lam-Research-Breaks-Ground-on-New-Oregon-Lab-to-Accelerate-AI-Era-Semiconductor-Research-Development-Locally%2C-Globally": {
+      "title_ko": "램 리서치, AI 시대 반도체 연구개발을 지역 및 전 세계적으로 가속화하기 위해 오리건주 신축 연구소 착공",
+      "summary_ko": "최첨단 ‘실리콘 포레스트’ 시설, 칩 제조사들과의 협업 혁신 지원… 30억 달러 이상 규모로 계획된 글로벌 연구소 네트워크 확장 계획의 첫 번째 이정표 오리건주 투알라틴, 2026년 8월 26일 /PRNewswire/ -- 오늘 세계적 수준의 연구개발(R&D) 센터에서 열린 행사에서...",
+      "source_fingerprint": "1b6b7b43ab0b6996e6b3b91f885c821781930a5ddbb1aec032b29b8f354906bd",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-08-26-Lam-Research-Corporation-Announces-Participation-at-Upcoming-Conferences": {
+      "title_ko": "램 리서치 코퍼레이션, 향후 개최될 컨퍼런스 참가 발표",
+      "summary_ko": "램 리서치(Lam Research Corp., 나스닥: LRCX)는 오늘, 더그 베팅거(Doug Bettinger) 전무이사 겸 최고재무책임자(CFO)가 다음과 같은 향후 투자자 행사에 참석할 것이라고 발표했습니다. 2026년 9월 9일 오전 7시 10분에 열리는 ‘Citi 2026 Global TMT Conference’...",
+      "source_fingerprint": "37ff3907e187253fb04b718357b6b37e7ccf7169fa2fbb947a0a1ed372944ae9",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://newsroom.lamresearch.com/virtual-fabrication-gaa-channel-non-uniformity/?blog=true": {
+      "title_ko": "가상 제조와 응력 물리학의 접점: GAA 채널의 불균일성 해결",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "4c7b31901f16bf4b3ca6bb4aa51fc527e5a5a78ed553b748f9fad4a4c020b4ee",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/at-the-center-of-global-memory-standards-interview-with-fms-2026-lifetime-achievement-award-recipient-mian-quddus/": {
+      "title_ko": "세계 메모리 표준의 중심에서 | FMS 2026 평생공로상 수상자 미안 쿠두스와의 인터뷰",
+      "summary_ko": "<p>삼성전자 디바이스 솔루션 아메리카(DSA)의 미안 쿠두스 부사장이 FMS 2026에서 평생 공로상을 수상했습니다. 이 상은...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/at-the-center-of-global-memory-standards-interview-with-fms-2026-lifetime-achievement-award-recipient-mian-quddus/\">글로벌 메모리 표준의 중심에서 | FMS 2026 평생 공로상 수상자 미안 쿠두스(Mian Quddus) 인터뷰</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "0762c05ddc07272f19d140af5d5890e4063051a8155095291e65d5d4d7dcdc52",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-08-13-Lam-Research-Announces-Plans-to-Invest-More-than-3B-to-Expand-Global-Lab-Network%2C-Increase-Innovation-Velocity-in-the-AI-Era": {
+      "title_ko": "램 리서치, AI 시대에 글로벌 연구소 네트워크를 확장하고 혁신 속도를 높이기 위해 30억 달러 이상을 투자할 계획 발표",
+      "summary_ko": "램 리서치(Lam Research Corp., 나스닥: LRCX)는 오늘 향후 5년 동안 전 세계 연구개발(R&D) 연구소 네트워크를 확장하기 위해 30억 달러 이상을 투자할 계획이라고 발표했다. 계획된 다중 사이트 확장으로 인해 인프라가 추가될 것으로 예상된다...",
+      "source_fingerprint": "fd51de20f98ec9a46210a1d912da15474db5f3d6a7a8cc505c7a2f163a7054c0",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://newsroom.lamresearch.com/global-lab-network-accelerates-semiconductor-innovation-ai-memory-advanced-packaging/?blog=true": {
+      "title_ko": "램(Lam)의 글로벌 랩 네트워크가 신기술 개발부터 팹(Fab) 적용까지의 과정을 어떻게 단축하는가",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "d91ce796ed91b2c908c0190cb5a45a15f312fba9b33da0a47d03221df5bbc6de",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-08-12-Lam-Research-and-NY-Creates-Team-Up-to-Enable-Training-of-University-Students-for-the-Semiconductor-Workforce": {
+      "title_ko": "램 리서치와 NY Creates, 반도체 인력 양성을 위한 대학생 교육 프로그램 추진을 위해 협력",
+      "summary_ko": "램 리서치의 ‘Semiverse® Solutions’ 가상 제조 플랫폼이 NY Creates의 인력 양성 네트워크에 속한 뉴욕주 전역의 공학도들에게 실습 중심의 칩 제조 교육을 제공할 것으로 기대된다. 뉴스 요약: 램 리서치와 NY Creates는 반도체 인력 양성을 촉진하기 위해 협력할 예정이다...",
+      "source_fingerprint": "14e5a748a3e54358e86c5d7949379d12330bccf479feadc2b80a8add3ed252f5",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/inside-fms-2026-samsung-electronics-showcases-the-future-of-ai-memory/": {
+      "title_ko": "FMS 2026 현장: 삼성전자, AI 메모리의 미래를 선보이다",
+      "summary_ko": "<p>AI 시대가 가속화됨에 따라, 전 세계 메모리 업계 관계자들이 캘리포니아주 산타클라라에서 열린 ‘Future of Memory and Storage (FMS) 2026’ 행사에 모였습니다. 8월 4일부터...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/inside-fms-2026-samsung-electronics-showcases-the-future-of-ai-memory/\">'FMS 2026 현장: 삼성전자, AI 메모리의 미래를 선보이다</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "7d8d67fe3777f2fe93ff765f9418bd2c4999003231a166e52492ab4cb027ea3d",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/the-evolution-of-ai-era-memory-faster-denser-computing/": {
+      "title_ko": "[인포그래픽] AI 시대의 메모리 진화: 더 빠르고, 더 고밀도화된 컴퓨팅",
+      "summary_ko": "<p>삼성전자, FMS 2026에서 차세대 3D 메모리 비전 선보여. AI는 단순히 질문에 답하는 생성형 AI 단계에서 빠르게 진화하고 있다...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/the-evolution-of-ai-era-memory-faster-denser-computing/\">[인포그래픽] AI 시대의 메모리 진화: 더 빠르고 고밀도 컴퓨팅</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "b38b5ac7c40c44ad466d89e486465a78b59e42d7945b9c8932cb910ca7da0eda",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-electronics-announces-second-quarter-2026-results/": {
+      "title_ko": "삼성전자, 2026년 2분기 실적 발표",
+      "summary_ko": "<p>분기 매출 171.5조 원, 영업이익 89.5조 원 한국 서울 – 2026년 7월 30일 – 삼성전자㈜는 오늘...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-electronics-announces-second-quarter-2026-results/\">삼성전자, 2026년 2분기 실적 발표</a>라는 게시물은 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "b2795fc3de2ceeaa0fc8a244585fb0ecaf1ea6007a967134903a30c683e65975",
+      "translated_at": "2026-11-27T12:58:33.876627+00:00"
+    },
+    "https://newsroom.lamresearch.com/dont-scrap-it-save-it-feedforward-control-for-modern-semiconductor-manufacturing/?blog=true": {
+      "title_ko": "버리지 말고 활용하세요: 현대 반도체 제조를 위한 피드포워드 제어",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "5ed17200aaa134f3c9e87b4c1e39a3fb3f6b7c912f8c576493a78ce6cc591e2b",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-07-29-Lam-Research-Corporation-Reports-Financial-Results-for-the-Quarter-Ended-June-28%2C-2026": {
+      "title_ko": "램 리서치 코퍼레이션, 2026년 6월 28일 종료된 분기 실적 발표",
+      "summary_ko": "램 리서치 코퍼레이션(이하 “회사”, “램”, “램 리서치”)은 오늘 2026년 6월 28일로 종료된 분기(이하 “2026년 6월 분기”)의 재무 실적을 발표했습니다. 2026년 6월 분기의 주요 내용은 다음과 같습니다...",
+      "source_fingerprint": "4839a751584e2c6ec989633860b5072e3d5c73df68003bfbddd661b7c08eff6f",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-electronics-and-broadcom-expand-strategic-collaboration-across-memory-and-foundry-technologies/": {
+      "title_ko": "삼성전자와 브로드컴, 메모리 및 파운드리 기술 분야에서 전략적 협력 확대",
+      "summary_ko": "<p>기업들이 최첨단 메모리 및 파운드리 기술을 아우르는 차세대 AI 인프라 분야에서의 협력을 확대하기 위해 양해각서(MOU)를 체결했습니다...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-electronics-and-broadcom-expand-strategic-collaboration-across-memory-and-foundry-technologies/\">삼성전자와 브로드컴, 메모리 및 파운드리 기술 전반에 걸친 전략적 협력 확대</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "fe58c76ad8e4ed41c1392761c33cbf1bb96eefa24bd716562861764748fa0b0b",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://newsroom.lamresearch.com/blog-sabre-3d-advanced-packaging-interconnects/?blog=true": {
+      "title_ko": "SABRE 3D: 차세대 첨단 패키징 시대를 선도하다",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "f9f93ec1392c6d29e0cfd910b6f2c0bbf731bb7cb7ef31b15b473728d38b5eba",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/high-na-euv-reaches-new-readiness-milestone": {
+      "title_ko": "고 NA EUV, 최초의 대량 생산 로직 제품 출시로 새로운 준비 단계 달성",
+      "summary_ko": "ASML은 고 NA EUV를 활용한 첫 양산 로직 제품의 준비 단계에서 진전을 이뤘다고 발표했습니다.",
+      "source_fingerprint": "2606afc68dde93801f1caeb4d61db071c7ae53a71520cfe4038e9a486dbda727",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://investor.asml.com/news-releases/news-release-details/q2-2026-financial-results": {
+      "title_ko": "ASML, 2026년 2분기 총 순매출 93억 유로, 순이익 29억 유로 기록",
+      "summary_ko": "ASML이 2026년 2분기 실적을 발표했습니다.",
+      "source_fingerprint": "49d2131522fd8c336e9a5c33df890abca32f6e459b9d4c4af697ac50245cbc72",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://newsroom.lamresearch.com/lam-asml-imec-advance-high-na-euv-patterning/?blog=true": {
+      "title_ko": "램 리서치(Lam Research), ASML, imec, 고수차(High-NA) EUV 패터닝 기술 발전",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "ebb7f463ece8874a159c7dd739ebdc90e40290669c9cea781a5b29f9a8133a0c",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://newsroom.lamresearch.com/advanced-packaging-for-ai-semiconductor-scaling/?blog=true": {
+      "title_ko": "AI를 위한 첨단 패키징: 왜 이것이 차세대 반도체 혁신에 중요한가",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "7a9be316e337f735841c1fca9342ebaf0ec60f57a63795a8af61ace94dbc368d",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://newsroom.lamresearch.com/newsroom/press-release-details/?releaseId=2026-07-08-Lam-Research-Corporation-Announces-June-Quarter-Financial-Conference-Call": {
+      "title_ko": "램 리서치 코퍼레이션, 6월 분기 실적 설명회 개최 발표",
+      "summary_ko": "램 리서치(Lam Research Corp., 나스닥: LRCX)는 오늘, 2026년 7월 29일 수요일 오후 2시(태평양 일광 절약 시간, 동부 일광 절약 시간 기준 오후 5시)부터 분기별 재무 컨퍼런스 콜 및 웹캐스트를 진행할 것이라고 발표했습니다. 웹캐스트: ...",
+      "source_fingerprint": "9a731609a441f38698e9b1b25063cb38f084362ed4a602e635dc82cfd0e2ddf3",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/infographic-samsung-pm1763-ssd-a-core-storage-solution-for-next-generation-ai-platforms/": {
+      "title_ko": "[인포그래픽] 삼성 PM1763 SSD: 차세대 AI 플랫폼을 위한 핵심 스토리지 솔루션",
+      "summary_ko": "<p>2000년대에 솔리드 스테이트 드라이브(SSD)가 처음 널리 보급되기 시작했을 때, 이는 곧바로 하드 디스크 드라이브(HDD)를 대체하며 표준 저장 솔루션으로 자리 잡았습니다...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/infographic-samsung-pm1763-ssd-a-core-storage-solution-for-next-generation-ai-platforms/\">[인포그래픽] 삼성 PM1763 SSD: 차세대 AI 플랫폼을 위한 핵심 저장 솔루션</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "31a260f224e8318e2f9eb9da143b9c2223ce51ad4c74f12ab1c1389e82e3a28d",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-electronics-announces-earnings-guidance-for-second-quarter-2026/": {
+      "title_ko": "삼성전자, 2026년 2분기 실적 전망치 발표",
+      "summary_ko": "<p>한국 서울 – 2026년 7월 7일 –&#160;삼성전자㈜는 오늘 2026년 2분기 실적 전망치를 발표했다....</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-electronics-announces-earnings-guidance-for-second-quarter-2026/\">삼성전자, 2026년 2분기 실적 전망 발표</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "42e8e2836dc5e3d020180027333ab9dd91369f0bdbc05d5182c15fe198df6d44",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/infographic-teamwork-behind-cutting-edge-chip-manufacturing-how-samsung-foundrys-safe-ecosystem-powers-next-generation-semiconductor-innovation/": {
+      "title_ko": "[인포그래픽] 최첨단 칩 제조의 이면, 팀워크: 삼성 파운드리(Samsung Foundry)의 SAFE™ 생태계가 차세대 반도체 혁신을 이끄는 방식",
+      "summary_ko": "<p>더 빠르고, 더 안정적이며, 더 높은 성능의 칩 생산 실현 AI의 두뇌 역할을 하는 첨단 시스템 온 칩(SoC)—반도체...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/infographic-teamwork-behind-cutting-edge-chip-manufacturing-how-samsung-foundrys-safe-ecosystem-powers-next-generation-semiconductor-innovation/\">[인포그래픽] 최첨단 칩 제조의 이면: 삼성 파운드리(Samsung Foundry)의 SAFE™ 생태계가 차세대 반도체 혁신을 이끄는 방식</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "0a4a9b46ed64694d6570f7217110530cedae32d81850ec18d6c0c8111e5167f0",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://newsroom.lamresearch.com/semiconductor-technician-careers-lam-research-podcast/?blog=true": {
+      "title_ko": "램 리서치에서 반도체 분야의 미래를 만들어 가다 (팟캐스트)",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "2f5ab493ba29ac18a4b112c57f9add7618664bd2b026c4c66b97be60d31e1358",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://newsroom.lamresearch.com/optimizing-the-nano-tsv-to-bpr-connection-in-backside-power-networks/?blog=true": {
+      "title_ko": "후면 전원 네트워크에서 나노 TSV와 BPR 간 연결 최적화",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "7103e37cc245b603fb4f77a4b99de623fa01e6f277f11f82d7f7305068103f90",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-electronics-releases-2026-sustainability-report-expanding-water-replenishment-efforts/": {
+      "title_ko": "삼성전자, 2026년 지속가능성 보고서 발간… 물 환원 활동 확대",
+      "summary_ko": "<p>6월 26일, 삼성전자는 2026년판 지속가능성 보고서를 발간했다. 이 보고서는 삼성의 주요 환경, 사회 및...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-electronics-releases-2026-sustainability-report-expanding-water-replenishment-efforts/\">삼성전자, 2026년 지속가능성 보고서 발간… 물 보충 활동 확대</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "8e0ecc582f5e3e8199a7a374611c3d475b857c2e3c10744a2a190f26b4e4e96f",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://newsroom.lamresearch.com/wafer-to-panel-lam-scaling-advanced-packaging-panel-level-processing/?blog=true": {
+      "title_ko": "웨이퍼에서 패널까지: 램(Lam)이 첨단 패키징의 미래를 어떻게 구축하고 있는가",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "f29b9c0fc9206fedf46669190a75c982c020d343c1a97cb45a7ee8070fe34e68",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/infographic-ufs-5-0-memory-the-optimal-solution-for-on-device-ai/": {
+      "title_ko": "[인포그래픽] UFS 5.0 메모리: 온디바이스 AI를 위한 최적의 솔루션",
+      "summary_ko": "<p>삼성전자가 차세대 UFS(Universal Flash Storage) 5.0 모바일 메모리 솔루션 개발을 발표하며 새로운 기준을 제시했습니다...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/infographic-ufs-5-0-memory-the-optimal-solution-for-on-device-ai/\">[인포그래픽] UFS 5.0 메모리: 온디바이스 AI를 위한 최적의 솔루션</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "a2aec6f196d129a702819706b942b7f49139fd18f693ff9b98025f4bea0dfe2d",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://newsroom.lamresearch.com/what-is-dry-resist-semi-101/?blog=true": {
+      "title_ko": "드라이 레지스트란 무엇인가? (반도체 기초)",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "775c1aa2102a3bbb21aa09ed3b659d48e3e9cc6f0618623f1ad4a9b2ca471d24",
+      "translated_at": "2026-11-27T12:58:35.193770+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/breaking-through-the-limits-of-horizontal-scaling-with-vertical-innovation/": {
+      "title_ko": "수직적 혁신을 통해 수평적 확장의 한계를 뛰어넘기",
+      "summary_ko": "<p>삼성 반도체 R&D 센터, 업계 최초 42nm 게이트 피치 3D 적층 트랜지스터 시연… 1,000여 편의 논문 중 최우수 논문으로 선정...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/breaking-through-the-limits-of-horizontal-scaling-with-vertical-innovation/\">수직 혁신으로 수평 확장 한계를 뛰어넘다</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "64cc00facde6695653a4b9e206e62f64df4cf34b19e47ed0b986ccdb2d1d33df",
+      "translated_at": "2026-11-27T12:58:36.066030+00:00"
+    },
+    "https://newsroom.lamresearch.com/sustainability-ai-semiconductor-manufacturing/?blog=true": {
+      "title_ko": "더 큰 영향력을 위해 더 많은 투자: 램의 ‘2025 글로벌 임팩트 보고서’ 발표",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "64208405669ced8c3aa7d854a34aaf7eb05d854f35fe762f93fada3dda732fe4",
+      "translated_at": "2026-11-27T12:58:36.066030+00:00"
+    },
+    "https://news.samsungsemiconductor.com/global/samsung-supplier-sustainability-summit-advancing-collaboration-for-a-sustainable-semiconductor-supply-chain/": {
+      "title_ko": "삼성 공급업체 지속가능성 서밋: 지속 가능한 반도체 공급망 구축을 위한 협력 강화",
+      "summary_ko": "<p>삼성반도체는 5월 18일 캘리포니아주 산호세에 위치한 DSA(Device Solutions America) 사무소에서 제3회 삼성 공급업체 지속가능성 서밋을 개최했습니다...</p>\n<p>이 게시물 <a href=\"https://news.samsungsemiconductor.com/global/samsung-supplier-sustainability-summit-advancing-collaboration-for-a-sustainable-semiconductor-supply-chain/\">‘삼성 공급업체 지속가능성 서밋: 지속 가능한 반도체 공급망 구축을 위한 협력 강화</a>는 <a href=\"https://news.samsungsemiconductor.com/global\">삼성 반도체 글로벌 뉴스룸</a>에 처음 게재되었습니다.</p>",
+      "source_fingerprint": "71dcc2a2e59a5a4d4c32acf220bea24592d694f2614fa1ff32cf15bf7c6e23b3",
+      "translated_at": "2026-11-27T12:58:36.066030+00:00"
+    },
+    "https://newsroom.lamresearch.com/lam-research-fortune-500-ai-semiconductor-growth/?blog=true": {
+      "title_ko": "램 리서치, AI 주도 수요에 힘입어 포춘 500대 기업에 진입",
+      "summary_ko": "램 리서치 공식 기술 블로그",
+      "source_fingerprint": "b93d59f3bfcda4a6ef27c6d9bb45a1289aacb2a5f0495296370c654321ad4636",
+      "translated_at": "2026-11-27T12:58:36.066030+00:00"
     }
   }
 }
